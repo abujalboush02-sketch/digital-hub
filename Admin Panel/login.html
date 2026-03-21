@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Login | M. Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        accent: '#38bdf8',
+                        dark: { bg: '#050505', text: '#FFFFFF', surface: '#111112', border: 'rgba(255, 255, 255, 0.08)', muted: '#71717a' },
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #050505;
+            color: #FFFFFF;
+            font-family: 'Inter', sans-serif;
+        }
+
+        input {
+            background: #0c0c0d !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            color: white !important;
+        }
+
+        input:focus {
+            border-color: #38bdf8 !important;
+            outline: none;
+        }
+    </style>
+</head>
+
+<body class="dark min-h-screen flex items-center justify-center p-4">
+
+    <div class="w-full max-w-sm">
+        <div class="text-center mb-10">
+            <h1 class="text-4xl font-bold tracking-tighter flex items-center justify-center gap-2 mb-2">
+                <span class="text-accent">M.</span> Terminal
+            </h1>
+            <p class="font-mono text-[10px] text-dark-muted uppercase tracking-widest">Restricted_Access_Node</p>
+        </div>
+
+        <div class="bg-dark-surface border border-dark-border p-8 rounded-3xl shadow-2xl">
+            <form id="login-form" class="space-y-6">
+                <div id="error-msg"
+                    class="hidden bg-red-500/10 border border-red-500/20 text-red-500 text-xs font-mono p-4 rounded-xl text-center">
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-mono text-dark-muted uppercase mb-2">Admin_Identifier</label>
+                    <input type="email" id="email" required class="w-full p-4 rounded-xl transition-colors">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-mono text-dark-muted uppercase mb-2">Security_Key</label>
+                    <input type="password" id="password" required class="w-full p-4 rounded-xl transition-colors">
+                </div>
+
+                <button type="submit" id="submit-btn"
+                    class="w-full bg-accent text-black font-black py-4 rounded-xl uppercase tracking-widest text-xs hover:brightness-110 transition-all active:scale-95 shadow-lg shadow-accent/20">
+                    Authenticate
+                </button>
+            </form>
+        </div>
+
+        <p class="text-center text-[9px] font-mono text-dark-muted mt-8 uppercase">Unauthorized access is strictly
+            monitored.</p>
+    </div>
+
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+        const supabase = createClient('https://dvlabpioxtyyzvhzpmyc.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2bGFicGlveHR5eXp2aHpwbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1MDY4NzUsImV4cCI6MjA4OTA4Mjg3NX0.fBM9r7WXpntVUM-qsBDQFlknRf2vMyIpJTp5ww9pzUM');
+
+        // Check if already logged in
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session) window.location.href = 'admin.html';
+
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const btn = document.getElementById('submit-btn');
+            const errBox = document.getElementById('error-msg');
+
+            btn.disabled = true;
+            btn.innerText = "VERIFYING_CREDENTIALS...";
+            errBox.classList.add('hidden');
+
+            const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+
+            if (error) {
+                errBox.innerText = `AUTH_FAILED: ${error.message}`;
+                errBox.classList.remove('hidden');
+                btn.disabled = false;
+                btn.innerText = "Authenticate";
+            } else {
+                btn.classList.replace('bg-accent', 'bg-emerald-500');
+                btn.innerText = "ACCESS_GRANTED";
+                setTimeout(() => window.location.href = 'admin.html', 800);
+            }
+        });
+    </script>
+</body>
+
+</html>

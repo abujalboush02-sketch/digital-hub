@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M. Abu Jalboush | Systems Architect & Full Stack Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap');
+
+        :root {
+            --bg: #020617;
+            --accent: #38bdf8;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: #f1f5f9;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+            background-image:
+                radial-gradient(circle at 15% 50%, rgba(56, 189, 248, 0.05), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(16, 185, 129, 0.05), transparent 25%);
+        }
+
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .glass-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(56, 189, 248, 0.3);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(56, 189, 248, 0.1);
+        }
+
+        /* Unique hover states for specific brands */
+        .hover-finance:hover {
+            border-color: rgba(16, 185, 129, 0.4);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(16, 185, 129, 0.1);
+        }
+
+        .hover-admin:hover {
+            border-color: rgba(244, 63, 94, 0.4);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(244, 63, 94, 0.1);
+        }
+
+        .typing-effect {
+            border-right: 2px solid #38bdf8;
+            white-space: nowrap;
+            overflow: hidden;
+            animation: typing 2s steps(30, end), blink-caret .75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from {
+                width: 0
+            }
+
+            to {
+                width: 100%
+            }
+        }
+
+        @keyframes blink-caret {
+
+            from,
+            to {
+                border-color: transparent
+            }
+
+            50% {
+                border-color: #38bdf8;
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col items-center justify-center p-6 md:p-12 relative selection:bg-sky-500/30">
+
+    <div
+        class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMSIgZmlsbD0icmdiYSgyNTUsIDI1NSwgMjU1LCAwLjA1KSIvPjwvc3ZnPg==')] z-[-1] opacity-50">
+    </div>
+
+    <main class="w-full max-w-4xl z-10 flex flex-col items-center">
+
+        <div class="text-center mb-16 fade-in-up" style="animation-delay: 0.1s;">
+            <div
+                class="w-24 h-24 mx-auto bg-slate-900 border border-slate-700 rounded-full flex items-center justify-center mb-6 shadow-2xl shadow-sky-500/10">
+                <span class="text-3xl font-black tracking-tighter text-white">M<span
+                        class="text-sky-500">.</span></span>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tighter mb-4">Mohammad Abu Jalboush</h1>
+            <div class="inline-block">
+                <p class="mono text-sky-400 text-xs md:text-sm uppercase tracking-widest typing-effect pr-2">
+                    > Full_Stack_Architect & Workflow_Engineer
+                </p>
+            </div>
+            <p class="mt-6 text-slate-400 max-w-xl mx-auto leading-relaxed text-sm md:text-base">
+                Bridging the gap between complex business logic and scalable code. I engineer high-performance digital
+                ecosystems, SaaS platforms, and automated operational pipelines.
+            </p>
+
+            <div class="flex justify-center gap-6 mt-8">
+                <a href="https://wa.me/962776110639" target="_blank"
+                    class="text-slate-500 hover:text-green-500 transition-colors text-xl"><i
+                        class="fa-brands fa-whatsapp"></i></a>
+                <a href="mailto:mohammadabujalboush02@gmail.com"
+                    class="text-slate-500 hover:text-sky-400 transition-colors text-xl"><i
+                        class="fa-solid fa-envelope"></i></a>
+                <a href="#" class="text-slate-500 hover:text-sky-400 transition-colors text-xl"><i
+                        class="fa-brands fa-linkedin"></i></a>
+                <a href="#" class="text-slate-500 hover:text-white transition-colors text-xl"><i
+                        class="fa-brands fa-github"></i></a>
+            </div>
+        </div>
+
+        <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+
+            <a href="/portfolio.html" class="glass-card p-8 rounded-3xl group relative overflow-hidden fade-in-up"
+                style="animation-delay: 0.2s;">
+                <div
+                    class="absolute top-0 right-0 w-32 h-32 bg-sky-500/5 rounded-full blur-2xl -mr-10 -mt-10 group-hover:bg-sky-500/10 transition-colors">
+                </div>
+                <div class="flex justify-between items-start mb-4">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-sky-500/10 text-sky-400 flex items-center justify-center text-xl border border-sky-500/20">
+                        <i class="fa-solid fa-layer-group"></i>
+                    </div>
+                    <span
+                        class="mono text-[9px] uppercase tracking-widest text-slate-500 group-hover:text-sky-400 transition-colors">Node_01</span>
+                </div>
+                <h2 class="text-xl font-bold mb-2">Systems Portfolio</h2>
+                <p class="text-sm text-slate-400 leading-relaxed mb-6">Explore my primary case studies, technical
+                    capabilities, and custom-engineered software solutions.</p>
+                <span
+                    class="text-xs font-bold text-sky-400 uppercase tracking-widest group-hover:tracking-[0.2em] transition-all flex items-center gap-2">
+                    Access Portal <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                </span>
+            </a>
+
+            <a href="https://marketplace.mohammad-abujalboush.com"
+                class="glass-card p-8 rounded-3xl group relative overflow-hidden fade-in-up"
+                style="animation-delay: 0.3s;">
+                <div
+                    class="absolute top-0 right-0 w-32 h-32 bg-sky-500/5 rounded-full blur-2xl -mr-10 -mt-10 group-hover:bg-sky-500/10 transition-colors">
+                </div>
+                <div class="flex justify-between items-start mb-4">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-slate-800 text-white flex items-center justify-center text-xl border border-slate-700 group-hover:border-sky-500/50 transition-colors">
+                        <i class="fa-solid fa-store"></i>
+                    </div>
+                    <span
+                        class="mono text-[9px] uppercase tracking-widest text-slate-500 group-hover:text-sky-400 transition-colors">Node_02</span>
+                </div>
+                <h2 class="text-xl font-bold mb-2">Digital Marketplace</h2>
+                <p class="text-sm text-slate-400 leading-relaxed mb-6">Acquire production-ready codebases, SaaS
+                    architectures, and automated workflow templates.</p>
+                <span
+                    class="text-xs font-bold text-white uppercase tracking-widest group-hover:text-sky-400 transition-colors flex items-center gap-2">
+                    Enter Marketplace <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                </span>
+            </a>
+
+            <a href="https://app.financeflow.mohammad-abujalboush.com"
+                class="glass-card hover-finance p-8 rounded-3xl group relative overflow-hidden fade-in-up"
+                style="animation-delay: 0.4s;">
+                <div
+                    class="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full blur-2xl -mr-10 -mt-10 group-hover:bg-emerald-500/10 transition-colors">
+                </div>
+                <div class="flex justify-between items-start mb-4">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-xl border border-emerald-500/20">
+                        <i class="fa-solid fa-chart-line"></i>
+                    </div>
+                    <span
+                        class="mono text-[9px] uppercase tracking-widest text-slate-500 group-hover:text-emerald-400 transition-colors">Node_03</span>
+                </div>
+                <h2 class="text-xl font-bold mb-2">FinanceFlow SaaS</h2>
+                <p class="text-sm text-slate-400 leading-relaxed mb-6">My proprietary financial management platform.
+                    Automate your growth and take control of your cash flow.</p>
+                <span
+                    class="text-xs font-bold text-emerald-400 uppercase tracking-widest transition-all flex items-center gap-2">
+                    Launch Application <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                </span>
+            </a>
+
+            <a href="https://feedback.mohammad-abujalboush.com"
+                class="glass-card p-8 rounded-3xl group relative overflow-hidden fade-in-up"
+                style="animation-delay: 0.5s;">
+                <div
+                    class="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 rounded-full blur-2xl -mr-10 -mt-10 group-hover:bg-indigo-500/10 transition-colors">
+                </div>
+                <div class="flex justify-between items-start mb-4">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center text-xl border border-indigo-500/20">
+                        <i class="fa-solid fa-comments"></i>
+                    </div>
+                    <span
+                        class="mono text-[9px] uppercase tracking-widest text-slate-500 group-hover:text-indigo-400 transition-colors">Node_04</span>
+                </div>
+                <h2 class="text-xl font-bold mb-2">Client Feedback Hub</h2>
+                <p class="text-sm text-slate-400 leading-relaxed mb-6">Leave public testimonials, submit feature
+                    requests, or review operational feedback from past clients.</p>
+                <span
+                    class="text-xs font-bold text-indigo-400 uppercase tracking-widest transition-all flex items-center gap-2">
+                    Submit Feedback <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                </span>
+            </a>
+        </div>
+
+        <div class="w-full max-w-md mx-auto fade-in-up" style="animation-delay: 0.6s;">
+            <a href="https://marketplace.mohammad-abujalboush.com/login.html"
+                class="glass-card hover-admin flex items-center justify-between p-5 rounded-2xl group border-slate-800">
+                <div class="flex items-center gap-4">
+                    <i class="fa-solid fa-lock text-slate-500 group-hover:text-rose-500 transition-colors"></i>
+                    <span
+                        class="mono text-xs text-slate-400 uppercase tracking-widest group-hover:text-white transition-colors">Admin
+                        Terminal</span>
+                </div>
+                <span
+                    class="text-[9px] font-bold px-2 py-1 bg-slate-800 text-slate-400 rounded uppercase tracking-widest group-hover:bg-rose-500/20 group-hover:text-rose-500 transition-colors">Secured</span>
+            </a>
+        </div>
+
+    </main>
+
+    <footer class="mt-20 text-center w-full pb-6 fade-in-up" style="animation-delay: 0.7s;">
+        <p class="mono text-[10px] text-slate-600 uppercase tracking-[0.3em]">
+            Sys_Time: <span id="clock" class="text-slate-500"></span> // Loc: Amman, JO
+        </p>
+    </footer>
+
+    <script>
+        // Simple live clock for the footer
+        function updateClock() {
+            const now = new Date();
+            const timeString = now.toISOString().split('T')[1].split('.')[0] + ' UTC';
+            document.getElementById('clock').innerText = timeString;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+</body>
+
+</html>

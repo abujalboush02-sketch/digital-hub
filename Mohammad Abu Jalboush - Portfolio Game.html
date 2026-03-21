@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mohammad Abu Jalboush | System Architect</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #0b1121;
+            --tech: #0ea5e9;
+            --biz: #10b981;
+            --ui: #d946ef;
+            --gold: #f59e0b;
+            --glass: rgba(15, 23, 42, 0.95);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: var(--bg);
+            font-family: 'Inter', sans-serif;
+            color: white;
+            user-select: none;
+        }
+
+        /* --- UI LAYER --- */
+        #ui-layer {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 10;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            pointer-events: auto;
+            transition: opacity 0.3s;
+        }
+
+        .header.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .brand h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin: 0;
+            text-shadow: 0 0 20px rgba(14, 165, 233, 0.5);
+            letter-spacing: -0.5px;
+        }
+
+        .brand .role {
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            color: var(--tech);
+            font-family: 'JetBrains Mono';
+            margin-top: 5px;
+            text-transform: uppercase;
+        }
+
+        /* Navigation */
+        .nav-dock {
+            position: absolute;
+            left: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            pointer-events: auto;
+        }
+
+        .nav-btn {
+            background: rgba(15, 23, 42, 0.7);
+            border-left: 2px solid var(--border);
+            color: #94a3b8;
+            padding: 15px 25px;
+            cursor: pointer;
+            text-align: left;
+            font-size: 0.8rem;
+            width: 220px;
+            backdrop-filter: blur(10px);
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            clip-path: polygon(0 0, 100% 0, 95% 100%, 0% 100%);
+        }
+
+        .nav-btn:hover {
+            border-left-color: var(--tech);
+            color: white;
+            transform: translateX(10px);
+            background: rgba(14, 165, 233, 0.1);
+        }
+
+        .nav-btn .icon {
+            font-family: 'JetBrains Mono';
+            color: var(--tech);
+            font-size: 1rem;
+            margin-right: 10px;
+        }
+
+        /* Floating Labels */
+        #label-container {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        #label-container.faded {
+            opacity: 0;
+        }
+
+        .object-label {
+            position: absolute;
+            color: white;
+            font-size: 0.7rem;
+            font-family: 'JetBrains Mono';
+            font-weight: bold;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 6px 12px;
+            border-radius: 2px;
+            border-bottom: 2px solid var(--tech);
+            pointer-events: auto;
+            cursor: pointer;
+            transform: translate(-50%, -200%);
+            white-space: nowrap;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            transition: 0.2s;
+        }
+
+        .object-label:hover {
+            background: var(--tech);
+            color: black;
+        }
+
+        /* Detail Panel */
+        #panel {
+            position: absolute;
+            top: 0;
+            right: -700px;
+            width: 550px;
+            height: 100%;
+            background: var(--glass);
+            border-left: 1px solid var(--border);
+            backdrop-filter: blur(20px);
+            transition: right 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+            pointer-events: auto;
+            display: flex;
+            flex-direction: column;
+            box-shadow: -30px 0 60px rgba(0, 0, 0, 0.8);
+            z-index: 50;
+        }
+
+        #panel.open {
+            right: 0;
+        }
+
+        .panel-content {
+            padding: 50px;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+
+        .panel-meta {
+            font-family: 'JetBrains Mono';
+            font-size: 0.7rem;
+            color: var(--tech);
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            display: block;
+            opacity: 0.8;
+        }
+
+        .panel-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin: 0 0 20px 0;
+            color: white;
+            line-height: 1.1;
+        }
+
+        .data-section {
+            margin-bottom: 30px;
+            border-left: 2px solid #334155;
+            padding-left: 15px;
+        }
+
+        .data-header {
+            font-size: 0.75rem;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .data-body {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #e2e8f0;
+        }
+
+        .tech-pill {
+            display: inline-block;
+            font-size: 0.7rem;
+            padding: 4px 10px;
+            margin: 0 5px 5px 0;
+            background: rgba(14, 165, 233, 0.15);
+            color: var(--tech);
+            border-radius: 4px;
+            font-family: 'JetBrains Mono';
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .close-btn:hover {
+            color: var(--tech);
+            transform: rotate(90deg);
+        }
+
+        /* Contact Card Styles */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .contact-btn {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--tech);
+            transform: translateX(5px);
+        }
+
+        .contact-btn .icon {
+            font-size: 1.5rem;
+            margin-right: 15px;
+        }
+
+        .contact-btn .label {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .contact-btn .value {
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: 'JetBrains Mono';
+        }
+
+        .contact-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: var(--tech);
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .contact-btn:hover::before {
+            opacity: 1;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .nav-dock {
+                top: auto;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                transform: none;
+                flex-direction: row;
+                padding: 0;
+                gap: 0;
+            }
+
+            .nav-btn {
+                width: 25%;
+                justify-content: center;
+                padding: 15px 5px;
+                font-size: 0.6rem;
+                text-align: center;
+                clip-path: none;
+                border-left: none;
+                border-top: 2px solid var(--border);
+                background: var(--glass);
+            }
+
+            .nav-btn .icon {
+                display: none;
+            }
+
+            #panel {
+                width: 100%;
+            }
+
+            .brand h1 {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="canvas-container" style="position: absolute; inset: 0;"></div>
+
+    <div id="ui-layer">
+        <div class="header" id="top-header">
+            <div class="brand">
+                <h1>Mohammad Abu Jalboush</h1>
+                <div class="role">SENIOR ARCHITECT & WORKFLOW STRATEGIST</div>
+            </div>
+            <div style="text-align: right; font-size: 0.7rem; color: #94a3b8; font-family: 'JetBrains Mono';">
+                <div>SYS: V2.5.0 (FINAL)</div>
+                <div>LOC: AMMAN, JO</div>
+            </div>
+        </div>
+
+        <div class="nav-dock">
+            <button class="nav-btn" onclick="moveToSection('profile')"><span class="icon">01</span> PROFILE
+                CORE</button>
+            <button class="nav-btn" onclick="moveToSection('projects')"><span class="icon">02</span> ECOSYSTEMS</button>
+            <button class="nav-btn" onclick="moveToSection('ui')"><span class="icon">03</span> UI/UX LABS</button>
+            <button class="nav-btn" onclick="moveToSection('skills')"><span class="icon">04</span> CONTACT &
+                TECH</button>
+        </div>
+
+        <div id="label-container"></div>
+    </div>
+
+    <div id="panel">
+        <button class="close-btn" onclick="closePanel()">×</button>
+        <div class="panel-content" id="panel-inner"></div>
+    </div>
+
+    <script>
+        // ================= DATA INTELLIGENCE =================
+        const DB = {
+            profile: {
+                biz: {
+                    title: "Business Process Re-Engineering",
+                    desc: "I don't just build software; I repair broken business engines. My core strength is analyzing manual, high-friction operational workflows (like NGO filing or Retail Logistics) and architecting automated digital pipelines that reduce redundancy and operational costs.",
+                    tags: ["Operational Analysis", "Workflow Automation", "Cost Reduction", "SaaS Strategy"]
+                },
+                tech: {
+                    title: "Full Stack Architecture",
+                    desc: "With 3+ years of production experience, I specialize in building robust, high-availability systems. I leverage .NET Core for powerful backend logic and Flutter for seamless cross-platform experiences, ensuring that the 'Business Logic' is executed flawlessly by the 'Code'.",
+                    tags: [".NET Core API", "Flutter & Dart", "SQL Server", "System Architecture", "Cloud Deployment"]
+                }
+            },
+            // SWAPPED ORDER: SaaS Contract is now index 0, E-Commerce is index 6.
+            projects: [
+                {
+                    name: "SaaS Contract Generator",
+                    type: "doc",
+                    focus: "B2B Tooling",
+                    desc: "A specialized tool to accelerate the 'Quote-to-Cash' cycle. Takes dynamic input parameters, calculates pricing models instantly, and dispatches legally binding contracts via email.",
+                    tech: ".NET Core, Template Engines"
+                },
+                {
+                    name: "NGO Grants System",
+                    type: "server",
+                    focus: "Process Automation",
+                    desc: "Transformed a manual, paper-heavy grant process into a digital state-machine. The system handles the entire lifecycle—from application to approval to auditing—reducing data redundancy by 40% and providing real-time dashboards for stakeholders.",
+                    tech: "Workflow Engine, SQL Server, Role-Based Security"
+                },
+                {
+                    name: "Enterprise CRM Suite",
+                    type: "monitor",
+                    focus: "SaaS Utility",
+                    desc: "A comprehensive B2B solution for client management. Features include an automated contract generation pipeline (converting data to legal PDFs), full email history tracking via API integration, and dynamic client lifecycle stages.",
+                    tech: "C# .NET, PDF Generation Libs, SMTP/IMAP"
+                },
+                {
+                    name: "Student Logistics & Safety",
+                    type: "shield",
+                    focus: "IoT & Security",
+                    desc: "A critical safety system integrating hardware and software. Utilizes Biometric scanning and QR verification to control student exits, synced in real-time with a Bus Tracking module to ensure zero-error safety protocols.",
+                    tech: "Biometrics SDK, Google Maps API, Real-time DB"
+                },
+                {
+                    name: "Modern POS Architecture",
+                    type: "monitor",
+                    focus: "Retail Performance",
+                    desc: "Engineered a high-throughput Point of Sale system. Designed with an 'Offline-First' architecture using local caching to ensure zero downtime during internet outages, syncing automatically when connectivity is restored.",
+                    tech: "WPF / Flutter Desktop, SQLite Sync"
+                },
+                {
+                    name: "Freelance Taxi Network",
+                    type: "phone",
+                    focus: "Marketplace Logic",
+                    desc: "A decentralized logistics platform connecting freelance drivers with users. Includes complex geospatial querying for 'nearest driver' logic, fare calculation algorithms, and real-time socket updates.",
+                    tech: "Geolocation, WebSockets, Payment Gateway"
+                },
+                {
+                    name: "Next-Gen E-Commerce",
+                    type: "monitor",
+                    focus: "High-Scale Architecture",
+                    desc: "A massive multi-module ecosystem. I architected a custom gamification engine (20+ mini-games) to drive user retention, integrated a live-stream commerce module allowing real-time purchasing during broadcasts, and built a full logistics backend for warehouse inventory management.",
+                    tech: "Flutter, .NET Core, WebSockets, SQL"
+                },
+                {
+                    name: "QR Smart-Ordering",
+                    type: "phone",
+                    focus: "Hospitality Tech",
+                    desc: "Self-service ecosystem for restaurants. Allows direct-to-kitchen ordering via QR, reducing waiter load and increasing table turnover rates.",
+                    tech: "Real-time Order API, Notification Service"
+                },
+                {
+                    name: "Heavy Equipment Rental",
+                    type: "truck",
+                    focus: "Asset Management",
+                    desc: "A marketplace for heavy machinery. Features logic for 'Asset Availability', maintenance logging, and digital rental agreements.",
+                    tech: "Booking Logic, Calendar APIs"
+                }
+            ],
+            ui: [
+                { name: "HR Geo-Attendance", desc: "Designed a clean, map-centric interface for employees to check in only when within office geofences. Focus on intuitive map interactions." },
+                { name: "Cinema Booking Flow", desc: "Streamlined the ticket purchase journey. Visualized seat selection maps and simplified the payment gateway UI to reduce cart abandonment." },
+                { name: "Luxury Transport UI", desc: "Crafted a high-end, dark-mode aesthetic for a chauffeur service. Used gold/black palettes to convey exclusivity and premium service." },
+                { name: "Delivery Network Dashboard", desc: "High-contrast dashboard for drivers, prioritizing readability of routes and earnings while on the move." },
+                { name: "EdTech Learning Path", desc: "Designed a progress-based interface (similar to Udemy) showing clear module completion rates and gamified achievement badges." },
+                { name: "Digital Library Reader", desc: "Typography-focused interface for reading ancient stories, ensuring high readability and immersive paper-texture aesthetics." }
+            ],
+            skills: {
+                gamedev: {
+                    title: "Game Development Logic",
+                    desc: "My background in Unity & C# gives me a unique edge in understanding complex physics, state management, and 3D math, which I apply to enterprise UI/UX.",
+                    items: ["Retro Galaxy Fighter (Physics)", "3D Racing (Vector Math)", "Heist AI (State Machines)", "Escape Room (Interaction)"]
+                },
+                contact: {
+                    phone: "+962 7 7611 0639",
+                    email: "mohammadabujalboush02@gmail.com",
+                    wa: "962776110639"
+                }
+            }
+        };
+
+        // ================= 3D ENGINE =================
+        let scene, camera, renderer, raycaster, mouse;
+        let clickables = [];
+        let labelElements = [];
+        let particles;
+
+        const G = {
+            profile: new THREE.Group(),
+            projects: new THREE.Group(),
+            ui: new THREE.Group(),
+            skills: new THREE.Group()
+        };
+
+        function init() {
+            scene = new THREE.Scene();
+            scene.fog = new THREE.FogExp2(0x0b1121, 0.02);
+
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.set(0, 0, 15);
+
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+            raycaster = new THREE.Raycaster();
+            mouse = new THREE.Vector2();
+
+            const ambient = new THREE.AmbientLight(0xffffff, 0.6);
+            const sun = new THREE.DirectionalLight(0xffffff, 1);
+            sun.position.set(10, 20, 10);
+            const rim = new THREE.SpotLight(0x0ea5e9, 5, 50);
+            rim.position.set(-10, 10, -5);
+            scene.add(ambient, sun, rim);
+
+            createStars();
+            buildProfile();
+            buildProjects();
+            buildUI();
+            buildSkills();
+
+            scene.add(G.profile);
+            scene.add(G.projects);
+            scene.add(G.ui);
+            scene.add(G.skills);
+
+            G.projects.position.set(35, 0, 0);
+            G.ui.position.set(35, 25, 0);
+            G.skills.position.set(-35, 0, 0);
+
+            window.addEventListener('resize', onResize);
+            window.addEventListener('click', onClick);
+            window.addEventListener('mousemove', onMouseMove);
+
+            animate();
+        }
+
+        // --- 1. PROFILE ---
+        function buildProfile() {
+            const bizGeo = new THREE.DodecahedronGeometry(2, 0);
+            const bizMat = new THREE.MeshStandardMaterial({ color: 0x10b981, roughness: 0.2, metalness: 0.8 });
+            const biz = new THREE.Mesh(bizGeo, bizMat);
+            biz.position.x = -3;
+
+            const techGeo = new THREE.IcosahedronGeometry(2, 0);
+            const techMat = new THREE.MeshStandardMaterial({ color: 0x0ea5e9, wireframe: true, emissive: 0x0ea5e9, emissiveIntensity: 0.2 });
+            const tech = new THREE.Mesh(techGeo, techMat);
+            tech.position.x = 3;
+
+            biz.add(new THREE.Mesh(new THREE.IcosahedronGeometry(1), new THREE.MeshBasicMaterial({ color: 0x10b981, wireframe: true })));
+            tech.add(new THREE.Mesh(new THREE.SphereGeometry(0.8), new THREE.MeshBasicMaterial({ color: 0x0ea5e9 })));
+
+            G.profile.add(biz, tech);
+            registerObject(biz, "Business & Workflow", "profile_biz");
+            registerObject(tech, "Tech Architecture", "profile_tech");
+
+            const streamGeo = new THREE.CylinderGeometry(0.05, 0.05, 6, 8);
+            const streamMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.2 });
+            const stream = new THREE.Mesh(streamGeo, streamMat);
+            stream.rotation.z = Math.PI / 2;
+            G.profile.add(stream);
+        }
+
+        // --- 2. PROJECTS ---
+        function buildProjects() {
+            DB.projects.forEach((p, i) => {
+                const group = new THREE.Group();
+                let mainMesh;
+                const mat = new THREE.MeshStandardMaterial({ color: 0x0ea5e9, roughness: 0.3, metalness: 0.7 });
+
+                if (p.type === 'monitor') {
+                    mainMesh = new THREE.Mesh(new THREE.BoxGeometry(2, 1.2, 0.1), mat);
+                    const stand = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.5, 0.1), mat);
+                    stand.position.y = -0.8;
+                    mainMesh.add(stand);
+                    const base = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.1, 0.4), mat);
+                    base.position.y = -1.1;
+                    mainMesh.add(base);
+                } else if (p.type === 'phone') {
+                    mainMesh = new THREE.Mesh(new THREE.BoxGeometry(0.8, 1.6, 0.1), mat);
+                } else if (p.type === 'server') {
+                    mainMesh = new THREE.Mesh(new THREE.CylinderGeometry(0.6, 0.6, 1.5, 16), mat);
+                    const ring1 = new THREE.Mesh(new THREE.TorusGeometry(0.65, 0.05, 16, 32), new THREE.MeshBasicMaterial({ color: 0xffffff }));
+                    ring1.rotation.x = Math.PI / 2;
+                    mainMesh.add(ring1);
+                } else if (p.type === 'shield') {
+                    mainMesh = new THREE.Mesh(new THREE.IcosahedronGeometry(0.8), mat);
+                    const ring = new THREE.Mesh(new THREE.TorusGeometry(1, 0.05, 16, 32), new THREE.MeshBasicMaterial({ color: 0x0ea5e9 }));
+                    mainMesh.add(ring);
+                } else {
+                    mainMesh = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), mat);
+                }
+
+                group.add(mainMesh);
+
+                // UPDATED HELIX: Increased Y spacing from 2.5 to 3.0 to prevent clustering
+                const y = (i * 3.0) - 12;
+                const radius = 6;
+                const angle = i * 0.8;
+                group.position.set(Math.cos(angle) * radius, y, Math.sin(angle) * radius);
+
+                group.userData.origY = y;
+                group.userData.angle = angle;
+
+                G.projects.add(group);
+                registerObject(mainMesh, p.name, "project", p);
+            });
+        }
+
+        // --- 3. UI/UX ---
+        function buildUI() {
+            DB.ui.forEach((p, i) => {
+                const tablet = new THREE.Group();
+                const glass = new THREE.Mesh(new THREE.BoxGeometry(3, 2, 0.05), new THREE.MeshPhysicalMaterial({ color: 0xd946ef, metalness: 0, roughness: 0, transmission: 0.9, transparent: true }));
+                const border = new THREE.Mesh(new THREE.BoxGeometry(3.05, 2.05, 0.04), new THREE.MeshBasicMaterial({ color: 0xd946ef }));
+                const bar1 = new THREE.Mesh(new THREE.BoxGeometry(2, 0.1, 0.01), new THREE.MeshBasicMaterial({ color: 0xffffff }));
+                bar1.position.set(0, 0.5, 0.05);
+                tablet.add(border, glass, bar1);
+
+                const col = i % 3;
+                const row = Math.floor(i / 3);
+                tablet.position.set((col * 4) - 4, (row * 3.5) - 2, 0);
+
+                G.ui.add(tablet);
+                registerObject(glass, p.name, "ui", p);
+            });
+        }
+
+        // --- 4. SKILLS & CONTACT ---
+        function buildSkills() {
+            const gameGroup = new THREE.Group();
+            gameGroup.position.y = 5;
+
+            const centerCube = new THREE.Mesh(new THREE.BoxGeometry(1.5, 1.5, 1.5), new THREE.MeshNormalMaterial({ wireframe: true }));
+            gameGroup.add(centerCube);
+
+            for (let i = 0; i < 4; i++) {
+                const bit = new THREE.Mesh(new THREE.OctahedronGeometry(0.3), new THREE.MeshBasicMaterial({ color: 0xf59e0b }));
+                bit.position.x = 2.5;
+                const pivot = new THREE.Group();
+                pivot.rotation.y = i * (Math.PI / 2);
+                pivot.add(bit);
+                gameGroup.add(pivot);
+            }
+
+            G.skills.add(gameGroup);
+            registerObject(centerCube, "Game Dev Logic", "game");
+
+            const contactGroup = new THREE.Group();
+            contactGroup.position.y = -6;
+
+            const core = new THREE.Mesh(new THREE.SphereGeometry(1.2, 32, 32), new THREE.MeshStandardMaterial({ color: 0xf59e0b, emissive: 0xf59e0b, emissiveIntensity: 1, roughness: 0.4 }));
+            const ring = new THREE.Mesh(new THREE.TorusGeometry(2, 0.02, 16, 100), new THREE.MeshBasicMaterial({ color: 0xf59e0b, transparent: true, opacity: 0.5 }));
+            ring.rotation.x = Math.PI / 2;
+
+            contactGroup.add(core, ring);
+            G.skills.add(contactGroup);
+            registerObject(core, "Contact Me", "contact");
+        }
+
+        function createStars() {
+            const count = 2000;
+            const geom = new THREE.BufferGeometry();
+            const pos = [];
+            for (let i = 0; i < count; i++) pos.push((Math.random() - 0.5) * 150, (Math.random() - 0.5) * 150, (Math.random() - 0.5) * 150);
+            geom.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+            const mat = new THREE.PointsMaterial({ color: 0x475569, size: 0.15 });
+            particles = new THREE.Points(geom, mat);
+            scene.add(particles);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const time = Date.now() * 0.001;
+
+            G.profile.children[0].rotation.y += 0.005;
+            G.profile.children[1].rotation.y -= 0.005;
+
+            G.projects.rotation.y = Math.sin(time * 0.2) * 0.2;
+            G.projects.children.forEach((c, i) => {
+                c.rotation.y += 0.01;
+                c.position.y = c.userData.origY + Math.sin(time + i) * 0.5;
+            });
+
+            G.ui.children.forEach((c, i) => {
+                c.rotation.x = Math.sin(time + i) * 0.05;
+                c.rotation.y = Math.cos(time + i) * 0.05;
+            });
+
+            G.skills.children[0].children.forEach((c, i) => {
+                if (i > 0) c.rotation.y += 0.02;
+                else c.rotation.x += 0.01;
+            });
+
+            const scale = 1 + Math.sin(time * 2) * 0.05;
+            G.skills.children[1].children[0].scale.set(scale, scale, scale);
+
+            updateLabels();
+            renderer.render(scene, camera);
+        }
+
+        function registerObject(mesh, label, type, data = null) {
+            mesh.userData = { label, type, data };
+            clickables.push(mesh);
+
+            const div = document.createElement('div');
+            div.className = 'object-label';
+            div.textContent = label;
+            div.onclick = (e) => { e.stopPropagation(); handleInteraction(mesh); };
+            document.getElementById('label-container').appendChild(div);
+            labelElements.push({ div, mesh });
+        }
+
+        function updateLabels() {
+            labelElements.forEach(item => {
+                const pos = item.mesh.getWorldPosition(new THREE.Vector3());
+                pos.project(camera);
+                const isBehind = pos.z > 1;
+                const isFar = Math.abs(pos.x) > 1.2 || Math.abs(pos.y) > 1.2;
+                const isPanelOpen = document.getElementById('panel').classList.contains('open');
+
+                if (isBehind || isFar || isPanelOpen) {
+                    item.div.style.opacity = 0;
+                    item.div.style.pointerEvents = 'none';
+                } else {
+                    item.div.style.opacity = 1;
+                    item.div.style.pointerEvents = 'auto';
+                    const x = (pos.x * .5 + .5) * window.innerWidth;
+                    const y = (pos.y * -.5 + .5) * window.innerHeight;
+                    item.div.style.transform = `translate(-50%, -150%) translate(${x}px, ${y}px)`;
+                }
+            });
+        }
+
+        function onClick(e) {
+            mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+            raycaster.setFromCamera(mouse, camera);
+            const hits = raycaster.intersectObjects(clickables);
+            if (hits.length > 0) handleInteraction(hits[0].object);
+        }
+
+        function handleInteraction(obj) {
+            const d = obj.userData;
+            const p = document.getElementById('panel-inner');
+            let html = '';
+
+            if (d.type.includes('profile')) {
+                const data = d.type === 'profile_biz' ? DB.profile.biz : DB.profile.tech;
+                html = `
+                <span class="panel-meta">IDENTITY CORE</span>
+                <h2 class="panel-title">${data.title}</h2>
+                <div class="data-section">
+                    <div class="data-body">${data.desc}</div>
+                </div>
+                <div class="data-section">
+                    <div class="data-header">Core Competencies</div>
+                    <div>${data.tags.map(t => `<span class="tech-pill">${t}</span>`).join('')}</div>
+                </div>
+            `;
+            } else if (d.type === 'project') {
+                html = `
+                <span class="panel-meta">PROJECT ARCHITECTURE</span>
+                <h2 class="panel-title">${d.data.name}</h2>
+                <div class="data-section">
+                    <div class="data-header">Strategic Focus</div>
+                    <div style="color:var(--tech); font-weight:bold;">${d.data.focus}</div>
+                </div>
+                <div class="data-section">
+                    <div class="data-header">System Description</div>
+                    <div class="data-body">${d.data.desc}</div>
+                </div>
+                <div class="data-section">
+                    <div class="data-header">Tech Stack</div>
+                    <div class="data-body" style="font-family:'JetBrains Mono'; font-size:0.8rem;">${d.data.tech}</div>
+                </div>
+            `;
+            } else if (d.type === 'ui') {
+                html = `
+                <span class="panel-meta">UI/UX LABS</span>
+                <h2 class="panel-title">${d.data.name}</h2>
+                <div class="data-section">
+                    <div class="data-header">Design Philosophy</div>
+                    <div class="data-body">${d.data.desc}</div>
+                </div>
+            `;
+            } else if (d.type === 'game') {
+                html = `
+                <span class="panel-meta">COMPLEX LOGIC</span>
+                <h2 class="panel-title">${DB.skills.gamedev.title}</h2>
+                <div class="data-body">${DB.skills.gamedev.desc}</div>
+                <ul style="margin-top:20px; line-height:1.8; color:#cbd5e1;">${DB.skills.gamedev.items.map(i => `<li>${i}</li>`).join('')}</ul>
+            `;
+            } else if (d.type === 'contact') {
+                // REDESIGNED CONTACT CARD
+                html = `
+                <span class="panel-meta">SECURE CHANNEL</span>
+                <h2 class="panel-title">Hiring Protocol</h2>
+                <p style="color:#94a3b8; font-size:0.9rem; margin-bottom:30px;">Initialize direct connection via the secure channels below. Available for full-stack architecture roles.</p>
+                
+                <div class="contact-grid">
+                    <a href="tel:${DB.skills.contact.phone}" class="contact-btn">
+                        <span class="icon">📞</span>
+                        <div><span class="label">Mobile Feed</span><span class="value">${DB.skills.contact.phone}</span></div>
+                    </a>
+                    <a href="https://wa.me/${DB.skills.contact.wa}" target="_blank" class="contact-btn">
+                        <span class="icon">💬</span>
+                        <div><span class="label">Encrypted Chat</span><span class="value">WhatsApp Direct</span></div>
+                    </a>
+                    <a href="mailto:${DB.skills.contact.email}" class="contact-btn">
+                        <span class="icon">✉️</span>
+                        <div><span class="label">Email Uplink</span><span class="value">Send Mail</span></div>
+                    </a>
+                </div>
+            `;
+            }
+
+            p.innerHTML = html;
+            document.getElementById('panel').classList.add('open');
+            document.getElementById('top-header').classList.add('hidden');
+        }
+
+        window.closePanel = () => {
+            document.getElementById('panel').classList.remove('open');
+            document.getElementById('top-header').classList.remove('hidden');
+        };
+
+        window.moveToSection = (sec) => {
+            closePanel();
+            let x = 0, y = 0, z = 18;
+            if (sec === 'profile') { x = 0; y = 0; z = 14; }
+            if (sec === 'projects') { x = 35; y = 0; z = 24; } // Increased zoom distance slightly
+            if (sec === 'ui') { x = 35; y = 25; z = 14; }
+            if (sec === 'skills') { x = -35; y = 0; z = 18; }
+
+            if (window.innerWidth < 768) z += 15;
+
+            gsap.to(camera.position, { x, y, z, duration: 1.5, ease: "power3.inOut" });
+        };
+
+        function onResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        function onMouseMove(e) {
+            if (!document.getElementById('panel').classList.contains('open')) {
+                const x = (e.clientX / window.innerWidth) - 0.5;
+                const y = (e.clientY / window.innerHeight) - 0.5;
+                gsap.to(camera.rotation, { x: y * 0.05, y: x * 0.05, duration: 0.5 });
+            }
+        }
+
+        init();
+    </script>
+</body>
+
+</html>

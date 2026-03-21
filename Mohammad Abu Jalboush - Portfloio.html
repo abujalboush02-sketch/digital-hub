@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mohammad Abu Jalboush | Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --accent: #38bdf8;
+            /* Cyan */
+            --accent-glow: rgba(56, 189, 248, 0.4);
+            --border: #334155;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.5;
+            font-size: 14px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px;
+            width: 100%;
+            animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideUpFade {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Typography */
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-primary);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            line-height: 1.2;
+            margin-bottom: 5px;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        p {
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            position: relative;
+            display: inline-block;
+        }
+
+        a:hover {
+            color: #fff;
+            text-shadow: 0 0 10px var(--accent);
+            transform: translateX(3px);
+        }
+
+        /* Header Layout */
+        header.main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 20px;
+            gap: 20px;
+        }
+
+        .print-running-header {
+            display: none;
+            /* Hidden on screen */
+        }
+
+        .role {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent);
+            font-size: 1.1rem;
+            margin-top: 5px;
+            display: block;
+        }
+
+        .contact-info {
+            text-align: right;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            flex-shrink: 0;
+        }
+
+        .contact-item {
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        /* Grid Layouts */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        /* Cards & Animations */
+        .card {
+            background: var(--card-bg);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            height: 100%;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px) scale(1.01);
+            border-color: var(--accent);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.6);
+            z-index: 2;
+        }
+
+        .tag-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 10px;
+        }
+
+        .tag {
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--accent);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-family: 'JetBrains Mono', monospace;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+
+        .tag-strong {
+            background: rgba(56, 189, 248, 0.16);
+            border: 1px solid rgba(56, 189, 248, 0.45);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        li::before {
+            content: ">";
+            color: var(--accent);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+
+        li {
+            padding-left: 1.2em;
+            margin-bottom: 4px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Small helper text */
+        .muted {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .subnote {
+            margin-top: 8px;
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+        }
+
+        /* ================= MOBILE ================= */
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            header.main-header {
+                flex-direction: column;
+                border-bottom: 1px solid var(--accent);
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .contact-info {
+                text-align: left;
+                margin-top: 15px;
+                padding-top: 10px;
+                border-top: 1px solid var(--border);
+                width: 100%;
+            }
+
+            .grid-3,
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .card:hover {
+                transform: translateY(-2px);
+                box-shadow: none;
+            }
+        }
+
+        /* ================= PRINT CONFIGURATION ================= */
+        @page {
+            margin: 10mm;
+            size: auto;
+        }
+
+
+        @media print {
+
+            /* Page setup */
+            @page {
+                margin: 9mm;
+                size: A4;
+            }
+
+            /* WHITE background everywhere */
+            html,
+            body,
+            .container,
+            section,
+            header,
+            footer {
+                background: #fff !important;
+                background-color: #fff !important;
+            }
+
+            /* Softer print typography (NOT pure black everywhere) */
+            body {
+                color: #222 !important;
+                font-size: 10.2pt;
+                line-height: 1.45;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            /* Headings: dark but not harsh */
+            h1,
+            h2,
+            h3,
+            h4 {
+                color: #111 !important;
+            }
+
+            /* Paragraph/list: softer gray for readability */
+            p,
+            li,
+            span,
+            div {
+                color: #2b2b2b !important;
+            }
+
+            /* Links */
+            a {
+                color: #111 !important;
+                text-decoration: none !important;
+            }
+
+            /* Hide running header if you ever re-enable it */
+            .print-running-header {
+                display: none !important;
+            }
+
+            /* Cards: white paper look */
+            .card {
+                background: #fff !important;
+                background-color: #fff !important;
+                border: 1px solid #222 !important;
+                box-shadow: none !important;
+
+                /* prevent splitting (works unless card > 1 page) */
+                break-inside: avoid !important;
+                page-break-inside: avoid !important;
+
+                padding: 10px !important;
+                margin-bottom: 6px !important;
+            }
+
+            /* Remove hover behavior in print */
+            .card:hover {
+                transform: none !important;
+                box-shadow: none !important;
+            }
+
+            /* Tags */
+            .tag,
+            .tag-strong {
+                background: #f1f1f1 !important;
+                color: #222 !important;
+                border: 1px solid #333 !important;
+                break-inside: avoid !important;
+                page-break-inside: avoid !important;
+            }
+
+            /* Section titles */
+            h2 {
+                border-bottom: 2px solid #111 !important;
+                margin-top: 14px !important;
+                margin-bottom: 12px !important;
+                break-after: avoid !important;
+                page-break-after: avoid !important;
+            }
+
+            /* Tighten spacing slightly to help footer fit */
+            header.main-header {
+                margin-bottom: 18px !important;
+                padding-bottom: 12px !important;
+                border-bottom: 2px solid #111 !important;
+            }
+
+            .project-intro {
+                font-size: 11pt !important;
+                font-weight: 600 !important;
+                margin-bottom: 10px !important;
+                color: #222 !important;
+                break-after: avoid !important;
+                page-break-after: avoid !important;
+            }
+
+            /* KEEP grid for most sections */
+            .grid-3 {
+                display: grid !important;
+                grid-template-columns: repeat(3, 1fr) !important;
+                gap: 10px !important;
+            }
+
+            /* BUT: Sections 04 & 05 become single-column (stable for long text) */
+            #section-03 .grid-3,
+            #section-04 .grid-3 {
+                display: block !important;
+            }
+
+            #section-03 .card,
+            #section-04 .card {
+                width: 100% !important;
+                display: block !important;
+                /* more stable than inline-block here */
+            }
+
+            /* Stop forced page breaks you had earlier */
+            #section-03 {
+                break-before: auto !important;
+                page-break-before: auto !important;
+                margin-top: 0 !important;
+            }
+
+            /* ===== Slightly push Section 05 down for visual balance (print only) ===== */
+            #section-04 {
+                margin-top: 30mm !important;
+            }
+
+
+            #section-06 {
+                break-before: page !important;
+                page-break-before: always !important;
+            }
+
+            /* ===== Keep Section 06 + the next section (07) together ===== */
+            #section-06,
+            #section-06+section {
+                break-inside: avoid !important;
+                page-break-inside: avoid !important;
+            }
+
+            /* ===== Try harder to prevent footer from going alone ===== */
+            #section-06+section {
+                break-after: avoid !important;
+                page-break-after: avoid !important;
+            }
+
+            /* Try to prevent footer alone on last page */
+            footer {
+                display: block !important;
+                margin-top: 10px !important;
+                padding-top: 8px !important;
+                border-top: 1px solid #aaa !important;
+
+                /* smaller so it fits */
+                font-size: 9pt !important;
+                color: #444 !important;
+
+                break-inside: avoid !important;
+                page-break-inside: avoid !important;
+            }
+
+            footer p {
+                margin: 0 !important;
+                color: #444 !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="print-running-header">
+        <span>Mohammad Abu Jalboush</span>
+        <span>Portfolio & Engineered Solutions</span>
+    </div>
+
+    <div class="container">
+        <header class="main-header">
+            <div>
+                <h1>Mohammad Abu Jalboush</h1>
+                <div class="role">&lt;Full Stack Developer & Workflow Architect /&gt;</div>
+                <p style="margin-top: 5px; font-size: 0.9rem;">Amman, Jordan | Applied Science Private University</p>
+            </div>
+            <div class="contact-info">
+                <span class="contact-item">
+                    <a href="tel:+962776110639">📞 +962 7 7611 0639</a>
+                </span>
+                <span class="contact-item">
+                    <a href="tel:+962788967099">📱 +962 7 8896 7099</a> (Call)
+                </span>
+                <span class="contact-item">
+                    <a href="mailto:mohammadabujalboush02@gmail.com">✉️ mohammadabujalboush02@gmail.com</a>
+                </span>
+                <span class="contact-item">
+                    <a href="mailto:abujalboush02@gmail.com">✉️ abujalboush02@gmail.com</a>
+                </span>
+            </div>
+        </header>
+
+        <section>
+            <h2>01. Profile & Core Competency</h2>
+            <div class="card profile-card">
+                <p>
+                    Highly skilled Full Stack Developer with <strong>5 years of experience</strong> specializing in
+                    <strong>Business Development</strong> and <strong>Workflow Automation</strong>. I bridge the gap
+                    between complex business operations and digital solutions. My expertise lies in taking manual
+                    business workflows, re-engineering them for efficiency, and deploying fully automated,
+                    multi-platform digital ecosystems.
+                </p>
+                <p style="margin-top: 10px;">
+                    <strong>Key Focus:</strong> End-to-End Development (Frontend/Backend/APIs), Digital Transformation,
+                    and Custom SAAS Architectures.
+                </p>
+                <p class="subnote">
+                    <strong>Delivery Model:</strong> End-to-end ownership from discovery and workflow design through
+                    UI/UX, backend and API development, automation, integration, and production-grade delivery.
+                </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>02. Domain Tagging (Industries & Systems)</h2>
+            <div class="card">
+                <p class="muted">Industries and system domains where I design and deliver full operational platforms.
+                </p>
+                <div class="tag-container" style="margin-top: 12px;">
+                    <span class="tag tag-strong">Enterprise SaaS</span>
+                    <span class="tag tag-strong">CRM / Sales Operations</span>
+                    <span class="tag tag-strong">ERP / Inventory</span>
+                    <span class="tag tag-strong">POS / Retail</span>
+                    <span class="tag tag-strong">Destination Super Apps</span>
+                    <span class="tag tag-strong">Hospitality & Food Ordering</span>
+                    <span class="tag">Booking & Scheduling</span>
+                    <span class="tag">Queue Management</span>
+                    <span class="tag">Parking Management</span>
+                    <span class="tag">EV Charging & Reservations</span>
+                    <span class="tag">Marketplace / Multi-Merchant</span>
+                    <span class="tag">PDF / Document Generation</span>
+                    <span class="tag">Thermal Printing</span>
+                    <span class="tag">Barcode & Labeling</span>
+                    <span class="tag">Maps & Polygon Layers</span>
+                    <span class="tag">Real Estate Operations</span>
+                    <span class="tag">Legal Tech</span>
+                    <span class="tag">Workflow Automation</span>
+                    <span class="tag">AI Systems (Roadmap)</span>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>03. Technical Arsenal</h2>
+            <div class="grid-3">
+                <div class="card">
+                    <h3>Core Stack</h3>
+                    <div class="tag-container">
+                        <span class="tag">Flutter</span>
+                        <span class="tag">.NET Core APIs</span>
+                        <span class="tag">C#</span>
+                        <span class="tag">HTML5/CSS3</span>
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">SQL</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Development</h3>
+                    <div class="tag-container">
+                        <span class="tag">REST APIs</span>
+                        <span class="tag">Full Stack</span>
+                        <span class="tag">SaaS Architecture</span>
+                        <span class="tag">Offline-First Systems</span>
+                        <span class="tag">Google Drive Sync</span>
+                        <span class="tag">Google Calendar Sync</span>
+                        <span class="tag">PDF Generation</span>
+                        <span class="tag">Bluetooth Printing</span>
+                        <span class="tag">Unity (Game Dev)</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Certifications</h3>
+                    <ul>
+                        <li>Flutter Development (Udemy)</li>
+                        <li>.NET APIs & Dev (Udemy)</li>
+                        <li>Web Dev (Orange)</li>
+                        <li>Unity Dev (Udemy)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="section-03">
+            <h2>04. Engineered Solutions (Major Projects)</h2>
+            <p class="project-intro">
+                Selected systems designed and delivered with end-to-end ownership: requirements and workflow modeling,
+                UI/UX, backend services, integrations, automation, and production-grade implementation.
+            </p>
+
+            <div class="grid-3">
+                <div class="card" style="border-left: 4px solid var(--accent);">
+                    <h3>Destination Village Super App</h3>
+                    <p><strong>Scope:</strong> Unified operational platform for a destination village ecosystem</p>
+                    <p>
+                        Designed and implemented a comprehensive super-app that consolidates an entire village ecosystem
+                        into a single platform, enabling seamless digital operations across merchants, services, and
+                        visitor experiences.
+                    </p>
+                    <ul>
+                        <li>Multi-merchant food and café ordering with structured fulfillment workflows.</li>
+                        <li>Entertainment center booking and resource scheduling (time-slot based).</li>
+                        <li>Office appointment booking with administrative schedule controls.</li>
+                        <li>Queue reservation for major attractions (boat ride and teleferic ride).</li>
+                        <li>Parking management integrated with restaurants and cafés (validation logic and access
+                            flows).</li>
+                        <li>EV charging discovery and reservation module within the village.</li>
+                        <li>Marketplace module enabling stores to list, sell, and manage orders inside the app.</li>
+                        <li>Role-based operational design for staff, merchants, and administrators.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Offline-First Enterprise Business Platform</h3>
+                    <p><strong>Scope:</strong> CRM + POS + Inventory + Sales + Department management</p>
+                    <p>
+                        Built an offline-first enterprise platform that combines CRM, sales operations, POS, and
+                        inventory
+                        management into a single workflow-driven system designed for real-world business execution.
+                    </p>
+                    <ul>
+                        <li>Advanced CRM with follow-ups, reminders, and calendar-driven client engagement.</li>
+                        <li>Client ordering history and activity timelines to support retention and reactivation.</li>
+                        <li>Integrated sales management and operational tracking for business teams.</li>
+                        <li>POS workflows optimized for speed and accuracy, with barcode-driven navigation.</li>
+                        <li>Inventory management with stock visibility and movement workflows.</li>
+                        <li>Debt management module to structure collections, payment schedules, and outstanding balances
+                            across teams.</li>
+                        <li>Offline-first architecture: local device storage with exportable JSON backups.</li>
+                        <li>Google Drive integration for backup and optional cloud storage mode.</li>
+                        <li>Google Calendar integration enabling event creation directly from CRM data.</li>
+                        <li>Barcode generation for items and orders; scan-to-open record workflows.</li>
+                        <li>Receipt generation as PDF and POS-size receipts via Bluetooth thermal printers.</li>
+                        <li>Label and sticker printing workflows for items and packaging boxes.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Real Estate Operations Platform</h3>
+                    <p><strong>Scope:</strong> Multi-platform real estate data + CRM + geo-visualization</p>
+                    <p>
+                        Architected a real estate operations platform that centralizes property data, automates
+                        operational
+                        workflows, and provides professional geo-visualization for property portfolios.
+                    </p>
+                    <ul>
+                        <li>Maps integration with polygon-based property highlighting for portfolio visualization.</li>
+                        <li>Structured property inventory with filters, ownership tracking, and operational status.</li>
+                        <li>Enterprise CRM with follow-ups, reminders, and pipeline management.</li>
+                        <li>Google Calendar integration for scheduling, reminders, and follow-up execution.</li>
+                        <li>Workflow automation for lead handling, assignments, and conversion operations.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Legal Tech Platform (Judicial Workflow)</h3>
+                    <p><strong>Scope:</strong> Regulations library + templates + case-building operations</p>
+                    <p>
+                        Developed a legal technology platform blueprint with structured workflows for case preparation,
+                        documentation, and regulation retrieval—built to support high-volume legal operations.
+                    </p>
+                    <ul>
+                        <li>Structured knowledge system for regulations, rules, and government references.</li>
+                        <li>Printable templates library for court paperwork and standardized case documents.</li>
+                        <li>Case-building workflows to organize evidence, steps, and required documentation.</li>
+                        <li>AI-ready architecture for assisted drafting, suggestions, and decision support.</li>
+                        <li>Designed for lawyers, judges, and institutional-level legal operations.</li>
+                    </ul>
+                </div>
+
+                <!-- Original projects (kept) -->
+                <div class="card">
+                    <h3>Next-Gen E-Commerce</h3>
+                    <p><strong>Status:</strong> Pre-Launch</p>
+                    <p>Platform featuring a custom-built gamification engine and retention systems.</p>
+                    <ul>
+                        <li>20+ mini-games + loyalty mechanics.</li>
+                        <li>Full logistics and warehouse workflow.</li>
+                        <li>Live stream commerce capability.</li>
+                        <li>Engagement design: missions, rewards, and progression logic.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>NGO Grants System</h3>
+                    <p><strong>Focus:</strong> Automation</p>
+                    <p>Digitalization of NGO workflows with structured lifecycle management.</p>
+                    <ul>
+                        <li>Automated grant lifecycle (submission → review → approval → tracking).</li>
+                        <li>Centralized dashboard replacing manual filing and dispersed documents.</li>
+                        <li>Operational transparency across teams and stakeholders.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Enterprise CRM Suite</h3>
+                    <p><strong>Focus:</strong> Client Data</p>
+                    <p>CRM system with automation, contract generation, and client history governance.</p>
+                    <ul>
+                        <li>Contract generation & email automation.</li>
+                        <li>Full history management (timeline per client).</li>
+                        <li>Follow-up logic and pipeline visibility.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>SaaS Contract Generator</h3>
+                    <p><strong>Focus:</strong> B2B Utility</p>
+                    <p>Instant pricing and contract generation with template governance.</p>
+                    <ul>
+                        <li>Dynamic PDF generation & emailing.</li>
+                        <li>Template management system.</li>
+                        <li>Business rules layer for repeatable pricing logic.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Heavy Equipment Rental</h3>
+                    <p><strong>Focus:</strong> Assets</p>
+                    <p>Marketplace platform for heavy machinery rentals with operational tracking.</p>
+                    <ul>
+                        <li>Digital contracting & rental logic.</li>
+                        <li>Asset tracking & maintenance logs.</li>
+                        <li>Availability, scheduling, and lifecycle controls.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Student Logistics System</h3>
+                    <p><strong>Focus:</strong> Security</p>
+                    <p>Safety protocol for student exits with verification and tracking.</p>
+                    <ul>
+                        <li>QR & Biometric verification.</li>
+                        <li>Integrated bus tracking system.</li>
+                        <li>Permission workflows for pickups and approvals.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Modern POS Architecture</h3>
+                    <p><strong>Focus:</strong> Retail Efficiency</p>
+                    <p>POS architecture optimized for speed, accuracy, and operational UX.</p>
+                </div>
+
+                <div class="card">
+                    <h3>QR Smart-Order System</h3>
+                    <p><strong>Focus:</strong> Hospitality</p>
+                    <p>Direct-to-kitchen ordering with self-service payment flows and notifications.</p>
+                </div>
+
+                <div class="card">
+                    <h3>Media Aggregation Platform</h3>
+                    <p><strong>Focus:</strong> Content</p>
+                    <p>Unified app integrating live TV streams, blogs, and podcasts in a single interface.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="section-04">
+            <h2>05. Workflow Automation & AI Systems</h2>
+            <p class="muted" style="margin-bottom: 12px;">
+                Workflow automation systems designed to reduce manual effort, improve decision quality, and execute
+                business
+                outcomes automatically through structured pipelines and integrations.
+            </p>
+
+            <div class="grid-3">
+                <div class="card">
+                    <h3>Resume Intelligence & Job Matching Workflow</h3>
+                    <p>Automated pipeline that transforms a resume into targeted job opportunities.</p>
+                    <ul>
+                        <li>Resume parsing and capability profiling.</li>
+                        <li>Role title recommendation aligned to skills and experience.</li>
+                        <li>Web-wide job discovery across relevant sources.</li>
+                        <li>Job fit scoring (0–10) with evidence-based rationale.</li>
+                        <li>Automated email delivery of curated opportunities with direct apply links.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Lead Generation & Outreach Automation</h3>
+                    <p>Multi-channel lead discovery, enrichment, and outreach preparation workflow.</p>
+                    <ul>
+                        <li>Input: product/service + country (optional resume for positioning).</li>
+                        <li>Market scan across web and social platforms for demand signals.</li>
+                        <li>Targeting: CEOs, founders, SMBs, online businesses, and service buyers.</li>
+                        <li>Contact enrichment: available email/phone/profile links where discoverable.</li>
+                        <li>Output table: lead identity, pain point, value proposition, and platform links.</li>
+                        <li>Automated outreach drafts tailored per lead.</li>
+                        <li>Pricing guidance using market research and value-based skill positioning.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Market Research & Feasibility Workflow</h3>
+                    <p>Automated regional market analysis with strategic recommendations.</p>
+                    <ul>
+                        <li>Input: product/service + country (optional city).</li>
+                        <li>Competitive scan and demand analysis.</li>
+                        <li>Feasibility output with risk assessment and justification.</li>
+                        <li>Business model and go-to-market recommendations.</li>
+                        <li>Structured report generation for planning and decision-making.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Upcoming: AI Voice Agent</h3>
+                    <p>Conversational agent for bookings, sales qualification, and follow-up automation.</p>
+                </div>
+
+                <div class="card">
+                    <h3>Upcoming: Customer Support AI Agent</h3>
+                    <p>Support automation agent with escalation logic and knowledge routing capabilities.</p>
+                </div>
+
+                <div class="card">
+                    <h3>Upcoming: WhatsApp Sales & Reminder Agent</h3>
+                    <p>WhatsApp-based sales automation for reminders, reactivation, and lead nurturing.</p>
+                </div>
+
+                <div class="card">
+                    <h3>Upcoming: AI Ads & Marketing Agent</h3>
+                    <p>End-to-end marketing automation covering content creation, posting, client intake, and CRM
+                        logging.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="section-06">
+            <h2>06. UI/UX Specialized Projects</h2>
+            <div class="grid-3">
+                <div class="card">
+                    <h3>HR & Attendance</h3>
+                    <p>Geo-fenced attendance system using Google Maps and Biometrics.</p>
+                </div>
+                <div class="card">
+                    <h3>Cinema Management</h3>
+                    <p>Full ticket purchasing flow with QR code generation for automated gate entry.</p>
+                </div>
+                <div class="card">
+                    <h3>Luxury Transport</h3>
+                    <p>Chauffeur and luxury vehicle rental interface designed for high-end clientele.</p>
+                </div>
+                <div class="card">
+                    <h3>Delivery Network</h3>
+                    <p>Decentralized delivery system connecting freelance drivers to user requests.</p>
+                </div>
+                <div class="card">
+                    <h3>EdTech Platform</h3>
+                    <p>Comprehensive course management and learning interface similar to Udemy.</p>
+                </div>
+                <div class="card">
+                    <h3>Digital Library</h3>
+                    <p>Interactive storytelling app allowing community contributions to ancient stories.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>07. Additional Technical Competencies</h2>
+            <div class="card">
+                <h3>Game Development (Unity/C#)</h3>
+                <p>Developed logic and physics for multiple genres demonstrating versatile coding ability:</p>
+                <div class="tag-container">
+                    <span class="tag">Retro Galaxy Fighter</span>
+                    <span class="tag">Full 3D Racing</span>
+                    <span class="tag">Heist Action Logic</span>
+                    <span class="tag">Escape Room (Multi-Environment)</span>
+                </div>
+            </div>
+        </section>
+
+        <footer
+            style="margin-top: 50px; text-align: center; font-size: 0.8rem; color: var(--text-secondary); border-top: 1px solid var(--border); padding-top: 20px;">
+            <p>&copy; 2026 Mohammad Abu Jalboush. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+</body>
+
+</html>

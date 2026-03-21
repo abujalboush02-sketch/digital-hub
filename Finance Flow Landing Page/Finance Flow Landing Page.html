@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>FinanceFlow | Automate Your Finances Without the Hassle</title>
+
+    <meta name="theme-color" content="#10B981">
+    <link rel="manifest" href="/manifest.json">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="FinanceFlow">
+    <link rel="apple-touch-icon" href="FinanceFlow1.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'media',
+            theme: {
+                extend: {
+                    colors: {
+                        emerald: { 500: '#10B981', 600: '#059669' },
+                        light: { bg: '#F8FAFC', text: '#0F172A', surface: '#FFFFFF', border: '#E2E8F0', muted: '#64748B' },
+                        dark: { bg: '#0A0A0B', text: '#FFFFFF', surface: '#1A1A1B', border: 'rgba(255, 255, 255, 0.1)', muted: 'rgba(255, 255, 255, 0.4)' },
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Smooth accordion transitions for FAQ */
+        details>summary {
+            list-style: none;
+        }
+
+        details>summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-light-bg text-light-text dark:bg-dark-bg dark:text-dark-text antialiased font-sans selection:bg-emerald-500 selection:text-white">
+
+    <nav
+        class="sticky top-0 z-50 backdrop-blur-md bg-light-surface/80 dark:bg-dark-surface/80 border-b border-light-border dark:border-dark-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <img src="FinanceFlow1.png" alt="FinanceFlow Logo" class="w-8 h-8 object-contain">
+                <span class="font-bold text-xl tracking-tight">FinanceFlow</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="#pricing"
+                    class="hidden sm:block text-sm font-medium text-light-muted dark:text-dark-muted hover:text-emerald-500 transition-colors">Pricing</a>
+                <a href="#faq"
+                    class="hidden sm:block text-sm font-medium text-light-muted dark:text-dark-muted hover:text-emerald-500 transition-colors">FAQ</a>
+                <a href="https://app.financeflow.mohammad-abujalboush.com/signup"
+                    class="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all shadow-lg shadow-emerald-500/20">Get
+                    Started Free</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6">
+            Track, Save, and Automate Your <br class="hidden md:block" />
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-teal-400">Finances Without
+                the Hassle.</span>
+        </h1>
+        <p class="text-xl md:text-2xl text-light-muted dark:text-dark-muted max-w-3xl mx-auto mb-10">
+            Take absolute control of your money. FinanceFlow connects your daily spending, long-term goals, and
+            financial health into one automated hub.
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <button onclick="triggerAppInstall()"
+                class="bg-emerald-500 hover:bg-emerald-600 text-white px-8 py-4 rounded-xl text-lg font-bold transition-all shadow-xl shadow-emerald-500/25 w-full sm:w-auto">
+                Get Started Free
+            </button>
+            <span class="text-sm text-light-muted dark:text-dark-muted">No credit card required.</span>
+        </div>
+
+        <div
+            class="mt-16 mx-auto max-w-5xl rounded-2xl border border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface shadow-2xl overflow-hidden aspect-video flex items-center justify-center relative">
+            <div class="absolute inset-0 bg-gradient-to-tr from-emerald-500/10 to-transparent"></div>
+            <p class="text-light-muted dark:text-dark-muted font-medium">[ App Dashboard Mockup Here ]</p>
+        </div>
+    </main>
+
+    <section class="py-16 border-t border-light-border dark:border-dark-border overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <div class="flex flex-col md:flex-row md:justify-between items-start md:items-end mb-10 gap-5">
+                <div class="max-w-2xl">
+                    <p class="text-sm font-bold uppercase tracking-widest text-light-muted dark:text-dark-muted mb-2">
+                        Trusted by smart spenders worldwide
+                    </p>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold">Wall of Love</h2>
+                </div>
+
+                <a href="https://feedback.mohammad-abujalboush.com" target="_blank"
+                    class="w-full md:w-auto text-center bg-light-surface dark:bg-dark-surface border border-light-border dark:border-dark-border hover:border-emerald-500 text-light-text dark:text-dark-text px-6 py-3 rounded-xl text-sm font-bold transition-all shadow-sm">
+                    Share Your Experience
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="testimonials-container">
+                <div
+                    class="col-span-full text-center py-16 text-light-muted dark:text-dark-muted font-medium animate-pulse border-2 border-dashed border-light-border dark:border-dark-border rounded-2xl">
+                    Loading community feedback...
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="py-24 bg-light-bg dark:bg-dark-bg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <div
+                        class="w-12 h-12 bg-amber-500/10 text-amber-500 rounded-xl flex items-center justify-center mb-6 text-2xl">
+                        📱</div>
+                    <h2 class="text-3xl font-extrabold mb-4">Your finances, straight to your WhatsApp.</h2>
+                    <p class="text-lg text-light-muted dark:text-dark-muted mb-6">Stop relying on easy-to-miss app
+                        notifications. FinanceFlow integrates directly with WhatsApp to send you actionable bill
+                        reminders and daily spending summaries where you actually look.</p>
+                    <ul class="space-y-3 font-medium">
+                        <li class="flex items-center"><span class="text-emerald-500 mr-2">✓</span> "Rent is due in 3
+                            days. Mark as paid?"</li>
+                        <li class="flex items-center"><span class="text-emerald-500 mr-2">✓</span> Weekly budget health
+                            reports.</li>
+                        <li class="flex items-center"><span class="text-emerald-500 mr-2">✓</span> Secure, one-way
+                            notification system.</li>
+                    </ul>
+                </div>
+                <div
+                    class="aspect-square bg-light-surface dark:bg-dark-surface rounded-2xl border border-light-border dark:border-dark-border shadow-xl flex items-center justify-center relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-br from-amber-500/10 to-transparent"></div>
+                    <p class="text-light-muted dark:text-dark-muted font-medium">[ WhatsApp Mockup UI ]</p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div
+                    class="order-2 md:order-1 aspect-square bg-light-surface dark:bg-dark-surface rounded-2xl border border-light-border dark:border-dark-border shadow-xl flex items-center justify-center relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-br from-violet-500/10 to-transparent"></div>
+                    <p class="text-light-muted dark:text-dark-muted font-medium">[ AI Assistant Mockup UI ]</p>
+                </div>
+                <div class="order-1 md:order-2">
+                    <div
+                        class="w-12 h-12 bg-violet-500/10 text-violet-500 rounded-xl flex items-center justify-center mb-6 text-2xl">
+                        🧠</div>
+                    <h2 class="text-3xl font-extrabold mb-4">Talk to your money using AI.</h2>
+                    <p class="text-lg text-light-muted dark:text-dark-muted mb-6">No more manual entry dropdowns. Just
+                        tell FinanceFlow what you spent, and our AI categorizes it, adjusts your budget buffer, and
+                        updates your goals instantly.</p>
+                    <blockquote
+                        class="border-l-4 border-violet-500 pl-4 py-2 my-6 bg-violet-500/5 rounded-r-lg italic dark:text-gray-300">
+                        "I just spent 45 on groceries and 12 at Starbucks."
+                    </blockquote>
+                    <p class="text-sm text-light-muted dark:text-dark-muted font-medium">Auto-categorized into 'Food &
+                        Dining' & 'Coffee'.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="border-t border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 max-w-3xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-extrabold mb-4">Built for absolute financial clarity.</h2>
+                <p class="text-lg text-light-muted dark:text-dark-muted">Go beyond basic tracking. FinanceFlow combines
+                    advanced mathematical models with AI to completely automate your financial growth.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div
+                    class="p-6 rounded-2xl border border-light-border dark:border-dark-border bg-light-bg dark:bg-dark-bg transition-all hover:-translate-y-1 hover:shadow-xl dark:hover:shadow-pink-500/10">
+                    <div
+                        class="w-12 h-12 bg-pink-500/10 text-pink-500 rounded-xl flex items-center justify-center mb-4 text-2xl">
+                        📊</div>
+                    <h3 class="text-xl font-bold mb-2">Smart Buffer Budgeting</h3>
+                    <p class="text-light-muted dark:text-dark-muted">Apply proven strategies like the 50/30/20 rule and
+                        let our algorithm calculate your exact daily safe-to-spend limit.</p>
+                </div>
+                <div
+                    class="p-6 rounded-2xl border border-light-border dark:border-dark-border bg-light-bg dark:bg-dark-bg transition-all hover:-translate-y-1 hover:shadow-xl dark:hover:shadow-emerald-500/10">
+                    <div
+                        class="w-12 h-12 bg-emerald-500/10 text-emerald-500 rounded-xl flex items-center justify-center mb-4 text-2xl">
+                        🌍</div>
+                    <h3 class="text-xl font-bold mb-2">Dedicated Trip Mode</h3>
+                    <p class="text-light-muted dark:text-dark-muted">Manage multi-currency spending on your travels
+                        without breaking or cluttering your home budget.</p>
+                </div>
+                <div
+                    class="p-6 rounded-2xl border border-light-border dark:border-dark-border bg-light-bg dark:bg-dark-bg transition-all hover:-translate-y-1 hover:shadow-xl dark:hover:shadow-blue-500/10">
+                    <div
+                        class="w-12 h-12 bg-blue-500/10 text-blue-500 rounded-xl flex items-center justify-center mb-4 text-2xl">
+                        🤝</div>
+                    <h3 class="text-xl font-bold mb-2">Collaborative Goals</h3>
+                    <p class="text-light-muted dark:text-dark-muted">Invite your partner or family members to track,
+                        manage, and contribute to shared savings goals in real-time.</p>
+                </div>
+                <div
+                    class="p-6 rounded-2xl border border-light-border dark:border-dark-border bg-light-bg dark:bg-dark-bg transition-all hover:-translate-y-1 hover:shadow-xl dark:hover:shadow-rose-500/10">
+                    <div
+                        class="w-12 h-12 bg-rose-500/10 text-rose-500 rounded-xl flex items-center justify-center mb-4 text-2xl">
+                        📂</div>
+                    <h3 class="text-xl font-bold mb-2">Document & Zakat Hub</h3>
+                    <p class="text-light-muted dark:text-dark-muted">Automatically calculate your Zakat, generate tax
+                        exports, and securely store your financial receipts in one place.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing"
+        class="py-24 bg-light-bg dark:bg-dark-bg border-t border-light-border dark:border-dark-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 max-w-3xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-extrabold mb-4">Simple, transparent pricing.</h2>
+                <p class="text-lg text-light-muted dark:text-dark-muted">Start for free to get a feel for the platform,
+                    or upgrade to Premium to put your finances on autopilot.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <div
+                    class="p-8 rounded-3xl border border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface flex flex-col">
+                    <h3 class="text-2xl font-bold mb-2">Basic</h3>
+                    <p class="text-light-muted dark:text-dark-muted mb-6">Perfect for individuals starting their
+                        financial journey.</p>
+                    <div class="mb-8">
+                        <span class="text-5xl font-extrabold">Free</span>
+                        <span class="text-light-muted dark:text-dark-muted">/forever</span>
+                    </div>
+                    <ul class="space-y-4 mb-8 flex-1">
+                        <li class="flex items-center text-light-text dark:text-dark-text"><span
+                                class="text-emerald-500 mr-3 text-xl">✓</span> Manual Transaction Tracking</li>
+                        <li class="flex items-center text-light-text dark:text-dark-text"><span
+                                class="text-emerald-500 mr-3 text-xl">✓</span> Smart Buffer Budgeting</li>
+                        <li class="flex items-center text-light-text dark:text-dark-text"><span
+                                class="text-emerald-500 mr-3 text-xl">✓</span> Max 2 Savings Goals</li>
+                        <li class="flex items-center text-light-text dark:text-dark-text"><span
+                                class="text-emerald-500 mr-3 text-xl">✓</span> 3 Months of History</li>
+                    </ul>
+                    <button onclick="triggerAppInstall()"
+                        class="w-full py-4 rounded-xl font-bold border-2 border-light-border dark:border-dark-border text-light-text dark:text-dark-text hover:bg-light-bg dark:hover:bg-dark-bg transition-all">Get
+                        Started Free</button>
+                </div>
+
+                <div
+                    class="p-8 rounded-3xl border-2 border-emerald-500 bg-light-surface dark:bg-dark-surface shadow-2xl shadow-emerald-500/20 flex flex-col relative transform md:-translate-y-4">
+                    <div
+                        class="absolute top-0 right-8 transform -translate-y-1/2 bg-gradient-to-r from-emerald-500 to-teal-400 text-white px-4 py-1 rounded-full text-sm font-bold shadow-lg">
+                        Best Value</div>
+                    <h3 class="text-2xl font-bold mb-2 text-emerald-500">Premium</h3>
+                    <p class="text-light-muted dark:text-dark-muted mb-6">Full automation, AI intelligence, and family
+                        collaboration.</p>
+                    <div class="flex items-baseline mb-2">
+                        <span class="text-5xl font-extrabold">$30</span>
+                        <span class="text-light-muted dark:text-dark-muted ml-2">/year</span>
+                    </div>
+                    <p class="text-sm text-emerald-500 font-medium mb-8">Or $3 per month</p>
+                    <ul class="space-y-4 mb-8 flex-1">
+                        <li class="flex items-center text-light-text dark:text-dark-text font-bold"><span
+                                class="text-emerald-500 mr-3 text-xl">✓</span> Everything in Basic, plus:</li>
+                        <li class="flex items-center text-light-text dark:text-dark-text"><span
+                                class="text-emerald-500 mr-3 text-xl">✓</span> Actionable WhatsApp Reminders</li>
+                        <li class="flex items-center text-light-text dark:text-dark-text"><span
+                                class="text-emerald-500 mr-3 text-xl">✓</span> Dedicated Trip Mode & Zakat Calculator
+                        </li>
+                        <li class="flex items-center text-light-text dark:text-dark-text"><span
+                                class="text-emerald-500 mr-3 text-xl">✓</span> Unlimited Collaborative Goals</li>
+                        <li class="flex items-center text-light-text dark:text-dark-text"><span
+                                class="text-emerald-500 mr-3 text-xl">✓</span> Unlimited History & Document Hub</li>
+                    </ul>
+                    <button onclick="triggerAppInstall()"
+                        class="w-full py-4 rounded-xl font-bold bg-emerald-500 hover:bg-emerald-600 text-white transition-all shadow-lg shadow-emerald-500/25">Start
+                        Premium Trial</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq"
+        class="py-24 bg-light-surface dark:bg-dark-surface border-t border-light-border dark:border-dark-border">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-extrabold mb-10 text-center">Frequently Asked Questions</h2>
+
+            <div class="space-y-4">
+                <details
+                    class="group bg-light-bg dark:bg-dark-bg border border-light-border dark:border-dark-border rounded-xl cursor-pointer">
+                    <summary class="flex justify-between items-center font-bold p-6 text-lg">
+                        Is my financial data secure?
+                        <span class="transition group-open:rotate-180">▼</span>
+                    </summary>
+                    <div class="p-6 pt-0 text-light-muted dark:text-dark-muted">
+                        Absolutely. FinanceFlow uses bank-grade encryption (AES-256) to secure your data. We do not
+                        connect directly to your bank credentials, ensuring your underlying accounts are never at risk.
+                    </div>
+                </details>
+
+                <details
+                    class="group bg-light-bg dark:bg-dark-bg border border-light-border dark:border-dark-border rounded-xl cursor-pointer">
+                    <summary class="flex justify-between items-center font-bold p-6 text-lg">
+                        How does the WhatsApp integration work?
+                        <span class="transition group-open:rotate-180">▼</span>
+                    </summary>
+                    <div class="p-6 pt-0 text-light-muted dark:text-dark-muted">
+                        Once you enable it in your Premium settings, our verified WhatsApp business account will send
+                        you scheduled reminders for bills and weekly summaries. You can reply to these messages to
+                        quickly mark bills as paid.
+                    </div>
+                </details>
+
+                <details
+                    class="group bg-light-bg dark:bg-dark-bg border border-light-border dark:border-dark-border rounded-xl cursor-pointer">
+                    <summary class="flex justify-between items-center font-bold p-6 text-lg">
+                        Can I cancel my subscription anytime?
+                        <span class="transition group-open:rotate-180">▼</span>
+                    </summary>
+                    <div class="p-6 pt-0 text-light-muted dark:text-dark-muted">
+                        Yes. You can cancel your Premium subscription at any time directly from your account settings.
+                        You will retain access to Premium features until the end of your billing cycle.
+                    </div>
+                </details>
+
+                <details
+                    class="group bg-light-bg dark:bg-dark-bg border border-light-border dark:border-dark-border rounded-xl cursor-pointer">
+                    <summary class="flex justify-between items-center font-bold p-6 text-lg">
+                        Do I have to download this from the App Store?
+                        <span class="transition group-open:rotate-180">▼</span>
+                    </summary>
+                    <div class="p-6 pt-0 text-light-muted dark:text-dark-muted">
+                        No! FinanceFlow is a Progressive Web App (PWA). You simply click "Get Started," sign up, and
+                        follow the prompt to add the app directly to your phone's home screen. It works natively without
+                        taking up storage space.
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-light-bg dark:bg-dark-bg border-t border-light-border dark:border-dark-border py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <div
+                class="mb-16 p-8 md:p-12 rounded-3xl bg-emerald-500 bg-gradient-to-br from-emerald-500 to-teal-600 text-white flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl shadow-emerald-500/20">
+                <div class="text-center md:text-left">
+                    <h3 class="text-3xl font-extrabold mb-2">Ready to automate your growth?</h3>
+                    <p class="text-emerald-50 opacity-90 text-lg">Join smart spenders and take control of your cash flow
+                        today.</p>
+                </div>
+                <a href="https://app.financeflow.mohammad-abujalboush.com/signup"
+                    class="whitespace-nowrap bg-white text-emerald-600 px-8 py-4 rounded-xl font-bold text-lg hover:bg-emerald-50 transition-colors shadow-lg">
+                    Get Started Free
+                </a>
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+                <div class="flex items-center gap-3">
+                    <img src="FinanceFlow1.png" alt="FinanceFlow Logo" class="w-10 h-10 object-contain">
+                    <div class="flex flex-col">
+                        <span class="font-bold text-xl tracking-tight leading-none">FinanceFlow</span>
+                        <span class="text-xs text-light-muted dark:text-dark-muted mt-1 uppercase tracking-tighter">Take
+                            control of your cash flow.</span>
+                    </div>
+                </div>
+
+                <div
+                    class="flex flex-wrap justify-center gap-x-8 gap-y-4 text-sm font-medium text-light-muted dark:text-dark-muted">
+                    <a href="privacy.html" class="text-sm font-medium hover:text-accent transition-colors">Privacy
+                        Protocol</a> <a href="terms.html"
+                        class="text-sm font-medium hover:text-accent transition-colors">Terms of
+                        Service</a> <a href="mailto:mohammadabujalboush02@gmail.com"
+                        class="hover:text-emerald-500 transition-colors">Support</a>
+                    <a href="https://feedback.mohammad-abujalboush.com"
+                        class="hover:text-emerald-500 transition-colors">Feedback</a>
+                </div>
+
+                <div class="text-xs text-light-muted dark:text-dark-muted font-mono">
+                    © 2026 // BUILT BY <a href="https://portfolio.mohammad-abujalboush.com"
+                        class="hover:text-emerald-500 font-bold">M. ABU JALBOUSH</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div id="ios-prompt"
+        class="fixed bottom-0 left-0 right-0 p-4 transform translate-y-full transition-transform duration-500 z-50">
+        <div
+            class="bg-light-surface dark:bg-dark-surface border border-light-border dark:border-dark-border rounded-2xl shadow-2xl p-4 flex items-start gap-4 relative">
+            <button onclick="closeIosPrompt()"
+                class="absolute top-2 right-2 text-light-muted dark:text-dark-muted p-2">✕</button>
+            <img src="FinanceFlow1.png" class="w-12 h-12 rounded-xl flex-shrink-0 object-contain shadow-sm">
+            <div>
+                <h4 class="font-bold text-sm mb-1">Install FinanceFlow</h4>
+                <p class="text-xs text-light-muted dark:text-dark-muted mb-2">Install this web app on your iPhone: tap
+                    <b>Share</b> below and then <b>Add to Home Screen</b>.
+                </p>
+                <div class="text-2xl text-center animate-bounce mt-2 text-blue-500">↓</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let deferredPrompt;
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+        });
+
+        function triggerAppInstall() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    deferredPrompt = null;
+                });
+                return;
+            }
+
+            const isIos = () => /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
+            const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
+
+            if (isIos() && !isInStandaloneMode()) {
+                document.getElementById('ios-prompt').classList.remove('translate-y-full');
+            } else {
+                window.location.href = "https://app.financeflow.mohammad-abujalboush.com/signup";
+            }
+        }
+
+        function closeIosPrompt() {
+            document.getElementById('ios-prompt').classList.add('translate-y-full');
+        }
+    </script>
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+        // ==========================================
+        // ADD YOUR SUPABASE CREDENTIALS HERE
+        // ==========================================
+        const supabaseUrl = 'https://dvlabpioxtyyzvhzpmyc.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2bGFicGlveHR5eXp2aHpwbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1MDY4NzUsImV4cCI6MjA4OTA4Mjg3NX0.fBM9r7WXpntVUM-qsBDQFlknRf2vMyIpJTp5ww9pzUM';
+        const supabase = createClient(supabaseUrl, supabaseKey);
+
+        async function loadTestimonials() {
+            const container = document.getElementById('testimonials-container');
+
+            try {
+                // Fetch testimonials specifically linked to "FinanceFlow"
+                // The !inner join ensures we only get rows where the product name matches
+                const { data, error } = await supabase
+                    .from('testimonials')
+                    .select(`
+                    id,
+                    user_name,
+                    rating,
+                    message,
+                    products!inner(name)
+                `)
+                    .eq('products.name', 'FinanceFlow')
+                    .order('created_at', { ascending: false })
+                    .limit(6); // Show max 6 latest reviews
+
+                if (error) throw error;
+
+                // Empty State Handling
+                if (!data || data.length === 0) {
+                    container.innerHTML = `
+                    <div class="col-span-3 text-center py-12 text-light-muted dark:text-dark-muted border-2 border-dashed border-light-border dark:border-dark-border rounded-2xl">
+                        No reviews yet. Be the first to share your experience!
+                    </div>
+                `;
+                    return;
+                }
+
+                // Map the data to your Tailwind UI cards
+                container.innerHTML = data.map(review => {
+                    // Generate solid vs outline stars based on rating
+                    const solidStars = '★'.repeat(review.rating);
+                    const emptyStars = '☆'.repeat(5 - review.rating);
+                    const starHTML = solidStars + emptyStars;
+
+                    return `
+                    <div class="p-6 rounded-2xl bg-light-surface dark:bg-dark-surface border border-light-border dark:border-dark-border shadow-sm hover:-translate-y-1 transition-transform">
+                        <div class="flex text-amber-400 mb-3 text-lg tracking-widest">${starHTML}</div>
+                        <p class="text-light-text dark:text-dark-text italic mb-4">"${review.message}"</p>
+                        <div class="font-bold text-emerald-500">- ${review.user_name}</div>
+                    </div>
+                `;
+                }).join('');
+
+            } catch (error) {
+                console.error('Error fetching testimonials:', error);
+                container.innerHTML = `
+                <div class="col-span-full text-center py-12 text-light-muted font-medium">
+                    Unable to load testimonials at this time.
+                </div>
+            `;
+            }
+        }
+
+        // Run the fetch when the page loads
+        loadTestimonials();
+    </script>
+</body>
+
+</html>

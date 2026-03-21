@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohammad Abu Jalboush | Full Stack & Workflow Architect</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap');
+
+        :root {
+            --bg: #020617;
+            --accent: #38bdf8;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: #f1f5f9;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+            width: 100%;
+            position: relative;
+        }
+
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        section {
+            transition: opacity 1.2s ease-in-out;
+        }
+
+        .glass-nav {
+            background: rgba(2, 6, 23, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+        }
+
+        .project-card {
+            background: #0f172a;
+            border: 1px solid #1e293b;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            height: 100%;
+        }
+
+        .project-card:hover {
+            border-color: #38bdf8;
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        /* New Live Product Card Styles */
+        .live-product-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 1.5rem;
+            border: 1px solid #1e293b;
+            background: #0f172a;
+        }
+
+        .live-product-card img {
+            transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.5s ease;
+        }
+
+        .live-product-card:hover img {
+            transform: scale(1.05);
+            opacity: 0.3;
+        }
+
+        .live-product-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            background: linear-gradient(to top, rgba(2, 6, 23, 0.9), rgba(2, 6, 23, 0.4));
+        }
+
+        .live-product-card:hover .live-product-overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .wa-btn {
+            border: 1px solid #1e293b;
+            background: rgba(30, 41, 59, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .wa-btn:hover {
+            border-color: #25d366;
+            background: rgba(37, 211, 102, 0.1);
+            color: #25d366;
+        }
+
+        input,
+        textarea {
+            background: #0f172a !important;
+            border: 1px solid #1e293b !important;
+            color: white !important;
+        }
+
+        .tag {
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--accent);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="fixed w-full z-50 px-4 md:px-10 py-5 glass-nav flex justify-between items-center">
+        <a href="#"
+            class="text-xl font-extrabold tracking-tighter uppercase cursor-pointer hover:text-sky-400 transition">
+            M. <span class="text-sky-400">Jalboush</span>
+        </a>
+
+        <div class="hidden md:flex space-x-10 text-[10px] uppercase tracking-[0.3em] font-bold text-slate-500">
+            <a href="#about" class="hover:text-sky-400 transition">Profile</a>
+            <a href="#systems" class="hover:text-sky-400 transition">Ecosystems</a>
+            <a href="#automation" class="hover:text-sky-400 transition">Automations</a>
+            <a href="#live-products" class="hover:text-sky-400 transition">Products</a>
+            <a href="#contact" class="hover:text-sky-400 transition">Engagement</a>
+        </div>
+
+        <div class="flex items-center space-x-4">
+            <a href="tel:+962776110639" class="text-slate-400 hover:text-sky-400 transition">
+                <i class="fa-solid fa-phone"></i>
+            </a>
+            <a href="#contact"
+                class="bg-sky-500 text-white px-5 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-sky-400 transition">Inquire</a>
+
+            <button id="mobile-menu-btn"
+                class="md:hidden z-[70] text-slate-400 hover:text-sky-400 text-2xl transition-all duration-300">
+                <i id="menu-icon" class="fa-solid fa-bars-staggered"></i>
+            </button>
+        </div>
+
+        <div id="mobile-menu"
+            class="fixed inset-0 bg-[#020617] z-[60] w-full h-screen flex flex-col justify-center items-center space-y-8 opacity-0 pointer-events-none transition-all duration-500 ease-in-out -translate-y-full">
+            <span class="mono text-sky-500 text-[10px] tracking-[0.5em] mb-4 uppercase opacity-50">// System
+                Navigation</span>
+
+            <a href="#about"
+                class="mobile-link text-3xl font-bold tracking-tighter text-white hover:text-sky-400">Profile</a>
+            <a href="#systems"
+                class="mobile-link text-3xl font-bold tracking-tighter text-white hover:text-sky-400">Ecosystems</a>
+            <a href="#automation"
+                class="mobile-link text-3xl font-bold tracking-tighter text-white hover:text-sky-400">Automations</a>
+            <a href="#live-products"
+                class="mobile-link text-3xl font-bold tracking-tighter text-white hover:text-sky-400">Products</a>
+            <a href="#contact"
+                class="mobile-link text-3xl font-bold tracking-tighter text-white hover:text-sky-400">Engagement</a>
+
+            <div class="pt-10 flex space-x-10 border-t border-slate-800 w-2/3 justify-center mt-6">
+                <a href="tel:+962776110639" class="text-slate-400 hover:text-sky-400 text-2xl"><i
+                        class="fa-solid fa-phone"></i></a>
+                <a href="https://wa.me/962776110639" class="text-slate-400 hover:text-green-500 text-2xl"><i
+                        class="fa-brands fa-whatsapp"></i></a>
+                <a href="mailto:mohammadabujalboush02@gmail.com" class="text-slate-400 hover:text-sky-400 text-2xl"><i
+                        class="fa-solid fa-envelope"></i></a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="min-h-screen flex flex-col justify-center px-6 md:px-24 pt-32 pb-12 md:pt-0">
+        <div data-aos="fade-right">
+            <h2 class="mono text-sky-500 mb-6 text-sm tracking-widest uppercase italic">// Strategic Systems Engineering
+            </h2>
+            <h1 class="text-6xl md:text-[7rem] font-extrabold mb-8 leading-[0.9] tracking-tighter">
+                Transforming <br><span class="text-gradient">Chaos into Code.</span>
+            </h1>
+            <div class="text-xl text-slate-400 max-w-3xl leading-relaxed mb-12 space-y-6">
+                <p>
+                    Mohammad Abu Jalboush: <span class="text-white font-bold">Full Stack Developer & Workflow
+                        Architect</span>.<br>
+                    I specialize in the architectural re-engineering of manual, fragmented business processes into
+                    cohesive, production-ready digital ecosystems.
+                </p>
+                <p class="text-lg">
+                    With a proven track record of 5 years in delivery excellence, I bridge the critical gap between
+                    high-level business strategy and technical execution.
+                    Whether it's building offline-first enterprise platforms or autonomous AI-driven pipelines, my focus
+                    remains on scalability, resilience, and operational efficiency.
+                </p>
+                <div class="flex flex-wrap gap-x-8 gap-y-2 text-xs mono uppercase tracking-widest text-sky-400/70">
+                    <span><i class="fa-solid fa-microchip mr-2"></i> Custom SaaS Architecture</span>
+                    <span><i class="fa-solid fa-diagram-project mr-2"></i> Workflow Automation</span>
+                    <span><i class="fa-solid fa-mobile-screen mr-2"></i> Multi-Platform Delivery</span>
+                </div>
+            </div>
+            <div class="flex flex-wrap gap-6 items-center">
+                <a href="#systems"
+                    class="bg-sky-500 text-white px-10 py-5 rounded-full font-bold transition hover:shadow-[0_0_30px_rgba(56,189,248,0.4)]">
+                    View Ecosystems
+                </a>
+                <a href="https://wa.me/962776110639"
+                    class="wa-btn flex items-center space-x-4 px-6 py-4 rounded-full group">
+                    <i class="fab fa-whatsapp text-2xl text-green-500"></i>
+                    <span class="font-bold text-sm tracking-wide">Direct Technical Intake</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-32 px-6 md:px-24 border-y border-slate-900 bg-slate-900/10">
+        <div class="grid lg:grid-cols-2 gap-20">
+            <div data-aos="fade-up">
+                <h3 class="text-sm mono text-sky-500 uppercase tracking-widest mb-4">01 // Profile & Core Competency
+                </h3>
+                <h2 class="text-5xl font-bold mb-10 italic">The Systems Architect</h2>
+                <div class="text-lg text-slate-400 leading-loose mb-8 space-y-4">
+                    <p>
+                        Highly skilled Developer with <strong>5 years of experience</strong> specializing in the
+                        intersection of <strong>Business Development</strong> and <strong>Workflow Automation</strong>.
+                        I bridge the gap between complex, manual business operations and high-performance digital
+                        solutions.
+                    </p>
+                    <p>
+                        My expertise lies in deep-tier operational analysis—taking fragmented legacy workflows,
+                        re-engineering them for maximum efficiency, and deploying fully automated, multi-platform
+                        digital ecosystems that scale. I don't just build apps; I architect the digital backbone
+                        of modern enterprises.
+                    </p>
+                </div>
+                <div class="grid grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="text-sky-500 font-bold mb-1">Expertise</h4>
+                        <p class="text-sm text-slate-500">Full Stack Engineering, Digital Transformation & Custom SaaS
+                            Architecture</p>
+                    </div>
+                    <div>
+                        <h4 class="text-sky-500 font-bold mb-1">Education</h4>
+                        <p class="text-sm text-slate-500">Computer Science | Applied Science Private University</p>
+                    </div>
+                </div>
+            </div>
+            <div class="space-y-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="p-8 bg-slate-900 border border-slate-800 rounded-3xl">
+                    <h4 class="font-bold mb-4 italic text-sky-400">The Delivery Model</h4>
+                    <p class="text-sm text-slate-400 leading-relaxed mb-4">
+                        "I maintain absolute end-to-end ownership. From initial discovery and deep-dive workflow
+                        modeling to UI/UX,
+                        complex backend API development, autonomous integrations, and production-grade delivery."
+                    </p>
+                    <div class="pt-4 border-t border-slate-800">
+                        <p class="text-xs mono text-slate-500 uppercase tracking-tighter italic">Focused on:
+                            Scalability, Security, and Offline-First Resilience.</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="p-6 bg-slate-900/40 border border-slate-800 rounded-2xl">
+                        <h5 class="text-white font-bold text-sm mb-2">Technical Mastery</h5>
+                        <p class="text-[11px] text-slate-500 leading-relaxed">Proficient in Flutter, .NET Core, SQL, and
+                            Unity, allowing for truly cross-platform enterprise delivery.</p>
+                    </div>
+                    <div class="p-6 bg-slate-900/40 border border-slate-800 rounded-2xl">
+                        <h5 class="text-white font-bold text-sm mb-2">Strategic Impact</h5>
+                        <p class="text-[11px] text-slate-500 leading-relaxed">Designing systems for diverse domains
+                            including Legal Tech, NGO management, and Destination Super-Apps.</p>
+                    </div>
+                </div>
+                <div class="flex flex-wrap gap-3 pt-2">
+                    <span
+                        class="px-4 py-2 border border-sky-500/30 rounded text-xs font-mono uppercase tracking-widest text-sky-400 bg-sky-400/10">Enterprise
+                        SaaS</span>
+                    <span
+                        class="px-4 py-2 border border-sky-500/30 rounded text-xs font-mono uppercase tracking-widest text-sky-400 bg-sky-400/10">CRM
+                        / Sales Operations</span>
+                    <span
+                        class="px-4 py-2 border border-sky-500/30 rounded text-xs font-mono uppercase tracking-widest text-sky-400 bg-sky-400/10">ERP
+                        / Inventory</span>
+                    <span
+                        class="px-4 py-2 border border-sky-500/30 rounded text-xs font-mono uppercase tracking-widest text-sky-400 bg-sky-400/10">POS
+                        / Retail</span>
+                    <span
+                        class="px-4 py-2 border border-sky-500/30 rounded text-xs font-mono uppercase tracking-widest text-sky-400 bg-sky-400/10">Destination
+                        Super Apps</span>
+                    <span
+                        class="px-4 py-2 border border-sky-500/30 rounded text-xs font-mono uppercase tracking-widest text-sky-400 bg-sky-400/10">Hospitality
+                        & Food Ordering</span>
+                    <span
+                        class="px-4 py-2 border border-slate-800 rounded text-xs font-mono uppercase tracking-widest text-slate-400 bg-slate-800/20">Booking
+                        & Scheduling</span>
+                    <span
+                        class="px-4 py-2 border border-slate-800 rounded text-xs font-mono uppercase tracking-widest text-slate-400 bg-slate-800/20">Queue
+                        Management</span>
+                    <span
+                        class="px-4 py-2 border border-slate-800 rounded text-xs font-mono uppercase tracking-widest text-slate-400 bg-slate-800/20">Parking
+                        Management</span>
+                    <span
+                        class="px-4 py-2 border border-slate-800 rounded text-xs font-mono uppercase tracking-widest text-slate-400 bg-slate-800/20">EV
+                        Charging & Reservations</span>
+                    <span
+                        class="px-4 py-2 border border-slate-800 rounded text-xs font-mono uppercase tracking-widest text-slate-400 bg-slate-800/20">Marketplace
+                        / Multi-Merchant</span>
+                    <span
+                        class="px-4 py-2 border border-slate-800 rounded text-xs font-mono uppercase tracking-widest text-slate-400 bg-slate-800/20">PDF
+                        / Document Gen</span>
+                    <span
+                        class="px-4 py-2 border border-slate-800 rounded text-xs font-mono uppercase tracking-widest text-slate-400 bg-slate-800/20">Thermal
+                        Printing</span>
+                    <span
+                        class="px-4 py-2 border border-slate-800 rounded text-xs font-mono uppercase tracking-widest text-slate-400 bg-slate-800/20">Barcode
+                        & Labeling</span>
+                    <span
+                        class="px-4 py-2 border border-slate-800 rounded text-xs font-mono uppercase tracking-widest text-slate-400 bg-slate-800/20">Maps
+                        & Polygon Layers</span>
+                    <span
+                        class="px-4 py-2 border border-slate-800 rounded text-xs font-mono uppercase tracking-widest text-slate-400 bg-slate-800/20">Real
+                        Estate Operations</span>
+                    <span
+                        class="px-4 py-2 border border-slate-800 rounded text-xs font-mono uppercase tracking-widest text-slate-400 bg-slate-800/20">Legal
+                        Tech</span>
+                    <span
+                        class="px-4 py-2 border border-slate-800 rounded text-xs font-mono uppercase tracking-widest text-slate-400 bg-slate-800/20">Workflow
+                        Automation</span>
+                    <span
+                        class="px-4 py-2 border border-slate-800 rounded text-xs font-mono uppercase tracking-widest text-sky-500/60 bg-slate-800/20">AI
+                        Systems (Roadmap)</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="systems" class="py-32 px-6 md:px-24">
+        <div class="mb-20" data-aos="fade-up">
+            <h3 class="text-sm mono text-sky-500 uppercase tracking-widest mb-4">02 // Engineered Solutions</h3>
+            <h2 class="text-5xl font-bold italic text-center text-gradient">Core Assets & Ecosystems</h2>
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-12 mb-20">
+            <div class="project-card p-10 rounded-[2.5rem]" data-aos="fade-up">
+                <div class="flex justify-between items-start mb-6">
+                    <i class="fa-solid fa-map-location-dot text-sky-500 text-3xl"></i>
+                    <span class="text-[10px] mono text-slate-500 uppercase underline tracking-widest">Village
+                        Super-App</span>
+                </div>
+                <h3 class="text-3xl font-bold mb-4 italic">Destination Village Super App</h3>
+                <p class="text-slate-400 mb-8 leading-relaxed">
+                    A comprehensive operational platform consolidating an entire village ecosystem into a single digital
+                    entry point.
+                    I engineered the unified ordering, resource scheduling, and operational logic for merchants and
+                    visitors.
+                </p>
+                <ul class="text-[12px] text-slate-500 space-y-3 mb-8 mono">
+                    <li><span class="text-sky-500">>></span> Multi-merchant food and café ordering with structured
+                        fulfillment.</li>
+                    <li><span class="text-sky-500">>></span> Entertainment center booking & time-slot based scheduling.
+                    </li>
+                    <li><span class="text-sky-500">>></span> Queue reservations for major attractions (Boat &
+                        Teleferic).</li>
+                    <li><span class="text-sky-500">>></span> Parking management integrated with QR validation logic.
+                    </li>
+                    <li><span class="text-sky-500">>></span> EV charging discovery and reservation module.</li>
+                    <li><span class="text-sky-500">>></span> Role-based staff, merchant, and admin operational design.
+                    </li>
+                </ul>
+                <div class="flex flex-wrap gap-2">
+                    <span
+                        class="bg-slate-800 px-3 py-1 rounded text-[10px] uppercase font-bold text-sky-400 border border-sky-400/20">Flutter</span>
+                    <span
+                        class="bg-slate-800 px-3 py-1 rounded text-[10px] uppercase font-bold text-sky-400 border border-sky-400/20">.NET
+                        Core</span>
+                    <span
+                        class="bg-slate-800 px-3 py-1 rounded text-[10px] uppercase font-bold text-sky-400 border border-sky-400/20">PostgreSQL</span>
+                </div>
+            </div>
+
+            <div class="project-card p-10 rounded-[2.5rem]" data-aos="fade-up" data-aos-delay="100">
+                <div class="flex justify-between items-start mb-6">
+                    <i class="fa-solid fa-box-open text-sky-500 text-3xl"></i>
+                    <span class="text-[10px] mono text-slate-500 uppercase underline tracking-widest">Enterprise
+                        SaaS</span>
+                </div>
+                <h3 class="text-3xl font-bold mb-4 italic">Enterprise Business Platform</h3>
+                <p class="text-slate-400 mb-8 leading-relaxed">
+                    A mission-critical suite combining CRM, POS, and Inventory. Engineered for real-world resilience
+                    with an offline-first architecture and seamless cloud synchronization.
+                </p>
+                <ul class="text-[12px] text-slate-500 space-y-3 mb-8 mono">
+                    <li><span class="text-sky-500">>></span> Advanced CRM with follow-ups and calendar-driven
+                        engagement.</li>
+                    <li><span class="text-sky-500">>></span> Debt management: collections tracking & outstanding
+                        balances.</li>
+                    <li><span class="text-sky-500">>></span> Offline-first: local storage with exportable JSON backups.
+                    </li>
+                    <li><span class="text-sky-500">>></span> Google Drive & Calendar API deep integration.</li>
+                    <li><span class="text-sky-500">>></span> Barcode generation & scan-to-open record workflows.</li>
+                    <li><span class="text-sky-500">>></span> Bluetooth thermal printing for receipts and packaging
+                        labels.</li>
+                </ul>
+                <div class="flex flex-wrap gap-2">
+                    <span
+                        class="bg-slate-800 px-3 py-1 rounded text-[10px] uppercase font-bold text-sky-400 border border-sky-400/20">Offline
+                        Architecture</span>
+                    <span
+                        class="bg-slate-800 px-3 py-1 rounded text-[10px] uppercase font-bold text-sky-400 border border-sky-400/20">SDK
+                        Integration</span>
+                    <span
+                        class="bg-slate-800 px-3 py-1 rounded text-[10px] uppercase font-bold text-sky-400 border border-sky-400/20">C#</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+            <div class="project-card p-8 rounded-[2rem]" data-aos="fade-up">
+                <h3 class="text-xl font-bold mb-3 italic">Real Estate Ops Platform</h3>
+                <p class="text-xs text-slate-400 mb-6 leading-relaxed">Centralized property data with polygon-based map
+                    highlighting, ownership tracking, and automated lead handling pipelines.</p>
+                <div class="text-[10px] mono text-sky-500 uppercase tracking-widest border-t border-slate-800 pt-4">
+                    Geo-Visualization & CRM</div>
+            </div>
+
+            <div class="project-card p-8 rounded-[2rem]" data-aos="fade-up" data-aos-delay="100">
+                <h3 class="text-xl font-bold mb-3 italic">Legal Tech Platform</h3>
+                <p class="text-xs text-slate-400 mb-6 leading-relaxed">Regulations library with structured workflows for
+                    case preparation, evidence organization, and judicial documentation retrieval.</p>
+                <div class="text-[10px] mono text-sky-500 uppercase tracking-widest border-t border-slate-800 pt-4">
+                    Judicial Workflow SaaS</div>
+            </div>
+
+            <div class="project-card p-8 rounded-[2rem]" data-aos="fade-up" data-aos-delay="200">
+                <h3 class="text-xl font-bold mb-3 italic">Next-Gen E-Commerce</h3>
+                <p class="text-xs text-slate-400 mb-6 leading-relaxed">Gamified shopping experience featuring 20+
+                    mini-games, loyalty mechanics, and live stream commerce capabilities.</p>
+                <div class="text-[10px] mono text-sky-500 uppercase tracking-widest border-t border-slate-800 pt-4">
+                    Engagement & Logistics</div>
+            </div>
+
+            <div class="project-card p-8 rounded-[2rem]" data-aos="fade-up">
+                <h3 class="text-xl font-bold mb-3 italic">NGO Grants System</h3>
+                <p class="text-xs text-slate-400 mb-6 leading-relaxed">Automated lifecycle management: submission,
+                    multi-layer review, approval tracking, and operational transparency.</p>
+                <div class="text-[10px] mono text-sky-500 uppercase tracking-widest border-t border-slate-800 pt-4">
+                    Workflow Automation</div>
+            </div>
+
+            <div class="project-card p-8 rounded-[2rem]" data-aos="fade-up" data-aos-delay="100">
+                <h3 class="text-xl font-bold mb-3 italic">Student Security System</h3>
+                <p class="text-xs text-slate-400 mb-6 leading-relaxed">QR & Biometric verification for student exits,
+                    integrated bus tracking, and parent pickup permission workflows.</p>
+                <div class="text-[10px] mono text-sky-500 uppercase tracking-widest border-t border-slate-800 pt-4">
+                    Security & Logistics</div>
+            </div>
+
+            <div class="project-card p-8 rounded-[2rem]" data-aos="fade-up" data-aos-delay="100">
+                <h3 class="text-xl font-bold mb-3 italic">SaaS Contract Engine</h3>
+                <p class="text-xs text-slate-400 mb-6 leading-relaxed">
+                    A high-velocity B2B utility designed for instant pricing and automated contract governance. This
+                    system eliminates manual drafting errors by injecting business rules into dynamic document
+                    generation.
+                </p>
+
+                <div class="text-[10px] mono text-sky-500 uppercase tracking-widest border-t border-slate-800 pt-4">
+                    Legal Tech & B2B Utility
+                </div>
+            </div>
+
+            <div class="project-card p-8 rounded-[2rem]" data-aos="fade-up" data-aos-delay="200">
+                <h3 class="text-xl font-bold mb-3 italic">Equipment Rental Platform</h3>
+                <p class="text-xs text-slate-400 mb-6 leading-relaxed">Marketplace machinery rentals with digital
+                    contracting, asset maintenance logs, and availability scheduling.</p>
+                <div class="text-[10px] mono text-sky-500 uppercase tracking-widest border-t border-slate-800 pt-4">B2B
+                    Marketplace</div>
+            </div>
+
+            <div class="project-card p-8 rounded-[2rem]" data-aos="fade-up">
+                <h3 class="text-xl font-bold mb-3 italic">Modern POS Architecture</h3>
+                <p class="text-xs text-slate-400 mb-6 leading-relaxed">Highly optimized architecture focused on speed,
+                    accuracy, and operational UX for high-volume retail.</p>
+                <div class="text-[10px] mono text-sky-500 uppercase tracking-widest border-t border-slate-800 pt-4">
+                    Retail Efficiency</div>
+            </div>
+
+            <div class="project-card p-8 rounded-[2rem]" data-aos="fade-up" data-aos-delay="100">
+                <h3 class="text-xl font-bold mb-3 italic">QR Smart-Order System</h3>
+                <p class="text-xs text-slate-400 mb-6 leading-relaxed">Direct-to-kitchen hospitality ordering with
+                    self-service payment flows and real-time status notifications.</p>
+                <div class="text-[10px] mono text-sky-500 uppercase tracking-widest border-t border-slate-800 pt-4">
+                    Hospitality Tech</div>
+            </div>
+
+            <div class="project-card p-8 rounded-[2rem]" data-aos="fade-up" data-aos-delay="200">
+                <h3 class="text-xl font-bold mb-3 italic">Media Aggregation Platform</h3>
+                <p class="text-xs text-slate-400 mb-6 leading-relaxed">Unified content interface integrating live TV
+                    streams, blog feeds, and podcasts into a single delivery point.</p>
+                <div class="text-[10px] mono text-sky-500 uppercase tracking-widest border-t border-slate-800 pt-4">
+                    Content Ecosystem</div>
+            </div>
+        </div>
+
+        <div class="bg-slate-950 p-12 rounded-[3rem] border border-slate-800/50" data-aos="fade-up">
+            <h4 class="text-xl font-bold mb-10 italic uppercase tracking-widest text-center">UI/UX Specialized Registry
+            </h4>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 text-sm">
+                <div
+                    class="p-6 border-l-2 border-slate-800 hover:border-sky-500 transition-colors bg-slate-900/30 rounded-r-2xl">
+                    <h5 class="text-sky-500 font-bold mb-1 tracking-tight">HR & Attendance</h5>
+                    <p class="text-[11px] text-slate-500">Geo-fenced biometric attendance utilizing Google Maps API for
+                        remote workforce governance.</p>
+                </div>
+                <div
+                    class="p-6 border-l-2 border-slate-800 hover:border-sky-500 transition-colors bg-slate-900/30 rounded-r-2xl">
+                    <h5 class="text-sky-500 font-bold mb-1 tracking-tight">Cinema Management</h5>
+                    <p class="text-[11px] text-slate-500">End-to-end ticketing flow with dynamic QR generation for
+                        automated turnstile gate entry.</p>
+                </div>
+                <div
+                    class="p-6 border-l-2 border-slate-800 hover:border-sky-500 transition-colors bg-slate-900/30 rounded-r-2xl">
+                    <h5 class="text-sky-500 font-bold mb-1 tracking-tight">Luxury Transport</h5>
+                    <p class="text-[11px] text-slate-500">Bespoke chauffeur and vehicle rental interface designed
+                        specifically for high-end clientele UX.</p>
+                </div>
+                <div
+                    class="p-6 border-l-2 border-slate-800 hover:border-sky-500 transition-colors bg-slate-900/30 rounded-r-2xl">
+                    <h5 class="text-sky-500 font-bold mb-1 tracking-tight">EdTech Platform</h5>
+                    <p class="text-[11px] text-slate-500">Comprehensive course management, video delivery, and student
+                        progress tracking interface.</p>
+                </div>
+                <div
+                    class="p-6 border-l-2 border-slate-800 hover:border-sky-500 transition-colors bg-slate-900/30 rounded-r-2xl">
+                    <h5 class="text-sky-500 font-bold mb-1 tracking-tight">Digital Library</h5>
+                    <p class="text-[11px] text-slate-500">Interactive community storytelling platform allowing
+                        crowd-sourced contributions to archives.</p>
+                </div>
+                <div
+                    class="p-6 border-l-2 border-slate-800 hover:border-sky-500 transition-colors bg-slate-900/30 rounded-r-2xl">
+                    <h5 class="text-sky-500 font-bold mb-1 tracking-tight">Delivery Network</h5>
+                    <p class="text-[11px] text-slate-500">Decentralized logistics dashboard connecting freelance driver
+                        networks to real-time user requests.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="automation" class="py-32 px-6 md:px-24 bg-slate-900/10">
+        <div class="mb-20 text-center" data-aos="zoom-in">
+            <h3 class="text-sm mono text-sky-500 uppercase tracking-widest mb-4">03 // Intelligent Pipelines</h3>
+            <h2 class="text-5xl font-bold italic">Autonomous Engineering</h2>
+            <p class="text-slate-400 mt-4 max-w-2xl mx-auto">Workflow automation systems designed to reduce manual
+                effort, improve decision quality, and execute business outcomes through structured AI pipelines.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="p-8 project-card rounded-3xl" data-aos="fade-up">
+                <h4 class="text-2xl font-bold mb-4 italic text-sky-400">Lead Gen & Outreach</h4>
+                <p class="text-sm text-slate-300 mb-6">Multi-channel discovery and enrichment preparation workflow.</p>
+                <ul class="text-[11px] text-slate-500 space-y-2 mb-8 mono">
+                    <li>> Market scan across web & social for demand signals.</li>
+                    <li>> High-intent targeting: CEOs, Founders, and SMBs.</li>
+                    <li>> Contact enrichment: Email, Phone, and Profile links.</li>
+                    <li>> Automated outreach drafts tailored per lead.</li>
+                    <li>> Value-based skill positioning & pricing guidance.</li>
+                </ul>
+                <div
+                    class="text-[10px] mono text-sky-500 font-bold uppercase tracking-widest border-t border-slate-800 pt-4">
+                    Status: Operational</div>
+            </div>
+
+            <div class="p-8 project-card rounded-3xl" data-aos="fade-up" data-aos-delay="100">
+                <h4 class="text-2xl font-bold mb-4 italic text-sky-400">Market Intelligence</h4>
+                <p class="text-sm text-slate-300 mb-6">Automated regional market analysis with strategic
+                    recommendations.</p>
+                <ul class="text-[11px] text-slate-500 space-y-2 mb-8 mono">
+                    <li>> Competitive scan & real-time demand analysis.</li>
+                    <li>> Feasibility output with risk assessment logic.</li>
+                    <li>> Business model & Go-To-Market recommendations.</li>
+                    <li>> Structured report generation for stakeholders.</li>
+                    <li>> Justification logic for strategic decision-making.</li>
+                </ul>
+                <div
+                    class="text-[10px] mono text-sky-500 font-bold uppercase tracking-widest border-t border-slate-800 pt-4">
+                    Status: Operational</div>
+            </div>
+
+            <div class="p-8 project-card rounded-3xl" data-aos="fade-up" data-aos-delay="200">
+                <h4 class="text-2xl font-bold mb-4 italic text-sky-400">Resume Intelligence</h4>
+                <p class="text-sm text-slate-300 mb-6">Automated pipeline transforming talent data into opportunities.
+                </p>
+                <ul class="text-[11px] text-slate-500 space-y-2 mb-8 mono">
+                    <li>> Resume parsing & capability profiling.</li>
+                    <li>> Role recommendation aligned to skill-depth.</li>
+                    <li>> Web-wide job discovery across global sources.</li>
+                    <li>> Job fit scoring (0–10) with evidence rationale.</li>
+                    <li>> Automated delivery of curated application links.</li>
+                </ul>
+                <div
+                    class="text-[10px] mono text-sky-500 font-bold uppercase tracking-widest border-t border-slate-800 pt-4">
+                    Status: Operational</div>
+            </div>
+        </div>
+
+        <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="p-6 bg-slate-900 border border-slate-800 rounded-2xl group hover:border-sky-500/50 transition-all"
+                data-aos="fade-up">
+                <h5 class="text-xs font-bold uppercase text-slate-400 mb-2">AI Voice Agent</h5>
+                <p class="text-[10px] text-slate-600 leading-relaxed">Conversational agent for bookings and sales
+                    qualification.</p>
+                <span class="text-[9px] mono text-sky-500 mt-3 block">[ ROADMAP ]</span>
+            </div>
+            <div class="p-6 bg-slate-900 border border-slate-800 rounded-2xl group hover:border-sky-500/50 transition-all"
+                data-aos="fade-up" data-aos-delay="100">
+                <h5 class="text-xs font-bold uppercase text-slate-400 mb-2">Support AI</h5>
+                <p class="text-[10px] text-slate-600 leading-relaxed">Escalation logic and automated knowledge routing.
+                </p>
+                <span class="text-[9px] mono text-sky-500 mt-3 block">[ ROADMAP ]</span>
+            </div>
+            <div class="p-6 bg-slate-900 border border-slate-800 rounded-2xl group hover:border-sky-500/50 transition-all"
+                data-aos="fade-up" data-aos-delay="200">
+                <h5 class="text-xs font-bold uppercase text-slate-400 mb-2">WhatsApp Sales</h5>
+                <p class="text-[10px] text-slate-600 leading-relaxed">Automated reactivation and lead nurturing
+                    pipelines.</p>
+                <span class="text-[9px] mono text-sky-500 mt-3 block">[ ROADMAP ]</span>
+            </div>
+            <div class="p-6 bg-slate-900 border border-slate-800 rounded-2xl group hover:border-sky-500/50 transition-all"
+                data-aos="fade-up" data-aos-delay="300">
+                <h5 class="text-xs font-bold uppercase text-slate-400 mb-2">AI Marketing</h5>
+                <p class="text-[10px] text-slate-600 leading-relaxed">Content creation, posting, and CRM auto-logging.
+                </p>
+                <span class="text-[9px] mono text-sky-500 mt-3 block">[ ROADMAP ]</span>
+            </div>
+        </div>
+
+        <div class="mt-24" data-aos="fade-up">
+            <h4 class="text-center mono text-sky-500 uppercase text-xs mb-8 underline tracking-[0.4em]">Secondary
+                Technical Competencies (Unity/C#)</h4>
+            <div class="flex flex-wrap justify-center gap-4">
+                <span
+                    class="px-5 py-2 border border-slate-800 bg-slate-900/50 rounded-full text-[10px] font-bold text-slate-400 hover:text-sky-400 hover:border-sky-400 transition-all">Retro
+                    Galaxy Fighter Logic</span>
+                <span
+                    class="px-5 py-2 border border-slate-800 bg-slate-900/50 rounded-full text-[10px] font-bold text-slate-400 hover:text-sky-400 hover:border-sky-400 transition-all">Full
+                    3D Racing Physics</span>
+                <span
+                    class="px-5 py-2 border border-slate-800 bg-slate-900/50 rounded-full text-[10px] font-bold text-slate-400 hover:text-sky-400 hover:border-sky-400 transition-all">Heist
+                    Action AI Logic</span>
+                <span
+                    class="px-5 py-2 border border-slate-800 bg-slate-900/50 rounded-full text-[10px] font-bold text-slate-400 hover:text-sky-400 hover:border-sky-400 transition-all">Multi-Env
+                    Escape Room</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="live-products" class="py-32 px-6 md:px-24 border-t border-slate-900">
+        <div class="mb-20 text-center" data-aos="zoom-in">
+            <h3 class="text-sm mono text-sky-500 uppercase tracking-widest mb-4">04 // Ready for Deployment</h3>
+            <h2 class="text-5xl font-bold italic">Live Digital Products</h2>
+            <p class="text-slate-400 mt-4 max-w-2xl mx-auto">Production-ready systems, SaaS platforms, and
+                high-performance templates available for immediate acquisition.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="portfolio-products-grid">
+            <div class="animate-pulse bg-slate-900 border border-slate-800 h-80 rounded-3xl"></div>
+            <div class="animate-pulse bg-slate-900 border border-slate-800 h-80 rounded-3xl"></div>
+            <div class="animate-pulse bg-slate-900 border border-slate-800 h-80 rounded-3xl"></div>
+        </div>
+
+        <div class="mt-16 text-center" data-aos="fade-up">
+            <a href="https://marketplace.mohammad-abujalboush.com" target="_blank"
+                class="inline-flex items-center gap-4 bg-transparent border border-sky-500 text-sky-500 px-8 py-4 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-sky-500 hover:text-white transition-all">
+                Visit The Marketplace Hub <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+    </section>
+
+    <section id="contact" class="py-32 px-6 md:px-24 bg-slate-950">
+        <div class="grid lg:grid-cols-2 gap-20">
+            <div data-aos="fade-right">
+                <h3 class="text-sm mono text-sky-500 uppercase tracking-widest mb-4">05 // Engagement</h3>
+                <h2 class="text-5xl font-bold mb-8 italic">Let's build <br>the future.</h2>
+                <div class="space-y-6 mt-12">
+                    <a href="mailto:mohammadabujalboush02@gmail.com"
+                        class="block p-6 border border-slate-800 rounded-3xl hover:border-sky-500 transition-all duration-300 group bg-slate-900/50">
+                        <span class="text-[10px] uppercase text-sky-500 font-bold block mb-2 tracking-[0.2em]">Primary
+                            Channel</span>
+                        <span
+                            class="text-xs sm:text-sm md:text-base font-bold group-hover:text-sky-400 transition break-all mono">mohammadabujalboush02@gmail.com</span>
+                    </a>
+                    <a href="tel:+962776110639"
+                        class="block p-6 border border-slate-800 rounded-3xl hover:border-sky-500 transition-all duration-300 group bg-slate-900/50">
+                        <span class="text-[10px] uppercase text-sky-500 font-bold block mb-2 tracking-[0.2em]">Technical
+                            Intake</span>
+                        <span class="text-base md:text-lg font-bold group-hover:text-sky-400 transition mono">+962 7
+                            7611 0639</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="p-1 w-full" data-aos="fade-left">
+                <div
+                    class="bg-slate-900 border border-slate-800 rounded-[2.5rem] p-8 md:p-12 shadow-2xl relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-sky-500/5 blur-3xl rounded-full -mr-16 -mt-16">
+                    </div>
+
+                    <h4 class="mono text-xs text-slate-500 uppercase tracking-[0.3em] mb-8 flex items-center">
+                        <span class="status-dot mr-3"></span> Project Initialization Brief
+                    </h4>
+
+                    <form name="contact" method="POST" data-netlify="true" class="space-y-4">
+                        <input type="hidden" name="form-name" value="contact">
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="space-y-1.5">
+                                <label
+                                    class="text-[10px] uppercase font-bold text-slate-500 ml-2 tracking-widest">Identity</label>
+                                <input type="text" name="name" placeholder="Full Name" required
+                                    class="w-full px-4 py-3 rounded-xl outline-none border border-transparent focus:border-sky-500/50 focus:ring-1 focus:ring-sky-500/20 transition-all placeholder:text-slate-700">
+                            </div>
+                            <div class="space-y-1.5">
+                                <label
+                                    class="text-[10px] uppercase font-bold text-slate-500 ml-2 tracking-widest">Endpoint</label>
+                                <input type="email" name="email" placeholder="Email Address" required
+                                    class="w-full px-4 py-3 rounded-xl outline-none border border-transparent focus:border-sky-500/50 focus:ring-1 focus:ring-sky-500/20 transition-all placeholder:text-slate-700">
+                            </div>
+                        </div>
+
+                        <div class="space-y-1.5">
+                            <label class="text-[10px] uppercase font-bold text-slate-500 ml-2 tracking-widest">Strategic
+                                Brief</label>
+                            <textarea name="message" rows="4"
+                                placeholder="Describe the system requirements or workflow challenges..." required
+                                class="w-full px-4 py-3 rounded-xl outline-none border border-transparent focus:border-sky-500/50 focus:ring-1 focus:ring-sky-500/20 transition-all placeholder:text-slate-700 resize-none"></textarea>
+                        </div>
+
+                        <div class="pt-2">
+                            <button type="submit"
+                                class="w-full bg-sky-500 text-white py-4 rounded-xl font-bold uppercase tracking-[0.2em] text-xs hover:bg-sky-400 hover:shadow-[0_0_30px_rgba(56,189,248,0.3)] transition-all duration-300 flex items-center justify-center group">
+                                Transmit Request
+                                <i
+                                    class="fa-solid fa-paper-plane ml-3 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-12 text-center text-[8px] uppercase tracking-[0.5em] text-slate-600 border-t border-slate-900">
+        © 2026 Mohammad Abu Jalboush. All Rights Reserved.
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+        // Init AOS
+        AOS.init({ duration: 1000, once: true });
+
+        // Mobile Menu Logic
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const icon = document.getElementById('menu-icon');
+        const links = document.querySelectorAll('.mobile-link');
+        let isMenuOpen = false;
+
+        const toggleMenu = () => {
+            isMenuOpen = !isMenuOpen;
+            if (isMenuOpen) {
+                menu.classList.remove('opacity-0', 'pointer-events-none', '-translate-y-full');
+                menu.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+                icon.classList.replace('fa-bars-staggered', 'fa-xmark');
+                document.body.style.overflow = 'hidden';
+            } else {
+                menu.classList.add('opacity-0', 'pointer-events-none', '-translate-y-full');
+                menu.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+                icon.classList.replace('fa-xmark', 'fa-bars-staggered');
+                document.body.style.overflow = 'auto';
+            }
+        };
+
+        btn.addEventListener('click', toggleMenu);
+        links.forEach(link => link.addEventListener('click', toggleMenu));
+
+        // --- Supabase Portfolio Products Fetch ---
+        const supabase = createClient('https://dvlabpioxtyyzvhzpmyc.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2bGFicGlveHR5eXp2aHpwbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1MDY4NzUsImV4cCI6MjA4OTA4Mjg3NX0.fBM9r7WXpntVUM-qsBDQFlknRf2vMyIpJTp5ww9pzUM');
+
+        async function fetchPortfolioProducts() {
+            const grid = document.getElementById('portfolio-products-grid');
+
+            const { data, error } = await supabase
+                .from('portfolio_products')
+                .select('*')
+                .eq('is_active', true)
+                .order('sort_order', { ascending: true });
+
+            if (error || !data || data.length === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center py-10 mono text-slate-600 text-xs">// AWAITING_NEW_RELEASES</div>`;
+                return;
+            }
+
+            grid.innerHTML = data.map((product, index) => `
+                <div class="live-product-card group h-80 flex flex-col justify-end p-6" data-aos="fade-up" data-aos-delay="${index * 100}">
+                    <img src="${product.image_url}" alt="${product.name}" class="absolute inset-0 w-full h-full object-cover z-0">
+                    
+                    <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#0f172a] to-transparent z-10 pointer-events-none"></div>
+                    
+                    <div class="relative z-20 transition-all duration-500 group-hover:translate-y-[-20px]">
+                        <h4 class="text-2xl font-bold mb-2 text-white">${product.name}</h4>
+                        <p class="text-xs text-slate-300 line-clamp-2">${product.description}</p>
+                    </div>
+
+                    <div class="live-product-overlay z-30 flex-col gap-4">
+                        <a href="${product.product_link}" target="_blank" class="bg-sky-500 text-white px-8 py-3 rounded-full font-bold uppercase tracking-widest text-[10px] hover:bg-white hover:text-black transition-colors shadow-lg">
+                            Access System 🔗
+                        </a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        fetchPortfolioProducts();
+    </script>
+</body>
+
+</html>

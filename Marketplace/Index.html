@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketplace | Engineered Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        accent: '#38bdf8',
+                        light: { bg: '#F8FAFC', text: '#0F172A', surface: '#FFFFFF', border: '#E2E8F0', muted: '#64748B' },
+                        dark: { bg: '#0A0A0B', text: '#FFFFFF', surface: '#1A1A1B', border: 'rgba(255, 255, 255, 0.1)', muted: 'rgba(255, 255, 255, 0.4)' },
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .hero-gradient {
+            background: radial-gradient(circle at top right, rgba(56, 189, 248, 0.08), transparent);
+        }
+
+        .cart-drawer-open {
+            transform: translateX(0) !important;
+        }
+    </style>
+</head>
+
+<body class="bg-light-bg text-light-text dark:bg-dark-bg dark:text-dark-text antialiased font-sans">
+
+    <nav
+        class="sticky top-0 z-50 backdrop-blur-md bg-light-surface/80 dark:bg-dark-surface/80 border-b border-light-border dark:border-dark-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <h1 class="text-xl font-bold tracking-tighter flex items-center gap-2">
+                <span class="text-accent">M.</span> Solutions
+            </h1>
+
+            <div class="flex items-center gap-3 sm:gap-6">
+                <div
+                    class="flex items-center bg-light-bg dark:bg-dark-bg p-1 rounded-full border border-light-border dark:border-dark-border relative scale-90 sm:scale-100">
+                    <button id="theme-toggle" class="relative flex items-center justify-between w-16 h-8 rounded-full">
+                        <div id="theme-slider"
+                            class="absolute top-0 left-0 w-8 h-8 bg-accent rounded-full transition-transform duration-300 ease-in-out">
+                        </div>
+                        <span class="z-10 w-8 h-8 flex items-center justify-center text-xs">☀️</span>
+                        <span class="z-10 w-8 h-8 flex items-center justify-center text-xs">🌙</span>
+                    </button>
+                </div>
+
+                <a href="library.html"
+                    class="flex items-center gap-2 text-sm font-medium hover:text-accent transition px-2 py-1">
+                    <span class="hidden sm:inline">My Library</span>
+                    <span class="sm:hidden text-lg">📚</span>
+                </a>
+
+                <button onclick="toggleCart(true)"
+                    class="p-2 bg-light-surface dark:bg-dark-surface border border-light-border dark:border-dark-border rounded-xl transition relative hover:border-accent">
+                    🛒 <span id="cart-count"
+                        class="absolute -top-1 -right-1 bg-accent text-white text-[10px] font-bold px-1.5 rounded-full">0</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div id="cart-overlay" class="fixed inset-0 z-[100] hidden">
+        <div onclick="toggleCart(false)" class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+        <div id="cart-drawer"
+            class="absolute top-0 right-0 h-full w-full max-w-md bg-light-surface dark:bg-dark-surface shadow-2xl transition-transform duration-300 translate-x-full flex flex-col">
+            <div class="p-6 border-b border-light-border dark:border-dark-border flex justify-between items-center">
+                <h2 class="text-xl font-bold font-mono">SHOPPING_CART</h2>
+                <button onclick="toggleCart(false)"
+                    class="p-2 hover:bg-light-bg dark:hover:bg-dark-bg rounded-lg transition-colors">✕</button>
+            </div>
+            <div id="drawer-items" class="flex-1 overflow-y-auto p-6 space-y-4"></div>
+            <div class="p-6 border-t border-light-border dark:border-dark-border bg-light-bg dark:bg-dark-bg/50">
+                <div class="flex justify-between items-center mb-6">
+                    <span class="text-sm font-mono text-light-muted dark:text-dark-muted">TOTAL_PAYABLE</span>
+                    <span id="drawer-total" class="text-2xl font-bold text-accent">0.00 JOD</span>
+                </div>
+                <a href="checkout.html"
+                    class="block w-full text-center py-5 bg-accent text-white font-extrabold rounded-2xl hover:brightness-110 shadow-lg shadow-accent/20 transition-all active:scale-95">PROCEED_TO_CHECKOUT_</a>
+                <button onclick="toggleCart(false)"
+                    class="w-full mt-4 text-xs font-mono text-light-muted hover:text-accent transition uppercase tracking-tighter">Continue_Shopping</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="hero-gradient min-h-screen">
+        <header class="max-w-7xl mx-auto px-6 py-12 sm:py-20 text-center sm:text-left">
+            <div class="max-w-3xl">
+                <p class="text-accent font-mono text-sm uppercase tracking-widest mb-4">Marketplace v1.0</p>
+                <h2 class="text-3xl sm:text-4xl md:text-6xl font-extrabold mb-6 tracking-tight">Digital tools built for
+                    <span class="text-accent">performance.</span>
+                </h2>
+                <p class="text-light-muted dark:text-dark-muted text-base sm:text-lg leading-relaxed">High-end SaaS
+                    products, Notion architectures, and automation workflows engineered to scale your business
+                    efficiency.</p>
+            </div>
+        </header>
+
+        <section class="max-w-7xl mx-auto px-6 mb-12 flex flex-col md:flex-row gap-4">
+            <div class="relative flex-1">
+                <input type="text" id="search-input" placeholder="Search solutions..."
+                    class="w-full bg-light-surface dark:bg-dark-surface border border-light-border dark:border-dark-border px-4 py-4 rounded-2xl focus:outline-none focus:border-accent transition shadow-sm">
+            </div>
+            <select id="category-filter"
+                class="bg-light-surface dark:bg-dark-surface border border-light-border dark:border-dark-border px-6 py-4 rounded-2xl text-light-muted dark:text-dark-muted font-medium outline-none focus:border-accent transition cursor-pointer">
+                <option value="all">All Categories</option>
+            </select>
+        </section>
+
+        <main class="max-w-7xl mx-auto px-6 pb-24">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="product-grid">
+                <div
+                    class="animate-pulse bg-light-surface dark:bg-dark-surface h-96 rounded-3xl border border-light-border dark:border-dark-border">
+                </div>
+                <div
+                    class="animate-pulse bg-light-surface dark:bg-dark-surface h-96 rounded-3xl border border-light-border dark:border-dark-border">
+                </div>
+                <div
+                    class="animate-pulse bg-light-surface dark:bg-dark-surface h-96 rounded-3xl border border-light-border dark:border-dark-border">
+                </div>
+            </div>
+        </main>
+        <footer
+            class="bg-light-surface dark:bg-dark-surface border-t border-light-border dark:border-dark-border py-12 mt-20">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-8 mb-12">
+                    <div class="text-center md:text-left">
+                        <div class="flex items-center justify-center md:justify-start gap-2 mb-3">
+                            <span class="text-accent font-bold text-2xl tracking-tighter">M.</span>
+                            <span class="font-bold text-xl tracking-tight uppercase">Solutions</span>
+                        </div>
+                        <p
+                            class="text-light-muted dark:text-dark-muted text-sm font-mono uppercase tracking-tighter max-w-xs">
+                            Engineering digital efficiency through automated architecture.
+                        </p>
+                    </div>
+
+                    <div class="flex flex-wrap justify-center gap-x-10 gap-y-4">
+                        <div class="flex flex-col gap-3">
+                            <span class="text-[10px] font-mono text-accent uppercase tracking-widest">Navigation</span>
+                            <a href="https://mohammad-abujalboush.com"
+                                class="text-sm font-medium hover:text-accent transition-colors">Portfolio</a>
+                            <a href="https://feedback.mohammad-abujalboush.com"
+                                class="text-sm font-medium hover:text-accent transition-colors">Feedback Hub</a>
+                        </div>
+                        <div class="flex flex-col gap-3">
+                            <span class="text-[10px] font-mono text-accent uppercase tracking-widest">Connect</span>
+                            <a href="mailto:mohammadabujalboush02@gmail.com"
+                                class="text-sm font-medium hover:text-accent transition-colors">Email Admin</a>
+                            <a href="library.html" class="text-sm font-medium hover:text-accent transition-colors">My
+                                Library</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border-t border-light-border dark:border-dark-border pt-10 text-center">
+                    <blockquote class="text-lg md:text-xl font-medium italic text-light-text dark:text-dark-text mb-4">
+                        "I don't just build software; I engineer the time you get back."
+                    </blockquote>
+                    <p class="text-xs font-mono text-light-muted dark:text-dark-muted uppercase tracking-[0.2em]">
+                        — M. Abu Jalboush // Full Stack Developer & Workflow Architect
+                    </p>
+                </div>
+
+                <div
+                    class="mt-16 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] font-mono text-light-muted dark:text-dark-muted uppercase tracking-widest">
+                    <span>© 2026 All Rights Reserved</span>
+                    <div class="flex items-center gap-4">
+                        <span>System Status: <span class="text-emerald-500 animate-pulse">Operational</span></span>
+                        <span>Encrypted Session</span>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+        const supabase = createClient('https://dvlabpioxtyyzvhzpmyc.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2bGFicGlveHR5eXp2aHpwbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1MDY4NzUsImV4cCI6MjA4OTA4Mjg3NX0.fBM9r7WXpntVUM-qsBDQFlknRf2vMyIpJTp5ww9pzUM');
+
+        const toggleBtn = document.getElementById('theme-toggle');
+        const slider = document.getElementById('theme-slider');
+        const setTheme = (isDark) => {
+            if (isDark) { document.documentElement.classList.add('dark'); slider.style.transform = 'translateX(32px)'; localStorage.theme = 'dark'; }
+            else { document.documentElement.classList.remove('dark'); slider.style.transform = 'translateX(0px)'; localStorage.theme = 'light'; }
+        };
+        setTheme(localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches));
+        toggleBtn.addEventListener('click', () => setTheme(!document.documentElement.classList.contains('dark')));
+
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        window.toggleCart = (show) => {
+            const overlay = document.getElementById('cart-overlay');
+            const drawer = document.getElementById('cart-drawer');
+            if (show) { overlay.classList.remove('hidden'); renderDrawer(); setTimeout(() => drawer.classList.add('cart-drawer-open'), 10); }
+            else { drawer.classList.remove('cart-drawer-open'); setTimeout(() => overlay.classList.add('hidden'), 300); }
+        };
+
+        window.addItemToCart = (id, name, price, image) => {
+            cart.push({ id, name, price, image });
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            window.toggleCart(true);
+        };
+
+        window.removeItemFromDrawer = (index) => {
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            renderDrawer();
+        };
+
+        function updateCartCount() { document.getElementById('cart-count').innerText = cart.length; }
+
+        function renderDrawer() {
+            const container = document.getElementById('drawer-items');
+            const totalEl = document.getElementById('drawer-total');
+            let total = 0;
+            if (cart.length === 0) {
+                container.innerHTML = `<div class="text-center py-20 text-light-muted dark:text-dark-muted font-mono text-xs">LOG_EMPTY: NO_ITEMS_FOUND</div>`;
+                totalEl.innerText = "0.00 JOD";
+                return;
+            }
+            container.innerHTML = cart.map((item, index) => {
+                total += parseFloat(item.price);
+                return `
+                    <div class="flex gap-4 p-4 bg-light-bg dark:bg-dark-bg/50 rounded-2xl border border-light-border dark:border-dark-border">
+                        <img src="${item.image || 'https://via.placeholder.com/100'}" class="w-16 h-16 object-contain bg-white rounded-xl p-1 shadow-sm">
+                        <div class="flex-1">
+                            <h4 class="font-bold text-sm tracking-tight">${item.name}</h4>
+                            <p class="text-accent font-mono text-xs font-bold mt-1">${item.price} JOD</p>
+                            <button onclick="removeItemFromDrawer(${index})" class="text-[9px] text-red-500 uppercase font-mono mt-3 hover:text-red-400 transition-colors">TERMINATE_ITEM [X]</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            totalEl.innerText = `${total.toFixed(2)} JOD`;
+        }
+
+        const grid = document.getElementById('product-grid');
+        const categorySelect = document.getElementById('category-filter');
+        const searchInput = document.getElementById('search-input');
+
+        async function fetchCategories() {
+            const { data } = await supabase.from('product_categories').select('*');
+            if (data) categorySelect.innerHTML = '<option value="all">All Categories</option>' + data.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+        }
+
+        async function fetchProducts() {
+            grid.innerHTML = `<div class="col-span-full text-center py-20 font-mono text-accent animate-pulse">QUERYING_DATABASE...</div>`;
+            let query = supabase.from('products').select('*').eq('is_active', true);
+            if (categorySelect.value !== 'all') query = query.eq('category_id', categorySelect.value);
+            if (searchInput.value.trim()) query = query.ilike('name', `%${searchInput.value}%`);
+            const { data, error } = await query;
+            if (error || !data || data.length === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center py-20 italic text-light-muted">No solutions found matching your parameters.</div>`;
+                return;
+            }
+            grid.innerHTML = data.map(p => `
+                <div class="group bg-light-surface dark:bg-dark-surface border border-light-border dark:border-dark-border rounded-3xl overflow-hidden hover:border-accent transition-all duration-300 shadow-sm hover:shadow-xl hover:shadow-accent/5">
+                    <div class="aspect-video bg-light-bg dark:bg-black/20 flex items-center justify-center p-8 border-b border-light-border dark:border-dark-border">
+                        <img src="${p.image_url || 'https://via.placeholder.com/300'}" alt="${p.name}" class="max-h-full object-contain hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-8">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="font-bold text-xl">${p.name}</h3>
+                            <span class="text-accent font-mono font-bold">${p.price_jod} JOD</span>
+                        </div>
+                        <p class="text-light-muted dark:text-dark-muted text-sm mb-8 line-clamp-2">${p.brief_description}</p>
+                        <div class="flex gap-3">
+                            <a href="details.html?id=${p.id}" class="flex-1 text-center py-4 rounded-2xl border border-light-border dark:border-dark-border hover:bg-light-bg dark:hover:bg-dark-bg transition font-bold text-sm uppercase">View_Details</a>
+                            <button onclick="addItemToCart('${p.id}', '${p.name.replace(/'/g, "\\'")}', ${p.price_jod}, '${p.image_url}')" class="bg-accent text-white px-5 py-4 rounded-2xl hover:brightness-110 shadow-lg shadow-accent/20 transition-all active:scale-90">🛒</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        categorySelect.addEventListener('change', fetchProducts);
+        searchInput.addEventListener('input', () => { clearTimeout(window.t); window.t = setTimeout(fetchProducts, 400); });
+        updateCartCount();
+        fetchCategories();
+        fetchProducts();
+    </script>
+</body>
+
+</html>

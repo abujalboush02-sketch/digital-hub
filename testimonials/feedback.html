@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Submit Feedback | Engineered Solutions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --accent: #38bdf8;
+            /* Cyan */
+            --border: #334155;
+            --success: #10b981;
+            --error: #ef4444;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.5;
+            font-size: 14px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px;
+            width: 100%;
+            animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideUpFade {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1,
+        label,
+        .readout {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-primary);
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            line-height: 1.2;
+            margin-bottom: 5px;
+        }
+
+        p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        header.main-header {
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label.field-label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            color: var(--accent);
+        }
+
+        input[type="text"],
+        input[type="email"],
+        select,
+        textarea {
+            width: 100%;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 14px;
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* =========================================
+           DYNAMIC COLOR CIRCUIT RATING SYSTEM
+           ========================================= */
+        .circuit-rating-wrapper {
+            background-color: var(--bg-color);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 30px 20px 20px 20px;
+            position: relative;
+            /* This variable will be updated by JS to change the global color */
+            --dynamic-color: var(--text-secondary);
+            --wire-pct: 0;
+        }
+
+        .circuit-track-container {
+            position: relative;
+            height: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+            /* Keeps nodes away from absolute edges */
+            margin-bottom: 15px;
+        }
+
+        /* Hide the actual radio buttons but keep them functional */
+        .rating-input {
+            display: none;
+        }
+
+        /* Background wire */
+        .circuit-wire-bg {
+            position: absolute;
+            top: 50%;
+            left: 27px;
+            /* Centers with first node */
+            right: 27px;
+            /* Centers with last node */
+            height: 2px;
+            background-color: var(--border);
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+
+        /* Glowing color-shifting active wire */
+        .circuit-wire-active {
+            position: absolute;
+            top: 50%;
+            left: 27px;
+            /* width is calculated based on JS percentage */
+            width: calc((100% - 54px) * var(--wire-pct));
+            height: 2px;
+            background-color: var(--dynamic-color);
+            box-shadow: 0 0 10px var(--dynamic-color);
+            transform: translateY(-50%);
+            z-index: 2;
+            transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* The Nodes */
+        .node-label {
+            position: relative;
+            z-index: 3;
+            cursor: pointer;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Diamond shape inside node */
+        .node-diamond {
+            width: 14px;
+            height: 14px;
+            background-color: var(--bg-color);
+            border: 2px solid var(--border);
+            transform: rotate(45deg);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Hover & Active States (Injected with dynamic color) */
+        .node-label:hover .node-diamond,
+        .node-label.active .node-diamond {
+            background-color: var(--dynamic-color);
+            border-color: #fff;
+            box-shadow: 0 0 12px var(--dynamic-color);
+            transform: rotate(45deg) scale(1.3);
+        }
+
+        /* Terminal Readout */
+        .terminal-readout {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--dynamic-color);
+            text-align: center;
+            height: 20px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        /* ========================================= */
+
+        button[type="submit"] {
+            width: 100%;
+            background-color: var(--accent);
+            color: #0f172a;
+            border: none;
+            padding: 16px;
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 10px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #fff;
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+            transform: translateY(-2px);
+        }
+
+        button[type="submit"]:disabled {
+            background-color: var(--border);
+            color: var(--text-secondary);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .status-message {
+            margin-top: 25px;
+            padding: 15px;
+            border-radius: 6px;
+            font-weight: 600;
+            text-align: center;
+            display: none;
+            font-size: 0.9rem;
+        }
+
+        .status-success {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .status-error {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--error);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <header class="main-header">
+            <h1>Engineered Feedback</h1>
+            <p>Select a product and evaluate system performance.</p>
+        </header>
+
+        <div class="card">
+            <form id="feedbackForm">
+                <div class="form-group">
+                    <label class="field-label" for="categorySelect">System Category</label>
+                    <select id="categorySelect" required>
+                        <option value="" disabled selected>Loading modules...</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="field-label" for="productSelect">Specific Module</label>
+                    <select id="productSelect" required disabled>
+                        <option value="" disabled selected>Awaiting category selection</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="field-label" for="userName">Operator Identity</label>
+                    <input type="text" id="userName" placeholder="Mohammad A." required>
+                </div>
+
+                <div class="form-group">
+                    <label class="field-label" for="userEmail">Contact Protocol (Email)</label>
+                    <input type="email" id="userEmail" placeholder="client@example.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="field-label">Performance Metric (1-5)</label>
+                    <div class="circuit-rating-wrapper" id="circuitWrapper">
+                        <div class="circuit-track-container" id="circuitTrack">
+                            <div class="circuit-wire-bg"></div>
+                            <div class="circuit-wire-active" id="activeWire"></div>
+
+                            <input type="radio" id="rate1" name="rating" value="1" class="rating-input" required>
+                            <label for="rate1" class="node-label" data-value="1">
+                                <div class="node-diamond"></div>
+                            </label>
+
+                            <input type="radio" id="rate2" name="rating" value="2" class="rating-input">
+                            <label for="rate2" class="node-label" data-value="2">
+                                <div class="node-diamond"></div>
+                            </label>
+
+                            <input type="radio" id="rate3" name="rating" value="3" class="rating-input">
+                            <label for="rate3" class="node-label" data-value="3">
+                                <div class="node-diamond"></div>
+                            </label>
+
+                            <input type="radio" id="rate4" name="rating" value="4" class="rating-input">
+                            <label for="rate4" class="node-label" data-value="4">
+                                <div class="node-diamond"></div>
+                            </label>
+
+                            <input type="radio" id="rate5" name="rating" value="5" class="rating-input">
+                            <label for="rate5" class="node-label" data-value="5">
+                                <div class="node-diamond"></div>
+                            </label>
+                        </div>
+                        <div class="terminal-readout" id="terminalReadout">>> AWAITING INPUT_</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="field-label" for="message">Execution Log / Testimonial</label>
+                    <textarea id="message"
+                        placeholder="Describe the workflow improvements, digital transformation, or general impact of this engineered solution..."
+                        required></textarea>
+                </div>
+
+                <button type="submit" id="submitBtn">Transmit Data</button>
+
+                <div id="statusMessage" class="status-message"></div>
+            </form>
+        </div>
+
+        <footer style="margin-top: 50px; text-align: center; font-size: 0.8rem; color: var(--text-secondary);">
+            <p>&copy; 2026 Mohammad Abu Jalboush. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+        // ==========================================
+        // SUPABASE CONFIGURATION
+        // ==========================================
+        const supabaseUrl = 'https://dvlabpioxtyyzvhzpmyc.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2bGFicGlveHR5eXp2aHpwbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1MDY4NzUsImV4cCI6MjA4OTA4Mjg3NX0.fBM9r7WXpntVUM-qsBDQFlknRf2vMyIpJTp5ww9pzUM';
+        const supabase = createClient(supabaseUrl, supabaseKey);
+
+        let allProducts = [];
+
+        const categorySelect = document.getElementById('categorySelect');
+        const productSelect = document.getElementById('productSelect');
+        const form = document.getElementById('feedbackForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const statusMessage = document.getElementById('statusMessage');
+
+        // ==========================================
+        // DYNAMIC CIRCUIT LOGIC
+        // ==========================================
+        const circuitWrapper = document.getElementById('circuitWrapper');
+        const circuitTrack = document.getElementById('circuitTrack');
+        const terminalReadout = document.getElementById('terminalReadout');
+        const labels = document.querySelectorAll('.node-label');
+        const inputs = document.querySelectorAll('.rating-input');
+
+        let currentRating = 0; // The actual selected value
+
+        // Color mapped by rating level
+        const ratingColors = {
+            0: "var(--text-secondary)",
+            1: "#ef4444", // Critical Red
+            2: "#f59e0b", // Sub-optimal Amber
+            3: "#eab308", // Acceptable Yellow
+            4: "#38bdf8", // High Efficiency Cyan
+            5: "#10b981"  // Flawless Emerald
+        };
+
+        const readoutText = {
+            0: ">> AWAITING INPUT_",
+            1: ">> [1/5] CRITICAL FAILURE DETECTED",
+            2: ">> [2/5] SUB-OPTIMAL PERFORMANCE",
+            3: ">> [3/5] ACCEPTABLE EXECUTION",
+            4: ">> [4/5] HIGH EFFICIENCY OUTPUT",
+            5: ">> [5/5] FLAWLESS ARCHITECTURE"
+        };
+
+        // Core function to push visual updates
+        function applyUIState(value) {
+            // Calculate width percentage (0 to 1)
+            const pct = value > 0 ? (value - 1) / 4 : 0;
+            circuitWrapper.style.setProperty('--wire-pct', pct);
+
+            // Set Dynamic Color
+            circuitWrapper.style.setProperty('--dynamic-color', ratingColors[value]);
+
+            // Set Text
+            terminalReadout.textContent = readoutText[value];
+
+            // Highlight Nodes
+            labels.forEach(label => {
+                const nodeVal = parseInt(label.getAttribute('data-value'));
+                if (nodeVal <= value && value > 0) {
+                    label.classList.add('active');
+                } else {
+                    label.classList.remove('active');
+                }
+            });
+        }
+
+        // 1. Mouse Hover Events (Preview Mode)
+        labels.forEach(label => {
+            label.addEventListener('mouseenter', () => {
+                const hoverValue = parseInt(label.getAttribute('data-value'));
+                applyUIState(hoverValue);
+            });
+        });
+
+        // 2. Mouse Leave Event (Restore actual selection)
+        circuitTrack.addEventListener('mouseleave', () => {
+            applyUIState(currentRating);
+        });
+
+        // 3. Click Event (Locks in the selection)
+        // By listening to the inputs 'change' event instead of the labels 'click', we prevent the double-click bug entirely.
+        inputs.forEach(input => {
+            input.addEventListener('change', (e) => {
+                currentRating = parseInt(e.target.value);
+                applyUIState(currentRating);
+            });
+        });
+
+
+        // ==========================================
+        // DATABASE INITIALIZATION & FORM SUBMIT
+        // ==========================================
+        async function loadFormData() {
+            try {
+                const { data: categories, error: catError } = await supabase.from('product_categories').select('*');
+                if (catError) throw catError;
+
+                const { data: products, error: prodError } = await supabase.from('products').select('*');
+                if (prodError) throw prodError;
+
+                allProducts = products;
+
+                categorySelect.innerHTML = '<option value="" disabled selected>Select category...</option>';
+                categories.forEach(cat => {
+                    const option = document.createElement('option');
+                    option.value = cat.id;
+                    option.textContent = cat.name;
+                    categorySelect.appendChild(option);
+                });
+
+            } catch (error) {
+                console.error('Error loading data:', error);
+                showStatus('Connection failed. Database unreachable.', 'error');
+            }
+        }
+
+        categorySelect.addEventListener('change', (e) => {
+            const selectedCategoryId = e.target.value;
+            const filteredProducts = allProducts.filter(p => p.category_id === selectedCategoryId);
+
+            productSelect.innerHTML = '<option value="" disabled selected>Select module...</option>';
+            filteredProducts.forEach(prod => {
+                const option = document.createElement('option');
+                option.value = prod.id;
+                option.textContent = prod.name;
+                productSelect.appendChild(option);
+            });
+            productSelect.disabled = false;
+        });
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            if (currentRating === 0) {
+                showStatus('ERROR: Performance Metric required.', 'error');
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Transmitting...';
+            statusMessage.style.display = 'none';
+
+            const payload = {
+                product_id: productSelect.value,
+                user_name: document.getElementById('userName').value,
+                user_email: document.getElementById('userEmail').value,
+                rating: currentRating,
+                message: document.getElementById('message').value
+            };
+
+            try {
+                const { error } = await supabase.from('testimonials').insert([payload]);
+                if (error) throw error;
+
+                // Reset
+                form.reset();
+                productSelect.disabled = true;
+                currentRating = 0;
+                applyUIState(0);
+                showStatus('SUCCESS: Data packet received and logged for review.', 'success');
+
+            } catch (error) {
+                console.error('Submission error:', error);
+                showStatus('TRANSMISSION FAILED. Please try again.', 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Transmit Data';
+            }
+        });
+
+        function showStatus(text, type) {
+            statusMessage.textContent = text;
+            statusMessage.className = `status-message status-${type}`;
+            statusMessage.style.display = 'block';
+        }
+
+        loadFormData();
+    </script>
+</body>
+
+</html>

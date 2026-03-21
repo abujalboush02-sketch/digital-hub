@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service | M. Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        accent: '#38bdf8',
+                        light: { bg: '#F8FAFC', text: '#0F172A', surface: '#FFFFFF', border: '#E2E8F0', muted: '#64748B' },
+                        dark: { bg: '#0A0A0B', text: '#FFFFFF', surface: '#1A1A1B', border: 'rgba(255, 255, 255, 0.1)', muted: 'rgba(255, 255, 255, 0.4)' },
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .legal-content h2 {
+            color: var(--tw-prose-headings);
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: -0.025em;
+        }
+
+        .legal-content h3 {
+            color: #38bdf8;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+            font-size: 1.125rem;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+        }
+
+        .legal-content p,
+        .legal-content ul {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            color: inherit;
+            opacity: 0.8;
+        }
+
+        .legal-content ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+        }
+
+        .legal-content li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-light-bg text-light-text dark:bg-dark-bg dark:text-dark-text antialiased font-sans min-h-screen flex flex-col">
+
+    <nav
+        class="sticky top-0 z-50 backdrop-blur-md bg-light-surface/80 dark:bg-dark-surface/80 border-b border-light-border dark:border-dark-border">
+        <div class="max-w-4xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="index.html"
+                class="text-xl font-bold tracking-tighter flex items-center gap-2 hover:text-accent transition-colors">
+                <span class="text-accent">M.</span> Solutions
+            </a>
+            <div
+                class="flex items-center bg-light-bg dark:bg-dark-bg p-1 rounded-full border border-light-border dark:border-dark-border relative">
+                <button id="theme-toggle"
+                    class="relative flex items-center justify-between w-16 h-8 rounded-full transition-all">
+                    <div id="theme-slider"
+                        class="absolute top-0 left-0 w-8 h-8 bg-accent rounded-full transition-transform duration-300 ease-in-out">
+                    </div>
+                    <span class="z-10 w-8 h-8 flex items-center justify-center text-xs">☀️</span>
+                    <span class="z-10 w-8 h-8 flex items-center justify-center text-xs">🌙</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-1 max-w-4xl mx-auto px-6 py-20 w-full">
+        <div class="mb-16 pb-8 border-b border-light-border dark:border-dark-border">
+            <p class="text-accent font-mono text-xs uppercase tracking-widest mb-4">Legal Framework</p>
+            <h1 class="text-4xl md:text-5xl font-black tracking-tighter mb-4">Terms of Service</h1>
+            <p class="text-light-muted dark:text-dark-muted font-mono text-xs">EFFECTIVE_DATE: March 2026 // VERSION:
+                2.0.1</p>
+        </div>
+
+        <div class="legal-content text-sm md:text-base">
+            <p>These Terms of Service ("Terms") govern your access to and use of the digital products, SaaS platforms,
+                code templates, and automated workflows (collectively, the "Services") provided by <strong>M.
+                    Solutions</strong>. By accessing our marketplace or executing a transaction, you agree to be bound
+                by this contractual framework.</p>
+
+            <h3>01 // Operational Scope</h3>
+            <h2>Digital Asset Delivery</h2>
+            <p>Upon successful authorization of your payment, our systems are programmed to instantly allocate the
+                acquired digital assets to your account. This may manifest as direct file downloads, repository access,
+                SaaS licensing keys, or workspace duplication links.</p>
+            <p>You are responsible for providing accurate telemetric data (specifically, a valid email address) to
+                ensure the successful transmission of these assets. Failure to provide accurate data absolves us of
+                delivery delays.</p>
+
+            <h3>02 // Financial Execution</h3>
+            <h2>Payments and Refund Policy</h2>
+            <p>All prices are listed and processed in Jordanian Dinar (JOD) unless otherwise specified. We utilize
+                secure, third-party payment gateways (including Stripe) to process transactions. You agree to provide
+                current, complete, and accurate purchase information.</p>
+            <p><strong>Strict Refund Policy:</strong> Due to the irrevocable nature of digital goods and source code,
+                <strong>all transactions are final and non-refundable</strong> once the digital asset has been accessed
+                or downloaded. Refunds are only evaluated in the event of a demonstrable, critical technical failure
+                that prevents the core operation of the software, and only if reported within 7 days of acquisition.</p>
+
+            <h3>03 // Intellectual Property</h3>
+            <h2>Software Licensing and IP Rights</h2>
+            <p>When you acquire a product from our marketplace, you are purchasing a <em>license</em> to use the asset,
+                not the overarching intellectual property. Unless explicitly stated in a custom enterprise contract:</p>
+            <ul>
+                <li><strong>Permitted Use:</strong> You may utilize the code, templates, or SaaS tools for your personal
+                    or internal business operations. You may modify the code to suit your operational needs.</li>
+                <li><strong>Prohibited Use:</strong> You may <strong>not</strong> redistribute, sub-license, resell, or
+                    repackage our source code or templates as standalone products. You may not extract core components
+                    to build a direct competitor to our marketplace offerings.</li>
+            </ul>
+            <p>All underlying code architecture, branding, and proprietary logic remain the exclusive property of M.
+                Solutions.</p>
+
+            <h3>04 // System Integrity</h3>
+            <h2>Acceptable Use Protocol</h2>
+            <p>You agree not to utilize our Services or platforms for any activity that violates local or international
+                law. You are expressly prohibited from executing load-testing, penetration testing, reverse-engineering,
+                or deploying malicious payloads against our APIs, hosting nodes, or database architecture without prior
+                written consent.</p>
+
+            <h3>05 // Legal Protection</h3>
+            <h2>Limitation of Liability</h2>
+            <p>Our software and templates are provided on an "AS IS" and "AS AVAILABLE" basis. While we engineer our
+                solutions to the highest standards of reliability, we make no absolute warranties regarding
+                uninterrupted uptime or entirely error-free execution.</p>
+            <p>In no event shall M. Solutions, its lead engineer, or affiliates be liable for any indirect,
+                consequential, incidental, or punitive damages (including loss of profits, data, or business
+                interruption) arising from your use or inability to use our digital assets. Our maximum aggregate
+                liability shall not exceed the total amount paid by you for the specific product in question.</p>
+
+            <h3>06 // Governance</h3>
+            <h2>Jurisdiction and Dispute Resolution</h2>
+            <p>This contractual agreement shall be governed by and construed in accordance with the laws of the
+                Hashemite Kingdom of Jordan. Any disputes arising from these Terms shall be subject to the exclusive
+                jurisdiction of the courts located in Amman, Jordan.</p>
+        </div>
+    </main>
+
+    <footer class="py-12 border-t border-light-border dark:border-dark-border text-center mt-20">
+        <p class="text-[10px] font-mono uppercase tracking-widest text-light-muted dark:text-dark-muted">© 2026 M.
+            Solutions // Secure Infrastructure</p>
+    </footer>
+
+    <script>
+        const toggleBtn = document.getElementById('theme-toggle');
+        const slider = document.getElementById('theme-slider');
+        const setTheme = (isDark) => {
+            if (isDark) { document.documentElement.classList.add('dark'); slider.style.transform = 'translateX(32px)'; localStorage.theme = 'dark'; }
+            else { document.documentElement.classList.remove('dark'); slider.style.transform = 'translateX(0px)'; localStorage.theme = 'light'; }
+        };
+        setTheme(localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches));
+        toggleBtn.addEventListener('click', () => setTheme(!document.documentElement.classList.contains('dark')));
+    </script>
+</body>
+
+</html>

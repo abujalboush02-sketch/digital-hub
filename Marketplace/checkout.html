@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | Engineered Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        accent: '#38bdf8',
+                        light: { bg: '#F8FAFC', text: '#0F172A', surface: '#FFFFFF', border: '#E2E8F0', muted: '#64748B' },
+                        dark: { bg: '#0A0A0B', text: '#FFFFFF', surface: '#1A1A1B', border: 'rgba(255, 255, 255, 0.1)', muted: 'rgba(255, 255, 255, 0.4)' },
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+    </style>
+</head>
+
+<body class="bg-light-bg text-light-text dark:bg-dark-bg dark:text-dark-text antialiased font-sans min-h-screen">
+
+    <nav
+        class="sticky top-0 z-50 backdrop-blur-md bg-light-surface/80 dark:bg-dark-surface/80 border-b border-light-border dark:border-dark-border">
+        <div class="max-w-5xl mx-auto px-4 h-20 flex justify-between items-center">
+            <a href="index.html"
+                class="text-sm text-light-muted dark:text-dark-muted hover:text-accent font-mono tracking-tighter transition-colors">
+                ← CONTINUE_SHOPPING
+            </a>
+
+            <div class="flex items-center gap-6">
+                <div
+                    class="flex items-center bg-light-bg dark:bg-dark-bg p-1 rounded-full border border-light-border dark:border-dark-border relative">
+                    <button id="theme-toggle"
+                        class="relative flex items-center justify-between w-16 h-8 rounded-full transition-all">
+                        <div id="theme-slider"
+                            class="absolute top-0 left-0 w-8 h-8 bg-accent rounded-full transition-transform duration-300 ease-in-out">
+                        </div>
+                        <span class="z-10 w-8 h-8 flex items-center justify-center text-xs">☀️</span>
+                        <span class="z-10 w-8 h-8 flex items-center justify-center text-xs">🌙</span>
+                    </button>
+                </div>
+                <h1 class="text-xl font-bold tracking-tighter hidden sm:block">SECURE_CHECKOUT</h1>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-6 grid lg:grid-cols-2 gap-12 py-16 pb-24">
+
+        <section class="space-y-8">
+            <div
+                class="bg-light-surface dark:bg-dark-surface border border-light-border dark:border-dark-border p-8 rounded-3xl shadow-xl shadow-accent/5">
+                <h2 class="text-xl font-bold mb-8 flex items-center gap-3">
+                    <span
+                        class="w-8 h-8 bg-accent/10 text-accent rounded-lg flex items-center justify-center text-sm font-mono">01</span>
+                    Delivery Information
+                </h2>
+                <form id="checkout-form" class="space-y-6">
+                    <div>
+                        <label
+                            class="block text-[10px] font-mono text-light-muted dark:text-dark-muted uppercase tracking-widest mb-2">Full
+                            Name</label>
+                        <input type="text" id="cust_name" required
+                            class="w-full bg-light-bg dark:bg-dark-bg border border-light-border dark:border-dark-border rounded-xl px-4 py-4 focus:border-accent outline-none transition-all">
+                    </div>
+                    <div>
+                        <label
+                            class="block text-[10px] font-mono text-light-muted dark:text-dark-muted uppercase tracking-widest mb-2">Email
+                            Address (For System Access)</label>
+                        <input type="email" id="cust_email" required
+                            class="w-full bg-light-bg dark:bg-dark-bg border border-light-border dark:border-dark-border rounded-xl px-4 py-4 focus:border-accent outline-none transition-all">
+                    </div>
+
+                    <div class="pt-6">
+                        <h2 class="text-xl font-bold mb-6 flex items-center gap-3">
+                            <span
+                                class="w-8 h-8 bg-accent/10 text-accent rounded-lg flex items-center justify-center text-sm font-mono">02</span>
+                            Payment Protocol
+                        </h2>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <label
+                                class="border-2 border-accent bg-accent/5 p-5 rounded-2xl cursor-pointer relative overflow-hidden group">
+                                <input type="radio" name="pay_method" checked
+                                    class="absolute top-4 right-4 accent-accent">
+                                <span class="font-bold text-sm block">Credit Card / Stripe</span>
+                                <span class="text-[10px] text-accent font-mono">SECURE_CHANNEL</span>
+                            </label>
+                            <label
+                                class="border border-light-border dark:border-dark-border p-5 rounded-2xl opacity-40 cursor-not-allowed grayscale">
+                                <span class="font-bold text-sm block text-light-muted dark:text-dark-muted">CliQ /
+                                    Manual</span>
+                                <span class="text-[10px] font-mono uppercase">OFFLINE_PENDING</span>
+                            </label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <section>
+            <div
+                class="bg-light-surface dark:bg-dark-surface border border-light-border dark:border-dark-border p-8 rounded-3xl sticky top-28 shadow-2xl shadow-accent/5">
+                <h2 class="text-xl font-bold mb-8 font-mono tracking-tighter uppercase text-accent">Order_Summary</h2>
+                <div id="cart-items" class="space-y-6 mb-8">
+                </div>
+
+                <div class="border-t border-light-border dark:border-dark-border pt-6 space-y-4">
+                    <div class="flex justify-between text-light-muted dark:text-dark-muted text-sm font-mono">
+                        <span>SUBTOTAL_VAL</span>
+                        <span id="subtotal">0.00 JOD</span>
+                    </div>
+                    <div class="flex justify-between font-extrabold text-2xl tracking-tighter">
+                        <span>TOTAL_DUE</span>
+                        <span id="total" class="text-accent">0.00 JOD</span>
+                    </div>
+                </div>
+
+                <button id="place-order-btn"
+                    class="w-full mt-10 bg-accent text-white font-extrabold py-5 rounded-2xl hover:brightness-110 transition-all shadow-lg shadow-accent/20 active:scale-[0.98]">
+                    EXECUTE_TRANSACTION_
+                </button>
+                <p
+                    class="text-center text-[10px] text-light-muted dark:text-dark-muted mt-4 font-mono uppercase tracking-tighter">
+                    Encrypted via TLS 1.3 // AES-256
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+        const SUPABASE_URL = 'https://dvlabpioxtyyzvhzpmyc.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2bGFicGlveHR5eXp2aHpwbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1MDY4NzUsImV4cCI6MjA4OTA4Mjg3NX0.fBM9r7WXpntVUM-qsBDQFlknRf2vMyIpJTp5ww9pzUM';
+        const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        // --- Theme Logic ---
+        const toggleBtn = document.getElementById('theme-toggle');
+        const slider = document.getElementById('theme-slider');
+        const setTheme = (isDark) => {
+            if (isDark) {
+                document.documentElement.classList.add('dark');
+                slider.style.transform = 'translateX(32px)';
+                localStorage.theme = 'dark';
+            } else {
+                document.documentElement.classList.remove('dark');
+                slider.style.transform = 'translateX(0px)';
+                localStorage.theme = 'light';
+            }
+        };
+        setTheme(localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches));
+        toggleBtn.addEventListener('click', () => setTheme(!document.documentElement.classList.contains('dark')));
+
+        // --- Cart Logic ---
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        function renderCart() {
+            const container = document.getElementById('cart-items');
+            let total = 0;
+
+            if (cart.length === 0) {
+                container.innerHTML = '<div class="text-light-muted dark:text-dark-muted italic py-4 text-center border-2 border-dashed border-light-border dark:border-dark-border rounded-xl font-mono text-xs">LOG_EMPTY: NO_RESOURCES_SELECTED</div>';
+                document.getElementById('place-order-btn').disabled = true;
+                document.getElementById('place-order-btn').classList.add('opacity-50', 'cursor-not-allowed');
+                return;
+            }
+
+            container.innerHTML = cart.map((item, index) => {
+                total += parseFloat(item.price);
+                return `
+                    <div class="flex justify-between items-center gap-4 bg-light-bg dark:bg-dark-bg p-4 rounded-2xl border border-light-border dark:border-dark-border">
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 bg-light-surface dark:bg-dark-surface rounded-xl border border-light-border dark:border-dark-border p-2">
+                                <img src="${item.image || 'https://via.placeholder.com/100'}" class="object-contain w-full h-full">
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold tracking-tight">${item.name}</h4>
+                                <button onclick="removeItem(${index})" class="text-[9px] text-red-500 uppercase font-mono hover:text-red-400 transition-colors mt-1">Terminate_Item [X]</button>
+                            </div>
+                        </div>
+                        <span class="font-mono text-xs font-bold text-accent">${item.price} JOD</span>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('subtotal').innerText = `${total.toFixed(2)} JOD`;
+            document.getElementById('total').innerText = `${total.toFixed(2)} JOD`;
+        }
+
+        window.removeItem = (index) => {
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderCart();
+        };
+
+        document.getElementById('place-order-btn').addEventListener('click', async () => {
+            const name = document.getElementById('cust_name').value.trim();
+            const email = document.getElementById('cust_email').value.trim();
+            const btn = document.getElementById('place-order-btn');
+
+            if (!name || !email || cart.length === 0) {
+                alert("PROTOCOL_ERROR: INCOMPLETE_DATA_FIELD");
+                return;
+            }
+
+            btn.innerText = "INITIALIZING_ORDER...";
+            btn.disabled = true;
+
+            try {
+                // 1. Create the Order in Supabase
+                const { data: order, error: orderError } = await supabase
+                    .from('orders')
+                    .insert([{
+                        user_name: name,
+                        user_email: email,
+                        total_amount: cart.reduce((acc, item) => acc + parseFloat(item.price), 0),
+                        status: 'pending'
+                    }])
+                    .select()
+                    .single();
+
+                if (orderError) throw orderError;
+
+                // 2. Create Order Items
+                const orderItems = cart.map(item => ({
+                    order_id: order.id,
+                    product_id: item.id,
+                    price_at_purchase: item.price
+                }));
+
+                const { error: itemsError } = await supabase.from('order_items').insert(orderItems);
+                if (itemsError) throw itemsError;
+
+                localStorage.removeItem('cart');
+                btn.innerText = "ORDER_SUCCESS";
+                window.location.href = `success.html?orderId=${order.id}`;
+
+            } catch (err) {
+                console.error(err);
+                alert("SYSTEM_CRITICAL: TRANSACTION_FAILED");
+                btn.innerText = "RETRY_EXECUTION_";
+                btn.disabled = false;
+            }
+        });
+
+        renderCart();
+    </script>
+</body>
+
+</html>

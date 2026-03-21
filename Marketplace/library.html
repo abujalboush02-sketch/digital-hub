@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Library | Engineered Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bg: '#0f172a',
+                        card: '#1e293b',
+                        accent: '#38bdf8',
+                        border: '#334155',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0f172a;
+            color: #f1f5f9;
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col">
+
+    <nav class="border-b border-border p-6">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-xl font-bold tracking-tighter">M. <span
+                    class="text-accent">SOLUTIONS</span></a>
+            <a href="index.html"
+                class="text-sm text-gray-400 hover:text-accent font-mono tracking-tighter">BACK_TO_MARKET_</a>
+        </div>
+    </nav>
+
+    <main class="flex-grow max-w-7xl mx-auto px-6 py-16 w-full">
+
+        <div id="auth-section" class="max-w-md mx-auto text-center space-y-8">
+            <div
+                class="w-20 h-20 bg-accent/10 text-accent rounded-3xl flex items-center justify-center mx-auto text-3xl">
+                🔑</div>
+            <div>
+                <h1 class="text-3xl font-extrabold mb-2">Access Your Library</h1>
+                <p class="text-gray-400">Enter the email used during purchase to retrieve your digital assets.</p>
+            </div>
+            <div class="space-y-4">
+                <input type="email" id="access-email" placeholder="operator@example.com"
+                    class="w-full bg-card border border-border rounded-xl px-4 py-4 focus:border-accent outline-none text-center text-lg">
+                <button id="fetch-assets-btn"
+                    class="w-full bg-accent text-bg font-bold py-4 rounded-xl hover:bg-white transition shadow-lg shadow-accent/20">
+                    FETCH_RESOURCES_
+                </button>
+            </div>
+        </div>
+
+        <div id="library-content" class="hidden space-y-12">
+            <div class="border-b border-border pb-8">
+                <h2 class="text-3xl font-extrabold mb-2">My Engineered Resources</h2>
+                <p class="text-gray-400" id="user-display-email"></p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="assets-grid">
+            </div>
+        </div>
+    </main>
+
+    <footer class="p-12 text-center text-gray-600 text-xs font-mono">
+        © 2026 // DIGITAL ASSET GOVERNANCE // PORT 443
+    </footer>
+
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+        const supabase = createClient('https://dvlabpioxtyyzvhzpmyc.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2bGFicGlveHR5eXp2aHpwbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1MDY4NzUsImV4cCI6MjA4OTA4Mjg3NX0.fBM9r7WXpntVUM-qsBDQFlknRf2vMyIpJTp5ww9pzUM');
+
+        const authSection = document.getElementById('auth-section');
+        const libraryContent = document.getElementById('library-content');
+        const fetchBtn = document.getElementById('fetch-assets-btn');
+        const assetsGrid = document.getElementById('assets-grid');
+
+        fetchBtn.addEventListener('click', async () => {
+            const email = document.getElementById('access-email').value;
+            if (!email) return;
+
+            fetchBtn.innerText = 'VERIFYING...';
+
+            // Query logic: 
+            // 1. Get all orders for this email that are 'paid' (or 'pending' for your current test)
+            // 2. Join with order_items and marketplace_products
+            const { data, error } = await supabase
+                .from('order_items')
+                .select(`
+                    id,
+                    marketplace_products (
+                        name,
+                        image_url,
+                        demo_url,
+                        description
+                    ),
+                    orders!inner (
+                        user_email,
+                        status
+                    )
+                `)
+                .eq('orders.user_email', email);
+
+            if (error || !data.length) {
+                alert("No resources found for this email.");
+                fetchBtn.innerText = 'FETCH_RESOURCES_';
+                return;
+            }
+
+            // Successfully found assets
+            authSection.classList.add('hidden');
+            libraryContent.classList.remove('hidden');
+            document.getElementById('user-display-email').innerText = `Active Session: ${email}`;
+
+            assetsGrid.innerHTML = data.map(item => `
+                <div class="bg-card border border-border rounded-2xl overflow-hidden shadow-xl">
+                    <div class="aspect-video bg-bg flex items-center justify-center p-6 border-b border-border">
+                        <img src="${item.marketplace_products.image_url}" class="max-h-full object-contain">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-lg mb-2">${item.marketplace_products.name}</h3>
+                        <p class="text-xs text-gray-500 mb-6 line-clamp-2">${item.marketplace_products.description}</p>
+                        <a href="${item.marketplace_products.demo_url}" target="_blank" 
+                           class="block w-full text-center py-3 bg-accent text-bg font-bold rounded-xl hover:bg-white transition text-sm">
+                            ACCESS RESOURCE
+                        </a>
+                    </div>
+                </div>
+            `).join('');
+        });
+    </script>
+</body>
+
+</html>

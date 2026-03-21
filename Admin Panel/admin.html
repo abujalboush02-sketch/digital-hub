@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission Control | M. Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        accent: '#38bdf8',
+                        dark: { bg: '#050505', text: '#FFFFFF', surface: '#111112', border: 'rgba(255, 255, 255, 0.08)', muted: '#71717a' },
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #050505;
+            color: #FFFFFF;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .tab-active {
+            color: #38bdf8;
+            background: rgba(56, 189, 248, 0.08);
+            border-right: 3px solid #38bdf8;
+        }
+
+        input,
+        textarea,
+        select {
+            background: #0c0c0d !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            color: white !important;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: #38bdf8 !important;
+            outline: none;
+        }
+
+        .feature-chip {
+            animation: popIn 0.2s ease-out;
+        }
+
+        @keyframes popIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body class="dark flex flex-col md:flex-row h-screen overflow-hidden">
+
+    <div
+        class="md:hidden bg-dark-bg/90 backdrop-blur-md border-b border-dark-border p-4 flex-shrink-0 z-[40] flex justify-between items-center">
+        <div class="flex items-center gap-2">
+            <span class="text-accent font-bold text-xl">M.</span>
+            <span class="font-mono text-[10px] tracking-widest text-accent/50 uppercase">Terminal</span>
+        </div>
+        <button onclick="toggleMobileMenu()" class="p-2 text-white hover:text-accent transition-colors">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
+                </path>
+            </svg>
+        </button>
+    </div>
+
+    <div id="sidebar-overlay" onclick="toggleMobileMenu()"
+        class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[45] hidden md:hidden transition-opacity"></div>
+
+    <aside id="sidebar"
+        class="fixed inset-y-0 left-0 z-[50] w-72 bg-[#09090a] border-r border-dark-border flex flex-col p-6 transition-transform duration-300 ease-in-out -translate-x-full md:relative md:translate-x-0 md:h-full flex-shrink-0">
+
+        <div class="mb-10 hidden md:flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <span class="text-accent font-bold text-2xl">M.</span>
+                <span
+                    class="font-mono text-[10px] tracking-[0.2em] text-accent/50 uppercase mt-1">Mission_Control</span>
+            </div>
+        </div>
+
+        <nav class="flex flex-col gap-1 flex-1 overflow-y-auto pr-2">
+            <p class="text-[10px] font-mono text-dark-muted px-4 mb-2 uppercase tracking-widest mt-4 md:mt-0">Mainframe
+            </p>
+            <button onclick="showTab('orders')" id="btn-orders"
+                class="tab-active flex items-center justify-between px-4 py-3 rounded-lg font-mono text-xs uppercase transition-all hover:bg-white/5">
+                <span>01_Orders</span><span class="text-[10px] opacity-30">→</span>
+            </button>
+            <button onclick="showTab('products')" id="btn-products"
+                class="flex items-center justify-between px-4 py-3 rounded-lg font-mono text-xs uppercase transition-all hover:bg-white/5">
+                <span>02_Resources</span><span class="text-[10px] opacity-30">→</span>
+            </button>
+            <button onclick="showTab('categories')" id="btn-categories"
+                class="flex items-center justify-between px-4 py-3 rounded-lg font-mono text-xs uppercase transition-all hover:bg-white/5">
+                <span>03_Taxonomy</span><span class="text-[10px] opacity-30">→</span>
+            </button>
+            <button onclick="showTab('portfolio')" id="btn-portfolio"
+                class="flex items-center justify-between px-4 py-3 rounded-lg font-mono text-xs uppercase transition-all hover:bg-white/5">
+                <span>04_Portfolio_Live</span><span class="text-[10px] opacity-30">→</span>
+            </button>
+
+            <p class="text-[10px] font-mono text-dark-muted px-4 mt-8 mb-2 uppercase tracking-widest">Performance</p>
+            <button onclick="showTab('finance')" id="btn-finance"
+                class="flex items-center justify-between px-4 py-3 rounded-lg font-mono text-xs uppercase transition-all hover:bg-white/5">
+                <span>05_Ledger</span><span class="text-[10px] opacity-30">→</span>
+            </button>
+            <button onclick="showTab('testimonials')" id="btn-testimonials"
+                class="flex items-center justify-between px-4 py-3 rounded-lg font-mono text-xs uppercase transition-all hover:bg-white/5">
+                <span>06_Reviews</span><span class="text-[10px] opacity-30">→</span>
+            </button>
+        </nav>
+
+        <div class="pt-6 mt-4 border-t border-dark-border space-y-4">
+            <div class="p-4 bg-white/5 rounded-xl border border-dark-border">
+                <p class="text-[9px] font-mono text-dark-muted uppercase flex justify-between">
+                    <span>Database_Link</span><span class="text-emerald-500">Secure</span>
+                </p>
+            </div>
+            <button onclick="executeLogout()"
+                class="flex items-center justify-center w-full py-3 border border-dark-border rounded-xl text-[10px] font-mono text-red-500 uppercase hover:bg-red-500/10 transition-all">
+                Terminate_Session [Logout]
+            </button>
+        </div>
+    </aside>
+
+    <main class="flex-1 h-full overflow-y-auto p-4 md:p-10 relative">
+        <header class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div>
+                <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tighter" id="tab-title">Orders_Terminal
+                </h2>
+                <p class="text-dark-muted font-mono text-[10px] uppercase mt-1 flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span> Node_Connected
+                </p>
+            </div>
+        </header>
+
+        <div id="content-area" class="w-full pb-20">
+        </div>
+    </main>
+
+    <div id="product-modal"
+        class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 md:p-6 bg-black/95 backdrop-blur-md">
+        <div
+            class="bg-dark-surface border border-dark-border w-full max-w-4xl rounded-[2rem] p-6 md:p-10 overflow-y-auto max-h-[90vh]">
+            <h2 id="modal-title" class="text-2xl font-bold mb-8 font-mono uppercase tracking-tighter text-accent">
+                Product_Config</h2>
+            <form id="product-form" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <input type="hidden" name="id" id="form-id">
+                <input type="hidden" name="existing_image_url" id="existing-image-url">
+
+                <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="md:col-span-2">
+                        <label class="text-[10px] font-mono text-dark-muted uppercase px-2">Resource Name</label>
+                        <input type="text" name="name" required class="w-full p-4 rounded-xl mt-1 text-sm">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-mono text-dark-muted uppercase px-2">Price (JOD)</label>
+                        <input type="number" step="0.01" name="price_jod" required
+                            class="w-full p-4 rounded-xl mt-1 text-sm">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="text-[10px] font-mono text-dark-muted uppercase px-2">Category</label>
+                    <select id="modal-cat-select" name="category_id"
+                        class="w-full p-4 rounded-xl mt-1 text-sm appearance-none"></select>
+                </div>
+
+                <div>
+                    <label class="text-[10px] font-mono text-dark-muted uppercase px-2">Upload Image</label>
+                    <div class="flex items-center gap-3 mt-1">
+                        <input type="file" id="image-file-input" name="image_file" accept="image/*"
+                            class="w-full p-3 rounded-xl border border-dark-border file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-accent file:text-black hover:file:bg-white transition-all text-xs">
+                    </div>
+                    <p id="image-preview-text" class="text-[10px] font-mono text-accent mt-2 hidden truncate">Current:
+                        <a id="image-preview-link" href="#" target="_blank" class="hover:underline">View File</a>
+                    </p>
+                </div>
+
+                <div class="md:col-span-2">
+                    <label class="text-[10px] font-mono text-dark-muted uppercase px-2">Feature Protocols (Add one by
+                        one)</label>
+                    <div class="flex gap-2 mt-1">
+                        <input type="text" id="feature-adder" placeholder="e.g., Cloud Sync"
+                            class="flex-1 p-4 rounded-xl text-sm">
+                        <button type="button" onclick="addFeatureTag()"
+                            class="bg-white text-black font-bold px-6 rounded-xl uppercase text-xs">Add</button>
+                    </div>
+                    <div id="feature-list" class="flex flex-wrap gap-2 mt-3"></div>
+                </div>
+
+                <div class="md:col-span-2">
+                    <label class="text-[10px] font-mono text-dark-muted uppercase px-2">Brief Description</label>
+                    <input type="text" name="brief_description" required class="w-full p-4 rounded-xl mt-1 text-sm">
+                </div>
+
+                <div class="md:col-span-2">
+                    <label class="text-[10px] font-mono text-dark-muted uppercase px-2">Detailed Documentation</label>
+                    <textarea name="full_description" rows="4"
+                        class="w-full p-4 rounded-xl mt-1 resize-none text-sm"></textarea>
+                </div>
+
+                <div class="md:col-span-2 flex flex-col sm:flex-row gap-4 mt-6">
+                    <button type="submit" id="product-submit-btn"
+                        class="flex-1 bg-accent text-black font-black py-5 rounded-2xl uppercase tracking-widest shadow-lg shadow-accent/20 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-wait">Execute_Write_Operation</button>
+                    <button type="button" onclick="closeProductModal()"
+                        class="px-8 py-5 border border-dark-border rounded-2xl uppercase text-[10px] font-bold hover:bg-white/5 transition-all">Abort</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="portfolio-modal"
+        class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 md:p-6 bg-black/95 backdrop-blur-md">
+        <div
+            class="bg-dark-surface border border-dark-border w-full max-w-2xl rounded-[2rem] p-6 md:p-10 overflow-y-auto max-h-[90vh]">
+            <h2 class="text-2xl font-bold mb-8 font-mono uppercase tracking-tighter text-accent">Portfolio_Config</h2>
+            <form id="portfolio-form" class="grid grid-cols-1 gap-6">
+                <input type="hidden" name="id" id="port-form-id">
+                <input type="hidden" name="existing_image_url" id="port-existing-image-url">
+
+                <div>
+                    <label class="text-[10px] font-mono text-dark-muted uppercase px-2">Project Name</label>
+                    <input type="text" name="name" required class="w-full p-4 rounded-xl mt-1 text-sm">
+                </div>
+
+                <div>
+                    <label class="text-[10px] font-mono text-dark-muted uppercase px-2">External Link / Demo URL</label>
+                    <input type="url" name="product_link" required
+                        class="w-full p-4 rounded-xl mt-1 text-sm font-mono placeholder:text-white/20"
+                        placeholder="https://...">
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="text-[10px] font-mono text-dark-muted uppercase px-2">Upload Display Image</label>
+                        <div class="mt-1">
+                            <input type="file" id="port-image-file-input" name="image_file" accept="image/*"
+                                class="w-full p-3 rounded-xl border border-dark-border file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-accent file:text-black hover:file:bg-white transition-all text-xs">
+                        </div>
+                        <p id="port-image-preview-text" class="text-[10px] font-mono text-accent mt-2 hidden truncate">
+                            Current:
+                            <a id="port-image-preview-link" href="#" target="_blank" class="hover:underline">View
+                                File</a>
+                        </p>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-mono text-dark-muted uppercase px-2">Sort Order</label>
+                        <input type="number" name="sort_order" value="0" class="w-full p-4 rounded-xl mt-1 text-sm"
+                            placeholder="Lower shows first">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="text-[10px] font-mono text-dark-muted uppercase px-2">Project Description</label>
+                    <textarea name="description" rows="3" required
+                        class="w-full p-4 rounded-xl mt-1 resize-none text-sm"></textarea>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-4 mt-4">
+                    <button type="submit" id="port-submit-btn"
+                        class="flex-1 bg-accent text-black font-black py-5 rounded-2xl uppercase tracking-widest shadow-lg shadow-accent/20 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-wait">Inject_Portfolio_Node</button>
+                    <button type="button" onclick="closePortfolioModal()"
+                        class="px-8 py-5 border border-dark-border rounded-2xl uppercase text-[10px] font-bold hover:bg-white/5 transition-all">Abort</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="category-modal"
+        class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 bg-black/90 backdrop-blur-md">
+        <div class="bg-dark-surface border border-dark-border w-full max-w-sm rounded-[2rem] p-8 text-center">
+            <h2 class="text-xl font-bold mb-6 font-mono uppercase">Category_Editor</h2>
+            <input type="hidden" id="edit-cat-id">
+            <input type="text" id="edit-cat-name" class="w-full p-4 rounded-xl mb-6">
+            <div class="flex flex-col gap-3">
+                <button onclick="commitCategoryUpdate()"
+                    class="w-full bg-white text-black font-bold py-4 rounded-xl uppercase">Update_Node</button>
+                <button onclick="closeCategoryModal()"
+                    class="w-full py-4 text-xs font-mono text-dark-muted">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+        const supabase = createClient('https://dvlabpioxtyyzvhzpmyc.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2bGFicGlveHR5eXp2aHpwbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1MDY4NzUsImV4cCI6MjA4OTA4Mjg3NX0.fBM9r7WXpntVUM-qsBDQFlknRf2vMyIpJTp5ww9pzUM');
+
+        // --- SECURITY LOCKDOWN ---
+        const { data: { session }, error: authError } = await supabase.auth.getSession();
+        if (!session || authError) {
+            window.location.replace('login.html');
+        }
+
+        window.executeLogout = async () => {
+            document.body.style.opacity = '0.5';
+            document.body.style.pointerEvents = 'none';
+            await supabase.auth.signOut();
+            window.location.replace('login.html');
+        };
+
+        const area = document.getElementById('content-area');
+        const tabTitle = document.getElementById('tab-title');
+        let currentFeatures = [];
+
+        // --- Layout & Routing ---
+        window.toggleMobileMenu = () => {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        };
+
+        window.showTab = (tab) => {
+            document.querySelectorAll('aside nav button').forEach(b => b.classList.remove('tab-active'));
+            document.getElementById(`btn-${tab}`).classList.add('tab-active');
+            tabTitle.innerText = tab.toUpperCase() + "_TERMINAL";
+
+            if (window.innerWidth < 768 && !document.getElementById('sidebar').classList.contains('-translate-x-full')) {
+                toggleMobileMenu();
+            }
+
+            if (tab === 'orders') renderOrders();
+            if (tab === 'products') renderProducts();
+            if (tab === 'categories') renderCategories();
+            if (tab === 'finance') renderFinance();
+            if (tab === 'testimonials') renderTestimonials();
+            if (tab === 'portfolio') renderPortfolio();
+        };
+
+        // --- Orders ---
+        async function renderOrders() {
+            area.innerHTML = `<div class="bg-dark-surface border border-dark-border rounded-3xl overflow-x-auto shadow-2xl"><table class="w-full text-left min-w-[600px]"><thead class="bg-white/5 font-mono text-[10px] text-dark-muted uppercase tracking-widest"><tr><th class="p-6">Client</th><th class="p-6">Flow</th><th class="p-6">Amount</th><th class="p-6 text-right">Ops</th></tr></thead><tbody id="rows"></tbody></table></div>`;
+            const { data } = await supabase.from('orders').select('*').order('created_at', { ascending: false });
+            document.getElementById('rows').innerHTML = (data || []).map(o => `
+                <tr class="border-t border-dark-border hover:bg-white/[0.02] transition-all">
+                    <td class="p-6"><div class="font-bold text-sm">${o.user_name}</div><div class="text-[10px] font-mono text-dark-muted uppercase">${o.user_email}</div></td>
+                    <td class="p-6"><span class="px-3 py-1 rounded-full text-[9px] font-bold uppercase ${o.status === 'paid' ? 'bg-emerald-500/10 text-emerald-500' : 'bg-amber-500/10 text-amber-500'}">${o.status}</span></td>
+                    <td class="p-6 font-mono text-sm">${o.total_amount} JOD</td>
+                    <td class="p-6 text-right">
+                        ${o.status === 'pending' ? `<button onclick="updateOrderStatus('${o.id}', 'paid')" class="text-[10px] font-black text-accent uppercase hover:underline">Settle_Order</button>` : `<span class="text-[10px] font-mono text-emerald-500 uppercase">Settled</span>`}
+                    </td>
+                </tr>
+            `).join('');
+        }
+        window.updateOrderStatus = async (id, status) => { await supabase.from('orders').update({ status }).eq('id', id); renderOrders(); };
+
+        // --- Products (Marketplace) ---
+        async function renderProducts() {
+            area.innerHTML = `<button onclick="openProductModal()" class="mb-8 bg-accent text-black font-black px-8 py-4 rounded-2xl text-[10px] uppercase tracking-widest shadow-lg shadow-accent/20 transition-all active:scale-95">+ INITIALIZE_PRODUCT</button><div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" id="p-grid"></div>`;
+            const { data } = await supabase.from('products').select('*, product_categories(name)');
+            document.getElementById('p-grid').innerHTML = (data || []).map(p => `
+                <div class="bg-dark-surface border border-dark-border rounded-3xl overflow-hidden flex flex-col group shadow-xl">
+                    <div class="h-40 bg-black/40 flex items-center justify-center p-6 border-b border-dark-border relative">
+                        <img src="${p.image_url || 'https://via.placeholder.com/300?text=No+Image'}" class="max-h-full object-contain group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <p class="text-[9px] font-mono text-accent uppercase mb-1">${p.product_categories?.name || 'MISC'}</p>
+                        <h4 class="font-bold mb-4">${p.name}</h4>
+                        <div class="flex items-center justify-between mt-auto pt-4 border-t border-white/5">
+                            <span class="font-mono text-sm">${p.price_jod} JOD</span>
+                            <div class="flex gap-4">
+                                <button onclick="openProductModal('${p.id}')" class="text-xs text-accent font-bold uppercase hover:underline">Edit</button>
+                                <button onclick="deleteProduct('${p.id}')" class="text-xs text-red-500 font-bold uppercase hover:underline">X</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        window.deleteProduct = async (id) => { if (confirm('Sudo: Confirm deletion?')) { await supabase.from('products').delete().eq('id', id); renderProducts(); } };
+
+        // --- Feature Tag Builder ---
+        window.addFeatureTag = () => {
+            const input = document.getElementById('feature-adder');
+            if (input.value.trim()) { currentFeatures.push(input.value.trim()); input.value = ''; renderFeatureTags(); }
+        };
+        window.removeFeatureTag = (index) => { currentFeatures.splice(index, 1); renderFeatureTags(); };
+        function renderFeatureTags() {
+            document.getElementById('feature-list').innerHTML = currentFeatures.map((f, i) => `<span class="feature-chip flex items-center gap-2 bg-white/5 border border-dark-border px-3 py-1.5 rounded-lg text-[10px] font-medium">${f} <button type="button" onclick="removeFeatureTag(${i})" class="text-red-500 ml-1">✕</button></span>`).join('');
+        }
+
+        // --- NEW: Portfolio (Live Website Products) ---
+        async function renderPortfolio() {
+            area.innerHTML = `<button onclick="openPortfolioModal()" class="mb-8 bg-white text-black font-black px-8 py-4 rounded-2xl text-[10px] uppercase tracking-widest shadow-lg transition-all active:scale-95">+ NEW_PORTFOLIO_NODE</button><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="port-grid"></div>`;
+            const { data } = await supabase.from('portfolio_products').select('*').order('sort_order', { ascending: true });
+
+            document.getElementById('port-grid').innerHTML = (data || []).map(p => `
+                <div class="bg-dark-surface border border-dark-border rounded-3xl overflow-hidden flex flex-col shadow-xl">
+                    <div class="h-48 bg-black flex items-center justify-center relative overflow-hidden group border-b border-dark-border">
+                        <img src="${p.image_url}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent pointer-events-none"></div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="font-bold text-lg leading-tight truncate pr-4">${p.name}</h4>
+                            <button onclick="togglePortfolioStatus('${p.id}', ${!p.is_active})" class="text-[9px] font-black uppercase shrink-0 ${p.is_active ? 'text-emerald-500' : 'text-dark-muted'} border border-white/10 px-2 py-1 rounded">
+                                ${p.is_active ? 'LIVE' : 'OFFLINE'}
+                            </button>
+                        </div>
+                        <p class="text-xs text-dark-muted line-clamp-2 mb-4">${p.description}</p>
+                        
+                        <div class="flex items-center justify-between mt-auto pt-4 border-t border-white/5">
+                            <a href="${p.product_link}" target="_blank" class="text-[10px] font-mono text-accent uppercase hover:underline">Link 🔗</a>
+                            <div class="flex gap-4">
+                                <button onclick="openPortfolioModal('${p.id}')" class="text-xs text-white font-bold uppercase hover:underline">Edit</button>
+                                <button onclick="deletePortfolioProduct('${p.id}')" class="text-xs text-red-500 font-bold uppercase hover:underline">X</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            if (!data || data.length === 0) {
+                document.getElementById('port-grid').innerHTML = `<p class="col-span-full text-center py-10 font-mono text-xs text-dark-muted">// NO_PORTFOLIO_ITEMS_FOUND</p>`;
+            }
+        }
+
+        window.deletePortfolioProduct = async (id) => { if (confirm('Purge from Portfolio Database?')) { await supabase.from('portfolio_products').delete().eq('id', id); renderPortfolio(); } };
+        window.togglePortfolioStatus = async (id, status) => { await supabase.from('portfolio_products').update({ is_active: status }).eq('id', id); renderPortfolio(); };
+
+        // --- Categories ---
+        async function renderCategories() {
+            area.innerHTML = `<div class="max-w-xl space-y-8"><div class="bg-dark-surface border border-dark-border p-6 md:p-8 rounded-[2rem] shadow-xl"><h3 class="font-mono text-[10px] uppercase text-accent mb-4 tracking-widest">Inject_New_Classification</h3><div class="flex gap-2"><input id="new-cat" class="flex-1 p-4 rounded-xl text-sm" placeholder="Category Name"><button onclick="saveNewCategory()" class="bg-white text-black px-6 md:px-8 rounded-xl font-black uppercase text-xs active:scale-95 transition-transform">Inject</button></div></div><div id="c-list" class="space-y-3"></div></div>`;
+            const { data } = await supabase.from('product_categories').select('*').order('name');
+            document.getElementById('c-list').innerHTML = (data || []).map(c => `
+                <div class="p-5 bg-dark-surface border border-dark-border rounded-2xl flex justify-between items-center group shadow-md">
+                    <span class="font-mono text-sm">${c.name}</span>
+                    <button onclick="deleteCategory('${c.id}')" class="text-red-500 text-[10px] font-bold uppercase hover:underline md:opacity-40 group-hover:opacity-100 transition-opacity">Purge</button>
+                </div>
+            `).join('');
+        }
+        window.saveNewCategory = async () => { const name = document.getElementById('new-cat').value; if (name) { await supabase.from('product_categories').insert([{ name }]); renderCategories(); } };
+        window.deleteCategory = async (id) => { if (confirm('Purge Category? This may affect linked products.')) { await supabase.from('product_categories').delete().eq('id', id); renderCategories(); } };
+
+        // --- Finance Dashboard ---
+        async function renderFinance() {
+            const { data: orders } = await supabase.from('orders').select('*');
+            const { data: ledger } = await supabase.from('finance_ledger').select('*').order('created_at', { ascending: false });
+
+            const safeOrders = orders || [];
+            const safeLedger = ledger || [];
+
+            const orderRev = safeOrders.filter(o => o.status === 'paid').reduce((a, b) => a + b.total_amount, 0);
+            const manualIncome = safeLedger.filter(l => l.tx_type === 'income').reduce((a, b) => a + b.amount, 0);
+            const expenses = safeLedger.filter(l => l.tx_type === 'expense').reduce((a, b) => a + b.amount, 0);
+
+            const totalRev = orderRev + manualIncome;
+            const netProfit = totalRev - expenses;
+
+            area.innerHTML = `
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
+                    <div class="bg-dark-surface border border-dark-border p-6 md:p-8 rounded-3xl shadow-xl"><p class="text-[9px] font-mono text-dark-muted uppercase mb-2">Total_Revenue</p><p class="text-2xl md:text-3xl font-black text-accent">${totalRev.toFixed(2)} JOD</p></div>
+                    <div class="bg-dark-surface border border-dark-border p-6 md:p-8 rounded-3xl shadow-xl"><p class="text-[9px] font-mono text-dark-muted uppercase mb-2">Total_Expenses</p><p class="text-2xl md:text-3xl font-black text-red-500">${expenses.toFixed(2)} JOD</p></div>
+                    <div class="bg-dark-surface border border-dark-border p-6 md:p-8 rounded-3xl border-emerald-500/20 shadow-xl"><p class="text-[9px] font-mono text-dark-muted uppercase mb-2">Net_Profit</p><p class="text-2xl md:text-3xl font-black text-emerald-500">${netProfit.toFixed(2)} JOD</p></div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div class="lg:col-span-1 bg-dark-surface border border-dark-border p-6 md:p-8 rounded-[2rem] h-fit shadow-xl">
+                        <h4 class="font-mono text-[10px] uppercase text-accent mb-6 tracking-widest">Add_Transaction</h4>
+                        <form onsubmit="addLedgerEntry(event)" class="space-y-4">
+                            <select id="l-type" class="w-full p-4 rounded-xl text-xs uppercase font-bold appearance-none"><option value="expense">Expense (-)</option><option value="income">Income (+)</option></select>
+                            <input type="text" id="l-desc" placeholder="Desc (e.g. Hosting)" required class="w-full p-4 rounded-xl text-sm">
+                            <input type="number" step="0.01" id="l-amount" placeholder="Amount (JOD)" required class="w-full p-4 rounded-xl text-sm">
+                            <button type="submit" class="w-full bg-white text-black font-black py-4 rounded-xl uppercase text-[10px] tracking-widest active:scale-95 transition-transform">Inject_Record</button>
+                        </form>
+                    </div>
+                    <div class="lg:col-span-2 bg-dark-surface border border-dark-border p-6 md:p-8 rounded-[2rem] shadow-xl">
+                        <h4 class="font-mono text-[10px] uppercase text-accent mb-6 tracking-widest">Ledger_History</h4>
+                        <div class="space-y-3 font-mono text-xs" id="ledger-list">
+                            ${safeLedger.length === 0 ? '<p class="text-dark-muted text-center py-10">No manual records found.</p>' : ''}
+                            ${safeLedger.map(l => `
+                                <div class="flex justify-between items-center bg-white/5 p-4 rounded-xl border border-dark-border">
+                                    <div class="flex flex-col"><span class="text-dark-muted text-[9px]">${l.created_at.split('T')[0]}</span><span class="font-bold uppercase tracking-tighter">${l.description}</span></div>
+                                    <div class="flex items-center gap-4">
+                                        <span class="${l.tx_type === 'income' ? 'text-emerald-500' : 'text-red-500'} font-bold">${l.tx_type === 'income' ? '+' : '-'}${l.amount}</span>
+                                        <button onclick="deleteLedger('${l.id}')" class="text-red-500 hover:text-white transition-colors">✕</button>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>`;
+        }
+        window.addLedgerEntry = async (e) => { e.preventDefault(); const tx_type = document.getElementById('l-type').value; const description = document.getElementById('l-desc').value; const amount = parseFloat(document.getElementById('l-amount').value); await supabase.from('finance_ledger').insert([{ tx_type, description, amount }]); renderFinance(); };
+        window.deleteLedger = async (id) => { if (confirm('Delete ledger entry?')) { await supabase.from('finance_ledger').delete().eq('id', id); renderFinance(); } };
+
+        // --- Testimonials ---
+        async function renderTestimonials() {
+            const { data } = await supabase.from('testimonials').select('*, products(name)');
+            const safeData = data || [];
+            area.innerHTML = `<div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="t-grid"></div>`;
+            document.getElementById('t-grid').innerHTML = safeData.map(t => `
+                <div class="bg-dark-surface border border-dark-border p-6 rounded-3xl flex flex-col justify-between shadow-xl">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-[9px] font-mono px-2 py-0.5 bg-accent/10 text-accent rounded uppercase font-bold">${t.products?.name || 'GENERAL'}</span>
+                            <span class="px-2 py-0.5 rounded text-[8px] font-bold uppercase ${t.is_approved ? 'bg-emerald-500/20 text-emerald-500' : 'bg-amber-500/20 text-amber-500'}">${t.is_approved ? 'Live' : 'Hidden'}</span>
+                        </div>
+                        <p class="text-sm italic mb-6 text-dark-muted">"${t.message}"</p>
+                    </div>
+                    <div class="flex items-center justify-between border-t border-white/5 pt-4">
+                        <span class="text-[10px] font-bold font-mono tracking-tighter">${t.user_name}</span>
+                        <div class="flex gap-3">
+                            <button onclick="toggleFeedback('${t.id}', ${!t.is_approved})" class="text-[9px] font-black uppercase text-white hover:text-accent">Toggle</button>
+                            <button onclick="deleteFeedback('${t.id}')" class="text-[9px] font-black text-red-500 uppercase hover:text-white">Del</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            if (safeData.length === 0) area.innerHTML = `<p class="font-mono text-dark-muted uppercase tracking-widest text-center mt-20">No feedback found in database.</p>`;
+        }
+        window.toggleFeedback = async (id, is_approved) => { await supabase.from('testimonials').update({ is_approved }).eq('id', id); renderTestimonials(); };
+        window.deleteFeedback = async (id) => { if (confirm('Discard feedback?')) { await supabase.from('testimonials').delete().eq('id', id); renderTestimonials(); } };
+
+
+        // --- MODAL HANDLING & IMAGE UPLOADS ---
+
+        // Helper: Upload file to Supabase Storage
+        async function uploadImageFile(file, bucketName) {
+            const fileExt = file.name.split('.').pop();
+            const fileName = `${Math.random().toString(36).substring(2, 15)}.${fileExt}`;
+            const { error: uploadError } = await supabase.storage.from(bucketName).upload(fileName, file, { upsert: true });
+            if (uploadError) throw uploadError;
+            const { data: { publicUrl } } = supabase.storage.from(bucketName).getPublicUrl(fileName);
+            return publicUrl;
+        }
+
+        // --- Marketplace Product Modal ---
+        window.openProductModal = async (id = null) => {
+            currentFeatures = [];
+            const cats = await supabase.from('product_categories').select('*');
+            document.getElementById('modal-cat-select').innerHTML = (cats.data || []).map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+            document.getElementById('image-file-input').value = "";
+            const previewText = document.getElementById('image-preview-text');
+
+            if (id) {
+                const { data } = await supabase.from('products').select('*').eq('id', id).single();
+                const f = document.getElementById('product-form');
+                f.id.value = data.id;
+                f.name.value = data.name;
+                f.price_jod.value = data.price_jod;
+                f.category_id.value = data.category_id;
+                f.brief_description.value = data.brief_description;
+                f.full_description.value = data.full_description;
+                document.getElementById('existing-image-url').value = data.image_url || '';
+
+                if (data.image_url) {
+                    previewText.classList.remove('hidden');
+                    document.getElementById('image-preview-link').href = data.image_url;
+                } else { previewText.classList.add('hidden'); }
+
+                currentFeatures = data.features || [];
+                renderFeatureTags();
+            } else {
+                document.getElementById('product-form').reset();
+                document.getElementById('form-id').value = '';
+                document.getElementById('existing-image-url').value = '';
+                previewText.classList.add('hidden');
+                renderFeatureTags();
+            }
+            document.getElementById('product-modal').classList.remove('hidden');
+        }
+
+        document.getElementById('product-form').onsubmit = async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('product-submit-btn');
+            btn.disabled = true; btn.innerText = "UPLOADING...";
+
+            const fd = new FormData(e.target);
+            const data = Object.fromEntries(fd.entries());
+            data.features = currentFeatures;
+            const id = data.id; delete data.id;
+
+            const file = document.getElementById('image-file-input').files[0];
+            let finalImageUrl = data.existing_image_url;
+            delete data.image_file; delete data.existing_image_url;
+
+            try {
+                if (file) finalImageUrl = await uploadImageFile(file, 'product-images');
+                data.image_url = finalImageUrl;
+
+                const { error } = id ? await supabase.from('products').update(data).eq('id', id) : await supabase.from('products').insert([data]);
+                if (error) throw error;
+
+                closeProductModal(); renderProducts();
+            } catch (err) { alert(`System Error: ${err.message}`); }
+            finally { btn.disabled = false; btn.innerText = "Execute_Write_Operation"; }
+        }
+        window.closeProductModal = () => document.getElementById('product-modal').classList.add('hidden');
+
+
+        // --- NEW: Portfolio Modal Logic ---
+        window.openPortfolioModal = async (id = null) => {
+            document.getElementById('port-image-file-input').value = "";
+            const previewText = document.getElementById('port-image-preview-text');
+
+            if (id) {
+                const { data } = await supabase.from('portfolio_products').select('*').eq('id', id).single();
+                const f = document.getElementById('portfolio-form');
+                f.id.value = data.id;
+                f.name.value = data.name;
+                f.product_link.value = data.product_link;
+                f.sort_order.value = data.sort_order;
+                f.description.value = data.description;
+                document.getElementById('port-existing-image-url').value = data.image_url || '';
+
+                if (data.image_url) {
+                    previewText.classList.remove('hidden');
+                    document.getElementById('port-image-preview-link').href = data.image_url;
+                } else { previewText.classList.add('hidden'); }
+            } else {
+                document.getElementById('portfolio-form').reset();
+                document.getElementById('port-form-id').value = '';
+                document.getElementById('port-existing-image-url').value = '';
+                previewText.classList.add('hidden');
+            }
+            document.getElementById('portfolio-modal').classList.remove('hidden');
+        }
+
+        document.getElementById('portfolio-form').onsubmit = async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('port-submit-btn');
+            btn.disabled = true; btn.innerText = "UPLOADING...";
+
+            const fd = new FormData(e.target);
+            const data = Object.fromEntries(fd.entries());
+            const id = data.id; delete data.id;
+
+            const file = document.getElementById('port-image-file-input').files[0];
+            let finalImageUrl = data.existing_image_url;
+            delete data.image_file; delete data.existing_image_url;
+
+            try {
+                if (file) finalImageUrl = await uploadImageFile(file, 'product-images'); // Using same public bucket
+
+                // For a new portfolio product without an image, supply a placeholder
+                data.image_url = finalImageUrl || "https://via.placeholder.com/600x400?text=No+Image";
+
+                const { error } = id ? await supabase.from('portfolio_products').update(data).eq('id', id) : await supabase.from('portfolio_products').insert([data]);
+                if (error) throw error;
+
+                closePortfolioModal(); renderPortfolio();
+            } catch (err) { alert(`System Error: ${err.message}`); }
+            finally { btn.disabled = false; btn.innerText = "Inject_Portfolio_Node"; }
+        }
+        window.closePortfolioModal = () => document.getElementById('portfolio-modal').classList.add('hidden');
+
+
+        // Load defaults
+        showTab('orders');
+    </script>
+</body>
+
+</html>
