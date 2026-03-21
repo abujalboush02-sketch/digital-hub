@@ -401,7 +401,7 @@
         async function renderOverview() {
             area.innerHTML = `<div class="animate-pulse font-mono text-xs text-dark-muted">Compiling Enterprise Telemetry...</div>`;
 
-            // 1. Fetch Master Datasets
+            // Fetch Master Datasets (Removed !inner to ensure all data loads even if unlinked)
             const [ordersRes, accessRes, ticketsRes, subsRes, itemsRes, promosRes] = await Promise.all([
                 supabase.from('orders').select('*').order('created_at', { ascending: false }),
                 supabase.from('user_access').select('*, products(name)').order('created_at', { ascending: false }),
@@ -416,7 +416,7 @@
             const items = itemsRes.data || [];
             const promos = promosRes.data || [];
 
-            // 2. Calculations
+            // Calculations
             const today = new Date().toISOString().split('T')[0];
             const todayRev = orders.filter(o => o.status === 'paid' && o.created_at.startsWith(today)).reduce((a, b) => a + b.total_amount, 0);
 
@@ -424,14 +424,14 @@
             let topProduct = { name: "No Data", count: 0 };
             if (items.length > 0) {
                 const counts = items.reduce((acc, item) => {
-                    const name = item.products?.name || 'Unknown';
+                    const name = item.products?.name || 'Deleted Product';
                     acc[name] = (acc[name] || 0) + 1; return acc;
                 }, {});
-                const topName = Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b);
+                const sortedKeys = Object.keys(counts).sort((a, b) => counts[b] - counts[a]);
+                const topName = sortedKeys[0];
                 topProduct = { name: topName, count: counts[topName] };
             }
 
-            // Calculate 7-Day Chart Data
             const last7Days = [...Array(7)].map((_, i) => {
                 const d = new Date(); d.setDate(d.getDate() - i); return d.toISOString().split('T')[0];
             }).reverse();
@@ -440,7 +440,6 @@
                 return orders.filter(o => o.status === 'paid' && o.created_at.startsWith(dateStr)).reduce((a, b) => a + b.total_amount, 0);
             });
 
-            // 3. Render HTML
             area.innerHTML = `
                 <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
                     <div class="bg-dark-surface border border-dark-border p-6 rounded-[2rem] shadow-lg"><p class="text-[9px] font-mono text-dark-muted uppercase tracking-widest mb-2">Today's_Yield</p><p class="text-3xl font-black">${todayRev.toFixed(2)} JOD</p></div>
@@ -487,7 +486,7 @@
                         <div class="space-y-3">
                             ${access.slice(0, 4).map(a => `
                                 <div class="bg-white/5 p-3 rounded-xl border border-white/5 flex justify-between items-center">
-                                    <div class="truncate pr-2"><div class="text-xs font-bold text-accent truncate">${a.user_email}</div><div class="text-[9px] font-mono text-dark-muted truncate">${a.products?.name || 'Unknown'}</div></div>
+                                    <div class="truncate pr-2"><div class="text-xs font-bold text-accent truncate">${a.user_email}</div><div class="text-[9px] font-mono text-dark-muted truncate">${a.products?.name || 'Unknown Item'}</div></div>
                                 </div>
                             `).join('')}
                             ${access.length === 0 ? '<p class="text-[10px] text-dark-muted font-mono">No data.</p>' : ''}
@@ -509,14 +508,13 @@
                 </div>
             `;
 
-            // 4. Initialize Chart.js after HTML is injected
             setTimeout(() => {
                 const ctx = document.getElementById('revChart');
                 if (ctx) {
                     new Chart(ctx, {
                         type: 'bar',
                         data: {
-                            labels: last7Days.map(d => d.slice(5)), // Show MM-DD
+                            labels: last7Days.map(d => d.slice(5)),
                             datasets: [{ label: 'Daily Revenue (JOD)', data: chartData, backgroundColor: '#38bdf8', borderRadius: 4 }]
                         },
                         options: {
@@ -532,6 +530,25 @@
             }, 100);
         }
 
+        // --- 02_ACCESS CONTROL ---
+        async function renderAccess() {
+            area.innerHTML = `<h3 class="font-mono text-[10px] uppercase tracking-widest text-dark-muted mb-6">User Entitlements & Kill Switches</h3>
+            <div class="bg-dark-surface border border-dark-border rounded-[2rem] overflow-x-auto shadow-2xl"><table class="w-full text-left text-sm min-w-[600px]"><thead class="bg-white/5 font-mono text-[9px] uppercase tracking-widest text-dark-muted"><tr><th class="p-6">Client Identity</th><th class="p-6">Resource Entitlement</th><th class="p-6 text-right">Master Control</th></tr></thead><tbody id="access-rows"></tbody></table></div>`;
+
+            // REMOVED !inner to show all access records regardless of join status
+            const { data } = await supabase.from('user_access').select('*, products(name)').order('created_at', { ascending: false });
+
+            document.getElementById('access-rows').innerHTML = (data || []).map(a => `
+                <tr class="border-t border-dark-border hover:bg-white/[0.02] transition-colors">
+                    <td class="p-6 font-mono text-xs text-accent">${a.user_email}</td>
+                    <td class="p-6 font-bold text-sm">${a.products?.name || 'Deleted Resource'} <span class="text-[9px] font-mono text-dark-muted ml-2 uppercase tracking-widest">[${a.access_type}]</span></td>
+                    <td class="p-6 text-right">
+                        <button onclick="toggleAccess('${a.id}', ${!a.has_access})" class="px-4 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-widest border transition-all ${a.has_access ? 'bg-red-500/10 text-red-500 border-red-500/20 hover:bg-red-500 hover:text-black' : 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20 hover:bg-emerald-500 hover:text-black shadow-[0_0_15px_rgba(16,185,129,0.2)]'}">${a.has_access ? 'Revoke_Access' : 'Restore_Access'}</button>
+                    </td>
+                </tr>
+            `).join('');
+            if (!data || data.length === 0) document.getElementById('access-rows').innerHTML = `<tr><td colspan="3" class="p-10 text-center font-mono text-xs text-dark-muted">No active entitlements found.</td></tr>`;
+        }
         // --- 01_ORDERS & MANUAL INJECTION ---
         async function renderOrders() {
             area.innerHTML = `<div class="flex justify-between items-end mb-6"><h3 class="font-mono text-[10px] uppercase tracking-widest text-dark-muted">Global Order Database</h3><button onclick="openManualOrder()" class="bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 px-5 py-2.5 rounded-xl font-mono text-[10px] uppercase font-bold hover:bg-emerald-500 hover:text-black transition-colors shadow-lg">+ Inject_Manual_Sale</button></div>
@@ -570,23 +587,7 @@
             finally { btn.disabled = false; btn.innerText = "Execute & Grant Access"; }
         };
 
-        // --- 02_ACCESS CONTROL ---
-        async function renderAccess() {
-            area.innerHTML = `<h3 class="font-mono text-[10px] uppercase tracking-widest text-dark-muted mb-6">User Entitlements & Kill Switches</h3>
-            <div class="bg-dark-surface border border-dark-border rounded-[2rem] overflow-x-auto shadow-2xl"><table class="w-full text-left text-sm min-w-[600px]"><thead class="bg-white/5 font-mono text-[9px] uppercase tracking-widest text-dark-muted"><tr><th class="p-6">Client Identity</th><th class="p-6">Resource Entitlement</th><th class="p-6 text-right">Master Control</th></tr></thead><tbody id="access-rows"></tbody></table></div>`;
-            const { data } = await supabase.from('user_access').select('*, products(name)').order('created_at', { ascending: false });
-            document.getElementById('access-rows').innerHTML = (data || []).map(a => `
-                <tr class="border-t border-dark-border hover:bg-white/[0.02] transition-colors">
-                    <td class="p-6 font-mono text-xs text-accent">${a.user_email}</td>
-                    <td class="p-6 font-bold text-sm">${a.products?.name || 'Unknown'} <span class="text-[9px] font-mono text-dark-muted ml-2 uppercase tracking-widest">[${a.access_type}]</span></td>
-                    <td class="p-6 text-right">
-                        <button onclick="toggleAccess('${a.id}', ${!a.has_access})" class="px-4 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-widest border transition-all ${a.has_access ? 'bg-red-500/10 text-red-500 border-red-500/20 hover:bg-red-500 hover:text-black' : 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20 hover:bg-emerald-500 hover:text-black shadow-[0_0_15px_rgba(16,185,129,0.2)]'}">${a.has_access ? 'Revoke_Access' : 'Restore_Access'}</button>
-                    </td>
-                </tr>
-            `).join('');
-            if (!data || data.length === 0) document.getElementById('access-rows').innerHTML = `<tr><td colspan="3" class="p-10 text-center font-mono text-xs text-dark-muted">No active entitlements found.</td></tr>`;
-        }
-        window.toggleAccess = async (id, status) => { await supabase.from('user_access').update({ has_access: status }).eq('id', id); renderAccess(); };
+
 
         // --- 03_API FORGE ---
         async function renderApiForge() {
