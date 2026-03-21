@@ -6,24 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mission Control | M. Solutions</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        accent: '#38bdf8',
-                        dark: { bg: '#050505', text: '#FFFFFF', surface: '#111112', border: 'rgba(255, 255, 255, 0.08)', muted: '#71717a' },
-                    }
-                }
-            }
-        }
+        tailwind.config = { darkMode: 'class', theme: { extend: { colors: { accent: '#38bdf8', dark: { bg: '#050505', text: '#FFFFFF', surface: '#111112', border: 'rgba(255, 255, 255, 0.08)', muted: '#71717a' } } } } }
     </script>
     <style>
         body {
             background-color: #050505;
             color: #FFFFFF;
             font-family: 'Inter', sans-serif;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease-in;
+        }
+
+        body.auth-cleared {
+            opacity: 1;
+            pointer-events: auto;
         }
 
         .tab-active {
@@ -78,134 +77,204 @@
 <body class="dark flex flex-col md:flex-row h-screen overflow-hidden">
 
     <div
-        class="md:hidden bg-dark-bg/90 backdrop-blur-md border-b border-dark-border p-4 flex-shrink-0 z-[40] flex justify-between items-center">
-        <div class="flex items-center gap-2">
-            <span class="text-accent font-bold text-xl">M.</span>
-            <span class="font-mono text-[10px] tracking-widest text-accent/50 uppercase">Terminal</span>
-        </div>
-        <button onclick="toggleMobileMenu()" class="p-2 text-white hover:text-accent transition-colors">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        class="md:hidden bg-dark-bg/90 backdrop-blur-md border-b border-dark-border p-4 z-[40] flex justify-between items-center shrink-0">
+        <div class="flex items-center gap-2"><span class="text-accent font-bold text-xl">M.</span><span
+                class="font-mono text-[10px] tracking-widest text-accent/50 uppercase">Terminal</span></div>
+        <button onclick="toggleMobileMenu()" class="p-2 text-white hover:text-accent"><svg class="w-6 h-6" fill="none"
+                stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
                 </path>
-            </svg>
-        </button>
+            </svg></button>
     </div>
-
     <div id="sidebar-overlay" onclick="toggleMobileMenu()"
-        class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[45] hidden md:hidden transition-opacity"></div>
+        class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[45] hidden md:hidden"></div>
 
     <aside id="sidebar"
-        class="fixed inset-y-0 left-0 z-[50] w-72 bg-[#09090a] border-r border-dark-border flex flex-col p-6 transition-transform duration-300 ease-in-out -translate-x-full md:relative md:translate-x-0 md:h-full flex-shrink-0">
-
-        <div class="mb-10 hidden md:flex items-center justify-between">
-            <div class="flex items-center gap-2">
-                <span class="text-accent font-bold text-2xl">M.</span>
-                <span
+        class="fixed inset-y-0 left-0 z-[50] w-72 bg-[#09090a] border-r border-dark-border flex flex-col p-6 transition-transform duration-300 -translate-x-full md:relative md:translate-x-0 md:h-full shrink-0">
+        <div class="mb-8 hidden md:flex items-center justify-between">
+            <div class="flex items-center gap-2"><span class="text-accent font-bold text-2xl">M.</span><span
                     class="font-mono text-[10px] tracking-[0.2em] text-accent/50 uppercase mt-1">Mission_Control</span>
             </div>
         </div>
 
-        <nav class="flex flex-col gap-1 flex-1 overflow-y-auto pr-2">
-            <p class="text-[10px] font-mono text-dark-muted px-4 mb-2 uppercase tracking-widest mt-4 md:mt-0">Mainframe
-            </p>
+        <nav class="flex flex-col gap-1 flex-1 overflow-y-auto pr-2 pb-10">
+            <p class="text-[9px] font-mono text-dark-muted px-4 mb-2 uppercase tracking-widest mt-2">Operations</p>
+            <button onclick="showTab('overview')" id="btn-overview"
+                class="flex justify-between px-4 py-2.5 rounded-lg font-mono text-xs uppercase hover:bg-white/5"><span>00_Overview</span><span
+                    class="text-[10px] opacity-30">→</span></button>
             <button onclick="showTab('orders')" id="btn-orders"
-                class="tab-active flex items-center justify-between px-4 py-3 rounded-lg font-mono text-xs uppercase transition-all hover:bg-white/5">
-                <span>01_Orders</span><span class="text-[10px] opacity-30">→</span>
-            </button>
-            <button onclick="showTab('products')" id="btn-products"
-                class="flex items-center justify-between px-4 py-3 rounded-lg font-mono text-xs uppercase transition-all hover:bg-white/5">
-                <span>02_Resources</span><span class="text-[10px] opacity-30">→</span>
-            </button>
-            <button onclick="showTab('categories')" id="btn-categories"
-                class="flex items-center justify-between px-4 py-3 rounded-lg font-mono text-xs uppercase transition-all hover:bg-white/5">
-                <span>03_Taxonomy</span><span class="text-[10px] opacity-30">→</span>
-            </button>
-            <button onclick="showTab('portfolio')" id="btn-portfolio"
-                class="flex items-center justify-between px-4 py-3 rounded-lg font-mono text-xs uppercase transition-all hover:bg-white/5">
-                <span>04_Portfolio_Live</span><span class="text-[10px] opacity-30">→</span>
-            </button>
+                class="flex justify-between px-4 py-2.5 rounded-lg font-mono text-xs uppercase hover:bg-white/5"><span>01_Ledger_Orders</span><span
+                    class="text-[10px] opacity-30">→</span></button>
+            <button onclick="showTab('access')" id="btn-access"
+                class="flex justify-between px-4 py-2.5 rounded-lg font-mono text-xs uppercase hover:bg-white/5"><span>02_Access_Control</span><span
+                    class="text-[10px] opacity-30">→</span></button>
+            <button onclick="showTab('apiforge')" id="btn-apiforge"
+                class="flex justify-between px-4 py-2.5 rounded-lg font-mono text-xs uppercase hover:bg-white/5"><span>03_API_Forge</span><span
+                    class="text-[10px] opacity-30">→</span></button>
 
-            <p class="text-[10px] font-mono text-dark-muted px-4 mt-8 mb-2 uppercase tracking-widest">Performance</p>
+            <p class="text-[9px] font-mono text-dark-muted px-4 mt-6 mb-2 uppercase tracking-widest">Storefront</p>
+            <button onclick="showTab('products')" id="btn-products"
+                class="flex justify-between px-4 py-2.5 rounded-lg font-mono text-xs uppercase hover:bg-white/5"><span>04_Products</span><span
+                    class="text-[10px] opacity-30">→</span></button>
+            <button onclick="showTab('portfolio')" id="btn-portfolio"
+                class="flex justify-between px-4 py-2.5 rounded-lg font-mono text-xs uppercase hover:bg-white/5"><span>05_Portfolio</span><span
+                    class="text-[10px] opacity-30">→</span></button>
+            <button onclick="showTab('promos')" id="btn-promos"
+                class="flex justify-between px-4 py-2.5 rounded-lg font-mono text-xs uppercase hover:bg-white/5"><span>06_Promotions</span><span
+                    class="text-[10px] opacity-30">→</span></button>
+
+            <p class="text-[9px] font-mono text-dark-muted px-4 mt-6 mb-2 uppercase tracking-widest">Systems</p>
+            <button onclick="showTab('command')" id="btn-command"
+                class="flex justify-between px-4 py-2.5 rounded-lg font-mono text-[11px] font-bold text-emerald-500 uppercase hover:bg-emerald-500/10"><span
+                    class="flex items-center gap-2"><span
+                        class="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span>07_Command_Center</span><span
+                    class="text-[10px] opacity-30">→</span></button>
             <button onclick="showTab('finance')" id="btn-finance"
-                class="flex items-center justify-between px-4 py-3 rounded-lg font-mono text-xs uppercase transition-all hover:bg-white/5">
-                <span>05_Ledger</span><span class="text-[10px] opacity-30">→</span>
-            </button>
-            <button onclick="showTab('testimonials')" id="btn-testimonials"
-                class="flex items-center justify-between px-4 py-3 rounded-lg font-mono text-xs uppercase transition-all hover:bg-white/5">
-                <span>06_Reviews</span><span class="text-[10px] opacity-30">→</span>
-            </button>
+                class="flex justify-between px-4 py-2.5 rounded-lg font-mono text-xs uppercase hover:bg-white/5"><span>08_Finance</span><span
+                    class="text-[10px] opacity-30">→</span></button>
+            <button onclick="showTab('support')" id="btn-support"
+                class="flex justify-between px-4 py-2.5 rounded-lg font-mono text-xs uppercase hover:bg-white/5"><span>09_Support_Hub</span><span
+                    class="text-[10px] opacity-30">→</span></button>
+            <button onclick="showTab('settings')" id="btn-settings"
+                class="flex justify-between px-4 py-2.5 rounded-lg font-mono text-xs uppercase hover:bg-white/5"><span>10_Sys_Config</span><span
+                    class="text-[10px] opacity-30">→</span></button>
         </nav>
 
-        <div class="pt-6 mt-4 border-t border-dark-border space-y-4">
-            <div class="p-4 bg-white/5 rounded-xl border border-dark-border">
-                <p class="text-[9px] font-mono text-dark-muted uppercase flex justify-between">
-                    <span>Database_Link</span><span class="text-emerald-500">Secure</span>
-                </p>
-            </div>
+        <div class="pt-4 mt-auto border-t border-dark-border">
             <button onclick="executeLogout()"
-                class="flex items-center justify-center w-full py-3 border border-dark-border rounded-xl text-[10px] font-mono text-red-500 uppercase hover:bg-red-500/10 transition-all">
-                Terminate_Session [Logout]
-            </button>
+                class="w-full py-3 border border-dark-border rounded-xl text-[10px] font-mono text-red-500 uppercase hover:bg-red-500/10">Terminate_Session</button>
         </div>
     </aside>
 
-    <main class="flex-1 h-full overflow-y-auto p-4 md:p-10 relative">
-        <header class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
+    <main class="flex-1 h-full overflow-y-auto p-4 md:p-8 relative">
+        <header class="mb-8 flex justify-between items-end">
             <div>
-                <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tighter" id="tab-title">Orders_Terminal
-                </h2>
-                <p class="text-dark-muted font-mono text-[10px] uppercase mt-1 flex items-center gap-2">
-                    <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span> Node_Connected
-                </p>
+                <h2 class="text-3xl font-black uppercase tracking-tighter" id="tab-title">Loading...</h2>
+                <p class="text-dark-muted font-mono text-[10px] uppercase mt-1 flex items-center gap-2"><span
+                        class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span> Node_Connected</p>
             </div>
         </header>
-
-        <div id="content-area" class="w-full pb-20">
-        </div>
+        <div id="content-area" class="w-full pb-20"></div>
     </main>
 
+    <div id="manual-order-modal"
+        class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 bg-black/95 backdrop-blur-md">
+        <div class="bg-dark-surface border border-dark-border w-full max-w-lg rounded-3xl p-8 shadow-2xl">
+            <h2 class="text-xl font-bold mb-6 font-mono uppercase text-accent">Inject_Manual_Order</h2>
+            <form id="manual-order-form" class="space-y-4">
+                <input type="email" id="mo-email" required placeholder="Client Email"
+                    class="w-full p-4 rounded-xl text-sm">
+                <input type="text" id="mo-name" required placeholder="Client Name"
+                    class="w-full p-4 rounded-xl text-sm">
+                <select id="mo-product" required class="w-full p-4 rounded-xl text-sm appearance-none">
+                    <option value="">Select Product...</option>
+                </select>
+                <input type="number" id="mo-amount" required step="0.01" placeholder="Amount Paid (JOD)"
+                    class="w-full p-4 rounded-xl text-sm">
+                <div class="flex gap-4 mt-6">
+                    <button type="submit" id="mo-btn"
+                        class="flex-1 bg-emerald-500 text-black font-black py-4 rounded-xl uppercase text-[10px] tracking-widest active:scale-95 transition-all">Execute
+                        & Grant Access</button>
+                    <button type="button"
+                        onclick="document.getElementById('manual-order-modal').classList.add('hidden')"
+                        class="px-6 py-4 border border-dark-border rounded-xl uppercase text-[10px] font-bold hover:bg-white/5">Abort</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="api-modal"
+        class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 bg-black/95 backdrop-blur-md">
+        <div class="bg-dark-surface border border-dark-border w-full max-w-sm rounded-3xl p-8 text-center shadow-2xl">
+            <h2 class="text-xl font-bold mb-6 font-mono uppercase text-accent">Generate_API_Key</h2>
+            <form id="api-form" class="space-y-4">
+                <input type="email" id="api-email" required placeholder="Developer Email"
+                    class="w-full p-4 rounded-xl text-sm">
+                <input type="number" id="api-limit" required value="1000" placeholder="Monthly Limit"
+                    class="w-full p-4 rounded-xl text-sm">
+                <button type="submit" id="api-btn"
+                    class="w-full bg-accent text-black font-black py-4 rounded-xl uppercase text-xs active:scale-95 transition-all">Generate</button>
+                <button type="button" onclick="document.getElementById('api-modal').classList.add('hidden')"
+                    class="w-full py-2 text-xs font-mono text-dark-muted hover:text-white">Close</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="promo-modal"
+        class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 bg-black/95 backdrop-blur-md">
+        <div class="bg-dark-surface border border-dark-border w-full max-w-sm rounded-3xl p-8 shadow-2xl">
+            <h2 class="text-xl font-bold mb-6 font-mono uppercase text-accent">Inject_Promo_Code</h2>
+            <form id="promo-form" class="space-y-4">
+                <input type="text" id="promo-code" required placeholder="Code (e.g. LAUNCH50)"
+                    class="w-full p-4 rounded-xl text-sm uppercase font-mono tracking-widest">
+                <input type="number" id="promo-discount" required min="1" max="100" placeholder="Discount Percent (%)"
+                    class="w-full p-4 rounded-xl text-sm">
+                <input type="number" id="promo-max" required min="1" value="100" placeholder="Max Uses"
+                    class="w-full p-4 rounded-xl text-sm">
+                <div class="flex gap-4 mt-6">
+                    <button type="submit" id="promo-btn"
+                        class="flex-1 bg-accent text-black font-black py-4 rounded-xl uppercase text-[10px] tracking-widest active:scale-95 transition-all">Generate</button>
+                    <button type="button" onclick="document.getElementById('promo-modal').classList.add('hidden')"
+                        class="px-6 py-4 border border-dark-border rounded-xl uppercase text-[10px] font-bold hover:bg-white/5">Abort</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <div id="product-modal"
-        class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 md:p-6 bg-black/95 backdrop-blur-md">
+        class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 bg-black/95 backdrop-blur-md">
         <div
-            class="bg-dark-surface border border-dark-border w-full max-w-4xl rounded-[2rem] p-6 md:p-10 overflow-y-auto max-h-[90vh]">
-            <h2 id="modal-title" class="text-2xl font-bold mb-8 font-mono uppercase tracking-tighter text-accent">
-                Product_Config</h2>
-            <form id="product-form" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            class="bg-dark-surface border border-dark-border w-full max-w-4xl rounded-[2rem] p-8 overflow-y-auto max-h-[90vh] shadow-2xl">
+            <h2 class="text-2xl font-bold mb-6 font-mono uppercase text-accent tracking-tighter">Product_Config</h2>
+            <form id="product-form" class="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <input type="hidden" name="id" id="form-id">
                 <input type="hidden" name="existing_image_url" id="existing-image-url">
 
-                <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="md:col-span-2">
-                        <label class="text-[10px] font-mono text-dark-muted uppercase px-2">Resource Name</label>
-                        <input type="text" name="name" required class="w-full p-4 rounded-xl mt-1 text-sm">
-                    </div>
-                    <div>
-                        <label class="text-[10px] font-mono text-dark-muted uppercase px-2">Price (JOD)</label>
-                        <input type="number" step="0.01" name="price_jod" required
-                            class="w-full p-4 rounded-xl mt-1 text-sm">
-                    </div>
+                <div class="md:col-span-2">
+                    <label class="text-[10px] font-mono text-dark-muted uppercase px-2">Resource Name</label>
+                    <input type="text" name="name" required class="w-full p-4 rounded-xl mt-1 text-sm">
                 </div>
 
+                <div>
+                    <label class="text-[10px] font-mono text-dark-muted uppercase px-2">Price (JOD)</label>
+                    <input type="number" step="0.01" name="price_jod" required
+                        class="w-full p-4 rounded-xl mt-1 text-sm">
+                </div>
                 <div>
                     <label class="text-[10px] font-mono text-dark-muted uppercase px-2">Category</label>
                     <select id="modal-cat-select" name="category_id"
                         class="w-full p-4 rounded-xl mt-1 text-sm appearance-none"></select>
                 </div>
 
-                <div>
-                    <label class="text-[10px] font-mono text-dark-muted uppercase px-2">Upload Image</label>
-                    <div class="flex items-center gap-3 mt-1">
-                        <input type="file" id="image-file-input" name="image_file" accept="image/*"
-                            class="w-full p-3 rounded-xl border border-dark-border file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-accent file:text-black hover:file:bg-white transition-all text-xs">
-                    </div>
-                    <p id="image-preview-text" class="text-[10px] font-mono text-accent mt-2 hidden truncate">Current:
-                        <a id="image-preview-link" href="#" target="_blank" class="hover:underline">View File</a>
-                    </p>
+                <div
+                    class="md:col-span-2 border border-dark-border p-4 rounded-xl bg-white/5 flex gap-4 items-center mt-2">
+                    <input type="checkbox" name="is_subscription" id="is_subscription" class="w-5 h-5 accent-accent">
+                    <label class="text-[11px] font-mono uppercase tracking-widest text-white">Is this a recurring SaaS
+                        Subscription?</label>
+                </div>
+
+                <div class="md:col-span-2 mt-2">
+                    <label
+                        class="text-[10px] font-mono text-accent uppercase px-2 font-bold flex items-center gap-2"><svg
+                            class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1">
+                            </path>
+                        </svg> Delivery Payload URL (Digital Asset / App Link)</label>
+                    <input type="url" name="delivery_url" placeholder="https://..."
+                        class="w-full p-4 rounded-xl mt-1 text-sm border-accent/30 bg-accent/5">
                 </div>
 
                 <div class="md:col-span-2">
-                    <label class="text-[10px] font-mono text-dark-muted uppercase px-2">Feature Protocols (Add one by
-                        one)</label>
+                    <label class="text-[10px] font-mono text-dark-muted uppercase px-2">Upload Storefront Image</label>
+                    <input type="file" id="image-file-input" name="image_file" accept="image/*"
+                        class="w-full p-3 rounded-xl border border-dark-border file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-accent file:text-black hover:file:bg-white transition-all text-xs mt-1">
+                    <p id="image-preview-text" class="text-[10px] font-mono text-accent mt-2 hidden">Current: <a
+                            id="image-preview-link" href="#" target="_blank" class="hover:underline">View File</a></p>
+                </div>
+
+                <div class="md:col-span-2">
+                    <label class="text-[10px] font-mono text-dark-muted uppercase px-2">Feature Protocols</label>
                     <div class="flex gap-2 mt-1">
                         <input type="text" id="feature-adder" placeholder="e.g., Cloud Sync"
                             class="flex-1 p-4 rounded-xl text-sm">
@@ -222,13 +291,13 @@
 
                 <div class="md:col-span-2">
                     <label class="text-[10px] font-mono text-dark-muted uppercase px-2">Detailed Documentation</label>
-                    <textarea name="full_description" rows="4"
+                    <textarea name="full_description" rows="3"
                         class="w-full p-4 rounded-xl mt-1 resize-none text-sm"></textarea>
                 </div>
 
-                <div class="md:col-span-2 flex flex-col sm:flex-row gap-4 mt-6">
+                <div class="md:col-span-2 flex flex-col sm:flex-row gap-4 mt-4">
                     <button type="submit" id="product-submit-btn"
-                        class="flex-1 bg-accent text-black font-black py-5 rounded-2xl uppercase tracking-widest shadow-lg shadow-accent/20 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-wait">Execute_Write_Operation</button>
+                        class="flex-1 bg-accent text-black font-black py-5 rounded-2xl uppercase tracking-widest shadow-lg shadow-accent/20 transition-all active:scale-95 disabled:opacity-50">Execute_Write_Operation</button>
                     <button type="button" onclick="closeProductModal()"
                         class="px-8 py-5 border border-dark-border rounded-2xl uppercase text-[10px] font-bold hover:bg-white/5 transition-all">Abort</button>
                 </div>
@@ -237,11 +306,11 @@
     </div>
 
     <div id="portfolio-modal"
-        class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 md:p-6 bg-black/95 backdrop-blur-md">
+        class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 bg-black/95 backdrop-blur-md">
         <div
-            class="bg-dark-surface border border-dark-border w-full max-w-2xl rounded-[2rem] p-6 md:p-10 overflow-y-auto max-h-[90vh]">
-            <h2 class="text-2xl font-bold mb-8 font-mono uppercase tracking-tighter text-accent">Portfolio_Config</h2>
-            <form id="portfolio-form" class="grid grid-cols-1 gap-6">
+            class="bg-dark-surface border border-dark-border w-full max-w-2xl rounded-[2rem] p-8 overflow-y-auto max-h-[90vh] shadow-2xl">
+            <h2 class="text-2xl font-bold mb-6 font-mono uppercase tracking-tighter text-accent">Portfolio_Config</h2>
+            <form id="portfolio-form" class="grid grid-cols-1 gap-5">
                 <input type="hidden" name="id" id="port-form-id">
                 <input type="hidden" name="existing_image_url" id="port-existing-image-url">
 
@@ -260,15 +329,11 @@
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label class="text-[10px] font-mono text-dark-muted uppercase px-2">Upload Display Image</label>
-                        <div class="mt-1">
-                            <input type="file" id="port-image-file-input" name="image_file" accept="image/*"
-                                class="w-full p-3 rounded-xl border border-dark-border file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-accent file:text-black hover:file:bg-white transition-all text-xs">
-                        </div>
+                        <input type="file" id="port-image-file-input" name="image_file" accept="image/*"
+                            class="w-full p-3 rounded-xl border border-dark-border file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-accent file:text-black hover:file:bg-white transition-all text-xs mt-1">
                         <p id="port-image-preview-text" class="text-[10px] font-mono text-accent mt-2 hidden truncate">
-                            Current:
-                            <a id="port-image-preview-link" href="#" target="_blank" class="hover:underline">View
-                                File</a>
-                        </p>
+                            Current: <a id="port-image-preview-link" href="#" target="_blank"
+                                class="hover:underline">View File</a></p>
                     </div>
                     <div>
                         <label class="text-[10px] font-mono text-dark-muted uppercase px-2">Sort Order</label>
@@ -283,28 +348,13 @@
                         class="w-full p-4 rounded-xl mt-1 resize-none text-sm"></textarea>
                 </div>
 
-                <div class="flex flex-col sm:flex-row gap-4 mt-4">
+                <div class="flex gap-4 mt-2">
                     <button type="submit" id="port-submit-btn"
-                        class="flex-1 bg-accent text-black font-black py-5 rounded-2xl uppercase tracking-widest shadow-lg shadow-accent/20 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-wait">Inject_Portfolio_Node</button>
+                        class="flex-1 bg-accent text-black font-black py-4 rounded-2xl uppercase tracking-widest shadow-lg shadow-accent/20 active:scale-95 disabled:opacity-50">Inject_Node</button>
                     <button type="button" onclick="closePortfolioModal()"
-                        class="px-8 py-5 border border-dark-border rounded-2xl uppercase text-[10px] font-bold hover:bg-white/5 transition-all">Abort</button>
+                        class="px-8 py-4 border border-dark-border rounded-2xl uppercase text-[10px] font-bold hover:bg-white/5">Abort</button>
                 </div>
             </form>
-        </div>
-    </div>
-
-    <div id="category-modal"
-        class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 bg-black/90 backdrop-blur-md">
-        <div class="bg-dark-surface border border-dark-border w-full max-w-sm rounded-[2rem] p-8 text-center">
-            <h2 class="text-xl font-bold mb-6 font-mono uppercase">Category_Editor</h2>
-            <input type="hidden" id="edit-cat-id">
-            <input type="text" id="edit-cat-name" class="w-full p-4 rounded-xl mb-6">
-            <div class="flex flex-col gap-3">
-                <button onclick="commitCategoryUpdate()"
-                    class="w-full bg-white text-black font-bold py-4 rounded-xl uppercase">Update_Node</button>
-                <button onclick="closeCategoryModal()"
-                    class="w-full py-4 text-xs font-mono text-dark-muted">Close</button>
-            </div>
         </div>
     </div>
 
@@ -312,247 +362,297 @@
         import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
         const supabase = createClient('https://dvlabpioxtyyzvhzpmyc.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2bGFicGlveHR5eXp2aHpwbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1MDY4NzUsImV4cCI6MjA4OTA4Mjg3NX0.fBM9r7WXpntVUM-qsBDQFlknRf2vMyIpJTp5ww9pzUM');
 
-        // --- SECURITY LOCKDOWN ---
-        const { data: { session }, error: authError } = await supabase.auth.getSession();
-        if (!session || authError) {
-            window.location.replace('login.html');
-        }
-
-        window.executeLogout = async () => {
-            document.body.style.opacity = '0.5';
-            document.body.style.pointerEvents = 'none';
-            await supabase.auth.signOut();
-            window.location.replace('login.html');
+        // --- SECURITY INIT ---
+        const initSecurity = async () => {
+            const { data: { session }, error } = await supabase.auth.getSession();
+            if (!session || error) window.location.replace('index.html');
+            else { document.body.classList.add('auth-cleared'); showTab('overview'); }
         };
+        initSecurity();
+        window.executeLogout = async () => { document.body.classList.remove('auth-cleared'); await supabase.auth.signOut(); window.location.replace('index.html'); };
 
         const area = document.getElementById('content-area');
         const tabTitle = document.getElementById('tab-title');
         let currentFeatures = [];
 
-        // --- Layout & Routing ---
-        window.toggleMobileMenu = () => {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('sidebar-overlay');
-            sidebar.classList.toggle('-translate-x-full');
-            overlay.classList.toggle('hidden');
-        };
+        window.toggleMobileMenu = () => { document.getElementById('sidebar').classList.toggle('-translate-x-full'); document.getElementById('sidebar-overlay').classList.toggle('hidden'); };
 
+        // --- ROUTER ---
         window.showTab = (tab) => {
             document.querySelectorAll('aside nav button').forEach(b => b.classList.remove('tab-active'));
             document.getElementById(`btn-${tab}`).classList.add('tab-active');
             tabTitle.innerText = tab.toUpperCase() + "_TERMINAL";
+            if (window.innerWidth < 768) toggleMobileMenu();
 
-            if (window.innerWidth < 768 && !document.getElementById('sidebar').classList.contains('-translate-x-full')) {
-                toggleMobileMenu();
-            }
-
+            if (tab === 'overview') renderOverview();
             if (tab === 'orders') renderOrders();
+            if (tab === 'access') renderAccess();
+            if (tab === 'apiforge') renderApiForge();
             if (tab === 'products') renderProducts();
-            if (tab === 'categories') renderCategories();
-            if (tab === 'finance') renderFinance();
-            if (tab === 'testimonials') renderTestimonials();
             if (tab === 'portfolio') renderPortfolio();
+            if (tab === 'promos') renderPromos();
+            if (tab === 'command') renderCommand();
+            if (tab === 'finance') renderFinance();
+            if (tab === 'support') renderSupport();
+            if (tab === 'settings') renderSettings();
         };
 
-        // --- Orders ---
+        // --- 00_OVERVIEW (THE MASTER DASHBOARD) ---
+        async function renderOverview() {
+            area.innerHTML = `<div class="animate-pulse font-mono text-xs text-dark-muted">Compiling Enterprise Telemetry...</div>`;
+
+            // 1. Fetch Master Datasets
+            const [ordersRes, accessRes, ticketsRes, subsRes, itemsRes, promosRes] = await Promise.all([
+                supabase.from('orders').select('*').order('created_at', { ascending: false }),
+                supabase.from('user_access').select('*, products(name)').order('created_at', { ascending: false }),
+                supabase.from('support_tickets').select('*').eq('status', 'open'),
+                supabase.from('subscriptions').select('*').eq('status', 'active'),
+                supabase.from('order_items').select('*, products(name)'),
+                supabase.from('promotions').select('*').order('created_at', { ascending: false })
+            ]);
+
+            const orders = ordersRes.data || [];
+            const access = accessRes.data || [];
+            const items = itemsRes.data || [];
+            const promos = promosRes.data || [];
+
+            // 2. Calculations
+            const today = new Date().toISOString().split('T')[0];
+            const todayRev = orders.filter(o => o.status === 'paid' && o.created_at.startsWith(today)).reduce((a, b) => a + b.total_amount, 0);
+
+            // Calculate Top Selling Product
+            let topProduct = { name: "No Data", count: 0 };
+            if (items.length > 0) {
+                const counts = items.reduce((acc, item) => {
+                    const name = item.products?.name || 'Unknown';
+                    acc[name] = (acc[name] || 0) + 1; return acc;
+                }, {});
+                const topName = Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b);
+                topProduct = { name: topName, count: counts[topName] };
+            }
+
+            // Calculate 7-Day Chart Data
+            const last7Days = [...Array(7)].map((_, i) => {
+                const d = new Date(); d.setDate(d.getDate() - i); return d.toISOString().split('T')[0];
+            }).reverse();
+
+            const chartData = last7Days.map(dateStr => {
+                return orders.filter(o => o.status === 'paid' && o.created_at.startsWith(dateStr)).reduce((a, b) => a + b.total_amount, 0);
+            });
+
+            // 3. Render HTML
+            area.innerHTML = `
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                    <div class="bg-dark-surface border border-dark-border p-6 rounded-[2rem] shadow-lg"><p class="text-[9px] font-mono text-dark-muted uppercase tracking-widest mb-2">Today's_Yield</p><p class="text-3xl font-black">${todayRev.toFixed(2)} JOD</p></div>
+                    <div class="bg-dark-surface border border-emerald-500/20 p-6 rounded-[2rem] shadow-[0_0_15px_rgba(16,185,129,0.05)]"><p class="text-[9px] font-mono text-emerald-500 uppercase tracking-widest mb-2">Active_SaaS_Subs</p><p class="text-3xl font-black text-emerald-500">${(subsRes.data || []).length}</p></div>
+                    <div class="bg-dark-surface border border-dark-border p-6 rounded-[2rem] shadow-lg"><p class="text-[9px] font-mono text-dark-muted uppercase tracking-widest mb-2">Total_Entitlements</p><p class="text-3xl font-black text-accent">${access.length}</p></div>
+                    <div class="bg-dark-surface border ${ticketsRes.data?.length > 0 ? 'border-amber-500/50' : 'border-dark-border'} p-6 rounded-[2rem] shadow-lg"><p class="text-[9px] font-mono text-dark-muted uppercase tracking-widest mb-2">Open_Tickets</p><p class="text-3xl font-black ${ticketsRes.data?.length > 0 ? 'text-amber-500' : 'text-white'}">${(ticketsRes.data || []).length}</p></div>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+                    <div class="lg:col-span-2 bg-dark-surface border border-dark-border rounded-[2rem] p-6 shadow-xl">
+                        <h4 class="font-mono text-[10px] uppercase text-accent mb-4 border-b border-dark-border pb-3 tracking-widest">7-Day Revenue Matrix</h4>
+                        <div class="h-48 w-full relative"><canvas id="revChart"></canvas></div>
+                    </div>
+                    
+                    <div class="lg:col-span-1 bg-dark-surface border border-dark-border rounded-[2rem] p-6 shadow-xl flex flex-col justify-between">
+                        <div>
+                            <h4 class="font-mono text-[10px] uppercase text-accent mb-4 border-b border-dark-border pb-3 tracking-widest">Engine_Intelligence</h4>
+                            <p class="text-[9px] font-mono text-dark-muted uppercase mb-1">Top_Selling_Resource</p>
+                            <p class="text-lg font-bold text-white mb-6 leading-tight">${topProduct.name} <span class="text-xs font-mono text-emerald-500 ml-2">(${topProduct.count} sold)</span></p>
+                            
+                            <p class="text-[9px] font-mono text-dark-muted uppercase mb-2">System_Status</p>
+                            <div class="flex items-center gap-3 mb-2"><div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div><span class="font-mono text-xs text-white">n8n Gateway: SECURE</span></div>
+                            <div class="flex items-center gap-3"><div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div><span class="font-mono text-xs text-white">PostgreSQL: SECURE</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-dark-surface border border-dark-border rounded-[2rem] p-6 shadow-xl">
+                        <h4 class="font-mono text-[10px] uppercase text-dark-muted mb-4 border-b border-dark-border pb-3 tracking-widest">Recent_Ledger_Log</h4>
+                        <div class="space-y-3">
+                            ${orders.slice(0, 4).map(o => `
+                                <div class="bg-white/5 p-3 rounded-xl border border-white/5 flex justify-between items-center">
+                                    <div class="truncate pr-2"><div class="text-xs font-bold text-white truncate">${o.user_name}</div><div class="text-[9px] font-mono text-dark-muted">${o.status}</div></div>
+                                    <div class="text-emerald-500 font-mono text-xs font-bold shrink-0">+${o.total_amount}</div>
+                                </div>
+                            `).join('')}
+                            ${orders.length === 0 ? '<p class="text-[10px] text-dark-muted font-mono">No data.</p>' : ''}
+                        </div>
+                    </div>
+
+                    <div class="bg-dark-surface border border-dark-border rounded-[2rem] p-6 shadow-xl">
+                        <h4 class="font-mono text-[10px] uppercase text-dark-muted mb-4 border-b border-dark-border pb-3 tracking-widest">New_Client_Entitlements</h4>
+                        <div class="space-y-3">
+                            ${access.slice(0, 4).map(a => `
+                                <div class="bg-white/5 p-3 rounded-xl border border-white/5 flex justify-between items-center">
+                                    <div class="truncate pr-2"><div class="text-xs font-bold text-accent truncate">${a.user_email}</div><div class="text-[9px] font-mono text-dark-muted truncate">${a.products?.name || 'Unknown'}</div></div>
+                                </div>
+                            `).join('')}
+                            ${access.length === 0 ? '<p class="text-[10px] text-dark-muted font-mono">No data.</p>' : ''}
+                        </div>
+                    </div>
+
+                    <div class="bg-dark-surface border border-dark-border rounded-[2rem] p-6 shadow-xl">
+                        <h4 class="font-mono text-[10px] uppercase text-dark-muted mb-4 border-b border-dark-border pb-3 tracking-widest">Recent_Promo_Executions</h4>
+                        <div class="space-y-3">
+                            ${orders.filter(o => o.promo_code).slice(0, 4).map(o => `
+                                <div class="bg-white/5 p-3 rounded-xl border border-white/5 flex justify-between items-center">
+                                    <div class="truncate pr-2"><div class="text-xs font-bold text-white truncate">${o.promo_code}</div><div class="text-[9px] font-mono text-dark-muted">by ${o.user_name}</div></div>
+                                    <div class="text-[10px] font-mono text-emerald-500 bg-emerald-500/10 px-2 py-1 rounded">Applied</div>
+                                </div>
+                            `).join('')}
+                            ${orders.filter(o => o.promo_code).length === 0 ? '<p class="text-[10px] text-dark-muted font-mono">No promo code usage detected.</p>' : ''}
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // 4. Initialize Chart.js after HTML is injected
+            setTimeout(() => {
+                const ctx = document.getElementById('revChart');
+                if (ctx) {
+                    new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: last7Days.map(d => d.slice(5)), // Show MM-DD
+                            datasets: [{ label: 'Daily Revenue (JOD)', data: chartData, backgroundColor: '#38bdf8', borderRadius: 4 }]
+                        },
+                        options: {
+                            responsive: true, maintainAspectRatio: false,
+                            plugins: { legend: { display: false } },
+                            scales: {
+                                y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' }, border: { display: false }, ticks: { color: '#71717a', font: { family: 'monospace', size: 10 } } },
+                                x: { grid: { display: false }, border: { display: false }, ticks: { color: '#71717a', font: { family: 'monospace', size: 10 } } }
+                            }
+                        }
+                    });
+                }
+            }, 100);
+        }
+
+        // --- 01_ORDERS & MANUAL INJECTION ---
         async function renderOrders() {
-            area.innerHTML = `<div class="bg-dark-surface border border-dark-border rounded-3xl overflow-x-auto shadow-2xl"><table class="w-full text-left min-w-[600px]"><thead class="bg-white/5 font-mono text-[10px] text-dark-muted uppercase tracking-widest"><tr><th class="p-6">Client</th><th class="p-6">Flow</th><th class="p-6">Amount</th><th class="p-6 text-right">Ops</th></tr></thead><tbody id="rows"></tbody></table></div>`;
+            area.innerHTML = `<div class="flex justify-between items-end mb-6"><h3 class="font-mono text-[10px] uppercase tracking-widest text-dark-muted">Global Order Database</h3><button onclick="openManualOrder()" class="bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 px-5 py-2.5 rounded-xl font-mono text-[10px] uppercase font-bold hover:bg-emerald-500 hover:text-black transition-colors shadow-lg">+ Inject_Manual_Sale</button></div>
+            <div class="bg-dark-surface border border-dark-border rounded-[2rem] overflow-x-auto shadow-2xl"><table class="w-full text-left text-sm min-w-[600px]"><thead class="bg-white/5 font-mono text-[9px] uppercase tracking-widest text-dark-muted"><tr><th class="p-6">Client Identity</th><th class="p-6">Promo_Used</th><th class="p-6">Status</th><th class="p-6 text-right">Amount</th><th class="p-6 text-right">Timestamp</th></tr></thead><tbody id="rows"></tbody></table></div>`;
             const { data } = await supabase.from('orders').select('*').order('created_at', { ascending: false });
             document.getElementById('rows').innerHTML = (data || []).map(o => `
-                <tr class="border-t border-dark-border hover:bg-white/[0.02] transition-all">
-                    <td class="p-6"><div class="font-bold text-sm">${o.user_name}</div><div class="text-[10px] font-mono text-dark-muted uppercase">${o.user_email}</div></td>
-                    <td class="p-6"><span class="px-3 py-1 rounded-full text-[9px] font-bold uppercase ${o.status === 'paid' ? 'bg-emerald-500/10 text-emerald-500' : 'bg-amber-500/10 text-amber-500'}">${o.status}</span></td>
-                    <td class="p-6 font-mono text-sm">${o.total_amount} JOD</td>
-                    <td class="p-6 text-right">
-                        ${o.status === 'pending' ? `<button onclick="updateOrderStatus('${o.id}', 'paid')" class="text-[10px] font-black text-accent uppercase hover:underline">Settle_Order</button>` : `<span class="text-[10px] font-mono text-emerald-500 uppercase">Settled</span>`}
-                    </td>
+                <tr class="border-t border-dark-border hover:bg-white/[0.02] transition-colors">
+                    <td class="p-6"><div class="font-bold text-sm">${o.user_name}</div><div class="text-[10px] text-accent font-mono mt-1">${o.user_email}</div></td>
+                    <td class="p-6"><span class="text-[10px] font-mono ${o.promo_code ? 'text-accent font-bold bg-accent/10 px-2 py-1 rounded' : 'text-dark-muted'}">${o.promo_code || '---'}</span></td>
+                    <td class="p-6"><span class="px-3 py-1 rounded-full text-[9px] font-bold uppercase tracking-widest ${o.status === 'paid' ? 'bg-emerald-500/10 text-emerald-500 border border-emerald-500/20' : 'bg-amber-500/10 text-amber-500 border border-amber-500/20'}">${o.status}</span></td>
+                    <td class="p-6 text-right font-mono font-bold">${o.total_amount} JOD</td>
+                    <td class="p-6 text-right text-[10px] font-mono text-dark-muted">${o.created_at.split('T')[0]}</td>
                 </tr>
             `).join('');
         }
-        window.updateOrderStatus = async (id, status) => { await supabase.from('orders').update({ status }).eq('id', id); renderOrders(); };
 
-        // --- Products (Marketplace) ---
+        window.openManualOrder = async () => {
+            const { data } = await supabase.from('products').select('*');
+            document.getElementById('mo-product').innerHTML = `<option value="">Select Product...</option>` + data.map(p => `<option value="${p.id}">${p.name}</option>`).join('');
+            document.getElementById('manual-order-modal').classList.remove('hidden');
+        };
+
+        document.getElementById('manual-order-form').onsubmit = async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('mo-btn'); btn.disabled = true; btn.innerText = "INJECTING...";
+            const email = document.getElementById('mo-email').value; const name = document.getElementById('mo-name').value;
+            const pid = document.getElementById('mo-product').value; const amt = document.getElementById('mo-amount').value;
+
+            try {
+                const { data: order, error: oErr } = await supabase.from('orders').insert([{ user_email: email, user_name: name, total_amount: amt, status: 'paid' }]).select().single();
+                if (oErr) throw oErr;
+                await supabase.from('order_items').insert([{ order_id: order.id, product_id: pid, price_at_purchase: amt }]);
+                await supabase.from('user_access').upsert([{ user_email: email, product_id: pid, has_access: true }]);
+                document.getElementById('manual-order-modal').classList.add('hidden'); renderOrders();
+            } catch (err) { alert(err.message); }
+            finally { btn.disabled = false; btn.innerText = "Execute & Grant Access"; }
+        };
+
+        // --- 02_ACCESS CONTROL ---
+        async function renderAccess() {
+            area.innerHTML = `<h3 class="font-mono text-[10px] uppercase tracking-widest text-dark-muted mb-6">User Entitlements & Kill Switches</h3>
+            <div class="bg-dark-surface border border-dark-border rounded-[2rem] overflow-x-auto shadow-2xl"><table class="w-full text-left text-sm min-w-[600px]"><thead class="bg-white/5 font-mono text-[9px] uppercase tracking-widest text-dark-muted"><tr><th class="p-6">Client Identity</th><th class="p-6">Resource Entitlement</th><th class="p-6 text-right">Master Control</th></tr></thead><tbody id="access-rows"></tbody></table></div>`;
+            const { data } = await supabase.from('user_access').select('*, products(name)').order('created_at', { ascending: false });
+            document.getElementById('access-rows').innerHTML = (data || []).map(a => `
+                <tr class="border-t border-dark-border hover:bg-white/[0.02] transition-colors">
+                    <td class="p-6 font-mono text-xs text-accent">${a.user_email}</td>
+                    <td class="p-6 font-bold text-sm">${a.products?.name || 'Unknown'} <span class="text-[9px] font-mono text-dark-muted ml-2 uppercase tracking-widest">[${a.access_type}]</span></td>
+                    <td class="p-6 text-right">
+                        <button onclick="toggleAccess('${a.id}', ${!a.has_access})" class="px-4 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-widest border transition-all ${a.has_access ? 'bg-red-500/10 text-red-500 border-red-500/20 hover:bg-red-500 hover:text-black' : 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20 hover:bg-emerald-500 hover:text-black shadow-[0_0_15px_rgba(16,185,129,0.2)]'}">${a.has_access ? 'Revoke_Access' : 'Restore_Access'}</button>
+                    </td>
+                </tr>
+            `).join('');
+            if (!data || data.length === 0) document.getElementById('access-rows').innerHTML = `<tr><td colspan="3" class="p-10 text-center font-mono text-xs text-dark-muted">No active entitlements found.</td></tr>`;
+        }
+        window.toggleAccess = async (id, status) => { await supabase.from('user_access').update({ has_access: status }).eq('id', id); renderAccess(); };
+
+        // --- 03_API FORGE ---
+        async function renderApiForge() {
+            area.innerHTML = `<div class="flex justify-between items-end mb-6"><h3 class="font-mono text-[10px] uppercase tracking-widest text-dark-muted">Developer API Keys</h3><button onclick="document.getElementById('api-modal').classList.remove('hidden')" class="bg-accent text-black px-5 py-2.5 rounded-xl font-mono text-[10px] font-bold uppercase tracking-widest hover:brightness-110 shadow-lg transition-all active:scale-95">+ Generate_Key</button></div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="api-grid"></div>`;
+            const { data } = await supabase.from('api_keys').select('*').order('created_at', { ascending: false });
+            document.getElementById('api-grid').innerHTML = (data || []).map(k => `
+                <div class="bg-dark-surface border ${k.is_active ? 'border-dark-border hover:border-accent/30' : 'border-red-500/30'} p-6 rounded-[2rem] relative overflow-hidden group shadow-xl transition-all">
+                    <div class="flex justify-between items-start mb-6"><span class="font-mono text-[10px] text-accent truncate pr-4">${k.user_email}</span><span class="w-2.5 h-2.5 shrink-0 rounded-full ${k.is_active ? 'bg-emerald-500 shadow-[0_0_10px_#10b981]' : 'bg-red-500 shadow-[0_0_10px_#ef4444]'}"></span></div>
+                    <p class="font-mono text-lg font-black tracking-widest blur-[5px] group-hover:blur-none transition-all duration-300 cursor-crosshair select-all mb-6 text-white" title="${k.api_key}">sk_...${k.api_key.slice(-6)}</p>
+                    <div class="flex justify-between items-end border-t border-white/5 pt-4">
+                        <div class="flex flex-col"><span class="text-[9px] font-mono text-dark-muted uppercase tracking-widest mb-1">Compute Used</span><span class="text-xs font-mono font-bold text-white">${k.total_requests} <span class="text-dark-muted font-normal">/ ${k.monthly_limit}</span></span></div>
+                        <button onclick="toggleApiKey('${k.id}', ${!k.is_active})" class="text-[9px] font-black uppercase tracking-widest ${k.is_active ? 'text-red-500 hover:text-white' : 'text-emerald-500 hover:text-white'} transition-colors">${k.is_active ? 'Revoke' : 'Activate'}</button>
+                    </div>
+                </div>
+            `).join('');
+            if (!data || data.length === 0) document.getElementById('api-grid').innerHTML = `<p class="font-mono text-xs text-dark-muted col-span-full py-10">No API keys generated.</p>`;
+        }
+        document.getElementById('api-form').onsubmit = async (e) => {
+            e.preventDefault(); const email = document.getElementById('api-email').value; const limit = document.getElementById('api-limit').value;
+            const key = 'sk_live_' + Array.from(crypto.getRandomValues(new Uint8Array(24))).map(b => b.toString(16).padStart(2, '0')).join('');
+            await supabase.from('api_keys').insert([{ user_email: email, api_key: key, monthly_limit: limit }]);
+            document.getElementById('api-modal').classList.add('hidden'); renderApiForge();
+        };
+        window.toggleApiKey = async (id, status) => { await supabase.from('api_keys').update({ is_active: status }).eq('id', id); renderApiForge(); };
+
+        // --- 04_PRODUCTS ---
         async function renderProducts() {
-            area.innerHTML = `<button onclick="openProductModal()" class="mb-8 bg-accent text-black font-black px-8 py-4 rounded-2xl text-[10px] uppercase tracking-widest shadow-lg shadow-accent/20 transition-all active:scale-95">+ INITIALIZE_PRODUCT</button><div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" id="p-grid"></div>`;
+            area.innerHTML = `<button onclick="openProductModal()" class="mb-8 bg-accent text-black font-black px-8 py-4 rounded-2xl text-[10px] uppercase tracking-widest shadow-lg shadow-accent/20 transition-all active:scale-95 hover:brightness-110">+ INITIALIZE_PRODUCT_NODE</button><div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" id="p-grid"></div>`;
             const { data } = await supabase.from('products').select('*, product_categories(name)');
             document.getElementById('p-grid').innerHTML = (data || []).map(p => `
-                <div class="bg-dark-surface border border-dark-border rounded-3xl overflow-hidden flex flex-col group shadow-xl">
-                    <div class="h-40 bg-black/40 flex items-center justify-center p-6 border-b border-dark-border relative">
+                <div class="bg-dark-surface border border-dark-border rounded-[2rem] overflow-hidden flex flex-col group shadow-xl">
+                    <div class="h-40 bg-black flex items-center justify-center p-6 border-b border-dark-border relative">
                         <img src="${p.image_url || 'https://via.placeholder.com/300?text=No+Image'}" class="max-h-full object-contain group-hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-4 right-4 text-[8px] px-2 py-1 rounded uppercase font-mono font-bold bg-black/80 backdrop-blur border border-white/10 text-white">${p.is_subscription ? 'SaaS / Recurring' : 'Digital Asset'}</span>
                     </div>
                     <div class="p-6 flex-1 flex flex-col">
-                        <p class="text-[9px] font-mono text-accent uppercase mb-1">${p.product_categories?.name || 'MISC'}</p>
-                        <h4 class="font-bold mb-4">${p.name}</h4>
+                        <p class="text-[9px] font-mono text-accent uppercase mb-1 tracking-widest">${p.product_categories?.name || 'MISC_CATEGORY'}</p>
+                        <h4 class="font-bold text-lg leading-tight mb-2">${p.name}</h4>
+                        <p class="text-xs text-dark-muted line-clamp-2 mb-6">${p.brief_description}</p>
                         <div class="flex items-center justify-between mt-auto pt-4 border-t border-white/5">
-                            <span class="font-mono text-sm">${p.price_jod} JOD</span>
+                            <span class="font-mono font-bold">${p.price_jod} JOD</span>
                             <div class="flex gap-4">
-                                <button onclick="openProductModal('${p.id}')" class="text-xs text-accent font-bold uppercase hover:underline">Edit</button>
-                                <button onclick="deleteProduct('${p.id}')" class="text-xs text-red-500 font-bold uppercase hover:underline">X</button>
+                                <button onclick="openProductModal('${p.id}')" class="text-[10px] text-accent font-black uppercase tracking-widest hover:underline">Edit</button>
+                                <button onclick="deleteProduct('${p.id}')" class="text-[10px] text-red-500 font-black uppercase tracking-widest hover:underline">Purge</button>
                             </div>
                         </div>
                     </div>
                 </div>
             `).join('');
         }
-        window.deleteProduct = async (id) => { if (confirm('Sudo: Confirm deletion?')) { await supabase.from('products').delete().eq('id', id); renderProducts(); } };
+        window.deleteProduct = async (id) => { if (confirm('Sudo: Confirm complete deletion of product?')) { await supabase.from('products').delete().eq('id', id); renderProducts(); } };
 
-        // --- Feature Tag Builder ---
-        window.addFeatureTag = () => {
-            const input = document.getElementById('feature-adder');
-            if (input.value.trim()) { currentFeatures.push(input.value.trim()); input.value = ''; renderFeatureTags(); }
-        };
+        // Product Modal Logic & File Upload
+        window.addFeatureTag = () => { const input = document.getElementById('feature-adder'); if (input.value.trim()) { currentFeatures.push(input.value.trim()); input.value = ''; renderFeatureTags(); } };
         window.removeFeatureTag = (index) => { currentFeatures.splice(index, 1); renderFeatureTags(); };
-        function renderFeatureTags() {
-            document.getElementById('feature-list').innerHTML = currentFeatures.map((f, i) => `<span class="feature-chip flex items-center gap-2 bg-white/5 border border-dark-border px-3 py-1.5 rounded-lg text-[10px] font-medium">${f} <button type="button" onclick="removeFeatureTag(${i})" class="text-red-500 ml-1">✕</button></span>`).join('');
-        }
+        function renderFeatureTags() { document.getElementById('feature-list').innerHTML = currentFeatures.map((f, i) => `<span class="feature-chip flex items-center gap-2 bg-white/5 border border-dark-border px-3 py-1.5 rounded-lg text-[10px] font-medium text-white">${f} <button type="button" onclick="removeFeatureTag(${i})" class="text-red-500 ml-1 hover:text-white">✕</button></span>`).join(''); }
 
-        // --- NEW: Portfolio (Live Website Products) ---
-        async function renderPortfolio() {
-            area.innerHTML = `<button onclick="openPortfolioModal()" class="mb-8 bg-white text-black font-black px-8 py-4 rounded-2xl text-[10px] uppercase tracking-widest shadow-lg transition-all active:scale-95">+ NEW_PORTFOLIO_NODE</button><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="port-grid"></div>`;
-            const { data } = await supabase.from('portfolio_products').select('*').order('sort_order', { ascending: true });
-
-            document.getElementById('port-grid').innerHTML = (data || []).map(p => `
-                <div class="bg-dark-surface border border-dark-border rounded-3xl overflow-hidden flex flex-col shadow-xl">
-                    <div class="h-48 bg-black flex items-center justify-center relative overflow-hidden group border-b border-dark-border">
-                        <img src="${p.image_url}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent pointer-events-none"></div>
-                    </div>
-                    <div class="p-6 flex-1 flex flex-col">
-                        <div class="flex justify-between items-start mb-2">
-                            <h4 class="font-bold text-lg leading-tight truncate pr-4">${p.name}</h4>
-                            <button onclick="togglePortfolioStatus('${p.id}', ${!p.is_active})" class="text-[9px] font-black uppercase shrink-0 ${p.is_active ? 'text-emerald-500' : 'text-dark-muted'} border border-white/10 px-2 py-1 rounded">
-                                ${p.is_active ? 'LIVE' : 'OFFLINE'}
-                            </button>
-                        </div>
-                        <p class="text-xs text-dark-muted line-clamp-2 mb-4">${p.description}</p>
-                        
-                        <div class="flex items-center justify-between mt-auto pt-4 border-t border-white/5">
-                            <a href="${p.product_link}" target="_blank" class="text-[10px] font-mono text-accent uppercase hover:underline">Link 🔗</a>
-                            <div class="flex gap-4">
-                                <button onclick="openPortfolioModal('${p.id}')" class="text-xs text-white font-bold uppercase hover:underline">Edit</button>
-                                <button onclick="deletePortfolioProduct('${p.id}')" class="text-xs text-red-500 font-bold uppercase hover:underline">X</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-
-            if (!data || data.length === 0) {
-                document.getElementById('port-grid').innerHTML = `<p class="col-span-full text-center py-10 font-mono text-xs text-dark-muted">// NO_PORTFOLIO_ITEMS_FOUND</p>`;
-            }
-        }
-
-        window.deletePortfolioProduct = async (id) => { if (confirm('Purge from Portfolio Database?')) { await supabase.from('portfolio_products').delete().eq('id', id); renderPortfolio(); } };
-        window.togglePortfolioStatus = async (id, status) => { await supabase.from('portfolio_products').update({ is_active: status }).eq('id', id); renderPortfolio(); };
-
-        // --- Categories ---
-        async function renderCategories() {
-            area.innerHTML = `<div class="max-w-xl space-y-8"><div class="bg-dark-surface border border-dark-border p-6 md:p-8 rounded-[2rem] shadow-xl"><h3 class="font-mono text-[10px] uppercase text-accent mb-4 tracking-widest">Inject_New_Classification</h3><div class="flex gap-2"><input id="new-cat" class="flex-1 p-4 rounded-xl text-sm" placeholder="Category Name"><button onclick="saveNewCategory()" class="bg-white text-black px-6 md:px-8 rounded-xl font-black uppercase text-xs active:scale-95 transition-transform">Inject</button></div></div><div id="c-list" class="space-y-3"></div></div>`;
-            const { data } = await supabase.from('product_categories').select('*').order('name');
-            document.getElementById('c-list').innerHTML = (data || []).map(c => `
-                <div class="p-5 bg-dark-surface border border-dark-border rounded-2xl flex justify-between items-center group shadow-md">
-                    <span class="font-mono text-sm">${c.name}</span>
-                    <button onclick="deleteCategory('${c.id}')" class="text-red-500 text-[10px] font-bold uppercase hover:underline md:opacity-40 group-hover:opacity-100 transition-opacity">Purge</button>
-                </div>
-            `).join('');
-        }
-        window.saveNewCategory = async () => { const name = document.getElementById('new-cat').value; if (name) { await supabase.from('product_categories').insert([{ name }]); renderCategories(); } };
-        window.deleteCategory = async (id) => { if (confirm('Purge Category? This may affect linked products.')) { await supabase.from('product_categories').delete().eq('id', id); renderCategories(); } };
-
-        // --- Finance Dashboard ---
-        async function renderFinance() {
-            const { data: orders } = await supabase.from('orders').select('*');
-            const { data: ledger } = await supabase.from('finance_ledger').select('*').order('created_at', { ascending: false });
-
-            const safeOrders = orders || [];
-            const safeLedger = ledger || [];
-
-            const orderRev = safeOrders.filter(o => o.status === 'paid').reduce((a, b) => a + b.total_amount, 0);
-            const manualIncome = safeLedger.filter(l => l.tx_type === 'income').reduce((a, b) => a + b.amount, 0);
-            const expenses = safeLedger.filter(l => l.tx_type === 'expense').reduce((a, b) => a + b.amount, 0);
-
-            const totalRev = orderRev + manualIncome;
-            const netProfit = totalRev - expenses;
-
-            area.innerHTML = `
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
-                    <div class="bg-dark-surface border border-dark-border p-6 md:p-8 rounded-3xl shadow-xl"><p class="text-[9px] font-mono text-dark-muted uppercase mb-2">Total_Revenue</p><p class="text-2xl md:text-3xl font-black text-accent">${totalRev.toFixed(2)} JOD</p></div>
-                    <div class="bg-dark-surface border border-dark-border p-6 md:p-8 rounded-3xl shadow-xl"><p class="text-[9px] font-mono text-dark-muted uppercase mb-2">Total_Expenses</p><p class="text-2xl md:text-3xl font-black text-red-500">${expenses.toFixed(2)} JOD</p></div>
-                    <div class="bg-dark-surface border border-dark-border p-6 md:p-8 rounded-3xl border-emerald-500/20 shadow-xl"><p class="text-[9px] font-mono text-dark-muted uppercase mb-2">Net_Profit</p><p class="text-2xl md:text-3xl font-black text-emerald-500">${netProfit.toFixed(2)} JOD</p></div>
-                </div>
-
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    <div class="lg:col-span-1 bg-dark-surface border border-dark-border p-6 md:p-8 rounded-[2rem] h-fit shadow-xl">
-                        <h4 class="font-mono text-[10px] uppercase text-accent mb-6 tracking-widest">Add_Transaction</h4>
-                        <form onsubmit="addLedgerEntry(event)" class="space-y-4">
-                            <select id="l-type" class="w-full p-4 rounded-xl text-xs uppercase font-bold appearance-none"><option value="expense">Expense (-)</option><option value="income">Income (+)</option></select>
-                            <input type="text" id="l-desc" placeholder="Desc (e.g. Hosting)" required class="w-full p-4 rounded-xl text-sm">
-                            <input type="number" step="0.01" id="l-amount" placeholder="Amount (JOD)" required class="w-full p-4 rounded-xl text-sm">
-                            <button type="submit" class="w-full bg-white text-black font-black py-4 rounded-xl uppercase text-[10px] tracking-widest active:scale-95 transition-transform">Inject_Record</button>
-                        </form>
-                    </div>
-                    <div class="lg:col-span-2 bg-dark-surface border border-dark-border p-6 md:p-8 rounded-[2rem] shadow-xl">
-                        <h4 class="font-mono text-[10px] uppercase text-accent mb-6 tracking-widest">Ledger_History</h4>
-                        <div class="space-y-3 font-mono text-xs" id="ledger-list">
-                            ${safeLedger.length === 0 ? '<p class="text-dark-muted text-center py-10">No manual records found.</p>' : ''}
-                            ${safeLedger.map(l => `
-                                <div class="flex justify-between items-center bg-white/5 p-4 rounded-xl border border-dark-border">
-                                    <div class="flex flex-col"><span class="text-dark-muted text-[9px]">${l.created_at.split('T')[0]}</span><span class="font-bold uppercase tracking-tighter">${l.description}</span></div>
-                                    <div class="flex items-center gap-4">
-                                        <span class="${l.tx_type === 'income' ? 'text-emerald-500' : 'text-red-500'} font-bold">${l.tx_type === 'income' ? '+' : '-'}${l.amount}</span>
-                                        <button onclick="deleteLedger('${l.id}')" class="text-red-500 hover:text-white transition-colors">✕</button>
-                                    </div>
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                </div>`;
-        }
-        window.addLedgerEntry = async (e) => { e.preventDefault(); const tx_type = document.getElementById('l-type').value; const description = document.getElementById('l-desc').value; const amount = parseFloat(document.getElementById('l-amount').value); await supabase.from('finance_ledger').insert([{ tx_type, description, amount }]); renderFinance(); };
-        window.deleteLedger = async (id) => { if (confirm('Delete ledger entry?')) { await supabase.from('finance_ledger').delete().eq('id', id); renderFinance(); } };
-
-        // --- Testimonials ---
-        async function renderTestimonials() {
-            const { data } = await supabase.from('testimonials').select('*, products(name)');
-            const safeData = data || [];
-            area.innerHTML = `<div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="t-grid"></div>`;
-            document.getElementById('t-grid').innerHTML = safeData.map(t => `
-                <div class="bg-dark-surface border border-dark-border p-6 rounded-3xl flex flex-col justify-between shadow-xl">
-                    <div>
-                        <div class="flex justify-between items-start mb-4">
-                            <span class="text-[9px] font-mono px-2 py-0.5 bg-accent/10 text-accent rounded uppercase font-bold">${t.products?.name || 'GENERAL'}</span>
-                            <span class="px-2 py-0.5 rounded text-[8px] font-bold uppercase ${t.is_approved ? 'bg-emerald-500/20 text-emerald-500' : 'bg-amber-500/20 text-amber-500'}">${t.is_approved ? 'Live' : 'Hidden'}</span>
-                        </div>
-                        <p class="text-sm italic mb-6 text-dark-muted">"${t.message}"</p>
-                    </div>
-                    <div class="flex items-center justify-between border-t border-white/5 pt-4">
-                        <span class="text-[10px] font-bold font-mono tracking-tighter">${t.user_name}</span>
-                        <div class="flex gap-3">
-                            <button onclick="toggleFeedback('${t.id}', ${!t.is_approved})" class="text-[9px] font-black uppercase text-white hover:text-accent">Toggle</button>
-                            <button onclick="deleteFeedback('${t.id}')" class="text-[9px] font-black text-red-500 uppercase hover:text-white">Del</button>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-            if (safeData.length === 0) area.innerHTML = `<p class="font-mono text-dark-muted uppercase tracking-widest text-center mt-20">No feedback found in database.</p>`;
-        }
-        window.toggleFeedback = async (id, is_approved) => { await supabase.from('testimonials').update({ is_approved }).eq('id', id); renderTestimonials(); };
-        window.deleteFeedback = async (id) => { if (confirm('Discard feedback?')) { await supabase.from('testimonials').delete().eq('id', id); renderTestimonials(); } };
-
-
-        // --- MODAL HANDLING & IMAGE UPLOADS ---
-
-        // Helper: Upload file to Supabase Storage
         async function uploadImageFile(file, bucketName) {
             const fileExt = file.name.split('.').pop();
             const fileName = `${Math.random().toString(36).substring(2, 15)}.${fileExt}`;
             const { error: uploadError } = await supabase.storage.from(bucketName).upload(fileName, file, { upsert: true });
             if (uploadError) throw uploadError;
-            const { data: { publicUrl } } = supabase.storage.from(bucketName).getPublicUrl(fileName);
-            return publicUrl;
+            return supabase.storage.from(bucketName).getPublicUrl(fileName).data.publicUrl;
         }
 
-        // --- Marketplace Product Modal ---
         window.openProductModal = async (id = null) => {
             currentFeatures = [];
             const cats = await supabase.from('product_categories').select('*');
@@ -563,118 +663,259 @@
             if (id) {
                 const { data } = await supabase.from('products').select('*').eq('id', id).single();
                 const f = document.getElementById('product-form');
-                f.id.value = data.id;
-                f.name.value = data.name;
-                f.price_jod.value = data.price_jod;
-                f.category_id.value = data.category_id;
-                f.brief_description.value = data.brief_description;
-                f.full_description.value = data.full_description;
+                f.id.value = data.id; f.name.value = data.name; f.price_jod.value = data.price_jod;
+                f.category_id.value = data.category_id; f.brief_description.value = data.brief_description;
+                f.full_description.value = data.full_description; f.delivery_url.value = data.delivery_url || '';
+                f.is_subscription.checked = data.is_subscription;
                 document.getElementById('existing-image-url').value = data.image_url || '';
-
-                if (data.image_url) {
-                    previewText.classList.remove('hidden');
-                    document.getElementById('image-preview-link').href = data.image_url;
-                } else { previewText.classList.add('hidden'); }
-
-                currentFeatures = data.features || [];
-                renderFeatureTags();
+                if (data.image_url) { previewText.classList.remove('hidden'); document.getElementById('image-preview-link').href = data.image_url; }
+                else { previewText.classList.add('hidden'); }
+                currentFeatures = data.features || []; renderFeatureTags();
             } else {
                 document.getElementById('product-form').reset();
-                document.getElementById('form-id').value = '';
-                document.getElementById('existing-image-url').value = '';
-                previewText.classList.add('hidden');
-                renderFeatureTags();
+                document.getElementById('form-id').value = ''; document.getElementById('existing-image-url').value = '';
+                previewText.classList.add('hidden'); renderFeatureTags();
             }
             document.getElementById('product-modal').classList.remove('hidden');
         }
 
         document.getElementById('product-form').onsubmit = async (e) => {
-            e.preventDefault();
-            const btn = document.getElementById('product-submit-btn');
-            btn.disabled = true; btn.innerText = "UPLOADING...";
-
-            const fd = new FormData(e.target);
-            const data = Object.fromEntries(fd.entries());
-            data.features = currentFeatures;
+            e.preventDefault(); const btn = document.getElementById('product-submit-btn'); btn.disabled = true; btn.innerText = "UPLOADING...";
+            const fd = new FormData(e.target); const data = Object.fromEntries(fd.entries());
+            data.features = currentFeatures; data.is_subscription = document.getElementById('is_subscription').checked;
             const id = data.id; delete data.id;
-
             const file = document.getElementById('image-file-input').files[0];
-            let finalImageUrl = data.existing_image_url;
-            delete data.image_file; delete data.existing_image_url;
+            let finalImageUrl = data.existing_image_url; delete data.image_file; delete data.existing_image_url;
 
             try {
                 if (file) finalImageUrl = await uploadImageFile(file, 'product-images');
                 data.image_url = finalImageUrl;
-
                 const { error } = id ? await supabase.from('products').update(data).eq('id', id) : await supabase.from('products').insert([data]);
                 if (error) throw error;
-
                 closeProductModal(); renderProducts();
-            } catch (err) { alert(`System Error: ${err.message}`); }
+            } catch (err) { alert(`Error: ${err.message}`); }
             finally { btn.disabled = false; btn.innerText = "Execute_Write_Operation"; }
         }
         window.closeProductModal = () => document.getElementById('product-modal').classList.add('hidden');
 
+        // --- 05_PORTFOLIO ---
+        async function renderPortfolio() {
+            area.innerHTML = `<button onclick="openPortfolioModal()" class="mb-8 bg-white text-black font-black px-8 py-4 rounded-2xl text-[10px] uppercase tracking-widest shadow-lg hover:brightness-110 transition-all active:scale-95">+ NEW_PORTFOLIO_NODE</button><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="port-grid"></div>`;
+            const { data } = await supabase.from('portfolio_products').select('*').order('sort_order', { ascending: true });
+            document.getElementById('port-grid').innerHTML = (data || []).map(p => `
+                <div class="bg-dark-surface border border-dark-border rounded-[2rem] overflow-hidden flex flex-col shadow-xl">
+                    <div class="h-48 bg-black flex items-center justify-center relative overflow-hidden group border-b border-dark-border">
+                        <img src="${p.image_url}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#050505] to-transparent pointer-events-none"></div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="font-bold text-lg leading-tight truncate pr-4">${p.name}</h4>
+                            <button onclick="togglePortfolioStatus('${p.id}', ${!p.is_active})" class="text-[8px] font-black uppercase tracking-widest shrink-0 ${p.is_active ? 'text-emerald-500 border-emerald-500/30' : 'text-dark-muted border-white/10'} border px-2 py-1 rounded">
+                                ${p.is_active ? 'LIVE' : 'OFFLINE'}
+                            </button>
+                        </div>
+                        <p class="text-xs text-dark-muted line-clamp-2 mb-6">${p.description}</p>
+                        <div class="flex items-center justify-between mt-auto pt-4 border-t border-white/5">
+                            <a href="${p.product_link}" target="_blank" class="text-[10px] font-mono text-accent uppercase tracking-widest hover:underline flex items-center gap-1">Link <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg></a>
+                            <div class="flex gap-4">
+                                <button onclick="openPortfolioModal('${p.id}')" class="text-[10px] text-white font-black uppercase tracking-widest hover:underline">Edit</button>
+                                <button onclick="deletePortfolioProduct('${p.id}')" class="text-[10px] text-red-500 font-black uppercase tracking-widest hover:underline">Purge</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            if (!data || data.length === 0) document.getElementById('port-grid').innerHTML = `<p class="col-span-full text-center py-10 font-mono text-xs text-dark-muted">// NO_PORTFOLIO_ITEMS_FOUND</p>`;
+        }
+        window.deletePortfolioProduct = async (id) => { if (confirm('Purge from Portfolio Database?')) { await supabase.from('portfolio_products').delete().eq('id', id); renderPortfolio(); } };
+        window.togglePortfolioStatus = async (id, status) => { await supabase.from('portfolio_products').update({ is_active: status }).eq('id', id); renderPortfolio(); };
 
-        // --- NEW: Portfolio Modal Logic ---
         window.openPortfolioModal = async (id = null) => {
-            document.getElementById('port-image-file-input').value = "";
-            const previewText = document.getElementById('port-image-preview-text');
-
+            document.getElementById('port-image-file-input').value = ""; const previewText = document.getElementById('port-image-preview-text');
             if (id) {
                 const { data } = await supabase.from('portfolio_products').select('*').eq('id', id).single();
                 const f = document.getElementById('portfolio-form');
-                f.id.value = data.id;
-                f.name.value = data.name;
-                f.product_link.value = data.product_link;
-                f.sort_order.value = data.sort_order;
-                f.description.value = data.description;
+                f.id.value = data.id; f.name.value = data.name; f.product_link.value = data.product_link;
+                f.sort_order.value = data.sort_order; f.description.value = data.description;
                 document.getElementById('port-existing-image-url').value = data.image_url || '';
-
-                if (data.image_url) {
-                    previewText.classList.remove('hidden');
-                    document.getElementById('port-image-preview-link').href = data.image_url;
-                } else { previewText.classList.add('hidden'); }
+                if (data.image_url) { previewText.classList.remove('hidden'); document.getElementById('port-image-preview-link').href = data.image_url; }
+                else { previewText.classList.add('hidden'); }
             } else {
-                document.getElementById('portfolio-form').reset();
-                document.getElementById('port-form-id').value = '';
-                document.getElementById('port-existing-image-url').value = '';
-                previewText.classList.add('hidden');
+                document.getElementById('portfolio-form').reset(); document.getElementById('port-form-id').value = '';
+                document.getElementById('port-existing-image-url').value = ''; previewText.classList.add('hidden');
             }
             document.getElementById('portfolio-modal').classList.remove('hidden');
         }
-
         document.getElementById('portfolio-form').onsubmit = async (e) => {
-            e.preventDefault();
-            const btn = document.getElementById('port-submit-btn');
-            btn.disabled = true; btn.innerText = "UPLOADING...";
-
-            const fd = new FormData(e.target);
-            const data = Object.fromEntries(fd.entries());
-            const id = data.id; delete data.id;
-
-            const file = document.getElementById('port-image-file-input').files[0];
-            let finalImageUrl = data.existing_image_url;
-            delete data.image_file; delete data.existing_image_url;
-
+            e.preventDefault(); const btn = document.getElementById('port-submit-btn'); btn.disabled = true; btn.innerText = "UPLOADING...";
+            const fd = new FormData(e.target); const data = Object.fromEntries(fd.entries());
+            const id = data.id; delete data.id; const file = document.getElementById('port-image-file-input').files[0];
+            let finalImageUrl = data.existing_image_url; delete data.image_file; delete data.existing_image_url;
             try {
-                if (file) finalImageUrl = await uploadImageFile(file, 'product-images'); // Using same public bucket
-
-                // For a new portfolio product without an image, supply a placeholder
+                if (file) finalImageUrl = await uploadImageFile(file, 'product-images');
                 data.image_url = finalImageUrl || "https://via.placeholder.com/600x400?text=No+Image";
-
                 const { error } = id ? await supabase.from('portfolio_products').update(data).eq('id', id) : await supabase.from('portfolio_products').insert([data]);
                 if (error) throw error;
-
                 closePortfolioModal(); renderPortfolio();
-            } catch (err) { alert(`System Error: ${err.message}`); }
-            finally { btn.disabled = false; btn.innerText = "Inject_Portfolio_Node"; }
+            } catch (err) { alert(`Error: ${err.message}`); } finally { btn.disabled = false; btn.innerText = "Inject_Node"; }
         }
         window.closePortfolioModal = () => document.getElementById('portfolio-modal').classList.add('hidden');
 
+        // --- 06_PROMOS ---
+        async function renderPromos() {
+            area.innerHTML = `
+            <div class="flex justify-between items-end mb-6">
+                <h3 class="font-mono text-[10px] uppercase tracking-widest text-dark-muted">Active Campaigns</h3>
+                <button onclick="document.getElementById('promo-modal').classList.remove('hidden')" class="bg-accent text-black px-5 py-2.5 rounded-xl font-mono text-[10px] font-bold uppercase tracking-widest hover:brightness-110 shadow-lg transition-all active:scale-95">+ Inject_Promo</button>
+            </div>
+            <div class="bg-dark-surface border border-dark-border rounded-[2rem] overflow-x-auto shadow-2xl">
+                <table class="w-full text-left text-sm min-w-[600px]">
+                    <thead class="bg-white/5 font-mono text-[9px] uppercase tracking-widest text-dark-muted">
+                        <tr><th class="p-6">Promo Code</th><th class="p-6 text-center">Discount</th><th class="p-6 text-center">Usage</th><th class="p-6 text-right">Status / Ops</th></tr>
+                    </thead>
+                    <tbody id="promo-rows"></tbody>
+                </table>
+            </div>`;
 
-        // Load defaults
-        showTab('orders');
+            const { data } = await supabase.from('promotions').select('*').order('created_at', { ascending: false });
+            document.getElementById('promo-rows').innerHTML = (data || []).map(p => `
+                <tr class="border-t border-dark-border hover:bg-white/[0.02]">
+                    <td class="p-6 font-mono font-bold text-accent tracking-widest">${p.code}</td>
+                    <td class="p-6 text-center font-mono">${p.discount_percent}%</td>
+                    <td class="p-6 text-center font-mono text-dark-muted"><span class="text-white">${p.current_uses}</span> / ${p.max_uses}</td>
+                    <td class="p-6 text-right flex justify-end items-center gap-4">
+                        <span class="px-3 py-1 rounded-full text-[9px] font-bold uppercase tracking-widest ${p.is_active ? 'bg-emerald-500/10 text-emerald-500' : 'bg-red-500/10 text-red-500'}">${p.is_active ? 'Active' : 'Disabled'}</span>
+                        <button onclick="togglePromo('${p.id}', ${!p.is_active})" class="text-[9px] font-black uppercase tracking-widest ${p.is_active ? 'text-red-500 hover:text-white' : 'text-emerald-500 hover:text-white'} transition-colors">${p.is_active ? 'Revoke' : 'Restore'}</button>
+                    </td>
+                </tr>
+            `).join('');
+
+            if (!data || data.length === 0) document.getElementById('promo-rows').innerHTML = `<tr><td colspan="4" class="p-10 text-center font-mono text-xs text-dark-muted">No active promotional campaigns.</td></tr>`;
+        }
+
+        document.getElementById('promo-form').onsubmit = async (e) => {
+            e.preventDefault(); const btn = document.getElementById('promo-btn'); btn.disabled = true; btn.innerText = "GENERATING...";
+            const code = document.getElementById('promo-code').value.toUpperCase();
+            const discount = parseInt(document.getElementById('promo-discount').value);
+            const max = parseInt(document.getElementById('promo-max').value);
+            try {
+                const { error } = await supabase.from('promotions').insert([{ code: code, discount_percent: discount, max_uses: max }]);
+                if (error) throw error;
+                document.getElementById('promo-form').reset(); document.getElementById('promo-modal').classList.add('hidden'); renderPromos();
+            } catch (err) { alert(`System Error: ${err.message}`); } finally { btn.disabled = false; btn.innerText = "Generate"; }
+        };
+        window.togglePromo = async (id, status) => { await supabase.from('promotions').update({ is_active: status }).eq('id', id); renderPromos(); };
+
+        // --- 07_COMMAND CENTER ---
+        async function renderCommand() {
+            const { data: settings } = await supabase.from('system_settings').select('*').eq('setting_key', 'n8n_webhook_base').single();
+            const webhookBase = settings?.setting_value || 'https://automation.mohammad-abujalboush.com/webhook/';
+
+            area.innerHTML = `
+                <p class="text-[10px] font-mono text-dark-muted mb-8 uppercase tracking-widest">Fire secure webhooks directly to n8n to override scheduled cron jobs.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-dark-surface border border-emerald-500/20 p-8 rounded-[2rem] text-center shadow-[0_0_30px_rgba(16,185,129,0.05)] flex flex-col justify-between">
+                        <div><h4 class="font-black text-lg mb-2">Force Wealth Screener</h4><p class="text-[10px] text-dark-muted mb-8 uppercase tracking-widest leading-relaxed">Triggers Groq + Yahoo Finance instantly.</p></div>
+                        <button onclick="fireWebhook('${webhookBase}wealth-screener', this)" class="w-full bg-emerald-500/10 text-emerald-500 border border-emerald-500/50 py-4 rounded-xl font-mono text-[10px] uppercase tracking-widest font-black hover:bg-emerald-500 hover:text-black transition-all">Execute_Run</button>
+                    </div>
+                    <div class="bg-dark-surface border border-accent/20 p-8 rounded-[2rem] text-center shadow-[0_0_30px_rgba(56,189,248,0.05)] flex flex-col justify-between">
+                        <div><h4 class="font-black text-lg mb-2">Viral Content Engine</h4><p class="text-[10px] text-dark-muted mb-8 uppercase tracking-widest leading-relaxed">Scrapes trends and updates Notion Calendar.</p></div>
+                        <button onclick="fireWebhook('${webhookBase}viral-content', this)" class="w-full bg-accent/10 text-accent border border-accent/50 py-4 rounded-xl font-mono text-[10px] uppercase tracking-widest font-black hover:bg-accent hover:text-black transition-all">Execute_Run</button>
+                    </div>
+                    <div class="bg-dark-surface border border-purple-500/20 p-8 rounded-[2rem] text-center shadow-[0_0_30px_rgba(168,85,247,0.05)] flex flex-col justify-between">
+                        <div><h4 class="font-black text-lg mb-2">Sync SaaS Subscriptions</h4><p class="text-[10px] text-dark-muted mb-8 uppercase tracking-widest leading-relaxed">Forces Lemon Squeezy to audit all user access.</p></div>
+                        <button onclick="fireWebhook('${webhookBase}sync-subs', this)" class="w-full bg-purple-500/10 text-purple-500 border border-purple-500/50 py-4 rounded-xl font-mono text-[10px] uppercase tracking-widest font-black hover:bg-purple-500 hover:text-black transition-all">Execute_Run</button>
+                    </div>
+                </div>
+            `;
+        }
+        window.fireWebhook = async (url, btn) => {
+            const originalText = btn.innerText; btn.innerText = "FIRING_PAYLOAD..."; btn.classList.add('opacity-50', 'pointer-events-none');
+            try { await fetch(url, { method: 'POST' }); btn.innerText = "SUCCESSFUL_DELIVERY"; btn.classList.replace('text-accent', 'text-white'); btn.classList.replace('text-emerald-500', 'text-white'); btn.classList.replace('text-purple-500', 'text-white'); }
+            catch (e) { btn.innerText = "NO_RESPONSE_ASSUME_FIRED"; btn.classList.add('text-amber-500'); }
+            setTimeout(() => { btn.innerText = originalText; btn.classList.remove('opacity-50', 'pointer-events-none', 'text-white', 'text-amber-500'); }, 3000);
+        };
+
+        // --- 08_FINANCE LEDGER ---
+        async function renderFinance() {
+            const { data: orders } = await supabase.from('orders').select('*');
+            const { data: ledger } = await supabase.from('finance_ledger').select('*').order('created_at', { ascending: false });
+
+            const orderRev = (orders || []).filter(o => o.status === 'paid').reduce((a, b) => a + b.total_amount, 0);
+            const manualIncome = (ledger || []).filter(l => l.tx_type === 'income').reduce((a, b) => a + b.amount, 0);
+            const expenses = (ledger || []).filter(l => l.tx_type === 'expense').reduce((a, b) => a + b.amount, 0);
+            const totalRev = orderRev + manualIncome; const netProfit = totalRev - expenses;
+
+            area.innerHTML = `
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-dark-surface border border-dark-border p-8 rounded-[2rem] shadow-xl"><p class="text-[9px] font-mono text-dark-muted uppercase tracking-widest mb-2">Total_Revenue</p><p class="text-3xl font-black text-accent">${totalRev.toFixed(2)} JOD</p></div>
+                    <div class="bg-dark-surface border border-dark-border p-8 rounded-[2rem] shadow-xl"><p class="text-[9px] font-mono text-dark-muted uppercase tracking-widest mb-2">Total_Expenses</p><p class="text-3xl font-black text-red-500">${expenses.toFixed(2)} JOD</p></div>
+                    <div class="bg-dark-surface border border-emerald-500/20 p-8 rounded-[2rem] shadow-xl"><p class="text-[9px] font-mono text-dark-muted uppercase tracking-widest mb-2">Net_Profit</p><p class="text-3xl font-black text-emerald-500">${netProfit.toFixed(2)} JOD</p></div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div class="lg:col-span-1 bg-dark-surface border border-dark-border p-8 rounded-[2rem] h-fit shadow-xl">
+                        <h4 class="font-mono text-[10px] uppercase text-accent mb-6 tracking-widest border-b border-dark-border pb-3">Inject_Transaction</h4>
+                        <form onsubmit="addLedgerEntry(event)" class="space-y-4">
+                            <select id="l-type" class="w-full p-4 rounded-xl text-xs uppercase font-bold tracking-widest appearance-none"><option value="expense">Expense_Record (-)</option><option value="income">Income_Record (+)</option></select>
+                            <input type="text" id="l-desc" placeholder="Description (e.g. Hetzner Server)" required class="w-full p-4 rounded-xl text-sm">
+                            <input type="number" step="0.01" id="l-amount" placeholder="Amount (JOD)" required class="w-full p-4 rounded-xl text-sm">
+                            <button type="submit" class="w-full bg-white text-black font-black py-4 rounded-xl uppercase text-[10px] tracking-widest active:scale-95 transition-transform mt-2">Execute_Ledger_Write</button>
+                        </form>
+                    </div>
+                    <div class="lg:col-span-2 bg-dark-surface border border-dark-border p-8 rounded-[2rem] shadow-xl">
+                        <h4 class="font-mono text-[10px] uppercase text-accent mb-6 tracking-widest border-b border-dark-border pb-3">Ledger_History_Log</h4>
+                        <div class="space-y-3 font-mono text-xs" id="ledger-list">
+                            ${(ledger || []).length === 0 ? '<p class="text-dark-muted text-center py-10">No manual records found.</p>' : ''}
+                            ${(ledger || []).map(l => `
+                                <div class="flex justify-between items-center bg-white/5 p-4 rounded-xl border border-dark-border hover:bg-white/10 transition-colors">
+                                    <div class="flex flex-col"><span class="text-dark-muted text-[9px] mb-1">${l.created_at.split('T')[0]}</span><span class="font-bold uppercase tracking-widest text-white">${l.description}</span></div>
+                                    <div class="flex items-center gap-6">
+                                        <span class="${l.tx_type === 'income' ? 'text-emerald-500' : 'text-red-500'} font-bold">${l.tx_type === 'income' ? '+' : '-'}${l.amount}</span>
+                                        <button onclick="deleteLedger('${l.id}')" class="text-red-500 hover:text-white transition-colors">✕</button>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>`;
+        }
+        window.addLedgerEntry = async (e) => { e.preventDefault(); const tx_type = document.getElementById('l-type').value; const description = document.getElementById('l-desc').value; const amount = parseFloat(document.getElementById('l-amount').value); await supabase.from('finance_ledger').insert([{ tx_type, description, amount }]); renderFinance(); };
+        window.deleteLedger = async (id) => { if (confirm('Sudo: Delete ledger entry permanently?')) { await supabase.from('finance_ledger').delete().eq('id', id); renderFinance(); } };
+
+        // --- 09_SUPPORT HUB ---
+        async function renderSupport() {
+            area.innerHTML = `<h3 class="font-mono text-[10px] uppercase tracking-widest text-dark-muted mb-6">Client Support & Review Pipeline</h3><div class="space-y-4" id="ticket-list"></div>`;
+            const { data } = await supabase.from('support_tickets').select('*').order('created_at', { ascending: false });
+            document.getElementById('ticket-list').innerHTML = (data || []).map(t => `
+                <div class="bg-dark-surface border ${t.status === 'open' ? 'border-amber-500/50 shadow-[0_0_15px_rgba(245,158,11,0.05)]' : 'border-dark-border opacity-60'} p-6 rounded-[2rem] flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-3"><span class="w-2.5 h-2.5 rounded-full ${t.status === 'open' ? 'bg-amber-500 shadow-[0_0_8px_#f59e0b]' : 'bg-emerald-500'}"></span><span class="font-mono text-xs text-accent">${t.user_email}</span></div>
+                        <h4 class="font-bold text-lg mb-2">${t.subject}</h4><p class="text-sm text-dark-muted leading-relaxed">${t.message}</p>
+                    </div>
+                    <button onclick="closeTicket('${t.id}')" class="text-[10px] font-mono font-bold uppercase tracking-widest text-emerald-500 border border-emerald-500/20 px-6 py-3 rounded-xl bg-emerald-500/5 hover:bg-emerald-500 hover:text-black transition-colors shrink-0" ${t.status !== 'open' ? 'disabled style="display:none"' : ''}>Mark_Resolved</button>
+                </div>
+            `).join('');
+            if (!data || data.length === 0) document.getElementById('ticket-list').innerHTML = `<p class="font-mono text-xs text-dark-muted text-center py-20 uppercase tracking-widest">Inbox Zero. All systems nominal.</p>`;
+        }
+        window.closeTicket = async (id) => { await supabase.from('support_tickets').update({ status: 'resolved' }).eq('id', id); renderSupport(); };
+
+        // --- 10_SYS CONFIG ---
+        async function renderSettings() {
+            area.innerHTML = `<h3 class="font-mono text-[10px] uppercase tracking-widest text-dark-muted mb-6">Master System Configuration</h3>
+            <div class="bg-dark-surface border border-dark-border rounded-[2rem] overflow-x-auto shadow-2xl"><table class="w-full text-left text-sm min-w-[600px]"><thead class="bg-white/5 font-mono text-[9px] uppercase tracking-widest text-dark-muted"><tr><th class="p-6">Configuration Key</th><th class="p-6">String Value</th><th class="p-6 text-right">Last Sync</th></tr></thead><tbody id="settings-rows"></tbody></table></div>`;
+            const { data } = await supabase.from('system_settings').select('*').order('setting_key', { ascending: true });
+            document.getElementById('settings-rows').innerHTML = (data || []).map(s => `
+                <tr class="border-t border-dark-border hover:bg-white/[0.02] transition-colors">
+                    <td class="p-6 font-mono text-xs text-accent uppercase tracking-widest">${s.setting_key}</td>
+                    <td class="p-6 font-mono text-xs text-white max-w-[200px] truncate">${s.setting_value}</td>
+                    <td class="p-6 text-right text-[10px] font-mono text-dark-muted">${s.updated_at.split('T')[0]}</td>
+                </tr>
+            `).join('');
+            if (!data || data.length === 0) document.getElementById('settings-rows').innerHTML = `<tr><td colspan="3" class="p-10 text-center font-mono text-xs text-dark-muted">No configuration pairs found in database.</td></tr>`;
+        }
+
     </script>
 </body>
 

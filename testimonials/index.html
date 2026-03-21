@@ -60,7 +60,8 @@
 
         h1,
         label,
-        .readout {
+        .readout,
+        .nav-link {
             font-family: 'JetBrains Mono', monospace;
             color: var(--text-primary);
         }
@@ -82,7 +83,27 @@
             border-bottom: 2px solid var(--accent);
             padding-bottom: 20px;
             margin-bottom: 30px;
-            text-align: center;
+            position: relative;
+        }
+
+        .header-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--accent);
         }
 
         .card {
@@ -132,16 +153,13 @@
             min-height: 120px;
         }
 
-        /* =========================================
-           DYNAMIC COLOR CIRCUIT RATING SYSTEM
-           ========================================= */
+        /* DYNAMIC COLOR CIRCUIT RATING SYSTEM */
         .circuit-rating-wrapper {
             background-color: var(--bg-color);
             border: 1px solid var(--border);
             border-radius: 8px;
             padding: 30px 20px 20px 20px;
             position: relative;
-            /* This variable will be updated by JS to change the global color */
             --dynamic-color: var(--text-secondary);
             --wire-pct: 0;
         }
@@ -153,35 +171,28 @@
             justify-content: space-between;
             align-items: center;
             padding: 0 15px;
-            /* Keeps nodes away from absolute edges */
             margin-bottom: 15px;
         }
 
-        /* Hide the actual radio buttons but keep them functional */
         .rating-input {
             display: none;
         }
 
-        /* Background wire */
         .circuit-wire-bg {
             position: absolute;
             top: 50%;
             left: 27px;
-            /* Centers with first node */
             right: 27px;
-            /* Centers with last node */
             height: 2px;
             background-color: var(--border);
             transform: translateY(-50%);
             z-index: 1;
         }
 
-        /* Glowing color-shifting active wire */
         .circuit-wire-active {
             position: absolute;
             top: 50%;
             left: 27px;
-            /* width is calculated based on JS percentage */
             width: calc((100% - 54px) * var(--wire-pct));
             height: 2px;
             background-color: var(--dynamic-color);
@@ -191,7 +202,6 @@
             transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease, box-shadow 0.3s ease;
         }
 
-        /* The Nodes */
         .node-label {
             position: relative;
             z-index: 3;
@@ -203,7 +213,6 @@
             align-items: center;
         }
 
-        /* Diamond shape inside node */
         .node-diamond {
             width: 14px;
             height: 14px;
@@ -213,7 +222,6 @@
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Hover & Active States (Injected with dynamic color) */
         .node-label:hover .node-diamond,
         .node-label.active .node-diamond {
             background-color: var(--dynamic-color);
@@ -222,7 +230,6 @@
             transform: rotate(45deg) scale(1.3);
         }
 
-        /* Terminal Readout */
         .terminal-readout {
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.85rem;
@@ -233,8 +240,6 @@
             letter-spacing: 1px;
             transition: color 0.3s ease;
         }
-
-        /* ========================================= */
 
         button[type="submit"] {
             width: 100%;
@@ -293,6 +298,10 @@
 
     <div class="container">
         <header class="main-header">
+            <div class="header-nav">
+                <a href="https://market.mohammad-abujalboush.com" class="nav-link">← MARKET_</a>
+                <a href="https://help.mohammad-abujalboush.com" class="nav-link" target="_blank">SUPPORT_HUB_</a>
+            </div>
             <h1>Engineered Feedback</h1>
             <p>Select a product and evaluate system performance.</p>
         </header>
@@ -380,9 +389,6 @@
     <script type="module">
         import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
-        // ==========================================
-        // SUPABASE CONFIGURATION
-        // ==========================================
         const supabaseUrl = 'https://dvlabpioxtyyzvhzpmyc.supabase.co';
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2bGFicGlveHR5eXp2aHpwbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1MDY4NzUsImV4cCI6MjA4OTA4Mjg3NX0.fBM9r7WXpntVUM-qsBDQFlknRf2vMyIpJTp5ww9pzUM';
         const supabase = createClient(supabaseUrl, supabaseKey);
@@ -395,25 +401,21 @@
         const submitBtn = document.getElementById('submitBtn');
         const statusMessage = document.getElementById('statusMessage');
 
-        // ==========================================
-        // DYNAMIC CIRCUIT LOGIC
-        // ==========================================
         const circuitWrapper = document.getElementById('circuitWrapper');
         const circuitTrack = document.getElementById('circuitTrack');
         const terminalReadout = document.getElementById('terminalReadout');
         const labels = document.querySelectorAll('.node-label');
         const inputs = document.querySelectorAll('.rating-input');
 
-        let currentRating = 0; // The actual selected value
+        let currentRating = 0;
 
-        // Color mapped by rating level
         const ratingColors = {
             0: "var(--text-secondary)",
-            1: "#ef4444", // Critical Red
-            2: "#f59e0b", // Sub-optimal Amber
-            3: "#eab308", // Acceptable Yellow
-            4: "#38bdf8", // High Efficiency Cyan
-            5: "#10b981"  // Flawless Emerald
+            1: "#ef4444",
+            2: "#f59e0b",
+            3: "#eab308",
+            4: "#38bdf8",
+            5: "#10b981"
         };
 
         const readoutText = {
@@ -425,19 +427,12 @@
             5: ">> [5/5] FLAWLESS ARCHITECTURE"
         };
 
-        // Core function to push visual updates
         function applyUIState(value) {
-            // Calculate width percentage (0 to 1)
             const pct = value > 0 ? (value - 1) / 4 : 0;
             circuitWrapper.style.setProperty('--wire-pct', pct);
-
-            // Set Dynamic Color
             circuitWrapper.style.setProperty('--dynamic-color', ratingColors[value]);
-
-            // Set Text
             terminalReadout.textContent = readoutText[value];
 
-            // Highlight Nodes
             labels.forEach(label => {
                 const nodeVal = parseInt(label.getAttribute('data-value'));
                 if (nodeVal <= value && value > 0) {
@@ -448,7 +443,6 @@
             });
         }
 
-        // 1. Mouse Hover Events (Preview Mode)
         labels.forEach(label => {
             label.addEventListener('mouseenter', () => {
                 const hoverValue = parseInt(label.getAttribute('data-value'));
@@ -456,13 +450,10 @@
             });
         });
 
-        // 2. Mouse Leave Event (Restore actual selection)
         circuitTrack.addEventListener('mouseleave', () => {
             applyUIState(currentRating);
         });
 
-        // 3. Click Event (Locks in the selection)
-        // By listening to the inputs 'change' event instead of the labels 'click', we prevent the double-click bug entirely.
         inputs.forEach(input => {
             input.addEventListener('change', (e) => {
                 currentRating = parseInt(e.target.value);
@@ -470,10 +461,6 @@
             });
         });
 
-
-        // ==========================================
-        // DATABASE INITIALIZATION & FORM SUBMIT
-        // ==========================================
         async function loadFormData() {
             try {
                 const { data: categories, error: catError } = await supabase.from('product_categories').select('*');
@@ -536,7 +523,6 @@
                 const { error } = await supabase.from('testimonials').insert([payload]);
                 if (error) throw error;
 
-                // Reset
                 form.reset();
                 productSelect.disabled = true;
                 currentRating = 0;
