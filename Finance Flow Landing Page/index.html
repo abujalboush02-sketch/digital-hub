@@ -79,9 +79,10 @@
         </div>
 
         <div
-            class="mt-16 mx-auto max-w-5xl rounded-2xl border border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface shadow-2xl overflow-hidden aspect-video flex items-center justify-center relative">
-            <div class="absolute inset-0 bg-gradient-to-tr from-emerald-500/10 to-transparent"></div>
-            <p class="text-light-muted dark:text-dark-muted font-medium">[ App Dashboard Mockup Here ]</p>
+            class="mt-16 mx-auto max-w-5xl rounded-2xl border border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface shadow-2xl overflow-hidden relative">
+            <div class="absolute inset-0 bg-gradient-to-tr from-emerald-500/10 to-transparent pointer-events-none">
+            </div>
+            <img src="dashboard.png" alt="FinanceFlow Dashboard Mockup" class="w-full h-auto object-cover block">
         </div>
     </main>
 
@@ -94,7 +95,7 @@
                     </p>
                     <h2 class="text-3xl sm:text-4xl font-extrabold">Wall of Love</h2>
                 </div>
-                <a href="https://help.mohammad-abujalboush.com" target="_blank"
+                <a href="https://feedback.mohammad-abujalboush.com?product=FinanceFlow" target="_blank"
                     class="w-full md:w-auto text-center bg-light-surface dark:bg-dark-surface border border-light-border dark:border-dark-border hover:border-emerald-500 text-light-text dark:text-dark-text px-6 py-3 rounded-xl text-sm font-bold transition-all shadow-sm">
                     Share Your Experience
                 </a>
@@ -110,54 +111,88 @@
     </section>
 
     <section class="py-24 bg-light-bg dark:bg-dark-bg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24">
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div>
-                    <div
-                        class="w-12 h-12 bg-amber-500/10 text-amber-500 rounded-xl flex items-center justify-center mb-6 text-2xl">
-                        📱</div>
-                    <h2 class="text-3xl font-extrabold mb-4">Your finances, straight to your WhatsApp.</h2>
-                    <p class="text-lg text-light-muted dark:text-dark-muted mb-6">Stop relying on easy-to-miss app
-                        notifications. FinanceFlow integrates directly with WhatsApp to send you actionable bill
-                        reminders and daily spending summaries where you actually look.</p>
-                    <ul class="space-y-3 font-medium">
-                        <li class="flex items-center"><span class="text-emerald-500 mr-2">✓</span> "Rent is due in 3
-                            days. Mark as paid?"</li>
-                        <li class="flex items-center"><span class="text-emerald-500 mr-2">✓</span> Weekly budget health
-                            reports.</li>
-                        <li class="flex items-center"><span class="text-emerald-500 mr-2">✓</span> Secure, one-way
-                            notification system.</li>
-                    </ul>
-                </div>
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+
+            <div
+                class="p-8 md:p-12 rounded-3xl bg-light-surface dark:bg-dark-surface border border-light-border dark:border-dark-border shadow-xl">
                 <div
-                    class="aspect-square bg-light-surface dark:bg-dark-surface rounded-2xl border border-light-border dark:border-dark-border shadow-xl flex items-center justify-center relative overflow-hidden">
-                    <div class="absolute inset-0 bg-gradient-to-br from-amber-500/10 to-transparent"></div>
-                    <p class="text-light-muted dark:text-dark-muted font-medium">[ WhatsApp Mockup UI ]</p>
+                    class="w-16 h-16 bg-amber-500/10 text-amber-500 rounded-2xl flex items-center justify-center mb-8 text-3xl">
+                    📱
+                </div>
+                <h2 class="text-3xl md:text-4xl font-extrabold mb-6">Your finances, straight to your WhatsApp.</h2>
+                <p class="text-lg text-light-muted dark:text-dark-muted mb-8 leading-relaxed">
+                    Stop relying on easy-to-miss app notifications or logging into a dashboard just to check if you have
+                    enough money for dinner. FinanceFlow integrates directly with WhatsApp to act as your proactive
+                    financial assistant exactly where you already spend your time.
+                </p>
+                <div class="grid sm:grid-cols-2 gap-6">
+                    <ul class="space-y-4 font-medium">
+                        <li class="flex items-start">
+                            <span class="text-emerald-500 mr-3 text-xl mt-0.5">✓</span>
+                            <span><strong>Actionable Alerts:</strong> Get a message saying "Rent is due in 3 days" and
+                                tap a button right in chat to log it as paid.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-emerald-500 mr-3 text-xl mt-0.5">✓</span>
+                            <span><strong>Weekly Health Reports:</strong> Receive beautiful, easy-to-read summaries of
+                                your spending behavior every weekend.</span>
+                        </li>
+                    </ul>
+                    <ul class="space-y-4 font-medium">
+                        <li class="flex items-start">
+                            <span class="text-emerald-500 mr-3 text-xl mt-0.5">✓</span>
+                            <span><strong>Safe-to-Spend Limit:</strong> Ask WhatsApp how much buffer you have left today
+                                without breaking your 50/30/20 rule.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-emerald-500 mr-3 text-xl mt-0.5">✓</span>
+                            <span><strong>Bank-Level Privacy:</strong> A secure, one-way notification system that keeps
+                                your data strictly confidential.</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-12 items-center">
+            <div
+                class="p-8 md:p-12 rounded-3xl bg-light-surface dark:bg-dark-surface border border-light-border dark:border-dark-border shadow-xl">
                 <div
-                    class="order-2 md:order-1 aspect-square bg-light-surface dark:bg-dark-surface rounded-2xl border border-light-border dark:border-dark-border shadow-xl flex items-center justify-center relative overflow-hidden">
-                    <div class="absolute inset-0 bg-gradient-to-br from-violet-500/10 to-transparent"></div>
-                    <p class="text-light-muted dark:text-dark-muted font-medium">[ AI Assistant Mockup UI ]</p>
+                    class="w-16 h-16 bg-violet-500/10 text-violet-500 rounded-2xl flex items-center justify-center mb-8 text-3xl">
+                    🧠
                 </div>
-                <div class="order-1 md:order-2">
-                    <div
-                        class="w-12 h-12 bg-violet-500/10 text-violet-500 rounded-xl flex items-center justify-center mb-6 text-2xl">
-                        🧠</div>
-                    <h2 class="text-3xl font-extrabold mb-4">Talk to your money using AI.</h2>
-                    <p class="text-lg text-light-muted dark:text-dark-muted mb-6">No more manual entry dropdowns. Just
-                        tell FinanceFlow what you spent, and our AI categorizes it, adjusts your budget buffer, and
-                        updates your goals instantly.</p>
-                    <blockquote
-                        class="border-l-4 border-violet-500 pl-4 py-2 my-6 bg-violet-500/5 rounded-r-lg italic dark:text-gray-300">
-                        "I just spent 45 on groceries and 12 at Starbucks."
-                    </blockquote>
-                    <p class="text-sm text-light-muted dark:text-dark-muted font-medium">Auto-categorized into 'Food &
-                        Dining' & 'Coffee'.</p>
+                <h2 class="text-3xl md:text-4xl font-extrabold mb-6">Talk to your money using AI.</h2>
+                <p class="text-lg text-light-muted dark:text-dark-muted mb-8 leading-relaxed">
+                    Manual data entry is a thing of the past. Forget drop-down menus, infinite scroll lists, and clunky
+                    spreadsheets. FinanceFlow utilizes an advanced Natural Language Processing engine to understand your
+                    financial moves in plain English (or Arabic).
+                </p>
+
+                <blockquote
+                    class="border-l-4 border-violet-500 pl-6 py-4 mb-8 bg-violet-500/5 rounded-r-xl italic dark:text-gray-300 text-lg font-medium">
+                    "I just spent 45 JOD on groceries, 12 at Starbucks, and put 100 towards the new car fund."
+                </blockquote>
+
+                <div class="grid sm:grid-cols-3 gap-6">
+                    <div>
+                        <h4 class="font-bold text-light-text dark:text-dark-text mb-2">Instant Categorization</h4>
+                        <p class="text-sm text-light-muted dark:text-dark-muted">The AI instantly splits your input,
+                            categorizes the groceries under 'Needs', the coffee under 'Wants', and updates your savings
+                            goals flawlessly.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-light-text dark:text-dark-text mb-2">"What-If" Simulations</h4>
+                        <p class="text-sm text-light-muted dark:text-dark-muted">Ask the AI, "What if I save 50 JOD more
+                            per month?" and get an instant calculation on how much sooner you'll hit your long-term
+                            targets.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-light-text dark:text-dark-text mb-2">Personalized Advice</h4>
+                        <p class="text-sm text-light-muted dark:text-dark-muted">Receive tailored feedback on your
+                            spending velocity to help you curb impulse purchases before they impact your financial
+                            health.</p>
+                    </div>
                 </div>
             </div>
+
         </div>
     </section>
 
@@ -397,19 +432,20 @@
             const container = document.getElementById('testimonials-container');
 
             try {
-                // Fetch testimonials specifically linked to "FinanceFlow"
+                // Fetch approved testimonials directly
                 const { data, error } = await supabase
                     .from('testimonials')
                     .select(`
-                    id,
-                    user_name,
-                    rating,
-                    message,
-                    products!inner(name)
-                `)
-                    .eq('products.name', 'FinanceFlow')
+                        id,
+                        user_name,
+                        rating,
+                        message,
+                        product_id
+                    `)
+                    .eq('is_approved', true) // CRITICAL: Only show approved reviews!
+                    // .eq('product_id', 'YOUR-FINANCEFLOW-PRODUCT-UUID') // Uncomment and paste the UUID here if you want to filter strictly by FinanceFlow
                     .order('created_at', { ascending: false })
-                    .limit(6); // Show max 6 latest reviews
+                    .limit(6);
 
                 if (error) throw error;
 

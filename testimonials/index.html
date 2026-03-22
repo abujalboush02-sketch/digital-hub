@@ -479,6 +479,26 @@
                     categorySelect.appendChild(option);
                 });
 
+
+                const urlParams = new URLSearchParams(window.location.search);
+                const targetProductName = urlParams.get('product');
+
+                if (targetProductName) {
+                    // Find the product in the database results by name
+                    const targetProduct = allProducts.find(p => p.name.toLowerCase() === targetProductName.toLowerCase());
+
+                    if (targetProduct) {
+                        // 1. Auto-select the correct category
+                        categorySelect.value = targetProduct.category_id;
+
+                        // 2. Trigger the 'change' event to populate the module dropdown
+                        categorySelect.dispatchEvent(new Event('change'));
+
+                        // 3. Auto-select the specific product module
+                        productSelect.value = targetProduct.id;
+                    }
+                }
+
             } catch (error) {
                 console.error('Error loading data:', error);
                 showStatus('Connection failed. Database unreachable.', 'error');
