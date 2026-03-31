@@ -36,10 +36,9 @@
 
         .legal-content h3 {
             color: #38bdf8;
-            margin-top: 2rem;
-            margin-bottom: 0.75rem;
+            margin-top: 2.5rem;
+            margin-bottom: 0.5rem;
             font-weight: 700;
-            font-size: 1.125rem;
             font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
             text-transform: uppercase;
             font-size: 0.75rem;
@@ -62,6 +61,18 @@
         .legal-content li {
             margin-bottom: 0.5rem;
         }
+
+        .legal-content a {
+            color: #38bdf8;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            font-weight: 500;
+            transition: opacity 0.2s;
+        }
+
+        .legal-content a:hover {
+            opacity: 0.8;
+        }
     </style>
 </head>
 
@@ -75,16 +86,22 @@
                 class="text-xl font-bold tracking-tighter flex items-center gap-2 hover:text-accent transition-colors">
                 <span class="text-accent">M.</span> Solutions
             </a>
-            <div
-                class="flex items-center bg-light-bg dark:bg-dark-bg p-1 rounded-full border border-light-border dark:border-dark-border relative">
-                <button id="theme-toggle"
-                    class="relative flex items-center justify-between w-16 h-8 rounded-full transition-all">
-                    <div id="theme-slider"
-                        class="absolute top-0 left-0 w-8 h-8 bg-accent rounded-full transition-transform duration-300 ease-in-out">
-                    </div>
-                    <span class="z-10 w-8 h-8 flex items-center justify-center text-xs">☀️</span>
-                    <span class="z-10 w-8 h-8 flex items-center justify-center text-xs">🌙</span>
-                </button>
+
+            <div class="flex items-center gap-6">
+                <a href="https://help.mohammad-abujalboush.com" target="_blank"
+                    class="hidden sm:block text-sm font-bold text-light-muted dark:text-dark-muted hover:text-accent transition-colors">Support
+                    Portal</a>
+                <div
+                    class="flex items-center bg-light-bg dark:bg-dark-bg p-1 rounded-full border border-light-border dark:border-dark-border relative">
+                    <button id="theme-toggle"
+                        class="relative flex items-center justify-between w-16 h-8 rounded-full transition-all">
+                        <div id="theme-slider"
+                            class="absolute top-0 left-0 w-8 h-8 bg-accent rounded-full transition-transform duration-300 ease-in-out">
+                        </div>
+                        <span class="z-10 w-8 h-8 flex items-center justify-center text-xs">☀️</span>
+                        <span class="z-10 w-8 h-8 flex items-center justify-center text-xs">🌙</span>
+                    </button>
+                </div>
             </div>
         </div>
     </nav>
@@ -93,8 +110,8 @@
         <div class="mb-16 pb-8 border-b border-light-border dark:border-dark-border">
             <p class="text-accent font-mono text-xs uppercase tracking-widest mb-4">Legal Framework</p>
             <h1 class="text-4xl md:text-5xl font-black tracking-tighter mb-4">Terms of Service</h1>
-            <p class="text-light-muted dark:text-dark-muted font-mono text-xs">EFFECTIVE_DATE: March 2026 // VERSION:
-                2.0.1</p>
+            <p class="text-light-muted dark:text-dark-muted font-mono text-xs">EFFECTIVE_DATE: April 2026 // VERSION:
+                2.1.0</p>
         </div>
 
         <div class="legal-content text-sm md:text-base">
@@ -115,20 +132,28 @@
             <h3>02 // Financial Execution</h3>
             <h2>Payments and Refund Policy</h2>
             <p>All prices are listed and processed in Jordanian Dinar (JOD) unless otherwise specified. We utilize
-                secure, third-party payment gateways (including Stripe) to process transactions. You agree to provide
+                secure, third-party payment gateways to process transactions. You agree to provide
                 current, complete, and accurate purchase information.</p>
             <p><strong>Strict Refund Policy:</strong> Due to the irrevocable nature of digital goods and source code,
-                <strong>all transactions are final and non-refundable</strong> once the digital asset has been accessed
-                or downloaded. Refunds are only evaluated in the event of a demonstrable, critical technical failure
-                that prevents the core operation of the software, and only if reported within 7 days of acquisition.</p>
+                most template and download transactions are final and non-refundable. For specific terms regarding SaaS
+                subscription cancellations, money-back guarantees, and custom development, you must review our
+                comprehensive <a href="https://refund.mohammad-abujalboush.com" target="_blank">Refund Policy</a>, which
+                is incorporated into these Terms by reference.</p>
 
-            <h3>03 // Intellectual Property</h3>
+            <h3>03 // Access & Security</h3>
+            <h2>Account Registration & Security</h2>
+            <p>Certain Services (such as ShiftShelf, Sparkle CRM, and FinanceFlow) require you to register an account.
+                You agree to maintain the confidentiality of your authentication credentials (passwords, magic links,
+                tokens). You are solely responsible for all activities that occur under your account. If you suspect a
+                security breach, you must notify our support infrastructure immediately.</p>
+
+            <h3>04 // Intellectual Property</h3>
             <h2>Software Licensing and IP Rights</h2>
             <p>When you acquire a product from our marketplace, you are purchasing a <em>license</em> to use the asset,
                 not the overarching intellectual property. Unless explicitly stated in a custom enterprise contract:</p>
             <ul>
                 <li><strong>Permitted Use:</strong> You may utilize the code, templates, or SaaS tools for your personal
-                    or internal business operations. You may modify the code to suit your operational needs.</li>
+                    or internal business operations. You may modify template code to suit your operational needs.</li>
                 <li><strong>Prohibited Use:</strong> You may <strong>not</strong> redistribute, sub-license, resell, or
                     repackage our source code or templates as standalone products. You may not extract core components
                     to build a direct competitor to our marketplace offerings.</li>
@@ -136,14 +161,21 @@
             <p>All underlying code architecture, branding, and proprietary logic remain the exclusive property of M.
                 Solutions.</p>
 
-            <h3>04 // System Integrity</h3>
+            <h3>05 // System Integrity</h3>
             <h2>Acceptable Use Protocol</h2>
             <p>You agree not to utilize our Services or platforms for any activity that violates local or international
                 law. You are expressly prohibited from executing load-testing, penetration testing, reverse-engineering,
                 or deploying malicious payloads against our APIs, hosting nodes, or database architecture without prior
-                written consent.</p>
+                written consent. Violation of this protocol will result in immediate algorithmic termination of your
+                access without a refund.</p>
 
-            <h3>05 // Legal Protection</h3>
+            <h3>06 // Data & Compliance</h3>
+            <h2>Privacy & Telemetry</h2>
+            <p>Your use of our Services is also governed by our <a href="https://privacy.mohammad-abujalboush.com"
+                    target="_blank">Privacy Policy</a>, which details how we collect, process, and protect your personal
+                and business data. By utilizing our Services, you consent to the data practices outlined therein.</p>
+
+            <h3>07 // Legal Protection</h3>
             <h2>Limitation of Liability</h2>
             <p>Our software and templates are provided on an "AS IS" and "AS AVAILABLE" basis. While we engineer our
                 solutions to the highest standards of reliability, we make no absolute warranties regarding
@@ -153,16 +185,38 @@
                 interruption) arising from your use or inability to use our digital assets. Our maximum aggregate
                 liability shall not exceed the total amount paid by you for the specific product in question.</p>
 
-            <h3>06 // Governance</h3>
+            <h3>08 // Evolution of Terms</h3>
+            <h2>Modifications to the Framework</h2>
+            <p>We reserve the right to modify these Terms at any time to reflect changes in our operational structure,
+                legal requirements, or new feature deployments. Major updates will be communicated via email or an
+                in-app dashboard notification. Continued use of our Services after modifications indicates your
+                acceptance of the updated framework.</p>
+
+            <h3>09 // Governance</h3>
             <h2>Jurisdiction and Dispute Resolution</h2>
             <p>This contractual agreement shall be governed by and construed in accordance with the laws of the
                 Hashemite Kingdom of Jordan. Any disputes arising from these Terms shall be subject to the exclusive
                 jurisdiction of the courts located in Amman, Jordan.</p>
+
+            <p style="margin-top: 3rem;">
+                <strong>Contact:</strong> If you have questions regarding these Terms, contact our legal desk at <a
+                    href="mailto:mohammadabujalboush02@gmail.com">mohammadabujalboush02@gmail.com</a>.
+            </p>
         </div>
     </main>
 
     <footer class="py-12 border-t border-light-border dark:border-dark-border text-center mt-20">
-        <p class="text-[10px] font-mono uppercase tracking-widest text-light-muted dark:text-dark-muted">© 2026 M.
+        <div
+            class="flex flex-wrap justify-center gap-x-8 gap-y-4 text-xs font-bold text-light-muted dark:text-dark-muted mb-6 uppercase tracking-wider">
+            <a href="https://privacy.mohammad-abujalboush.com" class="hover:text-accent transition-colors">Privacy
+                Policy</a>
+            <a href="https://refund.mohammad-abujalboush.com" class="hover:text-accent transition-colors">Refund
+                Policy</a>
+            <a href="https://help.mohammad-abujalboush.com" target="_blank"
+                class="hover:text-accent transition-colors">Support</a>
+        </div>
+        <p class="text-[10px] font-mono uppercase tracking-widest text-light-muted dark:text-dark-muted opacity-50">©
+            2026 M.
             Solutions // Secure Infrastructure</p>
     </footer>
 

@@ -36,10 +36,9 @@
 
         .legal-content h3 {
             color: #38bdf8;
-            margin-top: 2rem;
-            margin-bottom: 0.75rem;
+            margin-top: 2.5rem;
+            margin-bottom: 0.5rem;
             font-weight: 700;
-            font-size: 1.125rem;
             font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
             text-transform: uppercase;
             font-size: 0.75rem;
@@ -62,6 +61,18 @@
         .legal-content li {
             margin-bottom: 0.5rem;
         }
+
+        .legal-content a {
+            color: #38bdf8;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            font-weight: 500;
+            transition: opacity 0.2s;
+        }
+
+        .legal-content a:hover {
+            opacity: 0.8;
+        }
     </style>
 </head>
 
@@ -75,16 +86,22 @@
                 class="text-xl font-bold tracking-tighter flex items-center gap-2 hover:text-accent transition-colors">
                 <span class="text-accent">M.</span> Solutions
             </a>
-            <div
-                class="flex items-center bg-light-bg dark:bg-dark-bg p-1 rounded-full border border-light-border dark:border-dark-border relative">
-                <button id="theme-toggle"
-                    class="relative flex items-center justify-between w-16 h-8 rounded-full transition-all">
-                    <div id="theme-slider"
-                        class="absolute top-0 left-0 w-8 h-8 bg-accent rounded-full transition-transform duration-300 ease-in-out">
-                    </div>
-                    <span class="z-10 w-8 h-8 flex items-center justify-center text-xs">☀️</span>
-                    <span class="z-10 w-8 h-8 flex items-center justify-center text-xs">🌙</span>
-                </button>
+
+            <div class="flex items-center gap-6">
+                <a href="https://help.mohammad-abujalboush.com" target="_blank"
+                    class="hidden sm:block text-sm font-bold text-light-muted dark:text-dark-muted hover:text-accent transition-colors">Support
+                    Portal</a>
+                <div
+                    class="flex items-center bg-light-bg dark:bg-dark-bg p-1 rounded-full border border-light-border dark:border-dark-border relative">
+                    <button id="theme-toggle"
+                        class="relative flex items-center justify-between w-16 h-8 rounded-full transition-all">
+                        <div id="theme-slider"
+                            class="absolute top-0 left-0 w-8 h-8 bg-accent rounded-full transition-transform duration-300 ease-in-out">
+                        </div>
+                        <span class="z-10 w-8 h-8 flex items-center justify-center text-xs">☀️</span>
+                        <span class="z-10 w-8 h-8 flex items-center justify-center text-xs">🌙</span>
+                    </button>
+                </div>
             </div>
         </div>
     </nav>
@@ -93,8 +110,8 @@
         <div class="mb-16 pb-8 border-b border-light-border dark:border-dark-border">
             <p class="text-accent font-mono text-xs uppercase tracking-widest mb-4">Legal Framework</p>
             <h1 class="text-4xl md:text-5xl font-black tracking-tighter mb-4">Privacy Protocol</h1>
-            <p class="text-light-muted dark:text-dark-muted font-mono text-xs">EFFECTIVE_DATE: March 2026 // VERSION:
-                1.2.0</p>
+            <p class="text-light-muted dark:text-dark-muted font-mono text-xs">EFFECTIVE_DATE: April 2026 // VERSION:
+                1.2.1</p>
         </div>
 
         <div class="legal-content text-sm md:text-base">
@@ -130,7 +147,14 @@
                 <li>To transmit essential system updates, security patches, and transactional receipts.</li>
             </ul>
 
-            <h3>03 // Infrastructure & Compliance</h3>
+            <h3>03 // Tracking & Persistence</h3>
+            <h2>Cookies & Local Storage</h2>
+            <p>We utilize local storage, session cookies, and cryptographic tokens to maintain authentication
+                persistence and analyze UI/UX interactions across our domains. These localized data fragments are
+                essential for the core functioning of our SaaS platforms. You may adjust your browser environment to
+                reject non-essential cookies, though this may permanently degrade platform functionality.</p>
+
+            <h3>04 // Infrastructure & Compliance</h3>
             <h2>Data Storage and Cryptography</h2>
             <p>We leverage enterprise-grade infrastructure to ensure data sovereignty and security. Our databases are
                 hosted via highly secure cloud environments (including Supabase and Hetzner nodes). Data in transit is
@@ -140,7 +164,14 @@
                 infallible. We commit to executing immediate incident response protocols in the event of a confirmed
                 breach.</p>
 
-            <h3>04 // Third-Party Transmission</h3>
+            <h3>05 // Data Lifecycles</h3>
+            <h2>Statutory Retention & Erasure</h2>
+            <p>We retain telemetry and account data only for as long as mathematically necessary to fulfill the
+                operational scopes outlined in this protocol, or to comply with overriding statutory legal and tax
+                requirements. Once data surpasses its operational lifecycle, it is programmatically purged or
+                irreversibly anonymized.</p>
+
+            <h3>06 // Third-Party Transmission</h3>
             <h2>Vendor Integrations</h2>
             <p>We do not sell, rent, or broker your personal data. We only share data with essential infrastructure
                 partners acting as Data Processors under strict confidentiality agreements. This includes:</p>
@@ -150,7 +181,13 @@
                 <li>Transactional email services (for system notifications).</li>
             </ul>
 
-            <h3>05 // User Sovereignty</h3>
+            <h3>07 // System Boundaries</h3>
+            <h2>Age Limitations</h2>
+            <p>Our digital ecosystem and SaaS products are architected strictly for adult professionals and businesses.
+                We do not intentionally collect or process data from individuals under the age of 18. If a localized
+                breach of this age policy is detected, the associated data nodes will be immediately purged.</p>
+
+            <h3>08 // User Sovereignty</h3>
             <h2>Your Digital Rights</h2>
             <p>Depending on your jurisdiction (including GDPR alignment), you retain full sovereignty over your data.
                 You possess the right to:</p>
@@ -161,16 +198,28 @@
                     from our active nodes (subject to legal and financial retention requirements).</li>
             </ul>
 
-            <h3>06 // Communications</h3>
+            <h3>09 // Communications</h3>
             <h2>Contact The Administrator</h2>
             <p>For inquiries regarding this Privacy Protocol, or to initiate a data sovereignty request, please contact
-                the Lead Engineer directly:</p>
-            <p class="font-mono text-accent">mohammadabujalboush02@gmail.com</p>
+                the Lead Engineer directly at:</p>
+            <p class="font-mono mt-2">
+                <a href="mailto:mohammadabujalboush02@gmail.com">mohammadabujalboush02@gmail.com</a>
+            </p>
         </div>
     </main>
 
     <footer class="py-12 border-t border-light-border dark:border-dark-border text-center mt-20">
-        <p class="text-[10px] font-mono uppercase tracking-widest text-light-muted dark:text-dark-muted">© 2026 M.
+        <div
+            class="flex flex-wrap justify-center gap-x-8 gap-y-4 text-xs font-bold text-light-muted dark:text-dark-muted mb-6 uppercase tracking-wider">
+            <a href="https://terms.mohammad-abujalboush.com" class="hover:text-accent transition-colors">Terms of
+                Service</a>
+            <a href="https://refund.mohammad-abujalboush.com" class="hover:text-accent transition-colors">Refund
+                Policy</a>
+            <a href="https://help.mohammad-abujalboush.com" target="_blank"
+                class="hover:text-accent transition-colors">Support</a>
+        </div>
+        <p class="text-[10px] font-mono uppercase tracking-widest text-light-muted dark:text-dark-muted opacity-50">©
+            2026 M.
             Solutions // Secure Infrastructure</p>
     </footer>
 
