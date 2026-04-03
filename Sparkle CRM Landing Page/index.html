@@ -9,7 +9,7 @@
     <meta name="theme-color" content="#06B6D4">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Sparkle CRM">
-    <link rel="apple-touch-icon" href="Sparkle_Icon.png">
+    <link rel="apple-touch-icon" href="1.png">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -73,19 +73,17 @@
 
 <body class="antialiased selection:bg-brand-500 selection:text-white relative">
 
+    <div class="fixed inset-0 z-0 pointer-events-none flex items-center justify-center overflow-hidden">
+        <img src="2-nobg.png" alt="Background Watermark" class="w-[150vw] md:w-[900px] object-contain opacity-10">
+    </div>
+
     <div class="hero-glow"></div>
 
     <nav class="sticky top-0 z-50 backdrop-blur-xl bg-ui-base/80 border-b border-ui-border">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-auto py-4 flex items-center justify-between">
-            <div class="flex items-center gap-4">
-                <div
-                    class="h-12 w-12 rounded-xl bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center shadow-[0_0_15px_rgba(6,182,212,0.5)]">
-                    <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z">
-                        </path>
-                    </svg>
-                </div>
+            <div class="flex items-center ">
+                <img src="2-nobg.png" alt="SparkleCRM Logo" class="h-20 w-auto object-contain block">
+
                 <span class="font-black text-2xl tracking-tight text-white leading-none">
                     Sparkle<span class="text-brand-500">CRM</span>
                 </span>
@@ -106,7 +104,7 @@
     </nav>
 
     <main class="relative z-10 pt-20 pb-24 lg:pt-32 lg:pb-32 overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
 
             <div
                 class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-ui-surface border border-ui-border text-brand-400 text-sm font-semibold mb-8 shadow-sm">
@@ -158,7 +156,7 @@
         </div>
     </main>
 
-    <section id="features" class="py-24 bg-ui-surface border-y border-ui-border relative">
+    <section id="features" class="py-24 bg-ui-surface/90 backdrop-blur-md border-y border-ui-border relative z-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16 max-w-3xl mx-auto">
                 <h2 class="text-3xl md:text-5xl font-bold mb-6 text-white tracking-tight">Everything to scale your shop.
@@ -238,7 +236,8 @@
         </div>
     </section>
 
-    <section id="analytics" class="py-24 bg-ui-base border-t border-ui-border relative overflow-hidden">
+    <section id="analytics"
+        class="py-24 bg-ui-base/90 backdrop-blur-md border-t border-ui-border relative overflow-hidden z-10">
         <div
             class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-brand-500/5 blur-[120px] rounded-full pointer-events-none">
         </div>
@@ -315,7 +314,7 @@
         </div>
     </section>
 
-    <section id="pricing" class="py-24 bg-ui-surface border-t border-ui-border relative">
+    <section id="pricing" class="py-24 bg-ui-surface/90 backdrop-blur-md border-t border-ui-border relative z-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16 max-w-3xl mx-auto">
                 <h2 class="text-3xl md:text-5xl font-bold mb-6 text-white tracking-tight">Priced for profitability.</h2>
@@ -423,7 +422,7 @@
         </div>
     </section>
 
-    <footer class="bg-ui-base border-t border-ui-border pt-16 pb-8">
+    <footer class="bg-ui-base/90 backdrop-blur-md border-t border-ui-border pt-16 pb-8 relative z-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div
                 class="mb-16 p-10 md:p-14 rounded-3xl bg-ui-panel border border-ui-border flex flex-col items-center text-center relative overflow-hidden">
@@ -441,15 +440,482 @@
             </div>
 
             <div class="flex flex-col md:flex-row justify-between items-center gap-8 border-t border-ui-border pt-8">
-                <div class="flex items-center gap-4">
+                <div class="flex items-center">
+                    <img src="2-nobg.png" alt="SparkleCRM Logo" class="h-20 w-auto object-contain block">
+
+                    <div class="flex flex-col">
+                        <span class="font-bold text-xl tracking-tight leading-none text-white">Sparkle<span
+                                class="text-brand-500">CRM</span></span>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap justify-center gap-x-8 gap-y-4 text-sm font-medium text-ui-muted">
+                    <a href="https://privacy.mohammad-abujalboush.com" target="_blank"
+                        class="hover:text-brand-400 transition-colors">Privacy Policy</a>
+                    <a href="https://terms.mohammad-abujalboush.com" target="_blank"
+                        class="hover:text-brand-400 transition-colors">Terms of Service</a>
+                    <a href="https://help.mohammad-abujalboush.com" target="_blank"
+                        class="hover:text-brand-400 transition-colors">Support</a>
+                    <a href="https://feedback.mohammad-abujalboush.com?product=SparkleCRM" target="_blank"
+                        class="hover:text-brand-400 transition-colors">Feedback</a>
+                </div>
+
+                <div class="text-xs text-ui-muted font-mono bg-ui-panel border border-ui-border px-3 py-2 rounded">
+                    © 2026 // BUILT BY <a href="https://portfolio.mohammad-abujalboush.com" target="_blank"
+                        class="hover:text-brand-400 font-bold text-white">M. ABU JALBOUSH</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Sparkle CRM | The Ultimate Management Tool for Auto Detailers</title>
+
+    <meta name="theme-color" content="#06B6D4">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Sparkle CRM">
+    <link rel="apple-touch-icon" href="1.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            300: '#67E8F9',
+                            400: '#22D3EE',
+                            500: '#06B6D4',
+                            600: '#0891B2',
+                        },
+                        ui: {
+                            base: '#020617',    // Obsidian
+                            surface: '#0F172A', // Midnight Blue
+                            panel: '#1E293B',   // Dark Carbon
+                            border: '#334155',
+                            text: '#F8FAFC',
+                            muted: '#94A3B8'
+                        },
+                    },
+                    fontFamily: {
+                        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #020617;
+            color: #F8FAFC;
+        }
+
+        details>summary {
+            list-style: none;
+        }
+
+        details>summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .hero-glow {
+            position: absolute;
+            top: -10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80vw;
+            height: 500px;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.15) 0%, rgba(2, 6, 23, 0) 70%);
+            z-index: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body class="antialiased selection:bg-brand-500 selection:text-white relative">
+
+    <div class="fixed inset-0 z-0 pointer-events-none flex items-center justify-center overflow-hidden">
+        <img src="2-nobg.png" alt="Background Watermark" class="w-[150vw] md:w-[900px] object-contain opacity-10">
+    </div>
+
+    <div class="hero-glow"></div>
+
+    <nav class="sticky top-0 z-50 backdrop-blur-xl bg-ui-base/80 border-b border-ui-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-auto py-4 flex items-center justify-between">
+            <div class="flex items-center ">
+                <img src="2-nobg.png" alt="SparkleCRM Logo" class="h-20 w-auto object-contain block">
+
+                <span class="font-black text-2xl tracking-tight text-white leading-none">
+                    Sparkle<span class="text-brand-500">CRM</span>
+                </span>
+            </div>
+            <div class="flex items-center gap-6">
+                <a href="#features"
+                    class="hidden sm:block text-sm font-medium text-ui-muted hover:text-brand-400 transition-colors">Features</a>
+                <a href="#analytics"
+                    class="hidden sm:block text-sm font-medium text-ui-muted hover:text-brand-400 transition-colors">Analytics</a>
+                <a href="#pricing"
+                    class="hidden sm:block text-sm font-medium text-ui-muted hover:text-brand-400 transition-colors">Pricing</a>
+                <a href="https://app.sparklecrm.mohammad-abujalboush.com/login"
+                    class="bg-brand-500 hover:bg-brand-400 text-ui-base px-6 py-2.5 rounded-lg text-sm font-bold transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:shadow-[0_0_25px_rgba(6,182,212,0.5)] transform hover:-translate-y-0.5">
+                    Sign In
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="relative z-10 pt-20 pb-24 lg:pt-32 lg:pb-32 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+
+            <div
+                class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-ui-surface border border-ui-border text-brand-400 text-sm font-semibold mb-8 shadow-sm">
+                <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
+                Built Exclusively for Detailers & Washes
+            </div>
+
+            <h1
+                class="text-5xl lg:text-7xl font-extrabold tracking-tight mb-6 text-white leading-tight max-w-5xl mx-auto">
+                Run Your Detail Shop <br class="hidden sm:block" />
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-300 to-brand-600">Like a
+                    Well-Oiled Machine.</span>
+            </h1>
+
+            <p class="text-xl text-ui-muted mb-10 max-w-3xl mx-auto leading-relaxed">
+                The all-in-one React-powered operating system to book appointments, manage your bays, track employee
+                performance, and retain high-ticket clients.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-5">
+                <a href="https://app.sparklecrm.mohammad-abujalboush.com/login"
+                    class="w-full sm:w-auto bg-brand-500 hover:bg-brand-400 text-ui-base px-8 py-4 rounded-xl text-lg font-bold transition-all shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] transform hover:-translate-y-1">
+                    Start Your Free Trial
+                </a>
+                <a href="#features"
+                    class="w-full sm:w-auto bg-ui-surface border border-ui-border hover:border-brand-500 text-white px-8 py-4 rounded-xl text-lg font-bold transition-all">
+                    See How It Works
+                </a>
+            </div>
+
+            <div class="mt-20 relative mx-auto w-full max-w-5xl">
+                <div
+                    class="absolute -inset-1 bg-gradient-to-r from-brand-600 to-ui-surface rounded-2xl blur opacity-30">
+                </div>
+                <div
+                    class="relative bg-ui-surface rounded-2xl shadow-2xl border border-ui-border p-2 aspect-video flex items-center justify-center overflow-hidden">
                     <div
-                        class="h-10 w-10 rounded-lg bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        class="w-full h-full bg-ui-base rounded-xl border border-ui-border border-dashed flex flex-col items-center justify-center text-ui-muted font-medium p-4">
+                        <svg class="w-16 h-16 text-brand-500 mb-4 opacity-50" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2-1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5">
+                            </path>
+                        </svg>
+                        [ React Dashboard Interface Placeholder ]
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <section id="features" class="py-24 bg-ui-surface/90 backdrop-blur-md border-y border-ui-border relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 max-w-3xl mx-auto">
+                <h2 class="text-3xl md:text-5xl font-bold mb-6 text-white tracking-tight">Everything to scale your shop.
+                </h2>
+                <p class="text-lg text-ui-muted">Sparkle CRM replaces your messy whiteboards, scattered spreadsheets,
+                    and missed client follow-ups with one seamless dashboard.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div
+                    class="bg-ui-panel p-8 rounded-3xl border border-ui-border hover:border-brand-500/50 transition-colors group">
+                    <div
+                        class="w-14 h-14 bg-ui-base rounded-2xl flex items-center justify-center mb-6 border border-ui-border group-hover:border-brand-500 transition-colors shadow-inner">
+                        <svg class="w-7 h-7 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z">
+                                d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z">
                             </path>
                         </svg>
                     </div>
+                    <h3 class="text-2xl font-bold mb-3 text-white">Client & Vehicle Profiles</h3>
+                    <p class="text-ui-muted leading-relaxed">
+                        Log multiple vehicles per client. Track license plates, past services, ceramic coating warranty
+                        dates, and specific vehicle quirks so every visit feels VIP.
+                    </p>
+                </div>
+
+                <div
+                    class="bg-ui-panel p-8 rounded-3xl border border-ui-border hover:border-brand-500/50 transition-colors group">
+                    <div
+                        class="w-14 h-14 bg-ui-base rounded-2xl flex items-center justify-center mb-6 border border-ui-border group-hover:border-brand-500 transition-colors shadow-inner">
+                        <svg class="w-7 h-7 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3 text-white">Bay & Schedule Routing</h3>
+                    <p class="text-ui-muted leading-relaxed">
+                        Maximize your daily output. Visually assign bookings to specific wash bays or mobile units,
+                        ensuring zero double-bookings and optimal turnaround times.
+                    </p>
+                </div>
+
+                <div
+                    class="bg-ui-panel p-8 rounded-3xl border border-ui-border hover:border-brand-500/50 transition-colors group">
+                    <div
+                        class="w-14 h-14 bg-ui-base rounded-2xl flex items-center justify-center mb-6 border border-ui-border group-hover:border-brand-500 transition-colors shadow-inner">
+                        <svg class="w-7 h-7 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3 text-white">Employee Dispatch</h3>
+                    <p class="text-ui-muted leading-relaxed">
+                        Assign detailers to specific jobs. Track time-per-wash, manage shift schedules, and calculate
+                        commission or hourly payouts natively within the CRM.
+                    </p>
+                </div>
+
+                <div
+                    class="bg-ui-panel p-8 rounded-3xl border border-ui-border hover:border-brand-500/50 transition-colors group">
+                    <div
+                        class="w-14 h-14 bg-ui-base rounded-2xl flex items-center justify-center mb-6 border border-ui-border group-hover:border-brand-500 transition-colors shadow-inner">
+                        <svg class="w-7 h-7 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3 text-white">Automated Follow-ups</h3>
+                    <p class="text-ui-muted leading-relaxed">
+                        Never let a customer go cold. Sparkle CRM automatically flags customers due for a maintenance
+                        wash or annual ceramic coating inspection.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="analytics"
+        class="py-24 bg-ui-base/90 backdrop-blur-md border-t border-ui-border relative overflow-hidden z-10">
+        <div
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-brand-500/5 blur-[120px] rounded-full pointer-events-none">
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16 max-w-3xl mx-auto">
+                <h2 class="text-3xl md:text-5xl font-bold mb-6 text-white tracking-tight">Metrics that drive growth.
+                </h2>
+                <p class="text-lg text-ui-muted">Stop guessing. Sparkle CRM gives you real-time visibility into your
+                    most profitable services, bay utilization, and employee efficiency.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8">
+                <div
+                    class="lg:col-span-2 bg-ui-panel p-8 rounded-3xl border border-ui-border shadow-xl flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-1">Revenue by Service</h3>
+                        <p class="text-sm text-ui-muted mb-8">Last 30 Days vs Previous</p>
+                    </div>
+                    <div
+                        class="w-full h-64 bg-ui-base rounded-xl border border-ui-border flex items-end justify-between p-4 gap-2">
+                        <div class="w-full bg-brand-500/20 rounded-t-md relative group hover:bg-brand-500/40 transition-colors"
+                            style="height: 40%">
+                            <div
+                                class="absolute -top-8 left-1/2 -translate-x-1/2 text-xs font-bold text-brand-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                                $1.2k</div>
+                        </div>
+                        <div class="w-full bg-brand-500/40 rounded-t-md relative group hover:bg-brand-500/60 transition-colors"
+                            style="height: 60%"></div>
+                        <div class="w-full bg-brand-500/30 rounded-t-md relative group hover:bg-brand-500/50 transition-colors"
+                            style="height: 45%"></div>
+                        <div class="w-full bg-brand-500/80 rounded-t-md relative group hover:bg-brand-500 transition-colors"
+                            style="height: 90%">
+                            <div
+                                class="absolute -top-8 left-1/2 -translate-x-1/2 text-xs font-bold text-brand-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                                $4.5k</div>
+                        </div>
+                        <div class="w-full bg-brand-500/60 rounded-t-md relative group hover:bg-brand-500/80 transition-colors"
+                            style="height: 70%"></div>
+                        <div class="w-full bg-brand-500/90 rounded-t-md relative group hover:bg-brand-500 transition-colors shadow-[0_0_15px_rgba(6,182,212,0.4)]"
+                            style="height: 100%">
+                            <div
+                                class="absolute -top-8 left-1/2 -translate-x-1/2 text-xs font-bold text-brand-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                                $5.2k</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-8">
+                    <div class="bg-ui-panel p-8 rounded-3xl border border-ui-border shadow-lg">
+                        <p class="text-ui-muted text-sm font-medium mb-2">Top Performing Service</p>
+                        <h4 class="text-2xl font-bold text-white mb-2">Ceramic Coating Pro</h4>
+                        <div class="flex items-center gap-2 text-brand-400 text-sm font-bold">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                            </svg>
+                            +24% this month
+                        </div>
+                    </div>
+                    <div class="bg-ui-panel p-8 rounded-3xl border border-ui-border shadow-lg">
+                        <p class="text-ui-muted text-sm font-medium mb-2">Average Bay Turnaround</p>
+                        <h4 class="text-2xl font-bold text-white mb-2">42 Minutes</h4>
+                        <div class="flex items-center gap-2 text-brand-400 text-sm font-bold">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                            </svg>
+                            -5 mins from average
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="py-24 bg-ui-surface/90 backdrop-blur-md border-t border-ui-border relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 max-w-3xl mx-auto">
+                <h2 class="text-3xl md:text-5xl font-bold mb-6 text-white tracking-tight">Priced for profitability.</h2>
+                <p class="text-lg text-ui-muted">Whether you're a mobile lone wolf or running a multi-bay tunnel, we
+                    scale exactly with your needs.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+
+                <div
+                    class="bg-ui-panel p-10 rounded-3xl border border-ui-border hover:border-brand-500/30 transition-all flex flex-col">
+                    <h3 class="text-2xl font-bold mb-2 text-white">Mobile Solo</h3>
+                    <p class="text-ui-muted mb-8">Perfect for independent mobile detailers starting out.</p>
+                    <div class="mb-8">
+                        <span class="text-6xl font-black text-white">$0</span>
+                        <span class="text-ui-muted ml-2">/forever</span>
+                    </div>
+                    <ul class="space-y-5 mb-10 flex-1">
+                        <li class="flex items-center text-ui-muted">
+                            <svg class="w-5 h-5 text-brand-500 mr-4 shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Up to 50 Clients
+                        </li>
+                        <li class="flex items-center text-ui-muted">
+                            <svg class="w-5 h-5 text-brand-500 mr-4 shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Basic Booking Calendar
+                        </li>
+                        <li class="flex items-center text-ui-muted">
+                            <svg class="w-5 h-5 text-brand-500 mr-4 shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Vehicle Profile Logging
+                        </li>
+                    </ul>
+                    <a href="https://app.sparklecrm.mohammad-abujalboush.com/login"
+                        class="w-full py-4 rounded-xl font-bold border-2 border-ui-border text-white hover:bg-ui-base transition-colors text-center block">
+                        Start Free
+                    </a>
+                </div>
+
+                <div
+                    class="bg-ui-base p-10 rounded-3xl border-2 border-brand-500 shadow-[0_0_30px_rgba(6,182,212,0.15)] flex flex-col relative transform md:-translate-y-4">
+                    <div
+                        class="absolute top-0 right-10 transform -translate-y-1/2 bg-brand-500 text-ui-base px-5 py-1.5 rounded-full text-sm font-black tracking-wide shadow-lg">
+                        SHOP PRO
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2 text-white">Shop Empire</h3>
+                    <p class="text-brand-100 mb-8 opacity-80">Full multi-bay management, analytics, and employee
+                        dispatch.</p>
+                    <div class="flex items-baseline mb-2">
+                        <span class="text-6xl font-black text-brand-400">$89</span>
+                        <span class="text-ui-muted ml-2 font-medium">/month</span>
+                    </div>
+                    <p class="text-sm text-brand-500 font-bold mb-8">14-day free trial</p>
+                    <ul class="space-y-5 mb-10 flex-1">
+                        <li class="flex items-center text-white font-semibold">
+                            <svg class="w-5 h-5 text-brand-400 mr-4 shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Unlimited Clients & Vehicles
+                        </li>
+                        <li class="flex items-center text-ui-muted hover:text-white transition-colors">
+                            <svg class="w-5 h-5 text-brand-400 mr-4 shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Multi-Bay & Employee Routing
+                        </li>
+                        <li class="flex items-center text-ui-muted hover:text-white transition-colors">
+                            <svg class="w-5 h-5 text-brand-400 mr-4 shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Advanced Revenue Analytics
+                        </li>
+                        <li class="flex items-center text-ui-muted hover:text-white transition-colors">
+                            <svg class="w-5 h-5 text-brand-400 mr-4 shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Automated VIP Reminders
+                        </li>
+                    </ul>
+                    <a href="https://app.sparklecrm.mohammad-abujalboush.com/login"
+                        class="w-full py-4 rounded-xl font-bold bg-brand-500 hover:bg-brand-400 text-ui-base transition-colors text-center block shadow-[0_0_15px_rgba(6,182,212,0.3)]">
+                        Upgrade to Empire
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-ui-base/90 backdrop-blur-md border-t border-ui-border pt-16 pb-8 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div
+                class="mb-16 p-10 md:p-14 rounded-3xl bg-ui-panel border border-ui-border flex flex-col items-center text-center relative overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-t from-brand-900/20 to-transparent pointer-events-none">
+                </div>
+
+                <h3 class="text-4xl font-black mb-4 text-white z-10">Ready to outshine the competition?</h3>
+                <p class="text-ui-muted text-lg mb-8 max-w-2xl z-10">Join top-tier auto detailing businesses
+                    streamlining their operations with Sparkle CRM.</p>
+
+                <a href="https://app.sparklecrm.mohammad-abujalboush.com/login"
+                    class="bg-brand-500 hover:bg-brand-400 text-ui-base px-10 py-5 rounded-xl font-bold text-lg transition-all shadow-[0_0_20px_rgba(6,182,212,0.4)] z-10">
+                    Get Started Free
+                </a>
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8 border-t border-ui-border pt-8">
+                <div class="flex items-center">
+                    <img src="2-nobg.png" alt="SparkleCRM Logo" class="h-20 w-auto object-contain block">
+
                     <div class="flex flex-col">
                         <span class="font-bold text-xl tracking-tight leading-none text-white">Sparkle<span
                                 class="text-brand-500">CRM</span></span>

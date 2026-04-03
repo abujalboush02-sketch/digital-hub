@@ -26,7 +26,6 @@
                             800: '#152b33',
                             900: '#112228'
                         },
-                        // Adding an accent color for "Pops" of brightness
                         accent: {
                             400: '#38BDF8',
                             500: '#0EA5E9', // Vibrant Sky Blue
@@ -47,7 +46,7 @@
                     },
                     boxShadow: {
                         'glass': '0 8px 32px 0 rgba(44, 83, 100, 0.08)',
-                        'glow': '0 0 40px -10px rgba(14, 165, 233, 0.4)', // Cyan glow
+                        'glow': '0 0 40px -10px rgba(14, 165, 233, 0.4)',
                     }
                 }
             }
@@ -62,19 +61,16 @@
             display: none;
         }
 
-        /* The Premium Light Theme "Mesh Gradient" with an injected POP of Sky Blue */
         .mesh-bg {
             background-color: #F8FAFC;
             background-image:
                 radial-gradient(at 0% 0%, rgba(58, 109, 131, 0.15) 0px, transparent 40%),
                 radial-gradient(at 80% 10%, rgba(14, 165, 233, 0.12) 0px, transparent 40%),
-                /* The Cyan Pop */
                 radial-gradient(at 100% 100%, rgba(58, 109, 131, 0.15) 0px, transparent 40%),
                 radial-gradient(at 0% 100%, rgba(44, 83, 100, 0.05) 0px, transparent 50%);
             background-attachment: fixed;
         }
 
-        /* Reusable Glass Panel */
         .glass-panel {
             background: rgba(255, 255, 255, 0.75);
             backdrop-filter: blur(20px);
@@ -85,6 +81,10 @@
 </head>
 
 <body class="mesh-bg text-ui-text antialiased selection:bg-accent-500 selection:text-white relative">
+
+    <div class="fixed inset-0 z-0 pointer-events-none flex items-center justify-center overflow-hidden">
+        <img src="2-nobg.png" alt="ShiftShelf Watermark" class="w-[150vw] md:w-[1000px] object-contain opacity-5">
+    </div>
 
     <nav class="sticky top-0 z-50 glass-panel border-b border-ui-border/50 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-auto flex items-center justify-between">
@@ -110,7 +110,7 @@
         </div>
     </nav>
 
-    <main class="relative overflow-hidden pt-20 pb-24 lg:pt-32 lg:pb-32">
+    <main class="relative z-10 overflow-hidden pt-20 pb-24 lg:pt-32 lg:pb-32">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="grid lg:grid-cols-2 gap-16 lg:gap-8 items-center">
 
@@ -160,12 +160,12 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </main>
 
-    <section id="features" class="py-24 overflow-hidden relative">
+    <section id="features"
+        class="py-24 overflow-hidden relative z-10 bg-white/40 backdrop-blur-sm border-y border-ui-border/50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-32">
 
             <div class="grid lg:grid-cols-2 gap-12 items-center">
@@ -230,8 +230,8 @@
                     <h2 class="text-3xl md:text-5xl font-black mb-6 text-brand-900 tracking-tight">Syncs with your
                         floor.</h2>
                     <p class="text-lg text-ui-muted mb-8 leading-relaxed">
-                        Stop manually reconciling your register with your stockroom. ShiftShelf's integrated Point of
-                        Sale system automatically deducts inventory the second a sale is completed.
+                        Stop manually reconciling your register with your stockroom. ShiftShelf's integrated POS
+                        automatically deducts inventory the second a sale is completed.
                     </p>
                     <ul class="space-y-5">
                         <li class="flex items-start">
@@ -417,7 +417,7 @@
         </div>
     </section>
 
-    <section class="py-24 relative z-10">
+    <section class="py-24 relative z-10 bg-white/20 backdrop-blur-[2px]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16 max-w-2xl mx-auto">
                 <h2 class="text-3xl md:text-5xl font-black mb-4 text-brand-900 tracking-tight">Connected to your
@@ -475,7 +475,7 @@
         </div>
     </section>
 
-    <section id="pricing" class="py-32 relative">
+    <section id="pricing" class="py-32 relative z-10 bg-white/40 backdrop-blur-sm border-t border-ui-border/50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="text-center mb-20 max-w-2xl mx-auto">
                 <h2 class="text-3xl md:text-5xl font-black mb-4 text-brand-900 tracking-tight">Scale your operations.
@@ -485,7 +485,6 @@
             </div>
 
             <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto items-center">
-
                 <div class="glass-panel p-10 rounded-[2rem] border border-white shadow-glass flex flex-col">
                     <h3 class="text-2xl font-black mb-2 text-brand-900">Basic Flow</h3>
                     <p class="text-ui-muted mb-8 font-medium">Perfect for standalone stock tracking.</p>
@@ -577,7 +576,7 @@
         </div>
     </section>
 
-    <footer class="pt-12 pb-8 relative z-10 border-t border-ui-border/50 bg-white/50 backdrop-blur-sm">
+    <footer class="pt-12 pb-8 relative z-20 border-t border-ui-border/50 bg-white/60 backdrop-blur-md">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div
                 class="mb-20 p-10 md:p-16 rounded-[3rem] bg-gradient-to-br from-brand-900 via-brand-800 to-brand-900 text-white flex flex-col md:flex-row items-center justify-between gap-10 shadow-[0_20px_50px_rgba(44,83,100,0.3)] relative overflow-hidden">
@@ -628,7 +627,6 @@
             </div>
         </div>
     </footer>
-
 </body>
 
 </html>
