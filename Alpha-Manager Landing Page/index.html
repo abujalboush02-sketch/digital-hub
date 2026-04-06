@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alpha Wealth | Non-Custodial Halal Signal Engine</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://gumroad.com/js/gumroad.js"></script>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;700&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: { 950: '#020617', 900: '#0F172A', 800: '#1E293B', 700: '#334155' },
+                        emerald: { 400: '#34D399', 500: '#10B981', 600: '#059669', 900: '#064E3B' },
+                        crimson: { 400: '#f87171', 500: '#ef4444', 900: '#7f1d1d' }
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        ui: ['Plus Jakarta Sans', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'marquee-y': 'marquee-y 25s linear infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'fade-in': 'fadeIn 0.3s ease-out forwards'
+                    },
+                    keyframes: {
+                        float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-15px)' } },
+                        'marquee-y': { '0%': { transform: 'translateY(0)' }, '100%': { transform: 'translateY(-50%)' } },
+                        fadeIn: { '0%': { opacity: '0', transform: 'scale(0.95)' }, '100%': { opacity: '1', transform: 'scale(1)' } }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background: #020617;
+            color: #cbd5e1;
+            overflow-x: hidden;
+        }
+
+        .glass {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .glass-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(16, 185, 129, 0.5);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -15px rgba(16, 185, 129, 0.25);
+            background: rgba(30, 41, 59, 0.8);
+        }
+
+        .text-glow {
+            text-shadow: 0 0 30px rgba(16, 185, 129, 0.6);
+        }
+
+        .text-glow-red {
+            text-shadow: 0 0 30px rgba(239, 68, 68, 0.6);
+        }
+
+        .mesh-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 10% 40%, rgba(16, 185, 129, 0.06) 0%, transparent 50%), radial-gradient(circle at 90% 60%, rgba(16, 185, 129, 0.04) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Modal specific styles */
+        #modal-overlay {
+            backdrop-filter: blur(8px);
+            transition: opacity 0.3s ease;
+        }
+
+        input:-webkit-autofill {
+            -webkit-box-shadow: 0 0 0 30px #0F172A inset !important;
+            -webkit-text-fill-color: white !important;
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, #34D399, #10B981);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+    </style>
+</head>
+
+<body class="font-ui antialiased selection:bg-emerald-500/30">
+    <div class="mesh-bg"></div>
+
+    <nav class="fixed top-0 w-full z-40 px-6 py-4 glass border-b border-white/5 transition-all">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3 cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                <img src="2-nobg.png" alt="Alpha Wealth" class="h-10">
+                <div class="hidden sm:block">
+                    <p class="font-sans font-900 text-white leading-none uppercase tracking-tighter">Alpha</p>
+                    <p class="text-[9px] text-emerald-500 uppercase tracking-[0.3em] font-bold">Wealth Manager</p>
+                </div>
+            </div>
+            <div class="hidden lg:flex gap-8 items-center text-xs font-bold uppercase tracking-widest text-slate-300">
+                <a href="#dilemma" class="hover:text-emerald-400 transition">The Problem</a>
+                <a href="#universe" class="hover:text-emerald-400 transition">Markets</a>
+                <a href="#audit" class="hover:text-emerald-400 transition">Engine API</a>
+                <a href="#workflow" class="hover:text-emerald-400 transition">Workflow</a>
+                <a href="#pricing" class="hover:text-emerald-400 transition">Founders Pass</a>
+                <a href="#pricing"
+                    class="bg-emerald-500 text-navy-950 px-6 py-2.5 rounded-full hover:bg-emerald-400 transition-all shadow-[0_0_15px_rgba(16,185,129,0.3)] text-center">Secure
+                    Access</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="relative min-h-screen flex items-center pt-32 pb-20 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div data-aos="fade-right">
+                <div
+                    class="inline-flex items-center gap-2 mb-8 bg-emerald-500/10 border border-emerald-500/20 px-4 py-1.5 rounded-full text-[10px] font-bold text-emerald-400 uppercase tracking-widest">
+                    <span class="relative flex h-2 w-2"><span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span><span
+                            class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span></span>
+                    System Online: Monitoring 500+ Assets
+                </div>
+                <h1 class="font-sans text-5xl md:text-7xl font-900 text-white mb-6 leading-[1.05] tracking-tighter">
+                    Institutional Halal Intelligence.<br />
+                    <span class="text-emerald-500 text-glow">Delivered to You.</span>
+                </h1>
+                <p class="text-lg text-slate-400 mb-10 leading-relaxed font-light">
+                    We process the AAOIFI compliance APIs. We calculate the technical MACD/RSI indicators. We send the
+                    exact trade signals. <strong class="text-white">You execute on your own broker.</strong>
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#pricing"
+                        class="inline-block text-center bg-emerald-500 text-navy-950 font-900 uppercase text-xs px-10 py-5 rounded-xl hover:bg-emerald-400 hover:-translate-y-1 transition-all shadow-[0_10px_30px_-10px_rgba(16,185,129,0.5)] tracking-wider">
+                        View Lifetime Passes
+                    </a>
+                    <button onclick="openWaitlistModal()"
+                        class="inline-block text-center bg-navy-800 text-white font-900 uppercase text-xs px-10 py-5 rounded-xl border border-white/10 hover:bg-navy-700 hover:-translate-y-1 transition-all tracking-wider">
+                        Join Free Waitlist
+                    </button>
+                </div>
+            </div>
+
+            <div class="glass p-8 rounded-[2rem] relative z-10" data-aos="zoom-in" data-aos-delay="200">
+                <div
+                    class="absolute -top-6 -right-6 bg-navy-900 border border-white/10 p-4 rounded-2xl shadow-2xl animate-float z-20">
+                    <p class="text-[9px] uppercase text-slate-500 font-bold mb-1">Live Engine Status</p>
+                    <p class="text-emerald-500 font-sans font-900 text-xl flex items-center gap-2">System Active <span
+                            class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span></p>
+                </div>
+                <div class="flex justify-between items-end mb-6">
+                    <div>
+                        <p class="text-[10px] uppercase font-bold text-slate-500 tracking-widest">Live Algorithmic Feed
+                        </p>
+                        <p class="text-3xl font-bold text-white font-sans mt-1" id="dynamic-price">$14,250.00</p>
+                    </div>
+                    <div id="price-badge"
+                        class="px-3 py-1 bg-emerald-500/20 text-emerald-400 rounded text-[10px] font-bold transition-colors duration-300">
+                        UPTICK DETECTED</div>
+                </div>
+                <div id="hero-chart" class="w-full h-[250px]"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="dilemma" class="py-32 bg-navy-900/30 border-y border-white/5 relative">
+        <div class="absolute left-0 top-0 w-1/3 h-full bg-crimson-900/5 blur-[150px] pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20" data-aos="fade-up">
+                <p class="text-crimson-400 font-bold uppercase tracking-widest text-xs mb-4">The Market Reality</p>
+                <h2 class="font-sans text-4xl md:text-5xl font-900 text-white mb-6 uppercase tracking-tighter">The Halal
+                    Investor's Dilemma</h2>
+                <p class="text-lg text-slate-400 max-w-3xl mx-auto">Building a compliant, high-growth portfolio in
+                    today's algorithmic market is nearly impossible for a solo investor. You are fighting a war on four
+                    fronts.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="glass p-8 rounded-2xl border-t-2 border-t-crimson-500/50 hover:bg-navy-800/50 transition"
+                    data-aos="fade-up" data-aos-delay="0">
+                    <div class="text-crimson-400 mb-4 text-3xl font-mono">01</div>
+                    <h3 class="text-white font-bold mb-3 text-lg">Exhausting Manual Audits</h3>
+                    <p class="text-sm text-slate-400 leading-relaxed">Cross-referencing tickers on Zoya, reading 10-Qs
+                        to calculate debt-to-equity ratios manually, and missing the actual trade entry while doing
+                        paperwork.</p>
+                </div>
+                <div class="glass p-8 rounded-2xl border-t-2 border-t-crimson-500/50 hover:bg-navy-800/50 transition"
+                    data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-crimson-400 mb-4 text-3xl font-mono">02</div>
+                    <h3 class="text-white font-bold mb-3 text-lg">Predatory AUM Fees</h3>
+                    <p class="text-sm text-slate-400 leading-relaxed">Traditional "Islamic Fund Managers" charge 2% of
+                        your total wealth annually just to hold a static, slow-moving basket of blue-chip stocks.</p>
+                </div>
+                <div class="glass p-8 rounded-2xl border-t-2 border-t-crimson-500/50 hover:bg-navy-800/50 transition"
+                    data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-crimson-400 mb-4 text-3xl font-mono">03</div>
+                    <h3 class="text-white font-bold mb-3 text-lg">Lack of Diversification</h3>
+                    <p class="text-sm text-slate-400 leading-relaxed">Most halal portfolios are dangerously
+                        over-concentrated in tech. Missing out on compliant Real Estate, Sukuk, and digital commodities
+                        leaves you exposed.</p>
+                </div>
+                <div class="glass p-8 rounded-2xl border-t-2 border-t-crimson-500/50 hover:bg-navy-800/50 transition"
+                    data-aos="fade-up" data-aos-delay="300">
+                    <div class="text-crimson-400 mb-4 text-3xl font-mono">04</div>
+                    <h3 class="text-white font-bold mb-3 text-lg">Emotional Paralysis</h3>
+                    <p class="text-sm text-slate-400 leading-relaxed">Buying the top out of FOMO and panic selling the
+                        bottom because you don't have a rigid, mathematically proven system governing your entries and
+                        exits.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="universe" class="py-32 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20" data-aos="fade-up">
+                <p class="text-emerald-500 font-bold uppercase tracking-widest text-xs mb-4">Total Market Coverage</p>
+                <h2 class="font-sans text-4xl md:text-6xl font-900 text-white tracking-tighter uppercase mb-6">The Alpha
+                    Asset Universe</h2>
+                <p class="text-slate-400 max-w-3xl mx-auto text-lg leading-relaxed">We don't just track the S&P 500. Our
+                    engine monitors a heavily diversified, multi-asset global portfolio engineered for absolute
+                    compliance, yield generation, and capital preservation.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="glass p-10 rounded-3xl glass-card relative overflow-hidden group" data-aos="fade-up"
+                    data-aos-delay="0">
+                    <div
+                        class="absolute -right-6 -top-6 text-9xl opacity-5 group-hover:opacity-10 transition duration-500 text-emerald-500 font-mono">
+                        ₿</div>
+                    <h3 class="text-white font-900 text-xl uppercase mb-2">Spot Crypto</h3>
+                    <p class="text-xs text-emerald-400 font-bold mb-6 uppercase tracking-widest font-mono">BTC • ETH •
+                        SOL</p>
+                    <p class="text-sm text-slate-400 leading-relaxed">Strictly spot trading for high-liquidity digital
+                        commodities. The engine explicitly filters out and rejects any staking or DeFi lending protocols
+                        to ensure absolute purity from Riba.</p>
+                </div>
+                <div class="glass p-10 rounded-3xl glass-card relative overflow-hidden group" data-aos="fade-up"
+                    data-aos-delay="100">
+                    <div
+                        class="absolute -right-6 -top-6 text-9xl opacity-5 group-hover:opacity-10 transition duration-500 text-emerald-500 font-sans">
+                        A</div>
+                    <h3 class="text-white font-900 text-xl uppercase mb-2">Active Tech Swings</h3>
+                    <p class="text-xs text-emerald-400 font-bold mb-6 uppercase tracking-widest font-mono">AAPL • MSFT •
+                        NVDA • CRM</p>
+                    <p class="text-sm text-slate-400 leading-relaxed">High-growth tech captured via RSI/MACD signals.
+                        Verified via live Zoya/Musaffa API checks before every signal to ensure debt-to-market-cap
+                        ratios remain strictly under 33%.</p>
+                </div>
+                <div class="glass p-10 rounded-3xl glass-card relative overflow-hidden group" data-aos="fade-up"
+                    data-aos-delay="200">
+                    <div
+                        class="absolute -right-6 -top-6 text-9xl opacity-5 group-hover:opacity-10 transition duration-500 text-emerald-500 font-sans">
+                        $</div>
+                    <h3 class="text-white font-900 text-xl uppercase mb-2">Dividend Giants</h3>
+                    <p class="text-xs text-emerald-400 font-bold mb-6 uppercase tracking-widest font-mono">AVGO • CSCO •
+                        ABT • JNJ</p>
+                    <p class="text-sm text-slate-400 leading-relaxed">Recession-resistant infrastructure and healthcare.
+                        The AI strictly monitors revenue screening to ensure non-compliant product lines (impermissible
+                        income) remain below the 5% threshold.</p>
+                </div>
+                <div class="glass p-10 rounded-3xl glass-card relative overflow-hidden group" data-aos="fade-up"
+                    data-aos-delay="300">
+                    <div
+                        class="absolute -right-6 -top-6 text-9xl opacity-5 group-hover:opacity-10 transition duration-500 text-emerald-500 font-sans">
+                        ⌂</div>
+                    <h3 class="text-white font-900 text-xl uppercase mb-2">Fractional Real Estate</h3>
+                    <p class="text-xs text-emerald-400 font-bold mb-6 uppercase tracking-widest font-mono">SmartCrowd •
+                        Stake (UAE)</p>
+                    <p class="text-sm text-slate-400 leading-relaxed">Allocation signals for DFSA-regulated platforms.
+                        Buy fractions of actual apartments and receive proportional rent to build the ultimate,
+                        low-volatility "Safe Bucket".</p>
+                </div>
+                <div class="glass p-10 rounded-3xl glass-card relative overflow-hidden group" data-aos="fade-up"
+                    data-aos-delay="400">
+                    <div
+                        class="absolute -right-6 -top-6 text-9xl opacity-5 group-hover:opacity-10 transition duration-500 text-emerald-500 font-sans">
+                        ∑</div>
+                    <h3 class="text-white font-900 text-xl uppercase mb-2">Certified ETFs & Sukuk</h3>
+                    <p class="text-xs text-emerald-400 font-bold mb-6 uppercase tracking-widest font-mono">SPUS • SPRE •
+                        SPSK</p>
+                    <p class="text-sm text-slate-400 leading-relaxed">The backbone of the passive portfolio. Baskets of
+                        halal US companies, global real estate, and Islamic bonds (Sukuk) to act as shock absorbers
+                        during extreme market dips.</p>
+                </div>
+                <div class="glass p-10 rounded-3xl glass-card relative overflow-hidden group" data-aos="fade-up"
+                    data-aos-delay="500">
+                    <div
+                        class="absolute -right-6 -top-6 text-9xl opacity-5 group-hover:opacity-10 transition duration-500 text-emerald-500 font-sans">
+                        Au</div>
+                    <h3 class="text-white font-900 text-xl uppercase mb-2">Physical Assets</h3>
+                    <p class="text-xs text-emerald-400 font-bold mb-6 uppercase tracking-widest font-mono">24K Physical
+                        Gold</p>
+                    <p class="text-sm text-slate-400 leading-relaxed">The engine tracks your gold allocation digitally.
+                        When your reserve budget hits target, you receive a manual alert to physically purchase and
+                        safe-keep 24k gold as the ultimate inflation hedge.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="audit" class="py-32 bg-navy-900/30 border-y border-white/5 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div data-aos="fade-right">
+                <p class="text-emerald-500 font-bold uppercase tracking-widest text-xs mb-4">Live API Integration</p>
+                <h2 class="font-sans text-4xl md:text-5xl font-900 text-white mb-6 uppercase tracking-tighter">
+                    Deep-Level Halal Auditing.</h2>
+                <p class="text-slate-400 text-lg mb-8 leading-relaxed">
+                    A stock can be Halal today and Haram tomorrow. The Alpha Engine integrates with institutional
+                    compliance APIs to calculate financials against strict <strong
+                        class="text-emerald-400 font-bold">AAOIFI Standards</strong> before a signal is ever generated.
+                </p>
+                <div class="space-y-4">
+                    <div class="flex items-center gap-5 bg-navy-900/50 p-5 rounded-2xl border border-white/5">
+                        <div
+                            class="bg-emerald-500/10 p-3 rounded-xl text-emerald-500 text-xl border border-emerald-500/20">
+                            ⚖️</div>
+                        <div>
+                            <p class="text-white font-bold text-sm uppercase">Real-Time Debt Ratios</p>
+                            <p class="text-xs text-slate-500 mt-1">Strictly enforced < 33% Debt-to-Market Cap
+                                    threshold.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-5 bg-navy-900/50 p-5 rounded-2xl border border-white/5">
+                        <div
+                            class="bg-emerald-500/10 p-3 rounded-xl text-emerald-500 text-xl border border-emerald-500/20">
+                            🚫</div>
+                        <div>
+                            <p class="text-white font-bold text-sm uppercase">Revenue Purity Checks</p>
+                            <p class="text-xs text-slate-500 mt-1">Impermissible income must remain strictly < 5%.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass rounded-[2.5rem] p-6 relative overflow-hidden h-[500px]" data-aos="fade-left">
+                <div
+                    class="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-[rgba(15,23,42,1)] to-transparent z-10 pointer-events-none">
+                </div>
+                <div
+                    class="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-[rgba(15,23,42,1)] to-transparent z-10 pointer-events-none">
+                </div>
+
+                <div class="relative w-full h-full overflow-hidden">
+                    <div class="absolute w-full animate-marquee-y flex flex-col gap-3">
+                        <script>
+                            const assets = [
+                                { t: 'AAPL', n: 'Tech', d: 'Debt: 14%', s: 'PASS', c: 'bg-emerald-500/20 text-emerald-400' },
+                                { t: 'MSFT', n: 'SaaS', d: 'Debt: 11%', s: 'PASS', c: 'bg-emerald-500/20 text-emerald-400' },
+                                { t: 'JPM', n: 'Banking', d: 'Riba/Interest', s: 'REJECTED', c: 'bg-crimson-500/20 text-crimson-400' },
+                                { t: 'NVDA', n: 'Semi', d: 'Debt: 8%', s: 'PASS', c: 'bg-emerald-500/20 text-emerald-400' },
+                                { t: 'LMT', n: 'Defense', d: 'Weapons', s: 'REJECTED', c: 'bg-crimson-500/20 text-crimson-400' },
+                                { t: 'BTC', n: 'Crypto', d: 'Spot Only', s: 'PASS', c: 'bg-emerald-500/20 text-emerald-400' },
+                                { t: 'BUD', n: 'Beverage', d: 'Alcohol', s: 'REJECTED', c: 'bg-crimson-500/20 text-crimson-400' },
+                                { t: 'CRM', n: 'Tech', d: 'Debt: 18%', s: 'PASS', c: 'bg-emerald-500/20 text-emerald-400' },
+                                { t: 'WFC', n: 'Banking', d: 'Riba/Interest', s: 'REJECTED', c: 'bg-crimson-500/20 text-crimson-400' },
+                                { t: 'SPUS', n: 'ETF', d: 'Certified', s: 'PASS', c: 'bg-emerald-500/20 text-emerald-400' },
+                                { t: 'WYNN', n: 'Resorts', d: 'Gambling', s: 'REJECTED', c: 'bg-crimson-500/20 text-crimson-400' },
+                                { t: 'SOL', n: 'Crypto', d: 'Spot Only', s: 'PASS', c: 'bg-emerald-500/20 text-emerald-400' }
+                            ];
+                            let html = '';
+                            for (let i = 0; i < 2; i++) {
+                                assets.forEach(a => {
+                                    html += `
+                                    <div class="flex justify-between items-center p-4 bg-navy-800/40 rounded-xl border border-white/5 backdrop-blur-sm">
+                                        <div>
+                                            <p class="font-bold text-white font-mono">${a.t}</p>
+                                            <p class="text-[10px] text-slate-500 uppercase">${a.d}</p>
+                                        </div>
+                                        <div class="px-3 py-1 rounded-md ${a.c} text-[10px] font-bold tracking-widest">${a.s}</div>
+                                    </div>`;
+                                });
+                            }
+                            document.write(html);
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="workflow" class="py-32">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+            <div class="flex justify-center" data-aos="zoom-in">
+                <div
+                    class="w-[340px] h-[650px] bg-navy-950 rounded-[3rem] border-[8px] border-slate-800 relative shadow-2xl flex flex-col overflow-hidden animate-float">
+                    <div
+                        class="absolute top-0 w-full h-6 bg-slate-800 rounded-b-2xl left-0 right-0 mx-auto max-w-[150px] z-20">
+                    </div>
+                    <div
+                        class="bg-navy-800 px-5 pt-12 pb-4 flex items-center gap-3 border-b border-white/5 relative z-10 shadow-md">
+                        <div
+                            class="w-10 h-10 bg-emerald-500 rounded-full flex items-center justify-center font-bold text-navy-950">
+                            A</div>
+                        <div>
+                            <p class="text-white font-bold text-sm">Alpha Engine</p>
+                            <p class="text-emerald-400 text-[10px] font-mono">24/7 Monitored</p>
+                        </div>
+                    </div>
+                    <div class="flex-1 bg-[#0F172A] p-4 flex flex-col justify-end gap-4 pb-10 relative">
+                        <div
+                            class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]">
+                        </div>
+                        <div
+                            class="bg-navy-800 border border-white/10 rounded-2xl rounded-tl-sm p-5 text-sm text-slate-300 w-full shadow-xl relative z-10">
+                            <p class="text-emerald-400 font-bold mb-3 tracking-wider text-xs">🚨 ALPHA SNIPER ALERT 🚨
+                            </p>
+                            <div class="space-y-2 mb-4">
+                                <p><strong class="text-white">Asset:</strong> <span
+                                        class="font-mono text-emerald-400">NVDA (Spot)</span></p>
+                                <p><strong class="text-white">API Audit:</strong> <span class="text-xs">Pass (Debt
+                                        8.4%)</span></p>
+                                <p><strong class="text-white">Trigger:</strong> <span class="text-xs">MACD Crossover +
+                                        RSI Oversold</span></p>
+                                <p><strong class="text-white">Target:</strong> <span class="text-xs">Bucket A
+                                        (Growth)</span></p>
+                            </div>
+                            <p class="text-xs italic text-slate-500 mb-4 border-t border-white/5 pt-3">Awaiting your
+                                command, Sir.</p>
+                            <div class="flex gap-2">
+                                <div
+                                    class="flex-1 bg-navy-700/50 text-emerald-400 text-center py-2.5 rounded-lg text-xs font-bold border border-emerald-500/20 cursor-pointer hover:bg-emerald-500/10 transition">
+                                    🟢 Execute</div>
+                                <div
+                                    class="flex-1 bg-navy-700/50 text-crimson-400 text-center py-2.5 rounded-lg text-xs font-bold border border-crimson-500/20 cursor-pointer hover:bg-crimson-500/10 transition">
+                                    🔴 Abort</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div data-aos="fade-left">
+                <p class="text-emerald-500 font-bold uppercase tracking-widest text-xs mb-4">Human in the loop</p>
+                <h2 class="font-sans text-4xl md:text-5xl font-900 text-white mb-6 uppercase tracking-tighter">Stop
+                    Staring at Charts.</h2>
+                <p class="text-slate-400 text-lg mb-10 leading-relaxed">
+                    Live your life. Let the Alpha Engine do the heavy lifting. When a perfectly halal, high-probability
+                    setup triggers our algorithms, you get pinged instantly.
+                </p>
+
+                <h3 class="text-white font-bold text-xl mb-6 uppercase tracking-widest border-b border-white/10 pb-2">
+                    The Anatomy of a Signal</h3>
+                <div class="space-y-6">
+                    <div class="flex gap-4">
+                        <div
+                            class="w-8 h-8 rounded-full bg-emerald-500/10 text-emerald-500 flex items-center justify-center font-bold border border-emerald-500/20 shrink-0">
+                            1</div>
+                        <div>
+                            <p class="text-white font-bold mb-1">Algorithmic Detection</p>
+                            <p class="text-sm text-slate-400">The engine spots a technical anomaly (e.g., an oversold
+                                RSI combined with a MACD momentum shift) across our 500+ asset watchlist.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div
+                            class="w-8 h-8 rounded-full bg-emerald-500/10 text-emerald-500 flex items-center justify-center font-bold border border-emerald-500/20 shrink-0">
+                            2</div>
+                        <div>
+                            <p class="text-white font-bold mb-1">Instant Zoya API Check</p>
+                            <p class="text-sm text-slate-400">Before the signal is sent, the system pings financial APIs
+                                to verify the asset hasn't breached the 33% debt or 5% impermissible income rule.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div
+                            class="w-8 h-8 rounded-full bg-emerald-500/10 text-emerald-500 flex items-center justify-center font-bold border border-emerald-500/20 shrink-0">
+                            3</div>
+                        <div>
+                            <p class="text-white font-bold mb-1">Bucket Allocation Rules</p>
+                            <p class="text-sm text-slate-400">The signal tells you exactly where this fits in your
+                                portfolio architecture (Aggressive Growth, Safe Anchor, or Reserve Deploy).</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div
+                            class="w-8 h-8 rounded-full bg-emerald-500/10 text-emerald-500 flex items-center justify-center font-bold border border-emerald-500/20 shrink-0">
+                            4</div>
+                        <div>
+                            <p class="text-white font-bold mb-1">1-Tap Execution</p>
+                            <p class="text-sm text-slate-400">You read the signal on Telegram. You open your own broker
+                                app. You buy. <strong>Zero custody. Maximum security.</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="relative py-32 bg-navy-900/40 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-12" data-aos="fade-up">
+                <p class="text-emerald-500 font-bold uppercase tracking-widest text-xs mb-4">Limited Availability</p>
+                <h2 class="font-sans text-4xl md:text-6xl font-900 text-white tracking-tighter uppercase mb-6">Lifetime
+                    Founders Access</h2>
+
+                <div class="max-w-2xl mx-auto">
+                    <p class="text-slate-400 text-lg leading-relaxed mb-8">Secure the engine before retail launch and
+                        avoid monthly fees forever.</p>
+
+                    <div
+                        class="inline-flex flex-wrap justify-center items-center gap-3 bg-emerald-500/5 border border-emerald-500/20 px-6 py-3 rounded-2xl mb-4 shadow-[0_0_30px_rgba(16,185,129,0.05)]">
+                        <span class="text-[11px] font-bold text-slate-400 uppercase tracking-widest">Not ready for
+                            Lifetime?</span>
+                        <button onclick="openWaitlistModal()"
+                            class="text-emerald-500 font-bold text-[11px] uppercase tracking-widest hover:text-emerald-400 transition-colors underline underline-offset-8 decoration-emerald-500/40">
+                            Join Free Waitlist
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="pricing-staircase" class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-end">
+                <div class="col-span-3 text-center py-20">
+                    <p class="text-emerald-500 animate-pulse font-mono uppercase tracking-widest text-xs">Syncing Live
+                        Tier Availability...</p>
+                </div>
+            </div>
+
+            <div class="mt-16 text-center opacity-40" data-aos="fade-up">
+                <p class="text-[10px] text-slate-400 uppercase font-bold tracking-[0.4em]">Institutional Signal
+                    Integrity • Non-Custodial • 100% Shariah Compliant</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-navy-900/40 relative">
+        <div class="max-w-5xl mx-auto px-6">
+            <div data-aos="fade-up">
+                <h3 class="font-sans text-3xl font-900 text-center text-white mb-12 uppercase tracking-tighter">
+                    Frequently Asked Questions</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="glass p-8 rounded-2xl glass-card">
+                        <p class="text-white font-bold mb-3 text-lg">Do I need to transfer funds to you?</p>
+                        <p class="text-sm text-slate-400 leading-relaxed">Absolutely not. We are a signal and research
+                            engine, not a custodian. You execute the trades on your own trusted broker (e.g.,
+                            Interactive Brokers, Binance) or platform (Stake). We never have access to your money.</p>
+                    </div>
+                    <div class="glass p-8 rounded-2xl glass-card">
+                        <p class="text-white font-bold mb-3 text-lg">How exactly do you verify compliance?</p>
+                        <p class="text-sm text-slate-400 leading-relaxed">We integrate directly with institutional APIs
+                            like Zoya. A stock's debt-to-market-cap ratio and impermissible income levels are verified
+                            in milliseconds before a swing trade signal is ever fired to your Telegram.</p>
+                    </div>
+                    <div class="glass p-8 rounded-2xl glass-card">
+                        <p class="text-white font-bold mb-3 text-lg">Is the Founders Pass really a one-time fee?</p>
+                        <p class="text-sm text-slate-400 leading-relaxed">Yes. To fund our final server architecture and
+                            API licenses, the first 500 users get lifetime access. Once we
+                            launch to the public, the price shifts to $49/month permanently.</p>
+                    </div>
+                    <div class="glass p-8 rounded-2xl glass-card">
+                        <p class="text-white font-bold mb-3 text-lg">Which markets do you monitor?</p>
+                        <p class="text-sm text-slate-400 leading-relaxed">We scan US Equities (Tech/Dividend giants),
+                            Spot Crypto (BTC/ETH/SOL), Shariah-compliant REITs & ETFs, and fractional real estate
+                            platforms in the UAE.</p>
+                    </div>
+                    <div class="glass p-8 rounded-2xl glass-card">
+                        <p class="text-white font-bold mb-3 text-lg">What happens during a Bear Market?</p>
+                        <p class="text-sm text-slate-400 leading-relaxed">The Alpha Engine doesn't just buy; it
+                            protects. During heavy downturns, the algorithm shifts signals toward the "Safe Buckets"
+                            (Sukuks, Gold, Dividend Giants) and builds up "Dry Powder" to buy the dip later.</p>
+                    </div>
+                    <div class="glass p-8 rounded-2xl glass-card">
+                        <p class="text-white font-bold mb-3 text-lg">Is this a Robo-Advisor?</p>
+                        <p class="text-sm text-slate-400 leading-relaxed">No. Robo-advisors take your money and lock you
+                            out. Alpha Wealth is a "Human-in-the-loop" engine. We give you institutional-grade
+                            intelligence, but you press the final button.</p>
+                    </div>
+                    <div class="glass p-8 rounded-2xl glass-card">
+                        <p class="text-white font-bold mb-3 text-lg">Can I use this from anywhere in the world?</p>
+                        <p class="text-sm text-slate-400 leading-relaxed">Yes. Because you use your own local broker to
+                            execute trades, you can use Alpha Wealth from anywhere. All you need is Telegram to receive
+                            the signals.</p>
+                    </div>
+                    <div class="glass p-8 rounded-2xl glass-card">
+                        <p class="text-white font-bold mb-3 text-lg">What if I don't know how to trade?</p>
+                        <p class="text-sm text-slate-400 leading-relaxed">The signals are designed to be foolproof. We
+                            tell you the exact ticker, the current price, and which of the 4 buckets to put it in. It
+                            takes less than 30 seconds to copy a signal to your broker app.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-12 border-t border-white/5 text-center bg-navy-950">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-3 opacity-50">
+                <img src="2-nobg.png" alt="Logo" class="h-6">
+                <span class="font-sans font-900 text-white text-sm tracking-tighter uppercase">Alpha</span>
+            </div>
+            <p class="text-[10px] uppercase font-bold text-slate-600 tracking-[0.4em]">© 2026 Alpha Wealth Manager |
+                Zero Custody. Maximum Alpha.</p>
+            <div class="flex gap-6 text-[10px] font-bold uppercase tracking-widest text-slate-600">
+                <a href="#" class="hover:text-emerald-500 transition">Terms</a>
+                <a href="#" class="hover:text-emerald-500 transition">Privacy</a>
+            </div>
+        </div>
+    </footer>
+
+    <div id="founders-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4">
+        <div class="absolute inset-0 bg-navy-950/80 backdrop-blur-sm" onclick="closeFoundersModal()"></div>
+
+        <div
+            class="relative w-full max-w-md bg-navy-900 border border-emerald-500/30 rounded-[2rem] p-8 shadow-2xl animate-fade-in z-10 overflow-hidden">
+            <div class="absolute -top-20 -left-20 w-40 h-40 bg-emerald-500/20 blur-[60px] pointer-events-none"></div>
+
+            <button onclick="closeFoundersModal()"
+                class="absolute top-6 right-6 text-slate-500 hover:text-white transition">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                    </path>
+                </svg>
+            </button>
+
+            <div id="founders-step-1">
+                <p class="text-emerald-500 font-bold uppercase tracking-widest text-[10px] mb-2">Founders Application
+                </p>
+                <h3 id="founders-title" class="font-sans text-2xl font-900 text-white mb-2 uppercase">Secure Access</h3>
+                <p id="founders-desc" class="text-sm text-slate-400 mb-8">Enter your details below to lock in the
+                    pricing. Once submitted, you'll receive the private checkout link.</p>
+
+                <form id="founders-form" class="space-y-4">
+                    <input type="hidden" id="target_tranche_id" value="">
+                    <input type="hidden" id="target_gumroad_url" value="">
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Full
+                            Name</label>
+                        <input type="text" id="f-name" required
+                            class="w-full bg-navy-950 border border-white/10 px-4 py-3 rounded-xl text-white outline-none focus:border-emerald-500/50 transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Email
+                            Address</label>
+                        <input type="email" id="f-email" required
+                            class="w-full bg-navy-950 border border-white/10 px-4 py-3 rounded-xl text-white outline-none focus:border-emerald-500/50 transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">WhatsApp /
+                            Phone</label>
+                        <input type="tel" id="f-phone" required
+                            class="w-full bg-navy-950 border border-white/10 px-4 py-3 rounded-xl text-white outline-none focus:border-emerald-500/50 transition">
+                    </div>
+
+                    <button type="submit" id="f-submit-btn"
+                        class="w-full py-4 mt-4 bg-emerald-500 text-navy-950 font-900 rounded-xl hover:bg-emerald-400 transition-all uppercase text-xs tracking-wider flex justify-center items-center gap-2">
+                        <span>Save Details & Continue</span>
+                        <svg id="f-spinner" class="hidden animate-spin h-4 w-4 text-navy-950"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                            </circle>
+                            <path class="opacity-75" fill="currentColor"
+                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                            </path>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+
+            <div id="founders-step-2" class="hidden text-center py-6">
+                <div
+                    class="w-16 h-16 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto mb-6 border border-emerald-500/30">
+                    <span class="text-2xl">✅</span>
+                </div>
+                <h3 class="font-sans text-2xl font-900 text-white mb-2 uppercase">Spot Reserved</h3>
+                <p class="text-sm text-slate-400 mb-8">Your profile has been saved. Click the button below to complete
+                    your secure payment via Gumroad.</p>
+
+                <a id="gumroad-checkout-btn" href="#" data-gumroad-overlay-checkout="true"
+                    class="inline-block w-full py-4 bg-white text-black font-900 rounded-xl hover:bg-slate-200 transition-all uppercase text-xs tracking-wider shadow-lg">
+                    Complete Checkout
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="simple-waitlist-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4">
+        <div class="absolute inset-0 bg-navy-950/80 backdrop-blur-sm" onclick="closeWaitlistModal()"></div>
+
+        <div
+            class="relative w-full max-w-md bg-navy-900 border border-white/10 rounded-[2rem] p-8 shadow-2xl animate-fade-in z-10 overflow-hidden">
+
+            <button onclick="closeWaitlistModal()"
+                class="absolute top-6 right-6 text-slate-500 hover:text-white transition">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                    </path>
+                </svg>
+            </button>
+
+            <div id="waitlist-step-1">
+                <p class="text-slate-400 font-bold uppercase tracking-widest text-[10px] mb-2">Retail Launch</p>
+                <h3 class="font-sans text-2xl font-900 text-white mb-2 uppercase">Join The Waitlist</h3>
+                <p class="text-sm text-slate-400 mb-8">Leave your details below to get notified when the $49/mo retail
+                    subscription launches to the public.</p>
+
+                <form id="waitlist-form" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Full
+                            Name</label>
+                        <input type="text" id="w-name" required
+                            class="w-full bg-navy-950 border border-white/10 px-4 py-3 rounded-xl text-white outline-none focus:border-emerald-500/50 transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Email
+                            Address</label>
+                        <input type="email" id="w-email" required
+                            class="w-full bg-navy-950 border border-white/10 px-4 py-3 rounded-xl text-white outline-none focus:border-emerald-500/50 transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">WhatsApp /
+                            Phone</label>
+                        <input type="tel" id="w-phone" required
+                            class="w-full bg-navy-950 border border-white/10 px-4 py-3 rounded-xl text-white outline-none focus:border-emerald-500/50 transition">
+                    </div>
+
+                    <button type="submit" id="w-submit-btn"
+                        class="w-full py-4 mt-4 bg-navy-800 text-white font-900 rounded-xl hover:bg-navy-700 border border-white/10 transition-all uppercase text-xs tracking-wider flex justify-center items-center gap-2">
+                        <span>Join Waitlist</span>
+                        <svg id="w-spinner" class="hidden animate-spin h-4 w-4 text-white"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                            </circle>
+                            <path class="opacity-75" fill="currentColor"
+                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                            </path>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+
+            <div id="waitlist-step-2" class="hidden text-center py-6">
+                <div
+                    class="w-16 h-16 bg-navy-800 rounded-full flex items-center justify-center mx-auto mb-6 border border-white/10">
+                    <span class="text-2xl">📥</span>
+                </div>
+                <h3 class="font-sans text-2xl font-900 text-white mb-2 uppercase">You're on the list</h3>
+                <p class="text-sm text-slate-400">Keep an eye on your inbox. We will notify you as soon as retail slots
+                    open.</p>
+                <button onclick="closeWaitlistModal()"
+                    class="mt-8 px-6 py-2 bg-navy-800 text-white text-xs font-bold uppercase rounded-lg border border-white/10">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        AOS.init({ duration: 1000, once: true, easing: 'ease-out-cubic' });
+
+        // --- SUPABASE SETUP ---
+        const SUPABASE_URL = 'https://dvlabpioxtyyzvhzpmyc.supabase.co'; // <--- ADD YOUR ID
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2bGFicGlveHR5eXp2aHpwbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1MDY4NzUsImV4cCI6MjA4OTA4Mjg3NX0.fBM9r7WXpntVUM-qsBDQFlknRf2vMyIpJTp5ww9pzUM'; // <--- ADD YOUR KEY
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        // --- DYNAMIC TRANCHE LOGIC ---
+        let activeTranche = null;
+
+        async function fetchTranches() {
+            try {
+                const { data: tranches, error } = await supabaseClient
+                    .from('tranches')
+                    .select('*')
+                    .order('id', { ascending: true });
+
+                if (error) throw error;
+                renderStaircase(tranches);
+            } catch (error) {
+                console.error('Error fetching tranches:', error);
+                document.getElementById('pricing-staircase').innerHTML = '<div class="col-span-3 text-center text-red-500">Failed to load live pricing.</div>';
+            }
+        }
+
+        function renderStaircase(tranches) {
+            const container = document.getElementById('pricing-staircase');
+            let html = '';
+            let activeFound = false;
+
+            tranches.forEach((tranche, index) => {
+                const spotsLeft = tranche.max_seats - tranche.claimed_seats;
+                const percentFilled = (tranche.claimed_seats / tranche.max_seats) * 100;
+
+                let stateClass, badgeHtml, buttonHtml, wrapperClass;
+
+                // 1. SOLD OUT STATE
+                if (spotsLeft <= 0) {
+                    wrapperClass = "h-[100%] opacity-50";
+                    stateClass = "bg-navy-950 border-red-900/50";
+                    badgeHtml = `<div class="inline-block px-3 py-1 bg-red-900/30 text-red-500 text-[10px] font-bold uppercase tracking-widest rounded-full mb-6 w-max border border-red-900/50">Sold Out</div>`;
+                    buttonHtml = `<button disabled class="w-full py-4 bg-navy-800 text-slate-500 font-900 rounded-xl uppercase text-xs tracking-wider cursor-not-allowed">Capacity Reached</button>`;
+                }
+                // 2. ACTIVE TIER STATE
+                else if (!activeFound) {
+                    activeFound = true;
+                    activeTranche = tranche;
+
+                    let urgencyText = `Spots Claimed: ${tranche.claimed_seats} / ${tranche.max_seats}`;
+                    let urgencyClass = "text-slate-400";
+
+                    // Business Logic: If seats are 0-8, trigger urgency
+                    if (spotsLeft > 0 && spotsLeft <= 8) {
+                        urgencyText = `🔥 EXTREMELY LIMITED: ONLY ${spotsLeft} SPOTS LEFT`;
+                        urgencyClass = "text-amber-400 animate-pulse font-900";
+                    }
+
+                    wrapperClass = "relative w-full h-[105%]";
+                    stateClass = "bg-navy-950 border-emerald-500/50 shadow-[0_0_40px_rgba(16,185,129,0.15)]";
+                    badgeHtml = `<div class="absolute -inset-1 bg-gradient-to-b from-emerald-500/50 to-transparent rounded-[2.5rem] blur opacity-30 pointer-events-none"></div>
+                                 <div class="inline-block px-3 py-1 bg-emerald-500/20 text-emerald-400 text-[10px] font-bold uppercase tracking-widest rounded-full mb-6 w-max border border-emerald-500/30 shadow-[0_0_10px_rgba(16,185,129,0.2)]">Live Phase</div>`;
+
+                    buttonHtml = `
+                        <div class="mb-8">
+                            <div class="flex justify-between text-[10px] font-bold uppercase tracking-widest mb-2 ${urgencyClass}">
+                                <span>${urgencyText}</span>
+                            </div>
+                            <div class="w-full bg-navy-900 h-1.5 rounded-full overflow-hidden border border-white/5">
+                                <div class="bg-emerald-500 h-full shadow-[0_0_10px_#10B981] transition-all duration-1000" style="width: ${percentFilled}%"></div>
+                            </div>
+                        </div>
+                        <button onclick="openFoundersModal()" class="w-full py-4 bg-emerald-500 text-navy-950 font-900 rounded-xl hover:bg-emerald-400 transition-all uppercase text-xs tracking-wider shadow-[0_0_20px_rgba(16,185,129,0.3)]">Secure ${tranche.name}</button>`;
+                }
+                // 3. UPCOMING (LOCKED) STATE
+                else {
+                    wrapperClass = "h-[90%] opacity-70";
+                    stateClass = "bg-navy-900/40 border-white/5";
+                    badgeHtml = `<div class="inline-block px-3 py-1 bg-slate-800 text-slate-400 text-[10px] font-bold uppercase tracking-widest rounded-full mb-6 w-max">Upcoming Phase</div>`;
+                    buttonHtml = `<button disabled class="w-full py-4 bg-navy-800 text-slate-500 font-900 rounded-xl uppercase text-xs tracking-wider cursor-not-allowed">Locked</button>`;
+                }
+
+                // DYNAMIC TEMPLATE
+                html += `
+                <div class="${wrapperClass}" data-aos="fade-up" data-aos-delay="${index * 100}">
+                    <div class="glass p-8 rounded-[2.2rem] h-full flex flex-col relative ${stateClass}">
+                        ${badgeHtml}
+                        <h3 class="font-sans text-2xl font-900 text-white uppercase mb-2">${tranche.name}</h3>
+                        
+                        <p class="text-slate-400 text-sm mb-6 flex-1 leading-relaxed">
+                            ${tranche.description || 'Secures full lifetime access to the institutional signal engine.'}
+                        </p>
+                        
+                        <div class="mb-6 border-b border-white/5 pb-6">
+                            <p class="text-white text-4xl font-900 font-sans mb-1">$${tranche.price}</p>
+                            <p class="text-xs text-slate-500 uppercase font-bold tracking-widest">Limited to ${tranche.max_seats} Users</p>
+                        </div>
+                        
+                        ${buttonHtml}
+                    </div>
+                </div>`;
+            });
+
+            container.innerHTML = html;
+        }
+
+        fetchTranches();
+
+        // --- FOUNDERS MODAL LOGIC ---
+        const fModal = document.getElementById('founders-modal');
+        const fStep1 = document.getElementById('founders-step-1');
+        const fStep2 = document.getElementById('founders-step-2');
+        const fForm = document.getElementById('founders-form');
+
+        function openFoundersModal() {
+            if (!activeTranche) return alert("Loading live pricing. Please wait a second.");
+            document.getElementById('founders-title').innerText = `Secure ${activeTranche.name}`;
+            document.getElementById('founders-desc').innerText = `Enter your details below to lock in the $${activeTranche.price} pricing.`;
+            document.getElementById('target_tranche_id').value = activeTranche.id;
+            document.getElementById('target_gumroad_url').value = activeTranche.gumroad_url;
+            fModal.classList.remove('hidden'); fModal.classList.add('flex');
+            fStep1.classList.remove('hidden'); fStep2.classList.add('hidden');
+            fForm.reset();
+        }
+
+        function closeFoundersModal() { fModal.classList.add('hidden'); fModal.classList.remove('flex'); }
+
+        fForm.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const btn = document.getElementById('f-submit-btn');
+            const spin = document.getElementById('f-spinner');
+            btn.disabled = true; btn.classList.add('opacity-70'); spin.classList.remove('hidden');
+
+            try {
+                const { error } = await supabaseClient.from('founders_leads').insert([{
+                    name: document.getElementById('f-name').value,
+                    email: document.getElementById('f-email').value,
+                    phone: document.getElementById('f-phone').value,
+                    tranche_id: document.getElementById('target_tranche_id').value
+                }]);
+                if (error) throw error;
+
+                document.getElementById('gumroad-checkout-btn').href = document.getElementById('target_gumroad_url').value;
+                fStep1.classList.add('hidden'); fStep2.classList.remove('hidden');
+                fetchTranches();
+            } catch (error) {
+                console.error(error); alert("Issue saving details. Please try again.");
+            } finally {
+                btn.disabled = false; btn.classList.remove('opacity-70'); spin.classList.add('hidden');
+            }
+        });
+
+        // --- WAITLIST MODAL LOGIC ---
+        const wModal = document.getElementById('simple-waitlist-modal');
+        const wStep1 = document.getElementById('waitlist-step-1');
+        const wStep2 = document.getElementById('waitlist-step-2');
+        const wForm = document.getElementById('waitlist-form');
+
+        function openWaitlistModal() {
+            wModal.classList.remove('hidden'); wModal.classList.add('flex');
+            wStep1.classList.remove('hidden'); wStep2.classList.add('hidden');
+            wForm.reset();
+        }
+
+        function closeWaitlistModal() { wModal.classList.add('hidden'); wModal.classList.remove('flex'); }
+
+        wForm.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const btn = document.getElementById('w-submit-btn');
+            const spin = document.getElementById('w-spinner');
+            btn.disabled = true; btn.classList.add('opacity-70'); spin.classList.remove('hidden');
+
+            try {
+                const { error } = await supabaseClient.from('waitlist').insert([{
+                    name: document.getElementById('w-name').value,
+                    email: document.getElementById('w-email').value,
+                    phone: document.getElementById('w-phone').value
+                }]);
+                if (error) throw error;
+                wStep1.classList.add('hidden'); wStep2.classList.remove('hidden');
+            } catch (error) {
+                console.error(error); alert("Issue saving details. Please try again.");
+            } finally {
+                btn.disabled = false; btn.classList.remove('opacity-70'); spin.classList.add('hidden');
+            }
+        });
+
+        // --- INSTITUTIONAL LIVE TERMINAL CHART ---
+        let lastDate = new Date().getTime();
+        let chartData = [];
+        let TICKINTERVAL = 3800;
+        let MAX_TICKS = 6;
+        let XAXISRANGE = TICKINTERVAL * (MAX_TICKS - 1);
+        let currentPrice = 14250;
+
+        for (let i = 0; i < MAX_TICKS; i++) chartData.push({ x: lastDate - (MAX_TICKS - i) * TICKINTERVAL, y: currentPrice });
+
+        var options = {
+            series: [{ data: chartData.slice() }],
+            chart: {
+                id: 'realtime', height: 250, type: 'area',
+                animations: { enabled: true, easing: 'linear', dynamicAnimation: { speed: TICKINTERVAL } },
+                toolbar: { show: false }, zoom: { enabled: false }, background: 'transparent',
+                events: { selection: function (c, e) { e.preventDefault(); }, zoomed: function (c, e) { e.preventDefault(); }, scrolled: function (c, e) { e.preventDefault(); } }
+            },
+            dataLabels: { enabled: false },
+            tooltip: { enabled: true, theme: 'dark', shared: false, intersect: false, x: { show: false }, y: { title: { formatter: () => '' }, formatter: (val) => '$' + val.toLocaleString('en-US', { minimumFractionDigits: 2 }) }, marker: { show: false } },
+            markers: { size: 0, colors: ['#10B981'], strokeColors: '#0F172A', strokeWidth: 2, hover: { size: 5, sizeOffset: 2 } },
+            stroke: { curve: 'straight', width: 2 }, colors: ['#10B981'],
+            fill: { type: 'gradient', gradient: { shadeIntensity: 1, opacityFrom: 0.4, opacityTo: 0, stops: [0, 100] } },
+            xaxis: { type: 'datetime', range: XAXISRANGE, labels: { show: false }, axisBorder: { show: false }, axisTicks: { show: false }, tooltip: { enabled: false }, crosshairs: { show: false } },
+            yaxis: { show: false, forceNiceScale: true, labels: { formatter: (val) => val.toFixed(0) } },
+            grid: { show: false, padding: { top: 10, bottom: 10, left: 0, right: 0 } },
+            theme: { mode: 'dark' }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#hero-chart"), options);
+        chart.render();
+
+        window.setInterval(function () {
+            lastDate += TICKINTERVAL;
+            let volatility = (Math.random() - 0.48) * 45;
+            currentPrice += volatility;
+            chartData.push({ x: lastDate, y: currentPrice });
+
+            if (chartData.length > MAX_TICKS) chartData.shift();
+
+            document.getElementById('dynamic-price').innerText = '$' + currentPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            chart.updateSeries([{ data: chartData }]);
+
+            const badgeEl = document.getElementById('price-badge');
+            if (volatility >= 0) {
+                badgeEl.innerText = "UPTICK DETECTED";
+                badgeEl.className = "px-3 py-1 bg-emerald-500/20 text-emerald-400 rounded text-[10px] font-bold transition-colors duration-300";
+            } else {
+                badgeEl.innerText = "DOWNTICK LOGGED";
+                badgeEl.className = "px-3 py-1 bg-crimson-500/20 text-crimson-400 rounded text-[10px] font-bold transition-colors duration-300";
+            }
+        }, TICKINTERVAL);
+    </script>
+</body>
+
+</html>
