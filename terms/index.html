@@ -73,6 +73,58 @@
         .legal-content a:hover {
             opacity: 0.8;
         }
+
+        /* Reused Footer Styles */
+        .f-title {
+            font-size: 0.9rem;
+            color: inherit;
+            margin-bottom: 20px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #38bdf8;
+        }
+
+        .f-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .f-links li {
+            margin-bottom: 12px;
+        }
+
+        .f-links a {
+            color: var(--tw-prose-body);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+            opacity: 0.7;
+        }
+
+        .f-links a:hover {
+            color: #38bdf8;
+            opacity: 1;
+        }
+
+        .f-bottom {
+            border-top: 1px solid var(--tw-prose-hr);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: ui-monospace, monospace;
+            font-size: 0.75rem;
+            opacity: 0.5;
+            padding-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .f-bottom {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+        }
     </style>
 </head>
 
@@ -111,88 +163,70 @@
             <p class="text-accent font-mono text-xs uppercase tracking-widest mb-4">Legal Framework</p>
             <h1 class="text-4xl md:text-5xl font-black tracking-tighter mb-4">Terms of Service</h1>
             <p class="text-light-muted dark:text-dark-muted font-mono text-xs">EFFECTIVE_DATE: April 2026 // VERSION:
-                2.1.0</p>
+                3.0.0</p>
         </div>
 
         <div class="legal-content text-sm md:text-base">
-            <p>These Terms of Service ("Terms") govern your access to and use of the digital products, SaaS platforms,
-                code templates, and automated workflows (collectively, the "Services") provided by <strong>M.
-                    Solutions</strong>. By accessing our marketplace or executing a transaction, you agree to be bound
-                by this contractual framework.</p>
+            <p>These Terms of Service ("Terms") govern your access to and use of the digital products, e-books,
+                operational playbooks, Standard Operating Procedures (SOPs), and automated workflows (collectively, the
+                "Services") provided by <strong>M. Solutions</strong>. By executing a transaction for our digital
+                assets, you agree to be bound by this contractual framework.</p>
 
-            <h3>01 // Operational Scope</h3>
-            <h2>Digital Asset Delivery</h2>
-            <p>Upon successful authorization of your payment, our systems are programmed to instantly allocate the
-                acquired digital assets to your account. This may manifest as direct file downloads, repository access,
-                SaaS licensing keys, or workspace duplication links.</p>
-            <p>You are responsible for providing accurate telemetric data (specifically, a valid email address) to
-                ensure the successful transmission of these assets. Failure to provide accurate data absolves us of
-                delivery delays.</p>
+            <h3>01 // Financial Execution & MoR</h3>
+            <h2>Payments and Tax Liability</h2>
+            <p>We utilize globally recognized "Merchant of Record" (MoR) partners, such as Gumroad, to securely process
+                all financial transactions. By purchasing a product, you acknowledge that the MoR acts as the legal
+                reseller of the product. The MoR is strictly responsible for the secure processing of your payment
+                credentials, fraud prevention, and the collection/remittance of any applicable global taxes (e.g., VAT,
+                GST) based on your geographic jurisdiction.</p>
+            <p>All prices are listed and processed in USD unless dynamically converted by the MoR. You agree to provide
+                current, complete, and accurate purchase information to our MoR partners.</p>
 
-            <h3>02 // Financial Execution</h3>
-            <h2>Payments and Refund Policy</h2>
-            <p>All prices are listed and processed in Jordanian Dinar (JOD) unless otherwise specified. We utilize
-                secure, third-party payment gateways to process transactions. You agree to provide
-                current, complete, and accurate purchase information.</p>
-            <p><strong>Strict Refund Policy:</strong> Due to the irrevocable nature of digital goods and source code,
-                most template and download transactions are final and non-refundable. For specific terms regarding SaaS
-                subscription cancellations, money-back guarantees, and custom development, you must review our
-                comprehensive <a href="https://refund.mohammad-abujalboush.com" target="_blank">Refund Policy</a>, which
-                is incorporated into these Terms by reference.</p>
+            <h3>02 // Wealth & Results</h3>
+            <h2>Earnings and Income Disclaimer</h2>
+            <p>The strategies, playbooks, and case studies detailed in our products (e.g., "The Micro-SaaS Flip") are
+                for educational and informational purposes only. We do not guarantee that you will achieve the same
+                results, earn money, or successfully acquire and sell digital assets.</p>
+            <p>Your success depends entirely on your own technical execution, operational discipline, market conditions,
+                and dedication. Any financial numbers referenced on our sales pages or in our materials represent
+                exceptional results of experienced operators, not a promised outcome. By utilizing our Services, you
+                accept that all business investments carry inherent risk, and M. Solutions is not liable for your
+                financial success or failure.</p>
 
-            <h3>03 // Access & Security</h3>
-            <h2>Account Registration & Security</h2>
-            <p>Certain Services (such as ShiftShelf, Sparkle CRM, and FinanceFlow) require you to register an account.
-                You agree to maintain the confidentiality of your authentication credentials (passwords, magic links,
-                tokens). You are solely responsible for all activities that occur under your account. If you suspect a
-                security breach, you must notify our support infrastructure immediately.</p>
-
-            <h3>04 // Intellectual Property</h3>
-            <h2>Software Licensing and IP Rights</h2>
-            <p>When you acquire a product from our marketplace, you are purchasing a <em>license</em> to use the asset,
-                not the overarching intellectual property. Unless explicitly stated in a custom enterprise contract:</p>
+            <h3>03 // Intellectual Property</h3>
+            <h2>Asset Licensing and IP Rights</h2>
+            <p>When you acquire a product from our marketplace (such as an E-Book, SOP checklist, or Swipe File), you
+                are purchasing a single-user <em>license</em> to consume and utilize the asset, not the overarching
+                intellectual property.</p>
             <ul>
-                <li><strong>Permitted Use:</strong> You may utilize the code, templates, or SaaS tools for your personal
-                    or internal business operations. You may modify template code to suit your operational needs.</li>
-                <li><strong>Prohibited Use:</strong> You may <strong>not</strong> redistribute, sub-license, resell, or
-                    repackage our source code or templates as standalone products. You may not extract core components
-                    to build a direct competitor to our marketplace offerings.</li>
+                <li><strong>Permitted Use:</strong> You may utilize the knowledge, templates, and SOPs strictly for your
+                    own personal or internal business operations (e.g., acquiring and scaling an asset you own).</li>
+                <li><strong>Prohibited Use (Zero Tolerance):</strong> You are expressly forbidden from sharing,
+                    sub-licensing, repackaging, or reselling our E-Books, SOPs, or Swipe Files. You may not distribute
+                    these materials via torrents, group buys, or cloud drives. Violation of this IP protocol will result
+                    in immediate algorithmic termination of your access and potential legal action.</li>
             </ul>
-            <p>All underlying code architecture, branding, and proprietary logic remain the exclusive property of M.
-                Solutions.</p>
 
-            <h3>05 // System Integrity</h3>
-            <h2>Acceptable Use Protocol</h2>
-            <p>You agree not to utilize our Services or platforms for any activity that violates local or international
-                law. You are expressly prohibited from executing load-testing, penetration testing, reverse-engineering,
-                or deploying malicious payloads against our APIs, hosting nodes, or database architecture without prior
-                written consent. Violation of this protocol will result in immediate algorithmic termination of your
-                access without a refund.</p>
+            <h3>04 // The Guarantee</h3>
+            <h2>Action-Based Refund Policy</h2>
+            <p>We stand behind the operational mathematics of our systems. Specific products, such as our "Elite Tier"
+                playbooks, carry an action-based conditional guarantee. Due to the easily copied nature of digital
+                goods, refunds are not granted for "buyer's remorse" or simply failing to read the material.</p>
+            <p>To qualify for a refund under our guarantee, you must prove operational execution (e.g., submitting your
+                completed 30-Day Sprint tracking sheet showing lack of MRR growth). For full details on the exact
+                parameters of this guarantee, you must review our comprehensive <a
+                    href="https://refund.mohammad-abujalboush.com" target="_blank">Refund Policy</a>.</p>
 
-            <h3>06 // Data & Compliance</h3>
-            <h2>Privacy & Telemetry</h2>
-            <p>Your use of our Services is also governed by our <a href="https://privacy.mohammad-abujalboush.com"
-                    target="_blank">Privacy Policy</a>, which details how we collect, process, and protect your personal
-                and business data. By utilizing our Services, you consent to the data practices outlined therein.</p>
-
-            <h3>07 // Legal Protection</h3>
+            <h3>05 // Legal Protection</h3>
             <h2>Limitation of Liability</h2>
-            <p>Our software and templates are provided on an "AS IS" and "AS AVAILABLE" basis. While we engineer our
-                solutions to the highest standards of reliability, we make no absolute warranties regarding
-                uninterrupted uptime or entirely error-free execution.</p>
-            <p>In no event shall M. Solutions, its lead engineer, or affiliates be liable for any indirect,
-                consequential, incidental, or punitive damages (including loss of profits, data, or business
-                interruption) arising from your use or inability to use our digital assets. Our maximum aggregate
-                liability shall not exceed the total amount paid by you for the specific product in question.</p>
+            <p>Our educational playbooks and templates are provided on an "AS IS" and "AS AVAILABLE" basis. In no event
+                shall M. Solutions, its lead operator, or affiliates be liable for any indirect, consequential,
+                incidental, or punitive damages (including loss of profits, data, or business interruption) arising from
+                your execution (or inability to execute) the strategies outlined in our digital assets.</p>
+            <p>Our maximum aggregate liability shall not exceed the total amount paid by you for the specific product in
+                question.</p>
 
-            <h3>08 // Evolution of Terms</h3>
-            <h2>Modifications to the Framework</h2>
-            <p>We reserve the right to modify these Terms at any time to reflect changes in our operational structure,
-                legal requirements, or new feature deployments. Major updates will be communicated via email or an
-                in-app dashboard notification. Continued use of our Services after modifications indicates your
-                acceptance of the updated framework.</p>
-
-            <h3>09 // Governance</h3>
+            <h3>06 // Governance</h3>
             <h2>Jurisdiction and Dispute Resolution</h2>
             <p>This contractual agreement shall be governed by and construed in accordance with the laws of the
                 Hashemite Kingdom of Jordan. Any disputes arising from these Terms shall be subject to the exclusive
@@ -205,19 +239,37 @@
         </div>
     </main>
 
-    <footer class="py-12 border-t border-light-border dark:border-dark-border text-center mt-20">
+    <footer class="py-12 mt-20" style="background: transparent; border-top: 1px solid var(--tw-prose-hr);">
         <div
-            class="flex flex-wrap justify-center gap-x-8 gap-y-4 text-xs font-bold text-light-muted dark:text-dark-muted mb-6 uppercase tracking-wider">
-            <a href="https://privacy.mohammad-abujalboush.com" class="hover:text-accent transition-colors">Privacy
-                Policy</a>
-            <a href="https://refund.mohammad-abujalboush.com" class="hover:text-accent transition-colors">Refund
-                Policy</a>
-            <a href="https://help.mohammad-abujalboush.com" target="_blank"
-                class="hover:text-accent transition-colors">Support</a>
+            style="max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; text-align: center; padding: 0 20px;">
+            <div>
+                <h4 class="f-title">ECOSYSTEM</h4>
+                <ul class="f-links">
+                    <li><a href="https://mohammad-abujalboush.com">Main Domain</a></li>
+                    <li><a href="https://market.mohammad-abujalboush.com">The Marketplace</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="f-title">SUPPORT</h4>
+                <ul class="f-links">
+                    <li><a href="https://help.mohammad-abujalboush.com">Help Center</a></li>
+                    <li><a href="#">Submit Feedback</a></li>
+                    <li><a href="https://refund.mohammad-abujalboush.com">Refund Policy</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="f-title">LEGAL</h4>
+                <ul class="f-links">
+                    <li><a href="https://terms.mohammad-abujalboush.com">Terms of Service</a></li>
+                    <li><a href="https://privacy.mohammad-abujalboush.com">Privacy Policy</a></li>
+                </ul>
+            </div>
         </div>
-        <p class="text-[10px] font-mono uppercase tracking-widest text-light-muted dark:text-dark-muted opacity-50">©
-            2026 M.
-            Solutions // Secure Infrastructure</p>
+        <div class="f-bottom"
+            style="margin-top: 60px; max-width: 900px; margin-left: auto; margin-right: auto; padding-left: 20px; padding-right: 20px;">
+            <span>&copy; 2026 MOHAMMAD ABU JALBOUSH. ALL RIGHTS RESERVED.</span>
+            <span>PROTOCOL STATUS: ONLINE</span>
+        </div>
     </footer>
 
     <script>

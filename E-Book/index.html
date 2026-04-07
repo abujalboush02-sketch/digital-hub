@@ -5,6 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Micro-SaaS Flip | Digital Private Equity</title>
+    <meta property="og:title" content="The Micro-SaaS Flip | Digital Private Equity">
+    <meta property="og:description"
+        content="Stop building from scratch. The playbook for buying dead code for $500, fixing the marketing, and selling for $5,000+.">
+    <meta property="og:image" content="https://flip.mohammad-abujalboush.com/assets/social-cover.png">
+    <meta property="og:url" content="https://flip.mohammad-abujalboush.com">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="favicon.png">
 
     <link
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap"
@@ -115,18 +123,27 @@
         }
 
         /* --- NAVBAR --- */
+        /* --- MODERN ANIMATED NAVBAR --- */
         nav {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             z-index: 100;
-            background: rgba(5, 10, 21, 0.8);
+            background: rgba(5, 10, 21, 0.5);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid transparent;
+            padding: 25px 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* State when user scrolls down */
+        nav.scrolled {
+            padding: 12px 0;
+            background: rgba(5, 10, 21, 0.9);
             border-bottom: 1px solid var(--glass-border);
-            padding: 15px 0;
-            transition: var(--transition-smooth);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
         .nav-container {
@@ -141,52 +158,105 @@
         .nav-logo {
             font-family: 'Montserrat';
             font-weight: 900;
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             color: white;
             text-decoration: none;
             letter-spacing: 1px;
+            z-index: 101;
+            position: relative;
+        }
+
+        .nav-logo span {
+            color: var(--blue-accent);
         }
 
         .nav-links {
             display: flex;
-            gap: 30px;
+            gap: 35px;
             align-items: center;
         }
 
-        .nav-links a {
-            color: var(--text-muted);
+        /* Animated Hover Underline */
+        .nav-links a:not(.nav-cta) {
+            color: var(--text-main);
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 600;
-            transition: var(--transition-smooth);
             text-transform: uppercase;
             letter-spacing: 1px;
+            position: relative;
+            padding-bottom: 5px;
         }
 
-        .nav-links a:hover {
-            color: var(--blue-accent);
-        }
-
-        .nav-cta {
+        .nav-links a:not(.nav-cta)::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
             background: var(--blue-accent);
-            color: white !important;
-            padding: 8px 20px;
-            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:not(.nav-cta):hover::after {
+            width: 100%;
+        }
+
+        /* Modern Nav CTA */
+        .nav-cta {
+            background: rgba(14, 165, 233, 0.1);
+            border: 1px solid var(--blue-accent);
+            color: var(--blue-accent) !important;
+            padding: 10px 24px;
+            border-radius: 6px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.85rem;
+            text-decoration: none;
+            transition: var(--transition-smooth);
         }
 
         .nav-cta:hover {
-            background: #0284c7;
-            box-shadow: 0 0 15px rgba(14, 165, 233, 0.4);
+            background: var(--blue-accent);
+            color: white !important;
+            box-shadow: 0 0 20px rgba(14, 165, 233, 0.4);
+            transform: translateY(-2px);
         }
 
-        /* Mobile Menu Toggle */
-        .mobile-menu-btn {
+        /* Animated Hamburger Icon */
+        .menu-toggle {
             display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
+            flex-direction: column;
+            gap: 6px;
             cursor: pointer;
+            z-index: 101;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 30px;
+            height: 2px;
+            background: white;
+            border-radius: 2px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Hamburger Morph to 'X' */
+        .menu-toggle.active span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+            background: var(--blue-accent);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(20px);
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+            background: var(--blue-accent);
         }
 
         /* --- HERO SECTION --- */
@@ -999,12 +1069,63 @@
                 grid-template-columns: 1fr 1fr;
             }
 
-            .nav-links {
-                display: none;
+            /* Full-Screen Mobile Menu Overlay */
+            .menu-toggle {
+                display: flex;
             }
 
-            .mobile-menu-btn {
-                display: block;
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 100vw;
+                height: 100vh;
+                background: rgba(5, 10, 21, 0.98);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 40px;
+                transition: right 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+                z-index: 100;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            /* Staggered animation effect for links */
+            .nav-links a {
+                opacity: 0;
+                transform: translateY(20px);
+                transition: all 0.4s ease;
+                font-size: 1.2rem !important;
+            }
+
+            .nav-links.active a {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            .nav-links.active a:nth-child(1) {
+                transition-delay: 0.2s;
+            }
+
+            .nav-links.active a:nth-child(2) {
+                transition-delay: 0.3s;
+            }
+
+            .nav-links.active a:nth-child(3) {
+                transition-delay: 0.4s;
+            }
+
+            .nav-links.active a:nth-child(4) {
+                transition-delay: 0.5s;
+            }
+
+            .nav-links.active a:nth-child(5) {
+                transition-delay: 0.6s;
             }
         }
 
@@ -1042,16 +1163,22 @@
         <div class="orb orb-2"></div>
     </div>
 
-    <nav>
+    <nav id="main-nav">
         <div class="nav-container">
-            <a href="#" class="nav-logo">THE FLIP.</a>
-            <button class="mobile-menu-btn">☰</button>
+            <a href="#" class="nav-logo">THE FLIP<span>.</span></a>
+
             <div class="nav-links">
                 <a href="#strategy">The Strategy</a>
                 <a href="#inside">Inside The Blueprint</a>
                 <a href="#pricing">Pricing</a>
                 <a href="#faq">FAQ</a>
                 <a href="#pricing" class="nav-cta">Get The Playbook</a>
+            </div>
+
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
         </div>
     </nav>
@@ -1334,40 +1461,32 @@
     </section>
 
     <footer>
-        <div class="footer-grid">
+        <div
+            style="max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; text-align: center;">
             <div>
-                <a href="#" class="f-logo">THE FLIP.</a>
-                <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-top: 10px;">
-                    Turning technical skills into operational equity. The premier digital real estate playbook for the
-                    modern software engineer.
-                </p>
-            </div>
-            <div>
-                <h4 class="f-title">THE ECOSYSTEM</h4>
+                <h4 class="f-title">ECOSYSTEM</h4>
                 <ul class="f-links">
-                    <li><a href="https://market.mohammad-abujalboush.com">The Operator Marketplace</a></li>
-                    <li><a href="#">SOP Vault</a></li>
-                    <li><a href="#pricing">Get The Playbook</a></li>
+                    <li><a href="https://mohammad-abujalboush.com">Main Domain</a></li>
+                    <li><a href="https://market.mohammad-abujalboush.com">The Marketplace</a></li>
                 </ul>
             </div>
             <div>
-                <h4 class="f-title">THE ARCHITECT</h4>
+                <h4 class="f-title">SUPPORT</h4>
                 <ul class="f-links">
-                    <li><a href="https://mohammad-abujalboush.com">Main Portfolio</a></li>
-                    <li><a href="#">LinkedIn</a></li>
-                    <li><a href="#">Contact Support</a></li>
+                    <li><a href="https://help.mohammad-abujalboush.com">Help Center</a></li>
+                    <li><a href="https://feedback.mohammad-abujalboush.com">Submit Feedback</a></li>
+                    <li><a href="https://refund.mohammad-abujalboush.com">Refund Policy</a></li>
                 </ul>
             </div>
             <div>
-                <h4 class="f-title">ACTIVE PROJECTS</h4>
+                <h4 class="f-title">LEGAL</h4>
                 <ul class="f-links">
-                    <li><a href="#">ERP Lite App</a></li>
-                    <li><a href="#">FinanceFlow Web</a></li>
-                    <li><a href="#">Thobe Tailoring System</a></li>
+                    <li><a href="https://terms.mohammad-abujalboush.com">Terms of Service</a></li>
+                    <li><a href="https://privacy.mohammad-abujalboush.com">Privacy Policy</a></li>
                 </ul>
             </div>
         </div>
-        <div class="f-bottom">
+        <div class="f-bottom" style="margin-top: 60px;">
             <span>&copy; 2026 MOHAMMAD ABU JALBOUSH. ALL RIGHTS RESERVED.</span>
             <span>PROTOCOL STATUS: ONLINE</span>
         </div>
@@ -1419,6 +1538,39 @@
             } catch (err) { console.error("Supabase load failed, falling back to defaults.", err); }
         }
         document.addEventListener('DOMContentLoaded', fetchTestimonials);
+
+        // 3. MODERN NAV LOGIC (Scroll & Mobile)
+        const nav = document.getElementById('main-nav');
+        const menuToggle = document.getElementById('mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+        const links = document.querySelectorAll('.nav-links a');
+
+        // Dynamic Scroll Effect
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile Menu Toggle
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+
+            // Prevent scrolling when menu is open
+            document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : 'auto';
+        });
+
+        // Close menu when a link is clicked
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
     </script>
 </body>
 
