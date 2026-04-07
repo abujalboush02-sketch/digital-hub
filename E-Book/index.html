@@ -1,0 +1,1425 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Micro-SaaS Flip | Digital Private Equity</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+        :root {
+            /* Color Palette */
+            --bg-dark: #050a15;
+            --bg-card: rgba(15, 23, 42, 0.6);
+            --navy-main: #172554;
+            --blue-glow: #3b82f6;
+            --blue-accent: #0ea5e9;
+            --gold-premium: #eab308;
+            --gold-glow: rgba(234, 179, 8, 0.2);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+
+            /* UI Elements */
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-highlight: rgba(255, 255, 255, 0.15);
+            --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+
+        /* --- AMBIENT BACKGROUND --- */
+        .ambient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.4;
+            animation: floatOrb 20s infinite alternate ease-in-out;
+        }
+
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: var(--navy-main);
+            top: -10%;
+            left: -10%;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: rgba(14, 165, 233, 0.15);
+            bottom: -10%;
+            right: -5%;
+            animation-delay: -5s;
+        }
+
+        @keyframes floatOrb {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            100% {
+                transform: translate(100px, 50px) scale(1.2);
+            }
+        }
+
+        /* --- SCROLL REVEAL --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px) scale(0.98);
+            transition: var(--transition-smooth);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* --- NAVBAR --- */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            background: rgba(5, 10, 21, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 15px 0;
+            transition: var(--transition-smooth);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: 'Montserrat';
+            font-weight: 900;
+            font-size: 1.2rem;
+            color: white;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: var(--transition-smooth);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-links a:hover {
+            color: var(--blue-accent);
+        }
+
+        .nav-cta {
+            background: var(--blue-accent);
+            color: white !important;
+            padding: 8px 20px;
+            border-radius: 4px;
+        }
+
+        .nav-cta:hover {
+            background: #0284c7;
+            box-shadow: 0 0 15px rgba(14, 165, 233, 0.4);
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 20px 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            gap: 40px;
+        }
+
+        .hero-content {
+            flex: 1;
+        }
+
+        .hero-visual {
+            flex: 1;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px;
+        }
+
+        .status-pill {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid var(--blue-glow);
+            color: var(--blue-accent);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            margin-bottom: 2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-pill::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--blue-accent);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--blue-accent);
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 6vw, 5rem);
+            line-height: 0.95;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #64748b 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+        }
+
+        /* 3D Hero Mockup Placeholder */
+        .mockup-container {
+            width: 100%;
+            max-width: 500px;
+            aspect-ratio: 4/3;
+            background: linear-gradient(135deg, rgba(23, 37, 84, 0.6), rgba(14, 165, 233, 0.1));
+            border: 1px solid var(--blue-accent);
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(14, 165, 233, 0.2);
+            transform: rotateY(-15deg) rotateX(5deg);
+            transition: transform 0.5s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .mockup-container:hover {
+            transform: rotateY(0deg) rotateX(0deg);
+        }
+
+        .mockup-text {
+            font-family: 'Montserrat';
+            font-size: 2rem;
+            font-weight: 900;
+            color: white;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .mockup-sub {
+            font-family: 'JetBrains Mono';
+            color: var(--blue-accent);
+            margin-top: 10px;
+        }
+
+        /* BUTTONS */
+        .btn-glow {
+            position: relative;
+            display: inline-block;
+            padding: 18px 40px;
+            background: linear-gradient(135deg, var(--blue-glow), var(--blue-accent));
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: var(--transition-smooth);
+            overflow: hidden;
+            z-index: 1;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-glow::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: 0.5s;
+            z-index: -1;
+        }
+
+        .btn-glow:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(14, 165, 233, 0.4);
+        }
+
+        .btn-glow:hover::before {
+            left: 100%;
+        }
+
+        /* SOCIAL PROOF BANNER */
+        .trust-banner {
+            max-width: 1200px;
+            margin: 0 auto 80px;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .trust-text {
+            font-family: 'JetBrains Mono';
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .trust-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            opacity: 0.5;
+            filter: grayscale(100%);
+            transition: var(--transition-smooth);
+        }
+
+        .trust-logos:hover {
+            opacity: 0.8;
+            filter: grayscale(50%);
+        }
+
+        .trust-logo {
+            font-family: 'Montserrat';
+            font-weight: 900;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        /* LAYOUT UTILS */
+        .section {
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-tag {
+            font-family: 'JetBrains Mono';
+            color: var(--blue-accent);
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            display: block;
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: #fff;
+        }
+
+        /* GLASS CARDS */
+        .glass-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 40px;
+            transition: var(--transition-smooth);
+        }
+
+        /* --- QUALIFIER (BUILDER VS OPERATOR) --- */
+        .vs-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .vs-card {
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid;
+        }
+
+        .vs-builder {
+            background: rgba(239, 68, 68, 0.05);
+            border-color: rgba(239, 68, 68, 0.2);
+        }
+
+        .vs-operator {
+            background: rgba(16, 185, 129, 0.05);
+            border-color: rgba(16, 185, 129, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vs-operator::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.2) 0%, transparent 70%);
+        }
+
+        .vs-title {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .vs-builder .vs-title {
+            color: #f87171;
+        }
+
+        .vs-operator .vs-title {
+            color: #34d399;
+        }
+
+        .vs-list {
+            list-style: none;
+        }
+
+        .vs-list li {
+            margin-bottom: 15px;
+            font-size: 1rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            color: var(--text-main);
+        }
+
+        .vs-builder .vs-list li::before {
+            content: '✕';
+            color: #ef4444;
+            font-weight: bold;
+        }
+
+        .vs-operator .vs-list li::before {
+            content: '✓';
+            color: #10b981;
+            font-weight: bold;
+        }
+
+        /* --- REDESIGNED DIGITAL REAL ESTATE MODEL --- */
+        .flow-container {
+            position: relative;
+            margin-top: 40px;
+        }
+
+        .flow-step {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        /* Connecting Line */
+        .flow-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 40px;
+            top: 80px;
+            bottom: -40px;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--blue-accent), transparent);
+            z-index: -1;
+        }
+
+        .flow-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--navy-main);
+            border: 2px solid var(--blue-accent);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 0 20px rgba(14, 165, 233, 0.2);
+        }
+
+        .flow-content {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            padding: 30px;
+            border-radius: 16px;
+            transition: var(--transition-smooth);
+        }
+
+        .flow-content:hover {
+            border-color: var(--blue-accent);
+            transform: translateX(10px);
+        }
+
+        .flow-content h3 {
+            color: var(--text-main);
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        /* --- LOOK INSIDE (DELIVERABLES) --- */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .bento-card {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .bento-visual {
+            height: 150px;
+            background: var(--navy-main);
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono';
+            color: var(--blue-accent);
+            font-size: 0.9rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bento-visual::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255, 255, 255, 0.02) 10px, rgba(255, 255, 255, 0.02) 20px);
+        }
+
+        .bento-content {
+            padding: 25px;
+        }
+
+        .bento-content h3 {
+            font-size: 1.2rem;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
+        /* --- GUARANTEE BOX --- */
+        .guarantee-box {
+            background: linear-gradient(135deg, var(--navy-main), #0f172a);
+            border: 2px solid var(--gold-premium);
+            border-radius: 20px;
+            padding: 50px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .guarantee-box::before {
+            content: '🛡️';
+            position: absolute;
+            font-size: 15rem;
+            opacity: 0.03;
+            top: -50px;
+            right: -50px;
+        }
+
+        .guarantee-title {
+            color: var(--gold-premium);
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        /* --- PRICING --- */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            align-items: center;
+        }
+
+        .price-card {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 50px 30px;
+            position: relative;
+            transition: var(--transition-smooth);
+        }
+
+        .price-card.basic {
+            background: rgba(15, 23, 42, 0.8);
+        }
+
+        /* Muted background for basic */
+        .price-card.pro {
+            border-color: var(--blue-accent);
+            background: linear-gradient(to bottom, rgba(14, 165, 233, 0.05), transparent);
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(14, 165, 233, 0.1);
+        }
+
+        .price-card.elite {
+            border-color: var(--gold-premium);
+            background: linear-gradient(to bottom, rgba(234, 179, 8, 0.05), transparent);
+        }
+
+        .tier-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 6px 20px;
+            border-radius: 20px;
+            font-family: 'JetBrains Mono';
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            white-space: nowrap;
+        }
+
+        .badge-pro {
+            background: var(--blue-accent);
+            color: white;
+        }
+
+        .badge-elite {
+            background: var(--gold-premium);
+            color: #000;
+            box-shadow: 0 0 20px var(--gold-glow);
+        }
+
+        .scarcity-tag {
+            display: block;
+            font-size: 0.75rem;
+            color: #ef4444;
+            font-family: 'Inter';
+            font-weight: 700;
+            margin-top: 10px;
+        }
+
+        .price-val {
+            font-size: 3.5rem;
+            font-weight: 900;
+            font-family: 'Montserrat';
+            margin: 20px 0;
+            color: white;
+        }
+
+        .price-val span {
+            font-size: 1rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .price-features {
+            list-style: none;
+            margin-bottom: 30px;
+            flex-grow: 1;
+        }
+
+        .price-features li {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--glass-border);
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .price-features li:last-child {
+            border-bottom: none;
+        }
+
+        .price-features i {
+            color: var(--blue-accent);
+            font-style: normal;
+            font-weight: bold;
+            margin-top: 2px;
+        }
+
+        .elite .price-features i {
+            color: var(--gold-premium);
+        }
+
+        .btn-pricing {
+            width: 100%;
+            text-align: center;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Montserrat';
+            font-weight: 800;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-basic {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--text-muted);
+            color: var(--text-main);
+        }
+
+        .btn-basic:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-pro {
+            background: var(--blue-accent);
+            color: white;
+            border: none;
+        }
+
+        .btn-pro:hover {
+            background: #0284c7;
+            box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3);
+        }
+
+        .btn-elite {
+            background: var(--gold-premium);
+            color: #000;
+            border: none;
+        }
+
+        .btn-elite:hover {
+            background: #ca8a04;
+            box-shadow: 0 10px 20px var(--gold-glow);
+        }
+
+        /* --- TESTIMONIALS (SUPABASE) --- */
+        .testimonial-masonry {
+            columns: 1;
+            column-gap: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .testimonial-masonry {
+                columns: 2;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .testimonial-masonry {
+                columns: 3;
+            }
+        }
+
+        .testimonial-card {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            break-inside: avoid;
+            transition: var(--transition-smooth);
+        }
+
+        .testimonial-card:hover {
+            border-color: var(--blue-accent);
+        }
+
+        .t-stars {
+            color: var(--gold-premium);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .t-text {
+            font-size: 0.95rem;
+            color: var(--text-main);
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .t-author {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .t-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--navy-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Montserrat';
+            font-weight: bold;
+            color: var(--blue-accent);
+        }
+
+        .t-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: white;
+            display: block;
+        }
+
+        .t-role {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* --- FAQ ACCORDION --- */
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        details {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            transition: var(--transition-smooth);
+        }
+
+        summary {
+            padding: 20px;
+            font-family: 'Montserrat';
+            font-weight: 700;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        summary::-webkit-details-marker {
+            display: none;
+        }
+
+        summary::after {
+            content: '+';
+            color: var(--blue-accent);
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+        }
+
+        details[open] {
+            border-color: var(--blue-accent);
+        }
+
+        details[open] summary::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            padding: 0 20px 20px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: #020617;
+            border-top: 1px solid var(--glass-border);
+            padding: 80px 20px 30px;
+            margin-top: 100px;
+        }
+
+        .footer-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+        }
+
+        .f-logo {
+            font-family: 'Montserrat';
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 15px;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .f-title {
+            font-size: 0.9rem;
+            color: var(--text-main);
+            margin-bottom: 20px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .f-links {
+            list-style: none;
+        }
+
+        .f-links li {
+            margin-bottom: 10px;
+        }
+
+        .f-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .f-links a:hover {
+            color: var(--blue-accent);
+        }
+
+        .f-bottom {
+            max-width: 1200px;
+            margin: 60px auto 0;
+            padding-top: 20px;
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'JetBrains Mono';
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 992px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 150px;
+            }
+
+            .vs-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .price-card.pro {
+                transform: scale(1);
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .flow-step {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .flow-step:not(:last-child)::after {
+                display: none;
+            }
+
+            .flow-icon {
+                margin: 0 auto 20px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .f-bottom {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="ambient-bg">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+    </div>
+
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="nav-logo">THE FLIP.</a>
+            <button class="mobile-menu-btn">☰</button>
+            <div class="nav-links">
+                <a href="#strategy">The Strategy</a>
+                <a href="#inside">Inside The Blueprint</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#faq">FAQ</a>
+                <a href="#pricing" class="nav-cta">Get The Playbook</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content reveal">
+            <span class="status-pill">THE INDIE HACKER DREAM IS A TRAP</span>
+            <h1 class="hero-title">Stop Building.<br>Start Flipping.</h1>
+            <p class="hero-subtitle">The definitive playbook for buying dead code for $500, fixing the "marketing rot"
+                in 30 days, and selling for $5,000+.</p>
+            <a href="#pricing" class="btn-glow">Get The Playbook</a>
+        </div>
+        <div class="hero-visual reveal" style="transition-delay: 0.2s;">
+            <div class="mockup-container">
+                <div class="mockup-text">THE MICRO-SAAS FLIP</div>
+                <div class="mockup-sub">OPERATIONAL BLUEPRINT + SOPs</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="trust-banner reveal">
+        <p class="trust-text">Strategies used to flip assets on</p>
+        <div class="trust-logos">
+            <div class="trust-logo">ACQUIRE.COM</div>
+            <div class="trust-logo">FLIPPA</div>
+            <div class="trust-logo">MICRONS</div>
+            <div class="trust-logo">PRODUCT HUNT</div>
+        </div>
+    </div>
+
+    <section class="section" id="strategy">
+        <div class="section-header reveal">
+            <span class="section-tag">// PARADIGM SHIFT</span>
+            <h2 class="section-title">Are you building, or are you operating?</h2>
+        </div>
+
+        <div class="vs-grid">
+            <div class="vs-card vs-builder reveal">
+                <h3 class="vs-title">The Builder (90% Fail)</h3>
+                <ul class="vs-list">
+                    <li>Spends 8 months writing perfect code.</li>
+                    <li>Launches on Product Hunt to crickets.</li>
+                    <li>Burns out trying to figure out marketing.</li>
+                    <li>Abandons a perfectly functional codebase.</li>
+                </ul>
+            </div>
+            <div class="vs-card vs-operator reveal" style="transition-delay: 0.2s;">
+                <h3 class="vs-title">The Operator (The Flip)</h3>
+                <ul class="vs-list">
+                    <li>Finds an abandoned app making $50/mo.</li>
+                    <li>Acquires validated code for a $500 flat offer.</li>
+                    <li>Executes a 30-Day Sprint to fix pricing & UI.</li>
+                    <li>Sells the momentum for a 5x multiple ($10k+).</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-header reveal">
+            <span class="section-tag">// EXECUTION PIPELINE</span>
+            <h2 class="section-title">The Digital Real Estate Model</h2>
+        </div>
+
+        <div class="flow-container">
+            <div class="flow-step reveal">
+                <div class="flow-icon">🕵️</div>
+                <div class="flow-content">
+                    <h3>Phase 1: The Hunt</h3>
+                    <p style="color: var(--text-muted);">Stop paying premium prices on broker sites. Learn the exact
+                        search operators to find off-market, abandoned GitHub repos and distressed assets you can buy
+                        for pennies.</p>
+                </div>
+            </div>
+            <div class="flow-step reveal">
+                <div class="flow-icon">⚖️</div>
+                <div class="flow-content">
+                    <h3>Phase 2: Due Diligence & Acquisition</h3>
+                    <p style="color: var(--text-muted);">Don't buy a scam. Get the exact 4-point audit to verify
+                        traffic, spot fake revenue, and safely transfer assets (Includes the Stripe-to-MoR migration
+                        guide).</p>
+                </div>
+            </div>
+            <div class="flow-step reveal">
+                <div class="flow-icon">⏱️</div>
+                <div class="flow-content">
+                    <h3>Phase 3: The 30-Day Sprint</h3>
+                    <p style="color: var(--text-muted);">The day-by-day roadmap to force asset appreciation. Learn how
+                        to implement decoy pricing, write trial conversion emails, and get free distribution.</p>
+                </div>
+            </div>
+            <div class="flow-step reveal">
+                <div class="flow-icon">💰</div>
+                <div class="flow-content">
+                    <h3>Phase 4: Cashing Out</h3>
+                    <p style="color: var(--text-muted);">How to write a prospectus that investors drool over. Learn how
+                        to justify a 5x valuation multiple and roll your profits into your next flip.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="inside">
+        <div class="section-header reveal">
+            <span class="section-tag">// THE ARSENAL</span>
+            <h2 class="section-title">Look Inside the SOPs</h2>
+            <p style="color: var(--text-muted); margin-top: 15px;">Included in the Pro & Elite Tiers.</p>
+        </div>
+
+        <div class="bento-grid">
+            <div class="bento-card reveal">
+                <div class="bento-visual">[ CHECKLIST DATA STREAM ]</div>
+                <div class="bento-content">
+                    <h3>SOP 1: Due Diligence Audit</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">The non-negotiable checklist to run before
+                        transferring funds. Avoid dying assets, legal liabilities, and technical nightmares.</p>
+                </div>
+            </div>
+            <div class="bento-card reveal" style="transition-delay: 0.1s;">
+                <div class="bento-visual">[ 30-DAY TIMELINE RENDER ]</div>
+                <div class="bento-content">
+                    <h3>SOP 2: The Sprint Tracker</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Your daily operating manual. From the Day 1
+                        UI facelift to the Day 30 Exit Prospectus. Remove the guesswork.</p>
+                </div>
+            </div>
+            <div class="bento-card reveal" style="transition-delay: 0.2s;">
+                <div class="bento-visual">[ OUTREACH ALGORITHM ]</div>
+                <div class="bento-content">
+                    <h3>SOP 3: Swipe File</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Proven copy-paste email templates to acquire
+                        underpriced assets and land B2B customers without spending on ads.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="guarantee-box reveal">
+            <h2 class="guarantee-title">The 30-Day Operator's Guarantee</h2>
+            <p style="color: var(--text-main); font-size: 1.1rem; max-width: 800px; margin: 0 auto; line-height: 1.8;">
+                I am confident in the math. If you purchase the playbook, apply the 30-Day Sprint to an acquired asset,
+                and it does not increase your MRR, email me your sprint tracking sheet. <strong>I will refund every
+                    penny.</strong> No risk. Only execution.
+            </p>
+        </div>
+    </section>
+
+    <section class="section" id="pricing">
+        <div class="section-header reveal">
+            <span class="section-tag">// ACQUISITION PROTOCOL</span>
+            <h2 class="section-title">Choose Your Arsenal</h2>
+        </div>
+
+        <div class="pricing-grid">
+            <div class="price-card basic reveal">
+                <div>
+                    <h3 style="font-size: 1.2rem;">The Blueprint</h3>
+                    <div class="price-val">$39 <span>USD</span></div>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">Perfect for the curious
+                        side-hustler.</p>
+                </div>
+                <ul class="price-features">
+                    <li><i>✓</i> The complete Micro-SaaS Flip E-Book</li>
+                    <li><i>✓</i> Lifetime digital updates</li>
+                    <li><i>✓</i> Digital PDF & ePub formats</li>
+                </ul>
+                <a href="https://abujalboush.gumroad.com/l/flip-t1" target="_blank" class="btn-pricing btn-basic">Get
+                    Basic</a>
+            </div>
+
+            <div class="price-card pro reveal" style="transition-delay: 0.1s;">
+                <div class="tier-badge badge-pro">MOST POPULAR</div>
+                <div>
+                    <h3 style="font-size: 1.2rem; color: var(--blue-accent);">The Operator</h3>
+                    <div class="price-val">$99 <span>USD</span></div>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">For those ready to
+                        execute their first flip.</p>
+                </div>
+                <ul class="price-features">
+                    <li><i>✓</i> Everything in The Blueprint</li>
+                    <li><i>✓</i> <strong>SOP 1:</strong> Due Diligence Checklist</li>
+                    <li><i>✓</i> <strong>SOP 2:</strong> 30-Day Sprint Tracker</li>
+                    <li><i>✓</i> <strong>SOP 3:</strong> Outreach Swipe File</li>
+                </ul>
+                <a href="https://abujalboush.gumroad.com/l/flip-t2" target="_blank" class="btn-pricing btn-pro">Get Pro
+                    Toolkit</a>
+            </div>
+
+            <div class="price-card elite reveal" style="transition-delay: 0.2s;">
+                <div class="tier-badge badge-elite">ELITE ACCESS</div>
+                <div>
+                    <h3 style="font-size: 1.2rem; color: var(--gold-premium);">The Dealmaker</h3>
+                    <span class="scarcity-tag">Strictly limited to 10 Async Reviews/mo. (3 spots left)</span>
+                    <div class="price-val">$249 <span>USD</span></div>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">For serious digital
+                        real estate investors.</p>
+                </div>
+                <ul class="price-features">
+                    <li><i>✓</i> Everything in Pro Tier</li>
+                    <li><i>✓</i> <strong>1-on-1 Async Deal Review (Loom)</strong></li>
+                    <li><i>✓</i> <strong>Private Deal Flow Network Access</strong></li>
+                    <li><i>✓</i> The Due Diligence Video Vault</li>
+                    <li><i>✓</i> Hidden Marketplace Rolodex</li>
+                </ul>
+                <a href="https://abujalboush.gumroad.com/l/flip-t3" target="_blank" class="btn-pricing btn-elite">Secure
+                    Elite
+                    Access</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-header reveal">
+            <span class="section-tag">// PROVEN RESULTS</span>
+            <h2 class="section-title">Operator Reports</h2>
+        </div>
+        <div id="testimonial-container" class="testimonial-masonry">
+            <div class="testimonial-card reveal active">
+                <div class="t-stars">★★★★★</div>
+                <p class="t-text">"I bought a dead Chrome extension for $300, applied SOP 2, and just flipped it on
+                    Acquire for $4,500. The pricing psychology section alone is worth the Elite tier price."</p>
+                <div class="t-author">
+                    <div class="t-avatar">A</div>
+                    <div><span class="t-name">Alex D.</span><span class="t-role">Software Engineer</span></div>
+                </div>
+            </div>
+            <div class="testimonial-card reveal active">
+                <div class="t-stars">★★★★★</div>
+                <p class="t-text">"Finally someone said it. Building from scratch is a trap. The cold outreach swipe
+                    files in this playbook got me 3 early B2B customers in my first week."</p>
+                <div class="t-author">
+                    <div class="t-avatar">S</div>
+                    <div><span class="t-name">Sarah M.</span><span class="t-role">Indie Hacker</span></div>
+                </div>
+            </div>
+            <div class="testimonial-card reveal active">
+                <div class="t-stars">★★★★★</div>
+                <p class="t-text">"The Due Diligence checklist saved me from buying a complete scam last month. This
+                    isn't just a book, it is a complete operational system."</p>
+                <div class="t-author">
+                    <div class="t-avatar">D</div>
+                    <div><span class="t-name">David K.</span><span class="t-role">Technical Founder</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="faq">
+        <div class="section-header reveal">
+            <span class="section-tag">// INTEL</span>
+            <h2 class="section-title">Frequently Asked Questions</h2>
+        </div>
+        <div class="faq-container">
+            <details class="reveal">
+                <summary>Do I need to be a senior developer to do this?</summary>
+                <div class="faq-answer">No. You need basic technical literacy (knowing how to deploy an app or hire a
+                    cheap freelancer on Upwork for 2 hours to do it for you). This is a marketing and operations
+                    playbook, not a coding tutorial.</div>
+            </details>
+            <details class="reveal">
+                <summary>How much capital do I need to start?</summary>
+                <div class="faq-answer">You can acquire your first distressed asset for between $300 and $1,000. Phase 1
+                    of the playbook teaches you how to find these off-market deals before they get marked up on broker
+                    sites.</div>
+            </details>
+            <details class="reveal">
+                <summary>Does this work outside the US (Stripe issues)?</summary>
+                <div class="faq-answer">Yes. In fact, Phase 2 includes a dedicated section on how international buyers
+                    (Middle East, Asia, Europe) can navigate payment gateways by bypassing Stripe and using Merchant of
+                    Record (MoR) solutions like Lemon Squeezy or Paddle.</div>
+            </details>
+            <details class="reveal">
+                <summary>What exactly is the "1-on-1 Async Deal Review" in the Elite Tier?</summary>
+                <div class="faq-answer">Before you spend your money on your first acquisition, you will send me the
+                    details of the deal. I will record a private 10-minute Loom video reviewing the codebase, the
+                    traffic, and the red flags, giving you a definitive "Buy" or "Pass" recommendation.</div>
+            </details>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <a href="#" class="f-logo">THE FLIP.</a>
+                <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-top: 10px;">
+                    Turning technical skills into operational equity. The premier digital real estate playbook for the
+                    modern software engineer.
+                </p>
+            </div>
+            <div>
+                <h4 class="f-title">THE ECOSYSTEM</h4>
+                <ul class="f-links">
+                    <li><a href="https://market.mohammad-abujalboush.com">The Operator Marketplace</a></li>
+                    <li><a href="#">SOP Vault</a></li>
+                    <li><a href="#pricing">Get The Playbook</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="f-title">THE ARCHITECT</h4>
+                <ul class="f-links">
+                    <li><a href="https://mohammad-abujalboush.com">Main Portfolio</a></li>
+                    <li><a href="#">LinkedIn</a></li>
+                    <li><a href="#">Contact Support</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="f-title">ACTIVE PROJECTS</h4>
+                <ul class="f-links">
+                    <li><a href="#">ERP Lite App</a></li>
+                    <li><a href="#">FinanceFlow Web</a></li>
+                    <li><a href="#">Thobe Tailoring System</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="f-bottom">
+            <span>&copy; 2026 MOHAMMAD ABU JALBOUSH. ALL RIGHTS RESERVED.</span>
+            <span>PROTOCOL STATUS: ONLINE</span>
+        </div>
+    </footer>
+
+    <script>
+        // 1. SCROLL REVEAL
+        const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // 2. SUPABASE LOGIC (Seamless Replacement)
+        const SUPABASE_URL = 'https://dvlabpioxtyyzvhzpmyc.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2bGFicGlveHR5eXp2aHpwbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1MDY4NzUsImV4cCI6MjA4OTA4Mjg3NX0.fBM9r7WXpntVUM-qsBDQFlknRf2vMyIpJTp5ww9pzUM';
+
+        async function fetchTestimonials() {
+            if (SUPABASE_URL === 'https://dvlabpioxtyyzvhzpmyc.supabase.co') return; // Exit silently, keep default HTML
+
+            try {
+                const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                const { data, error } = await supabase.from('testimonials').select('*').eq('product_id', 1).order('created_at', { ascending: false });
+
+                if (error) throw error;
+                if (data && data.length > 0) {
+                    const container = document.getElementById('testimonial-container');
+                    container.innerHTML = ''; // Only clear if we have data
+                    data.forEach(t => {
+                        const stars = '★'.repeat(t.rating || 5) + '☆'.repeat(5 - (t.rating || 5));
+                        const initial = t.name ? t.name.charAt(0).toUpperCase() : 'U';
+                        container.innerHTML += `
+                            <div class="testimonial-card reveal active">
+                                <div class="t-stars">${stars}</div>
+                                <p class="t-text">"${t.content}"</p>
+                                <div class="t-author">
+                                    <div class="t-avatar">${initial}</div>
+                                    <div><span class="t-name">${t.name}</span><span class="t-role">${t.role}</span></div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                }
+            } catch (err) { console.error("Supabase load failed, falling back to defaults.", err); }
+        }
+        document.addEventListener('DOMContentLoaded', fetchTestimonials);
+    </script>
+</body>
+
+</html>

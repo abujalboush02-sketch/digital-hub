@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOP 2: 30-Day Sprint Tracker</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@400;600&family=JetBrains+Mono:wght@700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --navy-main: #172554;
+            --blue-bright: #0070f3;
+            --accent-gold: #b5935b;
+            --text-dark: #0a192f;
+            --text-muted: #64748b;
+            --border-color: #cbd5e1;
+            --bg-slate: #f8fafc;
+            --font-display: 'Montserrat', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-print-color-adjust: exact;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-body);
+            background-color: #cbd5e1;
+            color: var(--text-dark);
+            line-height: 1.5;
+        }
+
+        .page {
+            width: 210mm;
+            height: 297mm;
+            padding: 15mm 20mm;
+            margin: 10mm auto;
+            background: white;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            border-top: 12px solid var(--navy-main);
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 3px solid var(--navy-main);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-family: var(--font-mono);
+            font-size: 10pt;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+        }
+
+        /* TITLE SECTION */
+        .title-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .sop-id {
+            color: var(--accent-gold);
+            font-family: var(--font-mono);
+            font-size: 10pt;
+            font-weight: 800;
+        }
+
+        .title {
+            font-family: var(--font-display);
+            font-size: 26pt;
+            font-weight: 900;
+            color: var(--navy-main);
+            margin: 5px 0;
+            letter-spacing: -1px;
+        }
+
+        .purpose-bar {
+            background: var(--bg-slate);
+            border-left: 5px solid var(--navy-main);
+            color: var(--navy-main);
+            padding: 15px 20px;
+            font-size: 10.5pt;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+
+        /* SPRINT TABLE SYSTEM */
+        .week-container {
+            margin-bottom: 1.8rem;
+        }
+
+        .week-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: var(--navy-main);
+            padding: 10px 15px;
+            border-radius: 6px 6px 0 0;
+        }
+
+        .week-num {
+            font-family: var(--font-mono);
+            font-size: 11pt;
+            font-weight: 900;
+            color: var(--accent-gold);
+        }
+
+        .week-title {
+            font-family: var(--font-display);
+            font-size: 12pt;
+            font-weight: 800;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .sprint-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 2px solid var(--navy-main);
+        }
+
+        .sprint-table td {
+            padding: 18px;
+            vertical-align: top;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .day-col {
+            width: 100px;
+            font-family: var(--font-mono);
+            font-size: 9pt;
+            font-weight: 800;
+            color: var(--blue-bright);
+            background: var(--bg-slate);
+            text-align: center;
+            border-right: 2px solid var(--navy-main);
+        }
+
+        .task-col h4 {
+            font-family: var(--font-display);
+            font-size: 11pt;
+            margin: 0 0 10px 0;
+            color: var(--navy-main);
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+
+        .checklist {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .checklist-item {
+            font-size: 10pt;
+            margin-bottom: 8px;
+            padding-left: 30px;
+            position: relative;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .checklist-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 2px;
+            width: 16px;
+            height: 16px;
+            border: 2.5px solid var(--accent-gold);
+            border-radius: 3px;
+        }
+
+        .page-footer {
+            margin-top: auto;
+            padding-top: 10px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            font-family: var(--font-mono);
+            font-size: 9pt;
+            color: var(--text-muted);
+            font-weight: 700;
+        }
+
+        .auth-box {
+            margin-top: 2rem;
+            text-align: center;
+            border: 2px dashed var(--accent-gold);
+            padding: 25px;
+            background: var(--bg-slate);
+        }
+
+        @media print {
+            body {
+                background: none;
+            }
+
+            .page {
+                margin: 0;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="page">
+        <div class="page-header"><span>SOP Series: 02</span><span>Operational Roadmap</span></div>
+
+        <div class="content-body">
+            <div class="title-section">
+                <span class="sop-id">BLUEPRINT // THE 30-DAY SPRINT</span>
+                <h1 class="title">Growth & Optimization Tracker</h1>
+                <div class="purpose-bar">
+                    <strong>OPERATING MANDATE:</strong> This manual dictates every action from fund clearance to exit
+                    readiness. Fix foundations; do not deviate.
+                </div>
+            </div>
+
+            <div class="week-container">
+                <div class="week-header">
+                    <span class="week-num">WEEK 01</span>
+                    <span class="week-title">Facelift & Pricing Overhaul</span>
+                </div>
+                <table class="sprint-table">
+                    <tr>
+                        <td class="day-col">DAYS<br>01 – 02</td>
+                        <td class="task-col">
+                            <h4>The Visual Pivot</h4>
+                            <ul class="checklist">
+                                <li class="checklist-item">Install premium UI template (Tailwind/HTML5).</li>
+                                <li class="checklist-item">Rewrite Hero: Must state [Action] for [Target] with
+                                    [Benefit].</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="day-col">DAYS<br>03 – 07</td>
+                        <td class="task-col">
+                            <h4>Revenue & Foundation</h4>
+                            <ul class="checklist">
+                                <li class="checklist-item">Kill "Lifetime Deals"; implement 3-Tier Decoy Pricing.</li>
+                                <li class="checklist-item">Verify analytics and test checkout with a real credit card.
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="week-container">
+                <div class="week-header">
+                    <span class="week-num">WEEK 02</span>
+                    <span class="week-title">Plugging Leaks (The Engine)</span>
+                </div>
+                <table class="sprint-table">
+                    <tr>
+                        <td class="day-col">DAYS<br>08 – 11</td>
+                        <td class="task-col">
+                            <h4>Automation Sequence</h4>
+                            <ul class="checklist">
+                                <li class="checklist-item">Setup MailerLite/Resend email infrastructure.</li>
+                                <li class="checklist-item">Deploy 3-Part Trial Sequence (Quick Win, Pro-Tip, Urgency).
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="day-col">DAYS<br>12 – 14</td>
+                        <td class="task-col">
+                            <h4>UI Friction Audit</h4>
+                            <ul class="checklist">
+                                <li class="checklist-item">Audit first-login flow; replace empty states with "Create"
+                                    buttons.</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="page-footer"><span>mohammad-abujalboush.com</span><span>PAGE 01 // 02</span></div>
+    </div>
+
+    <div class="page">
+        <div class="page-header"><span>SOP Series: 02</span><span>Operational Roadmap</span></div>
+
+        <div class="content-body">
+            <div class="week-container">
+                <div class="week-header">
+                    <span class="week-num">WEEK 03</span>
+                    <span class="week-title">Low-Hanging Distribution</span>
+                </div>
+                <table class="sprint-table">
+                    <tr>
+                        <td class="day-col">DAYS<br>15 – 18</td>
+                        <td class="task-col">
+                            <h4>Search & Visibility</h4>
+                            <ul class="checklist">
+                                <li class="checklist-item">Update all Page Titles/Meta for high-intent keywords.</li>
+                                <li class="checklist-item">Submit to Toolify.ai, BetaList, and 5 niche directories.</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="day-col">DAYS<br>19 – 21</td>
+                        <td class="task-col">
+                            <h4>Direct Outreach</h4>
+                            <ul class="checklist">
+                                <li class="checklist-item">Create "YourApp vs. Competitor" simplicity/price pages.</li>
+                                <li class="checklist-item">Apollo/LinkedIn outreach to 50 ideal targets.</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="week-container">
+                <div class="week-header">
+                    <span class="week-num">WEEK 04</span>
+                    <span class="week-title">Automation & Exit Prep</span>
+                </div>
+                <table class="sprint-table">
+                    <tr>
+                        <td class="day-col">DAYS<br>22 – 25</td>
+                        <td class="task-col">
+                            <h4>Turnkey Systems</h4>
+                            <ul class="checklist">
+                                <li class="checklist-item">Host public FAQ/Knowledge Base (HelpDocs).</li>
+                                <li class="checklist-item">Move all expenses to a single virtual credit card.</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="day-col">DAYS<br>26 – 30</td>
+                        <td class="task-col">
+                            <h4>Asset Handoff</h4>
+                            <ul class="checklist">
+                                <li class="checklist-item">Write 1-page Buyer SOPs for server and support.</li>
+                                <li class="checklist-item">Export P&L and draft Acquire.com/Flippa listing.</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="auth-box">
+                <p
+                    style="font-family: var(--font-mono); font-size: 10pt; color: var(--accent-gold); margin-bottom: 8px; font-weight: 800;">
+                    MANDATORY SPRINT PROTOCOL</p>
+                <p style="font-size: 10.5pt; color: var(--navy-main); font-weight: 600; line-height: 1.6;">
+                    The 30-day window is a race for equity. Any failure to optimize in Week 1 directly impacts the exit
+                    multiple in Week 4. This document serves as your official operating blueprint. Deviating into
+                    feature-building is a breach of the flip protocol.
+                </p>
+            </div>
+        </div>
+
+        <div class="page-footer"><span>mohammad-abujalboush.com</span><span>PAGE 02 // 02</span></div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOP 3: Cold Outreach Swipe File</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --navy-main: #172554;
+            --blue-bright: #0070f3;
+            --accent-gold: #b5935b;
+            --text-dark: #0a192f;
+            --text-muted: #64748b;
+            --border-color: #cbd5e1;
+            --bg-slate: #f8fafc;
+            --bg-script: #f1f5f9;
+            --font-display: 'Montserrat', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-print-color-adjust: exact;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-body);
+            background-color: #cbd5e1;
+            color: var(--text-dark);
+            line-height: 1.4;
+        }
+
+        .page {
+            width: 210mm;
+            height: 297mm;
+            padding: 15mm 20mm;
+            margin: 10mm auto;
+            background: white;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            border-top: 12px solid var(--navy-main);
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 3px solid var(--navy-main);
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+            font-family: var(--font-mono);
+            font-size: 10pt;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+        }
+
+        .title-section {
+            margin-bottom: 1rem;
+        }
+
+        .sop-id {
+            color: var(--accent-gold);
+            font-family: var(--font-mono);
+            font-size: 10pt;
+            font-weight: 800;
+        }
+
+        .title {
+            font-family: var(--font-display);
+            font-size: 24pt;
+            font-weight: 900;
+            color: var(--navy-main);
+            margin: 2px 0;
+            letter-spacing: -1px;
+        }
+
+        .purpose-bar {
+            background: var(--bg-slate);
+            border-left: 5px solid var(--navy-main);
+            color: var(--navy-main);
+            padding: 12px 18px;
+            font-size: 10pt;
+            margin-top: 8px;
+            font-weight: 600;
+        }
+
+        .part-header {
+            background: var(--navy-main);
+            color: white;
+            padding: 6px 12px;
+            font-family: var(--font-display);
+            font-size: 10pt;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 1.2rem 0 1rem 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .swipe-card {
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 1.2rem;
+            overflow: hidden;
+        }
+
+        .swipe-info {
+            padding: 10px 15px;
+            background: var(--bg-slate);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .swipe-tag {
+            font-family: var(--font-mono);
+            font-size: 8.5pt;
+            font-weight: 700;
+            color: var(--blue-bright);
+        }
+
+        .swipe-context {
+            font-size: 8.5pt;
+            font-style: italic;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .swipe-body {
+            padding: 15px;
+        }
+
+        .subject-line {
+            font-family: var(--font-display);
+            font-size: 9.5pt;
+            font-weight: 800;
+            color: var(--navy-main);
+            margin-bottom: 8px;
+            padding-bottom: 5px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .template-text {
+            background: var(--bg-script);
+            padding: 12px;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 9pt;
+            color: var(--navy-main);
+            white-space: pre-wrap;
+            line-height: 1.5;
+            border-left: 3px solid var(--accent-gold);
+        }
+
+        .insight-box {
+            background: var(--bg-slate);
+            border-left: 4px solid var(--accent-gold);
+            padding: 15px;
+            margin-top: 1rem;
+        }
+
+        .page-footer {
+            margin-top: auto;
+            padding-top: 10px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            font-family: var(--font-mono);
+            font-size: 9pt;
+            color: var(--text-muted);
+            font-weight: 700;
+        }
+
+        @media print {
+            body {
+                background: none;
+            }
+
+            .page {
+                margin: 0;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="page">
+        <div class="page-header"><span>SOP Series: 03</span><span>Communications Protocol</span></div>
+        <div class="content-body">
+            <div class="title-section">
+                <span class="sop-id">BLUEPRINT // BUY-SIDE SOURCING</span>
+                <h1 class="title">Cold Outreach Swipe File</h1>
+                <div class="purpose-bar">
+                    <strong>PURPOSE:</strong> Proven templates for acquiring underpriced assets and landing early B2B
+                    customers without spending money on ads.
+                </div>
+            </div>
+
+            <div class="part-header">
+                <span>PART 1: SOURCING ASSETS</span>
+                <span style="color: var(--accent-gold); opacity: 0.8;">THE BUY SIDE</span>
+            </div>
+
+            <div class="swipe-card">
+                <div class="swipe-info">
+                    <span class="swipe-tag">SWIPE 01 // THE ABANDONED REPO</span>
+                    <span class="swipe-context">Target: Inactive GitHub with commercial SaaS tier</span>
+                </div>
+                <div class="swipe-body">
+                    <div class="subject-line">Subject: Question about [Project Name]</div>
+                    <div class="template-text">Hey [Name],
+
+                        I was looking through the GitHub repo for [Project Name] today. Really elegant way you solved
+                        [Specific Technical Problem].
+
+                        I noticed there haven't been any commits in a while and the main site looks a bit quiet. Are you
+                        still actively working on this, or have you moved on to other projects?
+
+                        I run a small portfolio of micro-tools and specialize in taking over projects like this to keep
+                        the servers running for existing users. If you're looking to offload it, I'd be happy to make a
+                        fast, cash offer to take it off your hands this week.
+
+                        Best,
+                        [Your Name]</div>
+                </div>
+            </div>
+
+            <div class="insight-box">
+                <h4
+                    style="font-family: var(--font-display); font-size: 10pt; color: var(--navy-main); margin: 0 0 5px 0; text-transform: uppercase;">
+                    Technical Flattery</h4>
+                <p style="font-size: 9pt; margin: 0;">By mentioning a "Specific Technical Problem," you prove you aren't
+                    a bot. Developers are more likely to respond to someone who respects the engineering work.</p>
+            </div>
+        </div>
+        <div class="page-footer"><span>mohammad-abujalboush.com</span><span>PAGE 01 // 05</span></div>
+    </div>
+
+    <div class="page">
+        <div class="page-header"><span>SOP Series: 03</span><span>Communications Protocol</span></div>
+        <div class="content-body">
+            <div class="swipe-card" style="margin-top: 1rem;">
+                <div class="swipe-info">
+                    <span class="swipe-tag">SWIPE 02 // THE "SHUTTING DOWN" POST</span>
+                    <span class="swipe-context">Target: Post-mortem announcements</span>
+                </div>
+                <div class="swipe-body">
+                    <div class="subject-line">Subject: Don't shut down [App Name] just yet!</div>
+                    <div class="template-text">Hey [Name],
+
+                        Just read your post on [IndieHackers/Reddit]. Sorry to hear you're shutting down [App Name].
+                        Building is a grind, and I respect the decision to move on.
+
+                        Before you turn off the servers, would you be open to selling the assets?
+
+                        I buy small SaaS projects specifically to save them from being shut down. I can offer a quick
+                        cash buyout ($[Amount]) for the code, domain, and user list. It gives you a small exit win and
+                        ensures your users don't lose the tool.
+
+                        Let me know if you're open to a quick chat.
+
+                        Best,
+                        [Your Name]</div>
+                </div>
+            </div>
+
+            <h3
+                style="font-family: var(--font-display); font-size: 12pt; color: var(--navy-main); margin-top: 2rem; text-transform: uppercase;">
+                The Anchor Price Strategy</h3>
+            <p style="font-size: 10pt; line-height: 1.5; margin-bottom: 1rem;">When calculating the
+                <strong>$[Amount]</strong> for Swipe 02, use these operational brackets:</p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div style="background: var(--bg-slate); padding: 15px; border-radius: 6px;">
+                    <strong style="color: var(--blue-bright); font-size: 9pt;">The "Bail Out" ($500 - $2,000)</strong>
+                    <p style="font-size: 8.5pt; margin-top: 5px;">Best for apps with 0 revenue but established codebases
+                        and 100+ "dead" users.</p>
+                </div>
+                <div style="background: var(--bg-slate); padding: 15px; border-radius: 6px;">
+                    <strong style="color: var(--blue-bright); font-size: 9pt;">The "Multiple" (12x - 24x MRR)</strong>
+                    <p style="font-size: 8.5pt; margin-top: 5px;">For assets with proven revenue. Always anchor at the
+                        lower multiple (12x) for cold outreach.</p>
+                </div>
+            </div>
+        </div>
+        <div class="page-footer"><span>mohammad-abujalboush.com</span><span>PAGE 02 // 05</span></div>
+    </div>
+
+    <div class="page">
+        <div class="page-header"><span>SOP Series: 03</span><span>Communications Protocol</span></div>
+        <div class="content-body">
+            <div class="part-header">
+                <span>PART 2: CUSTOMER ACQUISITION</span>
+                <span style="color: var(--accent-gold); opacity: 0.8;">THE SELL SIDE</span>
+            </div>
+
+            <div class="swipe-card">
+                <div class="swipe-info">
+                    <span class="swipe-tag">SWIPE 03 // THE B2B OFFER</span>
+                    <span class="swipe-context">Target: ICP LinkedIn/Cold Email (Week 3 Sprint)</span>
+                </div>
+                <div class="swipe-body">
+                    <div class="subject-line">Subject: Quick question about your [Process]</div>
+                    <div class="template-text">Hey [Name],
+
+                        Saw that [Company Name] is scaling up your [Relevant Department/Action].
+
+                        I recently took over a tool called [App Name]. It completely automates [Specific Pain Point]. We
+                        just revamped the entire platform and I'm looking for a few sharp operators to test it out.
+
+                        I'm not trying to sell you a subscription today. I'd love to give you a completely free Pro
+                        account for the next month. In exchange, all I ask is 2 sentences of feedback on how we can
+                        improve it.
+
+                        Mind if I send over the access link?
+
+                        Best,
+                        [Your Name]</div>
+                </div>
+            </div>
+
+            <div class="insight-box" style="border-left-color: var(--blue-bright);">
+                <h4
+                    style="font-family: var(--font-display); font-size: 10pt; color: var(--navy-main); margin: 0 0 5px 0; text-transform: uppercase;">
+                    Low-Friction Conversions</h4>
+                <p style="font-size: 9pt; margin: 0;">"I'm not trying to sell you a subscription today" is the most
+                    powerful sentence in cold outreach. It lowers friction and frames the interaction as a professional
+                    exchange of value rather than a pitch.</p>
+            </div>
+        </div>
+        <div class="page-footer"><span>mohammad-abujalboush.com</span><span>PAGE 03 // 05</span></div>
+    </div>
+
+    <div class="page">
+        <div class="page-header"><span>SOP Series: 03</span><span>Communications Protocol</span></div>
+        <div class="content-body">
+            <div class="swipe-card" style="margin-top: 1rem;">
+                <div class="swipe-info">
+                    <span class="swipe-tag">SWIPE 04 // THE NEWSLETTER PITCH</span>
+                    <span class="swipe-context">Target: Niche newsletter curators</span>
+                </div>
+                <div class="swipe-body">
+                    <div class="subject-line">Subject: A new tool for your readers (and a free upgrade)</div>
+                    <div class="template-text">Hey [Name],
+
+                        I've been a subscriber to [Newsletter Name] for a few months—loved the recent piece on [Topic].
+
+                        I run a micro-SaaS called [App Name] that helps [Target Audience] do [Benefit]. Since your
+                        audience is exactly who we built this for, I'd love to offer your readers an exclusive perk.
+
+                        If you think it's a fit for an upcoming issue, I can generate a promo code ([NEWSLETTERNAME]20)
+                        that gives your readers 20% off for life.
+
+                        Let me know if you'd like a free account to play around with it first!
+
+                        Best,
+                        [Your Name]</div>
+                </div>
+            </div>
+
+            <h3
+                style="font-family: var(--font-display); font-size: 12pt; color: var(--navy-main); margin-top: 2rem; text-transform: uppercase;">
+                The Directory Hunt Strategy</h3>
+            <p style="font-size: 10pt; line-height: 1.5; margin-bottom: 1rem;">To maximize the reach of Swipe 04, target
+                curators on these platforms:</p>
+            <ul style="font-size: 9.5pt; color: var(--text-dark); padding-left: 20px;">
+                <li style="margin-bottom: 10px;"><strong>Substack Search:</strong> Find newsletters with 1,000 - 5,000
+                    subscribers. They are hungry for high-value tools to share.</li>
+                <li style="margin-bottom: 10px;"><strong>Toolify.ai / BetaList:</strong> Reach out to the owners of
+                    niche directories to ask for a "Featured Spot" using the free account offer as a hook.</li>
+            </ul>
+        </div>
+        <div class="page-footer"><span>mohammad-abujalboush.com</span><span>PAGE 04 // 05</span></div>
+    </div>
+
+    <div class="page">
+        <div class="page-header"><span>SOP Series: 03</span><span>Strategic Execution</span></div>
+        <div class="content-body">
+            <div class="part-header">
+                <span>PART 3: THE FOLLOW-UP PROTOCOL</span>
+                <span style="color: var(--accent-gold); opacity: 0.8;">80% OF DEALS</span>
+            </div>
+
+            <div class="swipe-card">
+                <div class="swipe-info">
+                    <span class="swipe-tag">SWIPE 05 // THE 3-DAY BUMP</span>
+                    <span class="swipe-context">Context: Use 72 hours after no reply</span>
+                </div>
+                <div class="swipe-body">
+                    <div class="subject-line">Subject: Re: [Original Subject]</div>
+                    <div class="template-text">Hey [Name],
+
+                        Just bumping this to the top of your inbox.
+
+                        I know you're busy—still want that access link for the free Pro account for [App Name]? No
+                        pressure either way.
+
+                        Best,
+                        [Your Name]</div>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 1rem;">
+                <div
+                    style="background: var(--bg-slate); padding: 12px; border-radius: 6px; border: 1px solid var(--border-color);">
+                    <strong style="font-size: 9pt; color: var(--navy-main);">Outreach Tech Stack</strong>
+                    <p style="font-size: 8.5pt; margin: 5px 0 0 0;"><strong>Apollo.io</strong> for lead sourcing and
+                        <strong>Instantly.ai</strong> for automated, high-deliverability follow-ups.</p>
+                </div>
+                <div
+                    style="background: var(--bg-slate); padding: 12px; border-radius: 6px; border: 1px solid var(--border-color);">
+                    <strong style="font-size: 9pt; color: var(--navy-main);">Target Metrics (KPIs)</strong>
+                    <p style="font-size: 8.5pt; margin: 5px 0 0 0;">Open Rate: <strong>45% +</strong><br>Reply Rate:
+                        <strong>5-8%</strong><br>Conversion: <strong>2%</strong></p>
+                </div>
+            </div>
+
+            <div
+                style="margin-top: 2rem; padding: 25px; border: 2px dashed var(--accent-gold); text-align: center; background: var(--bg-slate);">
+                <p
+                    style="font-family: var(--font-mono); font-size: 9pt; color: var(--navy-main); margin: 0; font-weight: 800; text-transform: uppercase;">
+                    Final Mandate: Outreach is a volume game backed by personalization. Proving you have done research
+                    on the person increases the success rate by 400%. Execute daily.
+                </p>
+            </div>
+        </div>
+        <div class="page-footer"><span>mohammad-abujalboush.com</span><span>PAGE 05 // 05</span></div>
+    </div>
+
+</body>
+
+</html>
