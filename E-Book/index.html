@@ -1193,8 +1193,7 @@
         </div>
         <div class="hero-visual reveal" style="transition-delay: 0.2s;">
             <div class="mockup-container">
-                <div class="mockup-text">THE MICRO-SAAS FLIP</div>
-                <div class="mockup-sub">OPERATIONAL BLUEPRINT + SOPs</div>
+                <img src="mockup.png" alt="The Micro-SaaS Flip Bundle">
             </div>
         </div>
     </section>
@@ -1510,32 +1509,48 @@
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2bGFicGlveHR5eXp2aHpwbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1MDY4NzUsImV4cCI6MjA4OTA4Mjg3NX0.fBM9r7WXpntVUM-qsBDQFlknRf2vMyIpJTp5ww9pzUM';
 
         async function fetchTestimonials() {
-            if (SUPABASE_URL === 'https://dvlabpioxtyyzvhzpmyc.supabase.co') return; // Exit silently, keep default HTML
-
             try {
-                const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-                const { data, error } = await supabase.from('testimonials').select('*').eq('product_id', 1).order('created_at', { ascending: false });
+                // FIX 1: Rename to supabaseClient and use window.supabase
+                const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+                const { data, error } = await supabaseClient
+                    .from('testimonials')
+                    .select('*')
+                    .eq('product_id', '83d7cc84-0b38-45cf-812b-b9e9fe8d5e07')
+                    .eq('is_approved', true) // Only show approved testimonials!
+                    .order('created_at', { ascending: false });
 
                 if (error) throw error;
+
+                // If it finds data, replace the placeholders
                 if (data && data.length > 0) {
                     const container = document.getElementById('testimonial-container');
-                    container.innerHTML = ''; // Only clear if we have data
+                    container.innerHTML = ''; // Clears the hardcoded html
+
                     data.forEach(t => {
                         const stars = '★'.repeat(t.rating || 5) + '☆'.repeat(5 - (t.rating || 5));
-                        const initial = t.name ? t.name.charAt(0).toUpperCase() : 'U';
+
+                        // FIX 2: Update variables to match your exact database columns
+                        const initial = t.user_name ? t.user_name.charAt(0).toUpperCase() : 'U';
+
                         container.innerHTML += `
                             <div class="testimonial-card reveal active">
                                 <div class="t-stars">${stars}</div>
-                                <p class="t-text">"${t.content}"</p>
+                                <p class="t-text">"${t.message}"</p>
                                 <div class="t-author">
                                     <div class="t-avatar">${initial}</div>
-                                    <div><span class="t-name">${t.name}</span><span class="t-role">${t.role}</span></div>
+                                    <div>
+                                        <span class="t-name">${t.user_name}</span>
+                                        <span class="t-role">Verified Buyer</span>
+                                    </div>
                                 </div>
                             </div>
                         `;
                     });
                 }
-            } catch (err) { console.error("Supabase load failed, falling back to defaults.", err); }
+            } catch (err) {
+                console.error("Supabase load failed, falling back to defaults.", err);
+            }
         }
         document.addEventListener('DOMContentLoaded', fetchTestimonials);
 
