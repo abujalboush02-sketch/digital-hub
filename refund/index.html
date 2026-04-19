@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refund Policy | M. Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        accent: '#38bdf8',
+                        light: { bg: '#F8FAFC', text: '#0F172A', surface: '#FFFFFF', border: '#E2E8F0', muted: '#64748B' },
+                        dark: { bg: '#0A0A0B', text: '#FFFFFF', surface: '#1A1A1B', border: 'rgba(255, 255, 255, 0.1)', muted: 'rgba(255, 255, 255, 0.4)' },
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .legal-content h2 {
+            color: inherit;
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: -0.025em;
+        }
+
+        .legal-content h3 {
+            color: #38bdf8;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+        }
+
+        .legal-content p,
+        .legal-content ul,
+        .legal-content ol {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            color: inherit;
+            opacity: 0.8;
+        }
+
+        .legal-content ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+        }
+
+        .legal-content ol {
+            list-style-type: decimal;
+            padding-left: 1.5rem;
+        }
+
+        .legal-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .legal-content a {
+            color: #38bdf8;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        .legal-content a:hover {
+            opacity: 0.8;
+        }
+
+        /* Footer Styles */
+        .f-title {
+            font-size: 0.9rem;
+            color: inherit;
+            margin-bottom: 20px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #38bdf8;
+        }
+
+        .f-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .f-links li {
+            margin-bottom: 12px;
+        }
+
+        .f-links a {
+            color: var(--tw-prose-body);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+            opacity: 0.7;
+        }
+
+        .f-links a:hover {
+            color: #38bdf8;
+            opacity: 1;
+        }
+
+        .f-bottom {
+            border-top: 1px solid var(--tw-prose-hr);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: ui-monospace, monospace;
+            font-size: 0.75rem;
+            opacity: 0.5;
+            padding-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .f-bottom {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body
+    class="bg-light-bg text-light-text dark:bg-dark-bg dark:text-dark-text antialiased font-sans min-h-screen flex flex-col">
+
+    <nav
+        class="sticky top-0 z-50 backdrop-blur-md bg-light-surface/80 dark:bg-dark-surface/80 border-b border-light-border dark:border-dark-border">
+        <div class="max-w-4xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="index.html"
+                class="text-xl font-bold tracking-tighter flex items-center gap-2 hover:text-accent transition-colors">
+                <span class="text-accent">M.</span> Solutions
+            </a>
+            <div
+                class="flex items-center bg-light-bg dark:bg-dark-bg p-1 rounded-full border border-light-border dark:border-dark-border relative">
+                <button id="theme-toggle"
+                    class="relative flex items-center justify-between w-16 h-8 rounded-full transition-all">
+                    <div id="theme-slider"
+                        class="absolute top-0 left-0 w-8 h-8 bg-accent rounded-full transition-transform duration-300 ease-in-out">
+                    </div>
+                    <span class="z-10 w-8 h-8 flex items-center justify-center text-xs">☀️</span>
+                    <span class="z-10 w-8 h-8 flex items-center justify-center text-xs">🌙</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-1 max-w-4xl mx-auto px-6 py-20 w-full">
+        <div class="mb-16 pb-8 border-b border-light-border dark:border-dark-border">
+            <p class="text-accent font-mono text-xs uppercase tracking-widest mb-4">Legal Framework</p>
+            <h1 class="text-4xl md:text-5xl font-black tracking-tighter mb-4">Refund Policy</h1>
+            <p class="text-light-muted dark:text-dark-muted font-mono text-xs">EFFECTIVE_DATE: April 2026 // VERSION:
+                3.1.0</p>
+        </div>
+
+        <div class="legal-content text-sm md:text-base">
+            <p>This Refund Protocol outlines the financial terms under which refunds are evaluated and provided for all
+                digital assets, educational playbooks, Standard Operating Procedures (SOPs), and consulting services
+                provided by <strong>M. Solutions</strong>. By executing a transaction on our marketplace, you explicitly
+                agree to these parameters.</p>
+
+            <h3>01 // The Baseline Protocol</h3>
+            <h2>Digital Goods & "Buyer's Remorse"</h2>
+            <p>Due to the irrevocable and easily duplicated nature of digital goods (such as PDF playbooks, Notion
+                templates, source code, and SOPs), <strong>all sales of digital products are inherently final.</strong>
+            </p>
+            <p>We do not grant refunds based on "buyer's remorse," a lack of financial capital to execute the
+                strategies, or failure to read the product descriptions prior to purchase. When you purchase our
+                playbooks, you are gaining immediate access to proprietary operational intelligence that cannot be
+                "returned."</p>
+
+            <h3>02 // The Conditional Exception</h3>
+            <h2>The 30-Day Operator's Guarantee</h2>
+            <p>We stand behind the operational mathematics of our systems. We offer an <strong>Action-Based Refund
+                    Guarantee</strong> for purchasers of our Pro and Elite tiers who actively execute the framework but
+                fail to see results.</p>
+            <p>To qualify for a refund under this guarantee, you must prove that you executed the system. You must
+                submit the following documentation to our support desk within 45 days of your original purchase:</p>
+            <ul>
+                <li><strong>Proof of Acquisition:</strong> Evidence that you successfully acquired an asset using the
+                    Due Diligence framework.</li>
+                <li><strong>The Sprint Tracker:</strong> A fully completed copy of <em>SOP 2: The 30-Day Sprint
+                        Tracker</em>, detailing the exact dates you executed the UI facelift, pricing restructures, and
+                    outreach phases.</li>
+                <li><strong>Financial Evidence:</strong> P&L or Stripe dashboard screenshots proving that despite
+                    executing the 30-Day Sprint precisely as written, the Monthly Recurring Revenue (MRR) of the
+                    acquired asset did not increase.</li>
+            </ul>
+            <p>If you put in the work and the system fails you, we will refund 100% of your purchase price. <em>Note:
+                    This guarantee does not cover failure to acquire an asset due to a lack of effort or capital. It
+                    only covers the failure of the optimization system post-acquisition.</em></p>
+
+            <h3>03 // Service Execution</h3>
+            <h2>Elite Tier Async Deal Reviews</h2>
+            <p>For purchasers of the Elite Tier, the "1-on-1 Async Deal Review" is a premium, time-intensive consulting
+                service. Once you have submitted a deal for review and our Lead Engineer has recorded and delivered the
+                Loom video analysis to you, that specific portion of the Elite Tier value is considered <strong>fully
+                    executed and entirely non-refundable</strong>, regardless of whether you ultimately purchase the
+                evaluated asset.</p>
+
+            <h3>04 // Compliance & Enforcement</h3>
+            <h2>Chargebacks & Payment Disputes</h2>
+            <p>We respectfully request that you contact our support team to resolve any anomalies or request an
+                action-based refund before initiating a chargeback with your financial institution or Merchant of Record
+                (e.g., Gumroad).</p>
+            <p>If a chargeback is filed without prior communication or without submitting the required proof of
+                execution, your account will be immediately suspended. Fraudulent chargebacks will result in a permanent
+                ban from all current and future operational assets within the M. Solutions ecosystem.</p>
+
+            <h3>05 // Execution</h3>
+            <h2>How to Submit a Protocol Request</h2>
+            <p>To initiate a refund request that aligns with the eligible parameters outlined above, please execute the
+                following protocol:</p>
+            <ol>
+                <li>Submit a structured request via email to <a
+                        href="mailto:mohammadabujalboush02@gmail.com">mohammadabujalboush02@gmail.com</a>.</li>
+                <li>Include your account email address, transaction ID, and the specific tier purchased.</li>
+                <li>Attach all required proof of execution (The completed Sprint Tracker, asset URLs, and dashboard
+                    screenshots).</li>
+            </ol>
+            <p>Approved refunds are processed within 5 to 10 business days and will be routed back to the original
+                method of payment via our Merchant of Record.</p>
+        </div>
+    </main>
+
+    <footer class="py-12 mt-20" style="background: transparent; border-top: 1px solid var(--tw-prose-hr);">
+        <div
+            style="max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; text-align: center; padding: 0 20px;">
+            <div>
+                <h4 class="f-title">ECOSYSTEM</h4>
+                <ul class="f-links">
+                    <li><a href="https://mohammad-abujalboush.com">Main Domain</a></li>
+                    <li><a href="https://market.mohammad-abujalboush.com">The Marketplace</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="f-title">SUPPORT</h4>
+                <ul class="f-links">
+                    <li><a href="https://help.mohammad-abujalboush.com">Help Center</a></li>
+                    <li><a href="#">Submit Feedback</a></li>
+                    <li><a href="https://refund.mohammad-abujalboush.com">Refund Policy</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="f-title">LEGAL</h4>
+                <ul class="f-links">
+                    <li><a href="https://terms.mohammad-abujalboush.com">Terms of Service</a></li>
+                    <li><a href="https://privacy.mohammad-abujalboush.com">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="f-bottom"
+            style="margin-top: 60px; max-width: 900px; margin-left: auto; margin-right: auto; padding-left: 20px; padding-right: 20px;">
+            <span>&copy; 2026 MOHAMMAD ABU JALBOUSH. ALL RIGHTS RESERVED.</span>
+            <span>PROTOCOL STATUS: ONLINE</span>
+        </div>
+    </footer>
+
+    <script>
+        const toggleBtn = document.getElementById('theme-toggle');
+        const slider = document.getElementById('theme-slider');
+        const setTheme = (isDark) => {
+            if (isDark) { document.documentElement.classList.add('dark'); slider.style.transform = 'translateX(32px)'; localStorage.theme = 'dark'; }
+            else { document.documentElement.classList.remove('dark'); slider.style.transform = 'translateX(0px)'; localStorage.theme = 'light'; }
+        };
+        setTheme(localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches));
+        toggleBtn.addEventListener('click', () => setTheme(!document.documentElement.classList.contains('dark')));
+    </script>
+</body>
+
+</html>

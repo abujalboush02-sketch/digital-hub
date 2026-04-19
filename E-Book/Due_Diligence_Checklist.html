@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOP 1: Due Diligence Master Checklist</title>
+    <style>
+        :root {
+            /* BRANDED COLOR PALETTE */
+            --navy-main: #172554;
+            /* Deep Branded Navy */
+            --navy-muted: #162a4a;
+            /* Muted Navy for sub-text */
+            --blue-bright: #0070f3;
+            /* Branded Action Blue */
+            --accent-gold: #b5935b;
+            /* Premium Gold Accent */
+
+            --text-dark: #0a192f;
+            /* No pure black, always deep navy */
+            --text-muted: #4b5563;
+            --text-light: #9ca3af;
+
+            --bg-offwhite: #f9fafb;
+            --bg-slate: #f1f5f9;
+            --border-color: #e5e7eb;
+
+            --font-display: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-print-color-adjust: exact;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-display);
+            background-color: #d1d5db;
+            color: var(--text-dark);
+            line-height: 1.5;
+        }
+
+        .page {
+            width: 210mm;
+            height: 297mm;
+            padding: 15mm 20mm;
+            margin: 10mm auto;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border-top: 6px solid var(--navy-main);
+            /* Top Accent from Book */
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-family: var(--font-mono);
+            font-size: 9pt;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-light);
+        }
+
+        .page-header span:last-child {
+            color: var(--accent-gold);
+            /* Gold for Series Number */
+            font-weight: 800;
+        }
+
+        .content-body {
+            flex-grow: 1;
+        }
+
+        .title-block {
+            margin-bottom: 1.5rem;
+            border-left: 5px solid var(--accent-gold);
+            /* Gold Left Border */
+            padding-left: 20px;
+        }
+
+        .sop-label {
+            display: inline-block;
+            background: var(--navy-main);
+            color: white;
+            padding: 4px 12px;
+            font-family: var(--font-mono);
+            font-size: 8pt;
+            font-weight: 700;
+            margin-bottom: 10px;
+            border-radius: 2px;
+            letter-spacing: 1px;
+        }
+
+        .title {
+            font-size: 24pt;
+            font-weight: 900;
+            color: var(--navy-main);
+            margin: 0;
+            line-height: 1.1;
+        }
+
+        .purpose-box {
+            background: var(--bg-slate);
+            border-left: 4px solid var(--navy-main);
+            padding: 15px 20px;
+            margin-bottom: 1.5rem;
+            font-size: 10pt;
+        }
+
+        .section-title {
+            font-size: 13pt;
+            font-weight: 800;
+            color: var(--navy-main);
+            border-bottom: 1px solid var(--accent-gold);
+            /* Gold Underline */
+            padding-bottom: 5px;
+            margin: 1.5rem 0 1rem 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-num {
+            background: var(--navy-main);
+            color: white;
+            width: 22px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8pt;
+            margin-right: 10px;
+            border-radius: 2px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .audit-card {
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            border-radius: 6px;
+            background: white;
+            transition: border 0.3s ease;
+        }
+
+        .audit-card h3 {
+            font-size: 10pt;
+            margin: 0 0 8px 0;
+            color: var(--navy-main);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .audit-card ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .audit-card li {
+            font-size: 9pt;
+            margin-bottom: 8px;
+            padding-left: 24px;
+            position: relative;
+            color: var(--text-dark);
+            /* Using Branded Navy Text */
+        }
+
+        .audit-card li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 2px;
+            width: 14px;
+            height: 14px;
+            border: 1.5px solid var(--accent-gold);
+            /* Branded Gold Checkboxes */
+            border-radius: 2px;
+            background: white;
+        }
+
+        .callout-box {
+            background: #fffbeb;
+            border: 1px solid #fef3c7;
+            border-left: 4px solid var(--blue-bright);
+            /* Blue for Warnings */
+            padding: 12px 20px;
+            margin-top: 15px;
+            font-size: 9pt;
+        }
+
+        .page-footer {
+            margin-top: 20px;
+            padding-top: 10px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            font-family: var(--font-mono);
+            font-size: 8pt;
+            color: var(--text-light);
+        }
+
+        @media print {
+            body {
+                background: none;
+            }
+
+            .page {
+                margin: 0;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="page">
+        <div class="page-header"><span>SOP Series: 01</span><span>Due Diligence Protocol</span></div>
+
+        <div class="content-body">
+            <div class="title-block">
+                <div class="sop-label">OPERATIONAL BLUEPRINT</div>
+                <h1 class="title">The Micro-SaaS Due Diligence Master Checklist</h1>
+            </div>
+
+            <div class="purpose-box">
+                <strong>PURPOSE:</strong> Use this checklist <em>before</em> transferring any funds. This prevents you
+                from buying a dying asset, a legal liability, or a technical nightmare.
+            </div>
+
+            <div class="section-title">
+                <div class="section-num">01</div> Traffic & User Verification
+            </div>
+            <div class="grid-2">
+                <div class="audit-card">
+                    <h3>Data Integrity</h3>
+                    <ul>
+                        <li><strong>Request View-Only Analytics:</strong> Ask for Google Analytics, Plausible, or Fathom
+                            access. Do not accept screenshots.</li>
+                        <li><strong>Verify Active Users:</strong> Cross-reference database user counts with analytics
+                            active user data.</li>
+                    </ul>
+                </div>
+                <div class="audit-card">
+                    <h3>Traffic Quality</h3>
+                    <ul>
+                        <li><strong>Bot Detection:</strong> Check "Average Session Duration" and "Bounce Rate". If
+                            average time on site is &lt; 5 seconds, it is likely bot traffic.</li>
+                        <li><strong>Fragility Check:</strong> Ensure traffic isn't reliant on a single source. Look for
+                            consistent organic/direct traffic.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section-title">
+                <div class="section-num">02</div> Financial Audit
+            </div>
+            <div class="grid-2">
+                <div class="audit-card" style="border-left: 3px solid var(--blue-bright);">
+                    <h3>Revenue Verification</h3>
+                    <ul>
+                        <li><strong>Direct Access:</strong> Request view-only access to Stripe or Lemon Squeezy.</li>
+                        <li><strong>MRR vs. Spikes:</strong> Ensure Monthly Recurring Revenue is actually
+                            <em>recurring</em> and not just a spike from lifetime deals.
+                        </li>
+                    </ul>
+                </div>
+                <div class="audit-card" style="border-left: 3px solid var(--blue-bright);">
+                    <h3>The Profit Margin</h3>
+                    <ul>
+                        <li><strong>Churn Rate:</strong> If they add 10 users but lose 9, the core product is broken.
+                        </li>
+                        <li><strong>True Expense Audit:</strong> Subtract all costs (AWS, Vercel, Mailgun, API credits)
+                            from MRR to find true profit.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="callout-box">
+                <strong>Operator's Warning: The Analytics Trap</strong>
+                <p>Never base an acquisition on a shared screen or a PDF report. High-level scammers can easily spoof
+                    dashboard UI using browser developer tools. View-only access to the source data is the only
+                    non-negotiable proof of health.</p>
+            </div>
+        </div>
+
+        <div class="page-footer"><span>mohammad-abujalboush.com</span><span>SOP 01 — PAGE 01</span></div>
+    </div>
+
+    <div class="page">
+        <div class="page-header"><span>SOP Series: 01</span><span>Due Diligence Protocol</span></div>
+
+        <div class="content-body">
+            <div class="section-title">
+                <div class="section-num">03</div> Technology & Codebase
+            </div>
+            <div class="grid-2" style="margin-bottom: 1.5rem;">
+                <div class="audit-card">
+                    <h3>Technical Health</h3>
+                    <ul>
+                        <li><strong>Stack Review:</strong> Ensure standard frameworks (React, Node, Python, etc.).
+                            Reject obscure or obsolete languages.</li>
+                        <li><strong>Dependency Audit:</strong> Check if core packages are dangerously out of date.</li>
+                    </ul>
+                </div>
+                <div class="audit-card">
+                    <h3>Infrastructure</h3>
+                    <ul>
+                        <li><strong>Hosting Complexity:</strong> Can it run on Vercel/Heroku, or does it require
+                            expensive, complex AWS architecture?</li>
+                        <li><strong>Database Handoff:</strong> Confirm exact transfer method (e.g., Postgres dump or
+                            MongoDB transfer).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section-title">
+                <div class="section-num">04</div> Payment Gateway & Legal
+            </div>
+            <div class="audit-card" style="margin-bottom: 1.5rem;">
+                <div class="grid-2">
+                    <div>
+                        <h3>Compliance Check</h3>
+                        <ul>
+                            <li><strong>MoR Transition:</strong> If you are in an unsupported Stripe country, ensure the
+                                API allows a quick swap to Lemon Squeezy.</li>
+                            <li><strong>TOS Alignment:</strong> Ensure the app doesn't violate 3rd party rules.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Ownership Rights</h3>
+                        <ul>
+                            <li><strong>IP Ownership:</strong> Get written confirmation that the founder owns 100% of
+                                the code and is transferring all IP rights.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-title" style="color: var(--accent-gold); border-bottom-color: var(--accent-gold);">
+                <div class="section-num" style="background: var(--accent-gold);">05</div> The Handoff (Escrow Protocol)
+            </div>
+            <div class="audit-card" style="background: var(--bg-slate); border: 2px solid var(--accent-gold);">
+                <h3 style="color: var(--navy-main);">Execution Steps:</h3>
+                <ul style="margin-top: 10px;">
+                    <li style="color: var(--navy-main); font-weight: 600;">Set up an Escrow.com or similar secure
+                        transaction.</li>
+                    <li style="color: var(--navy-main); font-weight: 600;">Transfer Domain Name via registrar push.</li>
+                    <li style="color: var(--navy-main); font-weight: 600;">Transfer GitHub/GitLab repository ownership.
+                    </li>
+                    <li style="color: var(--navy-main); font-weight: 600;">Transfer all Social Media accounts (X,
+                        LinkedIn, etc.).</li>
+                    <li
+                        style="color: var(--navy-main); font-weight: 800; border-top: 1px solid #cbd5e1; padding-top: 10px; margin-top: 10px;">
+                        RELEASE FUNDS ONLY after compiling the code locally and verifying it runs.
+                    </li>
+                </ul>
+            </div>
+
+            <div style="margin-top: 3rem; text-align: center; border: 1px dashed var(--accent-gold); padding: 20px;">
+                <p
+                    style="font-family: var(--font-mono); font-size: 8pt; color: var(--accent-gold); margin-bottom: 5px;">
+                    AUTHORIZATION REQUIRED</p>
+                <p style="font-size: 10pt; color: var(--navy-main); opacity: 0.8;">This document serves as the primary
+                    filter for all Micro-SaaS acquisitions. Any asset that fails more than two checks in Section 01 or
+                    02 should be discarded immediately.</p>
+            </div>
+        </div>
+
+        <div class="page-footer"><span>mohammad-abujalboush.com</span><span>SOP 01 — PAGE 02</span></div>
+    </div>
+
+</body>
+
+</html>

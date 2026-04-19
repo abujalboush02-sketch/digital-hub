@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Lab | Beta Testing Portal</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #020617;
+            color: #f8fafc;
+        }
+
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .glass {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #10B981 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* ROBUST FORM FIXES */
+        /* Forces the dropdown list to be dark on all browsers */
+        select option {
+            background-color: #0f172a !important;
+            color: #ffffff !important;
+        }
+
+        select option:disabled {
+            color: #475569 !important;
+            font-style: italic;
+        }
+
+        /* Sold out styling for cards */
+        .sold-out-card {
+            border-color: rgba(239, 68, 68, 0.3) !important;
+            opacity: 0.6;
+            filter: grayscale(0.5);
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: #10B981 !important;
+            outline: none;
+        }
+    </style>
+</head>
+
+<body class="antialiased selection:bg-emerald-500/30">
+
+    <div class="fixed inset-0 -z-10 overflow-hidden">
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-emerald-500/10 blur-[120px] rounded-full"></div>
+        <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/10 blur-[120px] rounded-full"></div>
+    </div>
+
+    <nav class="max-w-7xl mx-auto px-6 py-8 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+            <div
+                class="w-10 h-10 bg-emerald-500 rounded-lg flex items-center justify-center font-bold text-navy-950 uppercase">
+                M</div>
+            <span class="mono text-sm font-bold tracking-tighter uppercase">The Lab // Beta Portal</span>
+        </div>
+        <div id="protocol-status"
+            class="mono text-[10px] text-emerald-500 uppercase tracking-widest px-3 py-1 border border-emerald-500/20 rounded-full">
+            Connecting...
+        </div>
+    </nav>
+
+    <header class="max-w-4xl mx-auto px-6 pt-12 pb-20 text-center">
+        <h1 class="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight">Help Me <span class="gradient-text">Break
+                Things.</span></h1>
+        <p class="text-slate-400 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto">
+            Live capacity tracking is active. I want edge cases, bugs, and workflow feedback—not compliments.
+        </p>
+    </header>
+
+    <section class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-6 mb-24">
+
+        <div id="card-SafiCash" class="glass p-8 rounded-3xl group transition-all duration-500">
+            <div class="flex justify-between items-start mb-6">
+                <span class="text-3xl">💳</span>
+                <span id="badge-SafiCash"
+                    class="mono text-[10px] bg-slate-800 text-slate-400 px-3 py-1 rounded-full border border-white/10 tracking-widest">SYNCING...</span>
+            </div>
+            <h3 class="text-2xl font-bold mb-3">SafiCash</h3>
+            <p class="text-slate-400 text-sm mb-6 leading-relaxed">AI-driven cash flow tracking via WhatsApp. Tests the
+                50/30/20 "Safe-to-Spend" algorithm.</p>
+            <ul class="text-[11px] mono text-slate-500 space-y-2 uppercase tracking-wider">
+                <li>• 1 Week Full Premium Access</li>
+                <li>• REQ: Daily Transaction Logs</li>
+            </ul>
+        </div>
+
+        <div id="card-TheFlip" class="glass p-8 rounded-3xl group transition-all duration-500">
+            <div class="flex justify-between items-start mb-6">
+                <span class="text-3xl">📖</span>
+                <span id="badge-TheFlip"
+                    class="mono text-[10px] bg-slate-800 text-slate-400 px-3 py-1 rounded-full border border-white/10 tracking-widest">SYNCING...</span>
+            </div>
+            <h3 class="text-2xl font-bold mb-3">The Flip</h3>
+            <p class="text-slate-400 text-sm mb-6 leading-relaxed">Micro-SaaS acquisition blueprint. Turning "dead code"
+                into digital real estate assets.</p>
+            <ul class="text-[11px] mono text-slate-500 space-y-2 uppercase tracking-wider">
+                <li>• Private Telegram Mastermind</li>
+                <li>• REQ: $500 Execution Budget</li>
+            </ul>
+        </div>
+
+        <div id="card-OmniRouter" class="glass p-8 rounded-3xl group transition-all duration-500">
+            <div class="flex justify-between items-start mb-6">
+                <span class="text-3xl">🤖</span>
+                <span id="badge-OmniRouter"
+                    class="mono text-[10px] bg-slate-800 text-slate-400 px-3 py-1 rounded-full border border-white/10 tracking-widest">SYNCING...</span>
+            </div>
+            <h3 class="text-2xl font-bold mb-3">OmniRouter</h3>
+            <p class="text-slate-400 text-sm mb-6 leading-relaxed">Universal AI middleware. Normalizing messy business
+                webhooks into structured CRM data.</p>
+            <ul class="text-[11px] mono text-slate-500 space-y-2 uppercase tracking-wider">
+                <li>• Multi-Tenant Integration</li>
+                <li>• REQ: Active CRM (HubSpot/SF)</li>
+            </ul>
+        </div>
+
+        <div id="card-Alpha" class="glass p-8 rounded-3xl group transition-all hover:border-amber-500/30">
+            <div class="flex justify-between items-start mb-6">
+                <span class="text-3xl">💎</span>
+                <span
+                    class="mono text-[10px] bg-amber-500/10 text-amber-400 px-3 py-1 rounded-full border border-amber-500/20">LIVE
+                    ACCESS</span>
+            </div>
+            <h3 class="text-2xl font-bold mb-3">Alpha Wealth Manager</h3>
+            <p class="text-slate-400 text-sm mb-6 leading-relaxed">Institutional-grade Halal signal engine.
+                Non-custodial wealth management intelligence.</p>
+
+            <ul class="text-[11px] mono text-slate-500 space-y-2 uppercase tracking-wider mb-8">
+                <li>• Lifetime Founders Perks</li>
+                <li>• Waitlist + Founders Priority</li>
+            </ul>
+
+            <a href="https://alpha.mohammad-abujalboush.com" target="_blank"
+                class="block w-full py-3 bg-amber-500/10 border border-amber-500/20 rounded-xl text-center mono text-[10px] font-bold text-amber-400 uppercase tracking-widest hover:bg-amber-500 hover:text-navy-950 transition-all">
+                Visit Landing Page &rarr;
+            </a>
+        </div>
+    </section>
+
+    <section id="apply" class="max-w-2xl mx-auto px-6 pb-32">
+        <div class="glass p-8 md:p-12 rounded-[2.5rem] border border-white/10">
+            <h2 class="text-3xl font-bold mb-8 text-center uppercase tracking-tighter">Submit Application</h2>
+
+            <form id="tester-form" class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Full
+                            Name</label>
+                        <input type="text" id="name" required
+                            class="w-full bg-slate-900 border border-white/10 px-4 py-3 rounded-xl text-white outline-none transition">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Discord
+                            ID</label>
+                        <input type="text" id="discord" placeholder="user#0000" required
+                            class="w-full bg-slate-900 border border-white/10 px-4 py-3 rounded-xl text-white outline-none transition">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Email
+                        Address</label>
+                    <input type="email" id="email" required
+                        class="w-full bg-slate-900 border border-white/10 px-4 py-3 rounded-xl text-white outline-none transition">
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Target
+                        System</label>
+                    <div class="relative">
+                        <select id="product" required
+                            class="w-full bg-slate-900 border border-white/10 px-4 py-3 rounded-xl text-white outline-none focus:border-emerald-500 transition appearance-none cursor-pointer">
+                            <option value="" disabled selected>Select a project to test...</option>
+                            <option id="opt-SafiCash" value="SafiCash">SafiCash (20 Slots Available)</option>
+                            <option id="opt-TheFlip" value="The Flip">The Flip (10 Slots Available)</option>
+                            <option id="opt-OmniRouter" value="OmniRouter">OmniRouter (10 Slots Available)</option>
+
+                        </select>
+                        <div
+                            class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-emerald-500">
+                            <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20">
+                                <path
+                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Motivation
+                        & Goals</label>
+                    <textarea id="message" rows="4" placeholder="Tell me about your business or tech stack..." required
+                        class="w-full bg-slate-900 border border-white/10 px-4 py-3 rounded-xl text-white outline-none transition"></textarea>
+                </div>
+
+                <button type="submit" id="submit-btn"
+                    class="w-full py-4 bg-emerald-500 text-navy-950 font-bold rounded-xl hover:bg-emerald-400 transition-all uppercase text-xs tracking-widest shadow-lg shadow-emerald-500/20">
+                    Deploy Application
+                </button>
+            </form>
+
+            <div id="success-msg" class="hidden text-center py-10">
+                <div class="text-4xl mb-4">🚀</div>
+                <h3 class="text-2xl font-bold text-emerald-400 uppercase tracking-tighter">Transmission Logged</h3>
+                <p class="text-slate-400 text-sm mt-3">I'll reach out on Discord or Email if your parameters match.</p>
+                <button onclick="location.reload()"
+                    class="mt-8 text-[10px] mono text-emerald-500 uppercase tracking-widest hover:text-emerald-400">Submit
+                    Another</button>
+            </div>
+        </div>
+    </section>
+
+    <footer
+        class="py-12 border-t border-white/5 text-center text-[10px] text-slate-600 mono uppercase tracking-[0.3em]">
+        © 2026 Mohammad Abu Jalboush // All Systems Operational
+    </footer>
+
+    <script>
+        // 1. INITIALIZATION: Renamed to `supabaseClient` to avoid global namespace crash
+        const SUPABASE_URL = 'https://dvlabpioxtyyzvhzpmyc.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2bGFicGlveHR5eXp2aHpwbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1MDY4NzUsImV4cCI6MjA4OTA4Mjg3NX0.fBM9r7WXpntVUM-qsBDQFlknRf2vMyIpJTp5ww9pzUM';
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        // 2. CAPACITY CONFIGURATION
+        const CONFIG = {
+            "SafiCash": 20,
+            "The Flip": 10,
+            "OmniRouter": 10
+        };
+
+        // 3. SYNC CAPACITY LOGIC
+        async function syncCapacity() {
+            try {
+                // Fetch all applications to count totals using supabaseClient
+                const { data, error } = await supabaseClient.from('tester_applications').select('product');
+                if (error) throw error;
+
+                // Reduce data into counts: { "SafiCash": 5, "The Flip": 2 ... }
+                const counts = data.reduce((acc, curr) => {
+                    acc[curr.product] = (acc[curr.product] || 0) + 1;
+                    return acc;
+                }, {});
+
+                Object.keys(CONFIG).forEach(prod => {
+                    const max = CONFIG[prod];
+                    const taken = counts[prod] || 0;
+                    const remaining = Math.max(0, max - taken);
+
+                    // standardizing IDs (removes spaces: "The Flip" becomes "TheFlip")
+                    const safeID = prod.replace(/\s+/g, '');
+
+                    const badge = document.getElementById(`badge-${safeID}`);
+                    const option = document.getElementById(`opt-${safeID}`);
+                    const card = document.getElementById(`card-${safeID}`);
+
+                    if (remaining <= 0) {
+                        if (badge) {
+                            badge.innerText = "CAPACITY REACHED";
+                            badge.className = "mono text-[10px] bg-red-500/10 text-red-400 px-3 py-1 rounded-full border border-red-500/20 tracking-widest uppercase";
+                        }
+                        if (card) card.classList.add('sold-out-card');
+                        if (option) {
+                            option.disabled = true;
+                            option.innerText = `${prod} (SOLD OUT)`;
+                        }
+                    } else if (badge) {
+                        badge.innerText = `${remaining} SLOTS REMAINING`;
+                        badge.className = "mono text-[10px] bg-emerald-500/10 text-emerald-400 px-3 py-1 rounded-full border border-emerald-500/20 tracking-widest uppercase";
+                    }
+                });
+
+                document.getElementById('protocol-status').innerText = "Protocol: Live // Synced";
+                document.getElementById('protocol-status').className = "mono text-[10px] text-emerald-500 uppercase tracking-widest px-3 py-1 border border-emerald-500/20 rounded-full";
+
+            } catch (err) {
+                console.error("Sync failed:", err);
+                document.getElementById('protocol-status').innerText = "Protocol: Offline";
+                document.getElementById('protocol-status').className = "mono text-[10px] text-red-500 uppercase tracking-widest px-3 py-1 border border-red-500/20 rounded-full";
+            }
+        }
+
+        // 4. FORM SUBMISSION LOGIC
+        const form = document.getElementById('tester-form');
+        if (form) {
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const submitBtn = document.getElementById('submit-btn');
+
+                // UI Feedback
+                submitBtn.disabled = true;
+                submitBtn.innerText = 'TRANSMITTING...';
+
+                const payload = {
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    discord: document.getElementById('discord').value,
+                    product: document.getElementById('product').value,
+                    message: document.getElementById('message').value
+                };
+
+                // Use the renamed client
+                const { error } = await supabaseClient.from('tester_applications').insert([payload]);
+
+                if (error) {
+                    console.error("Submission error:", error);
+                    alert('Transmission failed. System may be full.');
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = 'DEPLOY APPLICATION';
+                } else {
+                    // Success state
+                    form.classList.add('hidden');
+                    document.getElementById('success-msg').classList.remove('hidden');
+
+                    // Final re-sync of the numbers
+                    syncCapacity();
+                }
+            });
+        }
+
+        // 5. LIFECYCLE INITIALIZATION
+        window.addEventListener('DOMContentLoaded', () => {
+            syncCapacity();
+        });
+    </script>
+</body>
+
+</html>
