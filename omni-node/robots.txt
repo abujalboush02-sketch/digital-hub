@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://omni.mohammad-abujalboush.com/sitemap.xml

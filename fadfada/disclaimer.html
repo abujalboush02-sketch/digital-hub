@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imprint & Disclaimer - Ganz Ohr FADFADA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'blush-terracotta': '#C47A6C',
+                        'warm-cream': '#F5F1EB',
+                        'dark-espresso': '#2B2B2B',
+                        'dusty-rose': '#D89AA0',
+                    },
+                    fontFamily: {
+                        'arabic': ['Tajawal', 'sans-serif'],
+                        'latin': ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #F5F1EB; color: #2B2B2B; font-family: 'Poppins', sans-serif; transition: font-family 0.3s ease; }
+        html[lang="ar"] body { font-family: 'Tajawal', sans-serif; }
+    </style>
+</head>
+<body class="antialiased min-h-screen py-12 px-6">
+    <div class="max-w-4xl mx-auto bg-white p-10 md:p-16 rounded-3xl shadow-sm border border-white relative">
+        
+        <!-- Language Switcher for Legal Page -->
+        <div class="absolute top-8 right-8 flex gap-4 text-sm font-medium text-dark-espresso/70">
+            <button onclick="changeLanguageAndSave('en')" class="hover:text-dusty-rose transition-colors" id="btn-en">English</button>
+            <button onclick="changeLanguageAndSave('ar')" class="hover:text-dusty-rose transition-colors" id="btn-ar">العربية</button>
+            <button onclick="changeLanguageAndSave('de')" class="hover:text-dusty-rose transition-colors" id="btn-de">Deutsch</button>
+        </div>
+
+        <a href="index.html" id="back-home" class="text-blush-terracotta hover:text-dark-espresso text-sm font-medium mb-8 inline-block transition-colors">&larr; Back to Home</a>
+        
+        <h1 id="page-title" class="text-3xl font-semibold mb-10 text-dark-espresso border-b pb-4">Imprint & Legal Disclaimer</h1>
+        
+        <div class="space-y-8 text-gray-700 leading-relaxed text-sm md:text-base">
+            
+            <!-- Imprint Section -->
+            <div>
+                <h2 id="imprint-heading" class="text-xl font-medium text-blush-terracotta mb-4">1. Imprint (Impressum)</h2>
+                <div id="imprint-text" class="space-y-4"></div>
+            </div>
+
+            <!-- Disclaimer Section -->
+            <div class="pt-6 border-t">
+                <h2 id="disclaimer-heading" class="text-xl font-medium text-blush-terracotta mb-4">2. Legal Disclaimer (No therapeutic offer)</h2>
+                <div id="disclaimer-text" class="space-y-4"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const translations = {
+            en: {
+                dir: 'ltr',
+                'back-home': '&larr; Back to Home',
+                'page-title': 'Imprint & Legal Disclaimer',
+                'imprint-heading': '1. Imprint (Impressum)',
+                'imprint-text': `
+                    <p><strong>Information according to § 5 TMG</strong><br>
+                    Ahlam Abu Jalboush<br>
+                    GanzOhr – FADFADA (Emotional Support & Listening Service)<br>
+                    Schleiermacherstr. 35<br>
+                    86165 Augsburg<br>
+                    Germany</p>
+                    <p><strong>Contact</strong><br>
+                    E-Mail: ganzohr.fadfada@gmail.com<br>
+                    WhatsApp: +49 1637048416</p>
+                    <p><strong>Responsible for the content according to § 18 Abs. 2 MStV</strong><br>
+                    Ahlam Abu Jalboush<br>Schleiermacherstr. 35, 86165 Augsburg</p>
+                    <p><strong>VAT Information</strong><br>
+                    According to § 19 UStG (small business regulation), no value-added tax is charged or stated.</p>
+                    <p><strong>Liability for Content</strong><br>
+                    As a service provider, we are responsible for our own content on these pages according to § 7 Abs.1 TMG. According to §§ 8 to 10 TMG, we are not obligated to monitor transmitted or stored external information. Obligations to remove or block the use of information remain unaffected.</p>
+                    <p><strong>Liability for External Links</strong><br>
+                    We assume no liability for the content of external links. If any legal infringements become known, the respective links will be removed immediately.</p>
+                    <p><strong>Copyright</strong><br>
+                    All content on this website is subject to German copyright law. Duplication or exploitation requires the written consent of the operator.</p>
+                `,
+                'disclaimer-heading': '2. Legal Disclaimer (No therapeutic offer)',
+                'disclaimer-text': `
+                    <p>The offer of GanzOhr – FADFADA is not a therapeutic, psychological, or medical offer within the meaning of the Psychotherapist Act (PsychThG) or the Non-Medical Practitioner Act (HeilprG).</p>
+                    <p>No diagnosis, no treatment, no therapy, and no promise of healing are provided. The conversations serve exclusively for emotional release, listening, and non-therapeutic accompaniment.</p>
+                    <p class="bg-red-50 text-red-800 p-4 rounded-xl border border-red-100 mt-4">
+                        This offer does not replace medical, psychotherapeutic, or psychiatric treatment. In case of physical or mental health complaints, please contact a doctor, psychotherapist, or the medical on-call service at <strong>116117</strong>.<br>
+                        In acute emergencies, please contact the emergency number <strong>112</strong> immediately.
+                    </p>
+                `
+            },
+            de: {
+                dir: 'ltr',
+                'back-home': '&larr; Zurück zur Startseite',
+                'page-title': 'Impressum & Rechtlicher Hinweis',
+                'imprint-heading': '1. Impressum',
+                'imprint-text': `
+                    <p><strong>Angaben gemäß § 5 TMG</strong><br>
+                    Ahlam Abu Jalboush<br>
+                    GanzOhr – FADFADA (Emotional Support & Zuhör-Angebot)<br>
+                    Schleiermacherstr. 35<br>
+                    86165 Augsburg<br>
+                    Deutschland</p>
+                    <p><strong>Kontakt</strong><br>
+                    E-Mail: ganzohr.fadfada@gmail.com<br>
+                    WhatsApp: +49 1637048416</p>
+                    <p><strong>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</strong><br>
+                    Ahlam Abu Jalboush<br>Schleiermacherstr. 35, 86165 Augsburg</p>
+                    <p><strong>Umsatzsteuer-Information</strong><br>
+                    Gemäß § 19 UStG (Kleinunternehmerregelung) wird keine Umsatzsteuer erhoben und ausgewiesen.</p>
+                    <p><strong>Haftung für Inhalte</strong><br>
+                    Als Diensteanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte verantwortlich. Nach §§ 8 bis 10 TMG sind wir nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen. Verpflichtungen zur Entfernung oder Sperrung bleiben unberührt.</p>
+                    <p><strong>Haftung für externe Links</strong><br>
+                    Für Inhalte externer Links übernehmen wir keine Haftung. Bei Bekanntwerden von Rechtsverletzungen werden entsprechende Links entfernt.</p>
+                    <p><strong>Urheberrecht</strong><br>
+                    Alle Inhalte dieser Website unterliegen dem deutschen Urheberrecht. Vervielfältigung oder Verwertung bedürfen der schriftlichen Zustimmung der Betreiberin.</p>
+                `,
+                'disclaimer-heading': '2. Rechtlicher Hinweis (Kein therapeutisches Angebot)',
+                'disclaimer-text': `
+                    <p>Das Angebot von GanzOhr – FADFADA ist kein therapeutisches, psychologisches oder medizinisches Angebot im Sinne des Psychotherapeutengesetzes (PsychThG) oder des Heilpraktikergesetzes (HeilprG).</p>
+                    <p>Es erfolgt keine Diagnose, keine Behandlung, keine Therapie und kein Heilversprechen. Die Gespräche dienen ausschließlich der emotionalen Entlastung, dem Zuhören und der nicht‑therapeutischen Begleitung.</p>
+                    <p class="bg-red-50 text-red-800 p-4 rounded-xl border border-red-100 mt-4">
+                        Dieses Angebot ersetzt keine ärztliche, psychotherapeutische oder psychiatrische Behandlung. Bei gesundheitlichen oder psychischen Beschwerden wenden Sie sich bitte an einen Ärztin, Psychotherapeut*in oder den ärztlichen Bereitschaftsdienst unter <strong>116117</strong>.<br>
+                        In akuten Notfällen kontaktieren Sie bitte den Notruf <strong>112</strong>.
+                    </p>
+                `
+            },
+            ar: {
+                dir: 'rtl',
+                'back-home': '&rarr; العودة للرئيسية',
+                'page-title': 'بيانات النشر وإخلاء المسؤولية',
+                'imprint-heading': '1. بيانات النشر (Impressum)',
+                'imprint-text': `
+                    <p><strong>المعلومات وفقاً للمادة 5 من قانون وسائط الاتصال عن بعد الألماني (TMG)</strong><br>
+                    أحلام أبو جلبوش<br>
+                    GanzOhr – FADFADA (دعم عاطفي واستماع)<br>
+                    Schleiermacherstr. 35<br>
+                    86165 Augsburg<br>
+                    ألمانيا</p>
+                    <p><strong>التواصل</strong><br>
+                    البريد الإلكتروني: ganzohr.fadfada@gmail.com<br>
+                    واتساب: +49 1637048416</p>
+                    <p><strong>المسؤول عن المحتوى وفقاً للمادة 18 فقرة 2 (MStV)</strong><br>
+                    أحلام أبو جلبوش<br>Schleiermacherstr. 35, 86165 Augsburg</p>
+                    <p><strong>معلومات ضريبة القيمة المضافة</strong><br>
+                    وفقاً للمادة 19 من قانون ضريبة القيمة المضافة (UStG) للشركات الصغيرة، لا يتم تحصيل أو فرض ضريبة القيمة المضافة.</p>
+                    <p><strong>المسؤولية عن المحتوى والروابط</strong><br>
+                    بصفتنا مزود خدمة، نحن مسؤولون عن المحتوى الخاص بنا. لسنا ملزمين بمراقبة المعلومات الخارجية. ولا نتحمل أي مسؤولية عن محتوى الروابط الخارجية. سيتم إزالة أي رابط عند العلم بوجود أي انتهاك قانوني.</p>
+                    <p><strong>حقوق النشر</strong><br>
+                    جميع محتويات هذا الموقع تخضع لقانون حقوق النشر الألماني. أي استخدام أو نسخ يتطلب موافقة خطية من الإدارة.</p>
+                `,
+                'disclaimer-heading': '2. إخلاء المسؤولية القانونية (ليس عرضاً علاجياً)',
+                'disclaimer-text': `
+                    <p>إن خدمات GanzOhr – FADFADA ليست خدمات علاجية، نفسية، أو طبية بالمعنى المقصود في قانون المعالجين النفسيين الألماني (PsychThG) أو قانون الممارسين الطبيين (HeilprG).</p>
+                    <p>لا يتم تقديم أي تشخيص، ولا علاج، ولا وعود بالشفاء. تهدف المحادثات حصرياً إلى التنفيس العاطفي، الاستماع، والمرافقة غير العلاجية.</p>
+                    <p class="bg-red-50 text-red-800 p-4 rounded-xl border border-red-100 mt-4">
+                        هذه الخدمة لا تغني بأي شكل عن العلاج الطبي أو النفسي. في حالة وجود شكاوى صحية أو نفسية، يرجى التوجه إلى طبيب مختص أو الاتصال بخدمة الطوارئ الطبية على الرقم <strong>116117</strong>.<br>
+                        في الحالات الطارئة الحادة، يرجى الاتصال فوراً برقم الطوارئ <strong>112</strong>.
+                    </p>
+                `
+            }
+        };
+
+        function setLanguage(lang) {
+            const t = translations[lang];
+            document.documentElement.dir = t.dir;
+            document.documentElement.lang = lang;
+            
+            Object.keys(t).filter(k => k !== 'dir').forEach(id => {
+                const el = document.getElementById(id);
+                if(el) {
+                    el.style.opacity = '0';
+                    setTimeout(() => {
+                        el.innerHTML = t[id];
+                        el.style.opacity = '1';
+                    }, 200);
+                }
+            });
+
+            document.querySelectorAll('[id^="btn-"]').forEach(btn => {
+                btn.style.fontWeight = '400'; btn.style.color = 'inherit';
+            });
+            const activeBtn = document.getElementById(`btn-${lang}`);
+            if(activeBtn) {
+                activeBtn.style.fontWeight = '600'; activeBtn.style.color = '#C47A6C';
+            }
+        }
+        
+        function changeLanguageAndSave(lang) {
+            localStorage.setItem('fadfada_lang', lang);
+            setLanguage(lang);
+        }
+
+        document.querySelectorAll('h1, h2, h3, p, div, a').forEach(el => {
+            el.style.transition = 'opacity 0.2s ease';
+        });
+
+        // Check memory for a saved language, if none exists, default to English
+        const savedLang = localStorage.getItem('fadfada_lang') || 'en';
+        setLanguage(savedLang);
+    </script>
+</body>
+</html>

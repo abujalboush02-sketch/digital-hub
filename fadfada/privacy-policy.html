@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Ganz Ohr FADFADA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'blush-terracotta': '#C47A6C',
+                        'warm-cream': '#F5F1EB',
+                        'dark-espresso': '#2B2B2B',
+                        'dusty-rose': '#D89AA0',
+                    },
+                    fontFamily: {
+                        'arabic': ['Tajawal', 'sans-serif'],
+                        'latin': ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #F5F1EB; color: #2B2B2B; font-family: 'Poppins', sans-serif; transition: font-family 0.3s ease; }
+        html[lang="ar"] body { font-family: 'Tajawal', sans-serif; }
+    </style>
+</head>
+<body class="antialiased min-h-screen py-12 px-6">
+    <div class="max-w-4xl mx-auto bg-white p-10 md:p-16 rounded-3xl shadow-sm border border-white relative">
+        
+        <div class="absolute top-8 right-8 flex gap-4 text-sm font-medium text-dark-espresso/70">
+            <button onclick="changeLanguageAndSave('en')" class="hover:text-dusty-rose transition-colors" id="btn-en">English</button>
+            <button onclick="changeLanguageAndSave('ar')" class="hover:text-dusty-rose transition-colors" id="btn-ar">العربية</button>
+            <button onclick="changeLanguageAndSave('de')" class="hover:text-dusty-rose transition-colors" id="btn-de">Deutsch</button>
+        </div>
+
+        <a href="index.html" id="back-home" class="text-blush-terracotta hover:text-dark-espresso text-sm font-medium mb-8 inline-block transition-colors">&larr; Back to Home</a>
+        
+        <h1 id="page-title" class="text-3xl font-semibold mb-10 text-dark-espresso border-b pb-4">Privacy Policy</h1>
+        
+        <div id="privacy-content" class="space-y-6 text-gray-700 leading-relaxed text-sm md:text-base">
+            <!-- Injected by JS -->
+        </div>
+    </div>
+
+    <script>
+        const translations = {
+            en: {
+                dir: 'ltr',
+                'back-home': '&larr; Back to Home',
+                'page-title': 'Privacy Policy',
+                'privacy-content': `
+                    <h2 class="text-xl font-medium text-dark-espresso mt-8">3.1 Responsible Entity</h2>
+                    <p>Ahlam Abu Jalboush<br>GanzOhr – FADFADA<br>Schleiermacherstr. 35<br>86165 Augsburg<br>Germany<br>E-Mail: ganzohr.fadfada@gmail.com</p>
+
+                    <h2 class="text-xl font-medium text-dark-espresso mt-8">3.2 General Information</h2>
+                    <p>We process personal data in accordance with the GDPR and German data protection laws. Personal data is any information relating to an identified or identifiable person.</p>
+
+                    <h2 class="text-xl font-medium text-dark-espresso mt-8">3.3 Data processing when visiting the website (Server Log Files)</h2>
+                    <p>When you visit the website, the following data is processed automatically: IP address, Date and time, Browser type and version, Operating system, Referrer URL, Hostname of the accessing computer.<br><strong>Legal basis:</strong> Art. 6 Para. 1 lit. f GDPR (legitimate interest).</p>
+
+                    <h2 class="text-xl font-medium text-dark-espresso mt-8">3.4 Contact via WhatsApp</h2>
+                    <p>When contacting us via WhatsApp, personal data is processed (Name, Phone number, Message content). Data may be transferred to Meta (USA). We have no influence over this processing.<br><strong>Legal basis:</strong> Art. 6 Para. 1 lit. a GDPR (consent).</p>
+
+                    <h2 class="text-xl font-medium text-dark-espresso mt-8">3.5 Contact via E-Mail</h2>
+                    <p>We store the email address, name (if provided), and the content of the message.<br><strong>Legal basis:</strong> Art. 6 Para. 1 lit. b GDPR.</p>
+
+                    <h2 class="text-xl font-medium text-dark-espresso mt-8">3.6 Instagram / Meta</h2>
+                    <p>When visiting our Instagram profile, Meta processes personal data. We have no influence over this processing. Further information: privacycenter.instagram.com.<br><strong>Legal basis:</strong> Art. 6 Para. 1 lit. f GDPR.</p>
+
+                    <h2 class="text-xl font-medium text-dark-espresso mt-8">3.7 Cookies</h2>
+                    <p>This website may use technically necessary cookies. If cookies are used, this is done on the basis of: Art. 6 Para. 1 lit. f GDPR (necessary) or Art. 6 Para. 1 lit. a GDPR (consent).</p>
+
+                    <h2 class="text-xl font-medium text-dark-espresso mt-8">3.8 Hosting</h2>
+                    <p>The website is hosted by an external provider. Processing takes place under a data processing agreement in accordance with Art. 28 GDPR.</p>
+
+                    <h2 class="text-xl font-medium text-dark-espresso mt-8">3.9 Disclosure of Data</h2>
+                    <p>Data is only disclosed: with consent, for the fulfillment of a contract, or due to a legal obligation. No commercial disclosure or sale of data occurs.</p>
+
+                    <h2 class="text-xl font-medium text-dark-espresso mt-8">3.10 Storage Duration</h2>
+                    <p>Data will only be stored for as long as necessary for the purpose or as required by statutory retention periods.</p>
+
+                    <h2 class="text-xl font-medium text-dark-espresso mt-8">3.11 Your Rights (GDPR)</h2>
+                    <p>You have the right to: Information (Art. 15), Correction (Art. 16), Deletion (Art. 17), Restriction (Art. 18), Data Portability (Art. 20), Objection (Art. 21), Revocation of consent (Art. 7 Para. 3).<br>Contact to exercise rights: ganzohr.fadfada@gmail.com</p>
+
+                    <h2 class="text-xl font-medium text-dark-espresso mt-8">3.12 Right of Appeal</h2>
+                    <p>Competent supervisory authority: Bayerisches Landesamt für Datenschutzaufsicht (BayLDA), Promenade 18, 91522 Ansbach, Germany.</p>
+
+                    <h2 class="text-xl font-medium text-dark-espresso mt-8">3.13 Data Security</h2>
+                    <p>We implement technical and organizational measures to protect your data.</p>
+
+                    <h2 class="text-xl font-medium text-dark-espresso mt-8">3.14 Changes to this Policy</h2>
+                    <p>We reserve the right to adapt this privacy policy as necessary.</p>
+                `
+            },
+            de: {
+                dir: 'ltr',
+                'back-home': '&larr; Zurück zur Startseite',
+                'page-title': 'Datenschutzerklärung',
+                'privacy-content': `
+                    <h2 class="text-xl font-medium text-dark-espresso mt-8">3.1 Verantwortliche Stelle</h2>
+                    <p>Ahlam Abu Jalboush<br>GanzOhr – FADFADA<br>Schleiermacherstr. 35<br>86165 Augsburg<br>Deutschland<br>E-Mail: ganzohr.fadfada@gmail.com</p>
+
+                    <h2 class="text-xl font-medium text-dark-espresso mt-8">3.2 Allgemeine Hinweise</h2>
+                    <p>Wir verarbeiten personenbezogene Daten gemäß DSGVO und den deutschen Datenschutzgesetzen. Personenbezogene Daten sind alle Informationen, die sich auf eine identifizierte oder identifizierbare Person beziehen.</p>
+
+                    <h2 class="text-xl font-medium text-dark-espresso mt-8">3.3 Datenverarbeitung beim Besuch der Website (Server-Logfiles)</h2>
+                    <p>Beim Aufruf der Website werden automatisch folgende Daten verarbeitet: IP-Adresse, Datum und Uhrzeit, Browsertyp und Version, Betriebssystem, Referrer-URL, Hostname des zugreifenden Rechners.<br><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse).</p>
+
+                    <h2 class="text-xl font-medium text-dark-espresso mt-8">3.4 Kontaktaufnahme über WhatsApp</h2>
+                    <p>Bei Kontaktaufnahme über WhatsApp werden personenbezogene Daten verarbeitet (Name, Telefonnummer, Nachrichteninhalt). Daten können an Meta (USA) übermittelt werden. Wir haben keinen Einfluss auf diese Verarbeitung.<br><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. a DSGVO (Einwilligung).</p>
+
+                    <h2 class="text-xl font-medium text-dark-espresso mt-8">3.5 Kontaktaufnahme per E-Mail</h2>
+                    <p>Wir speichern E-Mail-Adresse, Name (falls angegeben) und Inhalt der Nachricht.<br><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. b DSGVO.</p>
+
+                    <h2 class="text-xl font-medium text-dark-espresso mt-8">3.6 Instagram / Meta</h2>
+                    <p>Beim Besuch unseres Instagram-Profils verarbeitet Meta personenbezogene Daten. Wir haben keinen Einfluss auf diese Verarbeitung. Weitere Informationen: privacycenter.instagram.com.<br><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO.</p>
+
+                    <h2 class="text-xl font-medium text-dark-espresso mt-8">3.7 Cookies</h2>
+                    <p>Diese Website kann technisch notwendige Cookies verwenden. Falls Cookies eingesetzt werden, erfolgt dies auf Grundlage von: Art. 6 Abs. 1 lit. f DSGVO (notwendig) oder Art. 6 Abs. 1 lit. a DSGVO (Einwilligung).</p>
+
+                    <h2 class="text-xl font-medium text-dark-espresso mt-8">3.8 Hosting</h2>
+                    <p>Die Website wird bei einem externen Hosting-Anbieter betrieben. Die Verarbeitung erfolgt im Rahmen eines Auftragsverarbeitungsvertrags gemäß Art. 28 DSGVO.</p>
+
+                    <h2 class="text-xl font-medium text-dark-espresso mt-8">3.9 Weitergabe von Daten</h2>
+                    <p>Eine Weitergabe erfolgt nur: mit Einwilligung, zur Vertragserfüllung oder aufgrund gesetzlicher Verpflichtung. Keine kommerzielle Weitergabe.</p>
+
+                    <h2 class="text-xl font-medium text-dark-espresso mt-8">3.10 Speicherdauer</h2>
+                    <p>Daten werden nur so lange gespeichert, wie es für den Zweck erforderlich ist oder gesetzliche Fristen bestehen.</p>
+
+                    <h2 class="text-xl font-medium text-dark-espresso mt-8">3.11 Ihre Rechte (DSGVO)</h2>
+                    <p>Sie haben folgende Rechte: Auskunft (Art. 15), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung (Art. 18), Datenübertragbarkeit (Art. 20), Widerspruch (Art. 21), Widerruf einer Einwilligung (Art. 7 Abs. 3).<br>Kontakt zur Ausübung: ganzohr.fadfada@gmail.com</p>
+
+                    <h2 class="text-xl font-medium text-dark-espresso mt-8">3.12 Beschwerderecht</h2>
+                    <p>Zuständige Aufsichtsbehörde: Bayerisches Landesamt für Datenschutzaufsicht (BayLDA), Promenade 18, 91522 Ansbach.</p>
+
+                    <h2 class="text-xl font-medium text-dark-espresso mt-8">3.13 Datensicherheit</h2>
+                    <p>Wir setzen technische und organisatorische Maßnahmen ein, um Daten zu schützen.</p>
+
+                    <h2 class="text-xl font-medium text-dark-espresso mt-8">3.14 Änderungen dieser Erklärung</h2>
+                    <p>Wir behalten uns vor, diese Datenschutzerklärung bei Bedarf anzupassen.</p>
+                `
+            },
+            ar: {
+                dir: 'rtl',
+                'back-home': '&rarr; العودة للرئيسية',
+                'page-title': 'سياسة الخصوصية',
+                'privacy-content': `
+                    <h2 class="text-xl font-medium text-dark-espresso mt-8">3.1 الجهة المسؤولة</h2>
+                    <p>أحلام أبو جلبوش<br>GanzOhr – FADFADA<br>Schleiermacherstr. 35<br>86165 Augsburg<br>ألمانيا<br>البريد الإلكتروني: ganzohr.fadfada@gmail.com</p>
+
+                    <h2 class="text-xl font-medium text-dark-espresso mt-8">3.2 ملاحظات عامة</h2>
+                    <p>نقوم بمعالجة البيانات الشخصية وفقاً للائحة العامة لحماية البيانات (GDPR) وقوانين حماية البيانات الألمانية. البيانات الشخصية هي أي معلومات تتعلق بشخص محدد أو يمكن تحديده.</p>
+
+                    <h2 class="text-xl font-medium text-dark-espresso mt-8">3.3 معالجة البيانات عند زيارة الموقع (ملفات سجل الخادم)</h2>
+                    <p>عند زيارة الموقع، تتم معالجة البيانات التالية تلقائياً: عنوان IP، التاريخ والوقت، نوع المتصفح وإصداره، نظام التشغيل، عنوان URL المحيل، واسم المضيف للكمبيوتر الذي يتم الوصول منه.<br><strong>الأساس القانوني:</strong> المادة 6 فقرة 1 حرف f من اللائحة العامة لحماية البيانات (المصلحة المشروعة).</p>
+
+                    <h2 class="text-xl font-medium text-dark-espresso mt-8">3.4 التواصل عبر واتساب</h2>
+                    <p>عند التواصل عبر واتساب، تتم معالجة البيانات الشخصية (الاسم، رقم الهاتف، محتوى الرسالة). قد يتم نقل البيانات إلى شركة ميتا (Meta) في الولايات المتحدة. ليس لدينا أي تأثير على هذه المعالجة.<br><strong>الأساس القانوني:</strong> المادة 6 فقرة 1 حرف a من اللائحة العامة لحماية البيانات (الموافقة).</p>
+
+                    <h2 class="text-xl font-medium text-dark-espresso mt-8">3.5 التواصل عبر البريد الإلكتروني</h2>
+                    <p>نقوم بتخزين عنوان البريد الإلكتروني، الاسم (إن وُجد)، ومحتوى الرسالة.<br><strong>الأساس القانوني:</strong> المادة 6 فقرة 1 حرف b من اللائحة العامة لحماية البيانات.</p>
+
+                    <h2 class="text-xl font-medium text-dark-espresso mt-8">3.6 إنستغرام / ميتا</h2>
+                    <p>عند زيارة صفحتنا على إنستغرام، تقوم شركة ميتا بمعالجة البيانات الشخصية. ليس لدينا أي تأثير على هذه المعالجة. لمزيد من المعلومات: privacycenter.instagram.com.<br><strong>الأساس القانوني:</strong> المادة 6 فقرة 1 حرف f من اللائحة العامة لحماية البيانات.</p>
+
+                    <h2 class="text-xl font-medium text-dark-espresso mt-8">3.7 ملفات تعريف الارتباط (Cookies)</h2>
+                    <p>قد يستخدم هذا الموقع ملفات تعريف ارتباط ضرورية تقنياً. في حال استخدامها، يتم ذلك بناءً على: المادة 6 فقرة 1 حرف f (الضرورة) أو المادة 6 فقرة 1 حرف a (الموافقة).</p>
+
+                    <h2 class="text-xl font-medium text-dark-espresso mt-8">3.8 الاستضافة (Hosting)</h2>
+                    <p>يتم تشغيل الموقع بواسطة مزود استضافة خارجي. تتم المعالجة ضمن إطار عقد معالجة بيانات وفقاً للمادة 28 من اللائحة العامة لحماية البيانات.</p>
+
+                    <h2 class="text-xl font-medium text-dark-espresso mt-8">3.9 الكشف عن البيانات</h2>
+                    <p>يتم الكشف عن البيانات فقط في الحالات التالية: بوجود موافقة، لتنفيذ عقد، أو بناءً على التزام قانوني. لا يتم تمرير أو بيع البيانات لأغراض تجارية.</p>
+
+                    <h2 class="text-xl font-medium text-dark-espresso mt-8">3.10 مدة التخزين</h2>
+                    <p>يتم تخزين البيانات فقط للفترة اللازمة للغرض الذي جُمعت من أجله أو طالما كانت هناك فترات احتفاظ قانونية.</p>
+
+                    <h2 class="text-xl font-medium text-dark-espresso mt-8">3.11 حقوقك (GDPR)</h2>
+                    <p>لديك الحقوق التالية: الحق في المعلومات (المادة 15)، التصحيح (المادة 16)، الحذف (المادة 17)، تقييد المعالجة (المادة 18)، نقل البيانات (المادة 20)، الاعتراض (المادة 21)، وسحب الموافقة (المادة 7 فقرة 3).<br>للتواصل لممارسة الحقوق: ganzohr.fadfada@gmail.com</p>
+
+                    <h2 class="text-xl font-medium text-dark-espresso mt-8">3.12 حق تقديم شكوى</h2>
+                    <p>هيئة الإشراف المختصة: Bayerisches Landesamt für Datenschutzaufsicht (BayLDA), Promenade 18, 91522 Ansbach, Germany.</p>
+
+                    <h2 class="text-xl font-medium text-dark-espresso mt-8">3.13 أمن البيانات</h2>
+                    <p>نحن نستخدم تدابير تقنية وتنظيمية لحماية بياناتك.</p>
+
+                    <h2 class="text-xl font-medium text-dark-espresso mt-8">3.14 تعديلات على هذه السياسة</h2>
+                    <p>نحتفظ بالحق في تعديل سياسة الخصوصية هذه عند الضرورة.</p>
+                `
+            }
+        };
+
+        function setLanguage(lang) {
+            const t = translations[lang];
+            document.documentElement.dir = t.dir;
+            document.documentElement.lang = lang;
+            
+            Object.keys(t).filter(k => k !== 'dir').forEach(id => {
+                const el = document.getElementById(id);
+                if(el) {
+                    el.style.opacity = '0';
+                    setTimeout(() => {
+                        el.innerHTML = t[id];
+                        el.style.opacity = '1';
+                    }, 200);
+                }
+            });
+
+            document.querySelectorAll('[id^="btn-"]').forEach(btn => {
+                btn.style.fontWeight = '400'; btn.style.color = 'inherit';
+            });
+            const activeBtn = document.getElementById(`btn-${lang}`);
+            if(activeBtn) {
+                activeBtn.style.fontWeight = '600'; activeBtn.style.color = '#C47A6C';
+            }
+        }
+        
+        function changeLanguageAndSave(lang) {
+            localStorage.setItem('fadfada_lang', lang);
+            setLanguage(lang);
+        }
+
+        document.querySelectorAll('h1, h2, h3, p, div, a').forEach(el => {
+            el.style.transition = 'opacity 0.2s ease';
+        });
+
+        // Check memory for a saved language, if none exists, default to English
+        const savedLang = localStorage.getItem('fadfada_lang') || 'en';
+        setLanguage(savedLang);
+    </script>
+</body>
+</html>

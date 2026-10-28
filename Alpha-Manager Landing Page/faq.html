@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deep-Dive FAQ | Alpha Wealth</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: { 950: '#030712', 900: '#0B1120', 800: '#111827', 700: '#1F2937' },
+                        emerald: { 400: '#34D399', 500: '#10B981', 600: '#059669' },
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        ui: ['Plus Jakarta Sans', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background: #030712; color: #cbd5e1; }
+        .mesh-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
+            z-index: -1;
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s ease;
+        }
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+        .faq-item.active svg { transform: rotate(180deg); }
+    </style>
+</head>
+
+<body class="font-ui antialiased">
+    <div class="mesh-bg"></div>
+
+    <!-- SIMPLE NAV -->
+    <nav class="w-full z-50 px-6 py-6 border-b border-white/5 bg-navy-950/80 backdrop-blur-md sticky top-0">
+        <div class="max-w-4xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3 cursor-pointer group">
+                <img src="2-nobg.png" alt="Alpha Wealth" class="h-8 group-hover:scale-105 transition-transform duration-300">
+                <div>
+                    <p class="font-sans font-900 text-white leading-none uppercase tracking-tighter">Alpha</p>
+                </div>
+            </a>
+            <a href="index.html" class="text-xs font-bold text-slate-400 hover:text-emerald-400 uppercase tracking-widest transition">← Back to Terminal</a>
+        </div>
+    </nav>
+
+    <main class="py-20 px-6 min-h-screen">
+        <div class="max-w-3xl mx-auto">
+            
+            <div class="text-center mb-16">
+                <h1 class="font-sans text-4xl sm:text-5xl font-900 text-white uppercase tracking-tighter mb-4">The Encyclopedia</h1>
+                <p class="text-slate-400 font-light text-lg">Total transparency regarding our math, security, and Shariah compliance.</p>
+            </div>
+
+            <!-- CATEGORY 1: SECURITY -->
+            <div class="mb-12">
+                <h2 class="text-emerald-500 font-mono font-bold uppercase tracking-widest text-sm mb-6 border-b border-white/10 pb-2">I. Custody & Security</h2>
+                
+                <div class="space-y-4">
+                    <div class="faq-item bg-navy-900 border border-white/5 rounded-2xl p-6 cursor-pointer hover:border-white/10 transition" onclick="toggleFaq(this)">
+                        <div class="flex justify-between items-center gap-4">
+                            <h3 class="text-white font-bold text-lg">Can Alpha Wealth access or withdraw my money?</h3>
+                            <svg class="w-5 h-5 text-emerald-500 transition-transform duration-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                        <div class="faq-answer text-sm text-slate-400 font-light leading-relaxed">
+                            <p><strong>Absolutely not.</strong> We operate on a strict Zero-Custody architecture. You deposit your funds into a highly regulated, SIPC-insured brokerage (such as Alpaca). You generate an API key that only allows "Trading" and explicitly blocks "Transfers/Withdrawals." Alpha acts purely as a quantitative compass, transmitting trade signals to your Telegram. You press execute, and the broker handles the rest.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item bg-navy-900 border border-white/5 rounded-2xl p-6 cursor-pointer hover:border-white/10 transition" onclick="toggleFaq(this)">
+                        <div class="flex justify-between items-center gap-4">
+                            <h3 class="text-white font-bold text-lg">What happens if your servers go down?</h3>
+                            <svg class="w-5 h-5 text-emerald-500 transition-transform duration-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                        <div class="faq-answer text-sm text-slate-400 font-light leading-relaxed">
+                            <p>Your capital remains 100% safe. Because we execute <strong>Bracket Orders</strong> (attaching a Trailing Stop-Loss the moment you buy an asset), your safety net lives directly on your broker's servers, not ours. If Alpha's engine reboots, your broker will still automatically sell your asset if it drops, protecting your downside.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CATEGORY 2: SHARIAH -->
+            <div class="mb-12">
+                <h2 class="text-emerald-500 font-mono font-bold uppercase tracking-widest text-sm mb-6 border-b border-white/10 pb-2">II. Shariah Methodology</h2>
+                
+                <div class="space-y-4">
+                    <div class="faq-item bg-navy-900 border border-white/5 rounded-2xl p-6 cursor-pointer hover:border-white/10 transition" onclick="toggleFaq(this)">
+                        <div class="flex justify-between items-center gap-4">
+                            <h3 class="text-white font-bold text-lg">How exactly do you calculate Halal compliance?</h3>
+                            <svg class="w-5 h-5 text-emerald-500 transition-transform duration-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                        <div class="faq-answer text-sm text-slate-400 font-light leading-relaxed">
+                            <p>We adhere strictly to the <strong>AAOIFI Shariah Standard No. 21</strong>. Before a signal is ever generated, our engine pulls live financial data to ensure:</p>
+                            <ul class="list-disc pl-5 mt-2 space-y-2">
+                                <li>Interest-bearing debt is <strong>less than 30%</strong> of the company's Market Capitalization (not Total Assets).</li>
+                                <li>Interest-taking deposits/cash are <strong>less than 30%</strong> of Market Capitalization.</li>
+                                <li>Revenue from impermissible sources (alcohol, pork, gambling, interest) is <strong>less than 5%</strong>.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="faq-item bg-navy-900 border border-white/5 rounded-2xl p-6 cursor-pointer hover:border-white/10 transition" onclick="toggleFaq(this)">
+                        <div class="flex justify-between items-center gap-4">
+                            <h3 class="text-white font-bold text-lg">How is Purification calculated?</h3>
+                            <svg class="w-5 h-5 text-emerald-500 transition-transform duration-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                        <div class="faq-answer text-sm text-slate-400 font-light leading-relaxed">
+                            <p>If a company passes the strict screening but derives a tiny fraction of revenue (e.g., 2.4%) from impermissible sources, that percentage must be donated to charity. Our engine calculates this specific <strong>Purification Ratio</strong> for you and attaches it to your execution receipt in Telegram, lifting the ethical burden off your shoulders.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item bg-navy-900 border border-white/5 rounded-2xl p-6 cursor-pointer hover:border-white/10 transition" onclick="toggleFaq(this)">
+                        <div class="flex justify-between items-center gap-4">
+                            <h3 class="text-white font-bold text-lg">Do you trade Futures, Options, or Commodities like Oil?</h3>
+                            <svg class="w-5 h-5 text-emerald-500 transition-transform duration-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                        <div class="faq-answer text-sm text-slate-400 font-light leading-relaxed">
+                            <p><strong>No.</strong> Futures and Options violate the Islamic principle of <em>Qabd</em> (physical possession) and involve <em>Gharar</em> (excessive speculation). We only trade Spot Equities, Spot Crypto, and Physically Backed Metals (like Gold and Silver ETFs where your shares correspond to real metal in a vault).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CATEGORY 3: ALGORITHM & USABILITY -->
+            <div class="mb-12">
+                <h2 class="text-emerald-500 font-mono font-bold uppercase tracking-widest text-sm mb-6 border-b border-white/10 pb-2">III. The Algorithm & Execution</h2>
+                
+                <div class="space-y-4">
+                    <div class="faq-item bg-navy-900 border border-white/5 rounded-2xl p-6 cursor-pointer hover:border-white/10 transition" onclick="toggleFaq(this)">
+                        <div class="flex justify-between items-center gap-4">
+                            <h3 class="text-white font-bold text-lg">Do I need to know how to code to use this?</h3>
+                            <svg class="w-5 h-5 text-emerald-500 transition-transform duration-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                        <div class="faq-answer text-sm text-slate-400 font-light leading-relaxed">
+                            <p>Not at all. The heavy Python architecture runs entirely on our proprietary server stack. You experience the product purely through a beautiful, intuitive Telegram Terminal. You receive a plain-English message explaining the trade rationale, and you simply tap the "Execute" button.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item bg-navy-900 border border-white/5 rounded-2xl p-6 cursor-pointer hover:border-white/10 transition" onclick="toggleFaq(this)">
+                        <div class="flex justify-between items-center gap-4">
+                            <h3 class="text-white font-bold text-lg">How does the engine predict crashes?</h3>
+                            <svg class="w-5 h-5 text-emerald-500 transition-transform duration-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                        <div class="faq-answer text-sm text-slate-400 font-light leading-relaxed">
+                            <p>Algorithms cannot predict the future, but they can identify momentum exhaustion. We utilize a technique called <strong>Bearish Divergence</strong>. If an asset's price continues to rise, but internal momentum (MACD/RSI) begins to collapse, the engine flags the anomaly and sends an early warning to your Telegram, allowing you to tighten your stops and secure profit before retail investors panic.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- INTERACTIVITY SCRIPT -->
+    <script>
+        function toggleFaq(element) {
+            // Close others
+            const allItems = document.querySelectorAll('.faq-item');
+            allItems.forEach(item => {
+                if (item !== element) {
+                    item.classList.remove('active');
+                }
+            });
+            // Toggle current
+            element.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
