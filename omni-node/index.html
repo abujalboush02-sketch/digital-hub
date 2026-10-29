@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OmniNode | Catch any event. Deliver it anywhere.</title>
+<meta name="description" content="OmniNode receives webhooks from any app, reshapes the data and delivers it reliably to any API, with retries, logs and AI that turns messages into data. No code. Billed in JOD.">
+<meta name="theme-color" content="#060A13">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://omni.mohammad-abujalboush.com/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="OmniNode | Catch any event. Deliver it anywhere.">
+<meta property="og:description" content="Connect any app that sends webhooks to any API. Visual mapping, automatic retries, failed-event replay and AI message parsing. 14-day free trial.">
+<meta property="og:url" content="https://omni.mohammad-abujalboush.com/">
+<meta name="twitter:card" content="summary">
+<script>(function(){try{var d=document.documentElement,q=new URLSearchParams(location.search).get("lang"),s=null;try{s=localStorage.getItem("omni.lang")}catch(e){}var n=((navigator.languages&&navigator.languages[0])||navigator.language||"").toLowerCase();var ar=q?q==="ar":s?s==="ar":n.indexOf("ar")===0;if(ar){d.lang="ar";d.dir="rtl";d.classList.add("i18n-wait");setTimeout(function(){d.classList.remove("i18n-wait")},1500)}}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"OmniNode","applicationCategory":"BusinessApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"JOD","description":"14-day free trial"},"url":"https://omni.mohammad-abujalboush.com/"}</script>
+</head>
+<body>
+<a class="skip" href="#main" data-i18n="skip">Skip to content</a>
+
+<!-- ================= NAV ================= -->
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top" aria-label="OmniNode home"><img src="assets/favicon.svg" alt="" width="30" height="30">OmniNode</a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="#how" data-i18n="nav.how">How it works</a>
+      <a href="#use-cases" data-i18n="nav.use">Use cases</a>
+      <a href="#agencies" data-i18n="nav.agencies">Agencies</a>
+      <a href="#pricing" data-i18n="nav.pricing">Pricing</a>
+      <a href="docs.html" data-page="docs.html" data-i18n="nav.docs">Docs</a>
+      <a href="#faq" data-i18n="nav.faq">FAQ</a>
+    </nav>
+    <div class="nav-cta">
+      <button class="lang-btn" type="button">العربية</button>
+      <a class="btn btn-ghost hide-sm" data-app="login" href="#" data-i18n="nav.login">Log in</a>
+      <a class="btn btn-primary hide-sm" data-app="register" href="#" data-i18n="cta.trial">Start free trial</a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mobile-menu" data-i18n-attr="aria-label:nav.menu" aria-label="Open menu">
+        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="#how" data-i18n="nav.how">How it works</a>
+    <a href="#use-cases" data-i18n="nav.use">Use cases</a>
+    <a href="#agencies" data-i18n="nav.agencies">Agencies</a>
+    <a href="#pricing" data-i18n="nav.pricing">Pricing</a>
+    <a href="docs.html" data-page="docs.html" data-i18n="nav.docs">Docs</a>
+    <a href="#faq" data-i18n="nav.faq">FAQ</a>
+    <a data-app="login" href="#" data-i18n="nav.login">Log in</a>
+    <a class="btn btn-primary btn-block" data-app="register" href="#" data-i18n="cta.trial">Start free trial</a>
+  </div>
+</header>
+
+<main id="main">
+<!-- ================= HERO ================= -->
+<section class="hero" id="top">
+  <div class="wrap">
+    <span class="chip"><span class="dot"></span><span data-i18n="hero.chip">Live now · 14-day free trial, no card needed</span></span>
+    <h1 data-i18n="hero.title">Catch any event. <span class="grad-text">Deliver it anywhere.</span></h1>
+    <p class="lead" data-i18n="hero.lead">OmniNode receives data from any app that sends webhooks, reshapes it to fit, and delivers it to any API, with automatic retries, full logs and AI that turns plain messages into clean data. No code.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary btn-lg" data-app="register" href="#" data-i18n="cta.trial14">Start your 14-day free trial</a>
+      <a class="btn btn-ghost btn-lg" href="#how" data-i18n="cta.how">See how it works</a>
+    </div>
+    <div class="hero-meta">
+      <span><svg fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg><span data-i18n="hero.m1">No credit card</span></span>
+      <span><svg fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg><span data-i18n="hero.m2">Pay in JOD with CliQ or bank transfer</span></span>
+      <span><svg fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg><span data-i18n="hero.m3">Arabic &amp; English</span></span>
+    </div>
+
+    <div class="flow rv" aria-hidden="true">
+      <div class="flow-col">
+        <div class="node"><i style="background:#95BF47"></i><span data-i18n="flow.s1">Online store order</span></div>
+        <div class="node"><i style="background:#1877F2"></i><span data-i18n="flow.s2">Facebook, Instagram &amp; TikTok leads</span></div>
+        <div class="node"><i style="background:#25D366"></i><span data-i18n="flow.s3">WhatsApp, Telegram, Instagram &amp; Messenger chats</span></div>
+        <div class="node"><i style="background:#F59E0B"></i><span data-i18n="flow.s4">Your own system</span></div>
+      </div>
+      <div class="pipe"></div>
+      <div class="hub">
+        <img src="assets/favicon.svg" alt="">
+        <b>OmniNode</b>
+        <small data-i18n="flow.hub">receive · reshape · deliver</small>
+        <ul>
+          <li data-i18n="flow.h1">Queued instantly</li>
+          <li data-i18n="flow.h2">Fields mapped &amp; typed</li>
+          <li data-i18n="flow.h3">Retried until delivered</li>
+          <li data-i18n="flow.h4">Logged &amp; replayable</li>
+        </ul>
+      </div>
+      <div class="pipe"></div>
+      <div class="flow-col">
+        <div class="node"><i style="background:#FF7A59"></i><span data-i18n="flow.d1">CRM</span></div>
+        <div class="node"><i style="background:#38BDF8"></i><span data-i18n="flow.d2">Courier / delivery API</span></div>
+        <div class="node"><i style="background:#A78BFA"></i><span data-i18n="flow.d3">Accounting / ERP</span></div>
+        <div class="node"><i style="background:#34D399"></i><span data-i18n="flow.d4">Any REST API</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STRIP ================= -->
+<div class="strip">
+  <p data-i18n="strip">Works with any app that can send a webhook, for example</p>
+  <div class="mask" aria-hidden="true">
+    <div class="marquee">
+      <span>Shopify</span><span>WooCommerce</span><span>Salla</span><span>Zid</span><span>Stripe</span><span>Tap</span><span>PayTabs</span><span>Meta Lead Ads</span><span>Typeform</span><span>Calendly</span><span>HubSpot</span><span>Zoho</span><span>Odoo</span><span>WhatsApp</span><span>Instagram</span><span>Messenger</span><span>Telegram</span><span>TikTok Lead Ads</span><span>Google Forms</span><span>GitHub</span>
+      <span>Shopify</span><span>WooCommerce</span><span>Salla</span><span>Zid</span><span>Stripe</span><span>Tap</span><span>PayTabs</span><span>Meta Lead Ads</span><span>Typeform</span><span>Calendly</span><span>HubSpot</span><span>Zoho</span><span>Odoo</span><span>WhatsApp</span><span>Instagram</span><span>Messenger</span><span>Telegram</span><span>TikTok Lead Ads</span><span>Google Forms</span><span>GitHub</span>
+    </div>
+  </div>
+</div>
+
+<!-- ================= HOW ================= -->
+<section class="sec" id="how">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow" data-i18n="how.eye">How it works</span>
+      <h2 data-i18n="how.title">From "new event" to "delivered" in three steps</h2>
+      <p class="lead" data-i18n="how.lead">Set up a connection in minutes. Every event after that is handled for you.</p>
+    </div>
+    <div class="grid g3 steps">
+      <div class="card step rv">
+        <h3 data-i18n="how.s1t">Get your inbound URL</h3>
+        <p data-i18n="how.s1d">Create a source and OmniNode gives you a private webhook URL. Paste it into Shopify, your form tool, your payment gateway, or any system that sends webhooks. Shopify signatures can be verified too.</p>
+      </div>
+      <div class="card step rv">
+        <h3 data-i18n="how.s2t">Map the fields visually</h3>
+        <p data-i18n="how.s2d">Paste a sample of the incoming data, or start from a template. Tap a field on the left, then the field it belongs to on the right. Set types and simple math, and preview the exact output before you save.</p>
+      </div>
+      <div class="card step rv">
+        <h3 data-i18n="how.s3t">Deliver and monitor</h3>
+        <p data-i18n="how.s3d">Each event is accepted instantly, queued, transformed and sent to your destination. If it fails, OmniNode retries automatically, keeps the event in a failed queue and lets you replay it with one click.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= AI DEMO ================= -->
+<section class="sec sec-alt" id="ai">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow" data-i18n="ai.eye">AI message parsing</span>
+      <h2 data-i18n="ai.title">Messages in. Structured data out.</h2>
+      <p class="lead" data-i18n="ai.lead">Customers don't fill forms; they send messages. OmniNode's AI reads free-text messages in Arabic or English and extracts clean fields your systems can use.</p>
+    </div>
+    <div class="demo rv">
+      <div class="pane">
+        <div class="pane-h"><b><i class="dot" style="background:#25D366;box-shadow:none"></i><span data-i18n="ai.in">Incoming message</span></b></div>
+        <div id="bubble" class="bubble caret"></div>
+      </div>
+      <div class="pane">
+        <div class="pane-h"><b><i class="dot" style="background:var(--accent);box-shadow:none"></i><span data-i18n="ai.out">Structured output</span></b><span id="demo-status" class="status" data-i18n="ai.wait">Waiting…</span></div>
+        <pre class="json" id="json" dir="ltr"></pre>
+      </div>
+    </div>
+    <div class="demo-switch" role="group" aria-label="Demo language">
+      <button type="button" data-demo="ar">العربية</button>
+      <button type="button" data-demo="en">English</button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= USE CASES ================= -->
+<section class="sec" id="use-cases">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow" data-i18n="uc.eye">Use cases</span>
+      <h2 data-i18n="uc.title">Not just orders. Any event, any industry.</h2>
+      <p class="lead" data-i18n="uc.lead">If a system can send a webhook and another can receive an API call, OmniNode can connect them.</p>
+    </div>
+    <div class="grid g3">
+      <div class="card uc rv">
+        <div class="ico"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 4h2l2.4 11.2a2 2 0 002 1.6h7.7a2 2 0 002-1.5L21 8H6"/><circle cx="10" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/></svg></div>
+        <h3 data-i18n="uc.1t">E-commerce &amp; delivery</h3>
+        <p data-i18n="uc.1d">New orders go straight to your courier, warehouse or accounting system, with the fields they expect.</p>
+        <div class="route"><span data-i18n="uc.1a">Store order</span><em>→</em><span data-i18n="uc.1b">Courier API</span></div>
+      </div>
+      <div class="card uc rv">
+        <div class="ico v"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 11l18-8-8 18-2-8-8-2z"/></svg></div>
+        <h3 data-i18n="uc.2t">Marketing &amp; lead routing</h3>
+        <p data-i18n="uc.2d">Leads from ad forms and landing pages land in the CRM in seconds, so your sales team calls while the lead is still warm.</p>
+        <div class="route"><span data-i18n="uc.2a">Lead form</span><em>→</em><span data-i18n="uc.2b">CRM</span></div>
+      </div>
+      <div class="card uc rv">
+        <div class="ico g"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h3"/></svg></div>
+        <h3 data-i18n="uc.3t">Payments &amp; finance</h3>
+        <p data-i18n="uc.3d">Successful payments, refunds and invoices sync to your accounting or ERP automatically, with amounts converted and formatted.</p>
+        <div class="route"><span data-i18n="uc.3a">Payment gateway</span><em>→</em><span data-i18n="uc.3b">Accounting</span></div>
+      </div>
+      <div class="card uc rv">
+        <div class="ico y"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z"/></svg></div>
+        <h3 data-i18n="uc.4t">Chat &amp; customer messages</h3>
+        <p data-i18n="uc.4d">Turn WhatsApp, Telegram, Instagram and Messenger chats into structured orders, bookings or support tickets, in Arabic or English.</p>
+        <div class="route"><span data-i18n="uc.4a">Message</span><em>→</em><span data-i18n="uc.4b">AI</span><em>→</em><span data-i18n="uc.4c">Your system</span></div>
+      </div>
+      <div class="card uc rv">
+        <div class="ico"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg></div>
+        <h3 data-i18n="uc.5t">Bookings &amp; services</h3>
+        <p data-i18n="uc.5d">Clinic, salon and service bookings flow into your scheduling, CRM or reminder tool without anyone retyping them.</p>
+        <div class="route"><span data-i18n="uc.5a">Booking</span><em>→</em><span data-i18n="uc.5b">Calendar / CRM</span></div>
+      </div>
+      <div class="card uc rv">
+        <div class="ico v"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 7l8-4 8 4-8 4-8-4zM4 12l8 4 8-4M4 17l8 4 8-4"/></svg></div>
+        <h3 data-i18n="uc.6t">Internal systems &amp; devices</h3>
+        <p data-i18n="uc.6d">Connect in-house software, POS systems, monitoring alerts or devices that send HTTP, even if they have no official integration.</p>
+        <div class="route"><span data-i18n="uc.6a">Any system</span><em>→</em><span data-i18n="uc.6b">Any API</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FEATURES ================= -->
+<section class="sec sec-alt" id="features">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow" data-i18n="ft.eye">Built for reliability</span>
+      <h2 data-i18n="ft.title">Every event caught. Every failure visible.</h2>
+      <p class="lead" data-i18n="ft.lead">The hard part of integrations isn't the first request. It's what happens when something goes wrong.</p>
+    </div>
+    <div class="grid g3">
+      <div class="card rv"><div class="ico g"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.4 8.3-8 9-4.6-.7-8-4-8-9V7l8-4z"/><path d="M9 12l2 2 4-4"/></svg></div><h3 data-i18n="ft.1t">Accepted instantly, never dropped</h3><p data-i18n="ft.1d">Webhooks are saved to a queue the moment they arrive and the sender gets an immediate response, even if your destination is slow or down.</p></div>
+      <div class="card rv"><div class="ico"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4v6h6M20 20v-6h-6"/><path d="M20 10A8 8 0 006.3 5.3L4 10M4 14a8 8 0 0013.7 4.7L20 14"/></svg></div><h3 data-i18n="ft.2t">Automatic retries</h3><p data-i18n="ft.2d">Failed deliveries are retried automatically, up to 5 attempts with growing waits in between, so short outages fix themselves.</p></div>
+      <div class="card rv"><div class="ico y"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9L2.4 18a2 2 0 001.7 3h15.8a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/></svg></div><h3 data-i18n="ft.3t">Failed queue &amp; one-click replay</h3><p data-i18n="ft.3d">Anything that still fails waits in a failed-events queue with the exact error. Fix the cause, then replay one event or all of them.</p></div>
+      <div class="card rv"><div class="ico v"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h7M4 12h7M4 18h7M15 6h5M15 12h5M15 18h5"/><path d="M11 6l4 6-4 6"/></svg></div><h3 data-i18n="ft.4t">Visual mapping studio</h3><p data-i18n="ft.4d">Link fields by tapping, set text/number/boolean/date types, apply simple math and preview the output. Nested fields are supported.</p></div>
+      <div class="card rv"><div class="ico"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></div><h3 data-i18n="ft.5t">Schema discovery &amp; suggestions</h3><p data-i18n="ft.5d">Paste one sample payload and OmniNode reads its structure, even from undocumented in-house systems, and suggests matching fields for you.</p></div>
+      <div class="card rv"><div class="ico g"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg></div><h3 data-i18n="ft.6t">Secure by design</h3><p data-i18n="ft.6d">Private secret URLs, Shopify signature checks, API keys stored as one-way hashes and strict isolation between workspaces.</p></div>
+      <div class="card rv"><div class="ico y"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg></div><h3 data-i18n="ft.7t">Logs, usage &amp; alerts</h3><p data-i18n="ft.7d">See every event with its payload and status, track usage against your plan, and get warned at 80% and 100% before anything stops.</p></div>
+      <div class="card rv"><div class="ico v"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h10"/></svg></div><h3 data-i18n="ft.8t">Ready-made templates</h3><p data-i18n="ft.8d">Start from built-in sample schemas instead of a blank page, then adjust the mapping to your exact needs.</p></div>
+      <div class="card rv"><div class="ico"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg></div><h3 data-i18n="ft.9t">Developer API</h3><p data-i18n="ft.9d">Endpoints, mappings, webhooks and event logs are available over a documented REST API with API-key authentication.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= AGENCIES ================= -->
+<section class="sec" id="agencies">
+  <div class="wrap split">
+    <div class="rv">
+      <span class="eyebrow" data-i18n="ag.eye">For agencies</span>
+      <h2 data-i18n="ag.title">Run every client's integrations from one portal.</h2>
+      <p class="lead" style="margin-top:16px" data-i18n="ag.lead">Built for marketing, e-commerce and software agencies that set up and maintain integrations for many clients.</p>
+      <ul class="checks">
+        <li><svg fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg><span data-i18n="ag.1"><b>One login, all clients.</b> Open any client's workspace to build and fix their connections.</span></li>
+        <li><svg fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg><span data-i18n="ag.2"><b>Pooled task quota.</b> Split your plan's tasks between clients and change allocations any time.</span></li>
+        <li><svg fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg><span data-i18n="ag.3"><b>Pause, resume, monitor.</b> See usage, failures and last activity per client at a glance.</span></li>
+        <li><svg fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg><span data-i18n="ag.4"><b>Client reports in PDF.</b> Seven report templates with date filters and a preview before download.</span></li>
+        <li><svg fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg><span data-i18n="ag.5"><b>White-label reports.</b> Your logo, colours and footer on every report you send to clients.</span></li>
+      </ul>
+      <div class="hero-cta" style="justify-content:flex-start">
+        <a class="btn btn-primary" data-app="register" href="#" data-i18n="ag.cta">Start an agency trial</a>
+        <a class="btn btn-ghost" href="#pricing" data-i18n="ag.cta2" onclick="window.__showPlans&&window.__showPlans('agency')">See agency plans</a>
+      </div>
+    </div>
+    <div class="mock rv" aria-hidden="true">
+      <div class="mock-h"><span data-i18n="ag.m.pool">Agency pool</span><small>52,400 / 80,000</small></div>
+      <div class="bar"><i style="width:65%"></i></div>
+      <div class="client"><b data-i18n="ag.m.c1">Rose Cosmetics</b><small>18,200 / 25,000</small><div class="bar"><i style="width:73%"></i></div></div>
+      <div class="client"><b data-i18n="ag.m.c2">Amman Auto Parts</b><small>21,900 / 25,000</small><div class="bar"><i class="w" style="width:88%"></i></div></div>
+      <div class="client"><b data-i18n="ag.m.c3">Levant Clinics</b><small>12,300 / 20,000</small><div class="bar"><i style="width:61%"></i></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WHY ================= -->
+<section class="sec sec-alt" id="why">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow" data-i18n="why.eye">Why OmniNode</span>
+      <h2 data-i18n="why.title">Made for businesses in our region</h2>
+    </div>
+    <div class="grid g4">
+      <div class="card rv"><h3 data-i18n="why.1t">Local billing</h3><p data-i18n="why.1d">Plans in Jordanian Dinars. Pay with CliQ, bank transfer or cash. No foreign card needed.</p></div>
+      <div class="card rv"><h3 data-i18n="why.2t">Arabic first-class</h3><p data-i18n="why.2d">Full Arabic interface, and AI that understands Arabic customer messages.</p></div>
+      <div class="card rv"><h3 data-i18n="why.3t">Agency-ready</h3><p data-i18n="why.3d">Multi-client management, pooled quotas and white-label reports are built in, not bolted on.</p></div>
+      <div class="card rv"><h3 data-i18n="why.4t">Real support</h3><p data-i18n="why.4d">Talk directly to the team that builds OmniNode, in your language and time zone.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PRICING ================= -->
+<section class="sec" id="pricing">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow" data-i18n="pr.eye">Pricing</span>
+      <h2 data-i18n="pr.title">Simple monthly plans in JOD</h2>
+      <p class="lead" data-i18n="pr.lead">Start with a 14-day free trial. Upgrade when you're ready. One incoming webhook = one task.</p>
+    </div>
+    <div class="center">
+      <div class="tabs" role="tablist">
+        <button type="button" role="tab" id="tab-biz" class="on" aria-selected="true" data-i18n="pr.biz">For businesses</button>
+        <button type="button" role="tab" id="tab-ag" aria-selected="false" data-i18n="pr.ag">For agencies</button>
+      </div>
+    </div>
+    <div id="plans" class="plans"></div>
+    <div id="addon" class="addon" hidden data-i18n="pr.addon"><b>White-label reports add-on:</b>&nbsp;+20.561 JOD / month on Agency Bronze and Silver (included in Gold and Platinum).</div>
+    <div class="pay-note">
+      <span><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/></svg><span data-i18n="pr.n1">CliQ, bank transfer or cash</span></span>
+      <span><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg><span data-i18n="pr.n2">Monthly, no long-term contract</span></span>
+      <span><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12h18M12 3v18"/></svg><span data-i18n="pr.n3">10% grace above your task limit</span></span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ROADMAP ================= -->
+<section class="sec sec-alt" id="roadmap">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow" data-i18n="rm.eye">Coming next</span>
+      <h2 data-i18n="rm.title">On the roadmap</h2>
+      <p class="lead" data-i18n="rm.lead">What we're building next. Tell us what you need most.</p>
+    </div>
+    <div class="road rv">
+      <span data-i18n="rm.1">One event to many destinations</span>
+      <span data-i18n="rm.2">Conditional routing rules</span>
+      <span data-i18n="rm.3">Built-in WhatsApp, SMS &amp; email actions</span>
+      <span data-i18n="rm.4">Google Sheets &amp; Slack</span>
+      <span data-i18n="rm.5">Templates for Salla, Zid &amp; Foodics</span>
+      <span data-i18n="rm.6">Multi-step workflows</span>
+      <span data-i18n="rm.7">Mobile app</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section class="sec" id="faq">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="eyebrow" data-i18n="faq.eye">FAQ</span><h2 data-i18n="faq.title">Questions, answered</h2></div>
+    <div class="faq">
+      <details><summary data-i18n="faq.1q">Do I need a developer?</summary><div class="a" data-i18n="faq.1a">No. You paste the inbound URL into your source app and map fields visually in the dashboard. A developer only helps if the system you're connecting has no webhook settings, or if you want to use our API directly.</div></details>
+      <details><summary data-i18n="faq.2q">What counts as a task?</summary><div class="a" data-i18n="faq.2a">Each incoming webhook accepted by OmniNode is one task, no matter how many fields it has. Messages sent to the AI parser also count as one AI task. Retries of the same event don't use extra tasks.</div></details>
+      <details><summary data-i18n="faq.3q">What happens if my destination is down?</summary><div class="a" data-i18n="faq.3a">The event stays safely queued. OmniNode makes up to 5 delivery attempts with increasing waits. If it still fails, it moves to the failed-events queue with the exact error, and you can replay it once the destination is back.</div></details>
+      <details><summary data-i18n="faq.4q">What happens when I reach my monthly limit?</summary><div class="a" data-i18n="faq.4a">You're warned at 80% and 100%. You then get a 10% grace buffer so nothing stops abruptly. Above that, new webhooks are refused until you upgrade or the next month starts.</div></details>
+      <details><summary data-i18n="faq.5q">How do I pay?</summary><div class="a" data-i18n="faq.5a">Choose a plan in the app and generate an invoice. Pay by CliQ, bank transfer or cash using the reference shown, then tap "I've paid". Your plan is activated as soon as the payment is confirmed.</div></details>
+      <details><summary data-i18n="faq.6q">What happens after the free trial?</summary><div class="a" data-i18n="faq.6a">After 14 days, incoming webhooks pause until you choose a plan. Your setup, connections and logs are kept, so you continue right where you left off.</div></details>
+      <details><summary data-i18n="faq.7q">Can I cancel any time?</summary><div class="a" data-i18n="faq.7a">Yes. Plans are monthly. If you don't renew, your account moves to a short grace period and is then paused. There's nothing to cancel and no long-term contract.</div></details>
+      <details><summary data-i18n="faq.8q">Is my data used to train AI?</summary><div class="a" data-i18n="faq.8a">No. Only messages you send to the AI parsing endpoint are processed by our AI provider, only to extract fields. We don't use your data to train models. Details are in our Privacy Policy.</div></details>
+      <details><summary data-i18n="faq.9q">Can I connect a system that isn't listed?</summary><div class="a" data-i18n="faq.9a">Yes. If it can send an HTTP request with JSON, it can be a source. If it accepts an HTTP request, it can be a destination. Paste a sample payload and OmniNode reads its structure.</div></details>
+      <details><summary data-i18n="faq.10q">I'm an agency. How do client accounts work?</summary><div class="a" data-i18n="faq.10a">You manage everything: create a workspace per client, give each one a share of your pooled tasks, and build their connections yourself. Clients don't need their own logins. You can send them branded PDF reports.</div></details>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section class="sec" style="padding-top:0">
+  <div class="wrap">
+    <div class="cta rv">
+      <h2 data-i18n="cta.title">Connect your first app today</h2>
+      <p class="lead" style="margin:14px auto 0" data-i18n="cta.lead">14 days free. No card needed. Set up your first connection in minutes.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary btn-lg" data-app="register" href="#" data-i18n="cta.trial14">Start your 14-day free trial</a>
+        <a class="btn btn-ghost btn-lg" data-mail="OmniNode demo request" href="#" data-i18n="cta.talk">Talk to us</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-in">
+      <div>
+        <a class="brand" href="#top"><img src="assets/favicon.svg" alt="" width="28" height="28">OmniNode</a>
+        <p style="margin:12px 0 0;max-width:34ch" data-i18n="ft.about">The integration hub for businesses and agencies. Built in Amman, Jordan.</p>
+      </div>
+      <div><h4 data-i18n="f.product">Product</h4><ul><li><a href="#how" data-i18n="nav.how">How it works</a></li><li><a href="#use-cases" data-i18n="nav.use">Use cases</a></li><li><a href="#agencies" data-i18n="nav.agencies">Agencies</a></li><li><a href="#pricing" data-i18n="nav.pricing">Pricing</a></li></ul></div>
+      <div><h4 data-i18n="f.dev">Developers</h4><ul><li><a href="docs.html" data-page="docs.html" data-i18n="f.docs">API documentation</a></li><li><a href="docs.html#quickstart" data-page="docs.html#quickstart" data-i18n="f.quick">Quick start</a></li><li><a data-app="login" href="#" data-i18n="nav.login">Log in</a></li></ul></div>
+      <div><h4 data-i18n="f.company">Company</h4><ul><li><a href="legal.html#terms" data-page="legal.html#terms" data-i18n="f.terms">Terms of Service</a></li><li><a href="legal.html#privacy" data-page="legal.html#privacy" data-i18n="f.privacy">Privacy Policy</a></li><li><a href="legal.html#refunds" data-page="legal.html#refunds" data-i18n="f.refunds">Refund Policy</a></li><li><a data-mail href="#" data-i18n="f.contact">Contact</a></li></ul></div>
+    </div>
+    <div class="foot-b"><span>© <span id="year">2026</span> OmniNode. <span data-i18n="f.rights">All rights reserved.</span></span><button class="lang-btn" type="button">العربية</button></div>
+  </div>
+</footer>
+
+<script src="assets/i18n-index-ar.js"></script>
+<script src="assets/site.js"></script>
+<script>
+/* ---------- pricing (single source of truth; must match the app) ---------- */
+(function () {
+  var CHECK = '<svg fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>';
+  var T = {
+    en: { mo: "/ month", trial: "Free", days: "14 days", tasks: "tasks / month", ai: "AI tasks / month", clients: "clients", upTo: "Up to", popular: "Most popular", start: "Start free trial", choose: "Choose plan", contact: "Talk to us", from: "from", noai: "No AI tasks", wl: "White-label reports", wlAdd: "White-label available as add-on" },
+    ar: { mo: "شهرياً", trial: "مجاناً", days: "14 يوماً", tasks: "مهمة / شهرياً", ai: "مهمة ذكاء اصطناعي / شهرياً", clients: "عملاء", upTo: "حتى", popular: "الأكثر طلباً", start: "ابدأ التجربة المجانية", choose: "اختر الخطة", contact: "تواصل معنا", from: "ابتداءً من", noai: "بدون مهام ذكاء اصطناعي", wl: "تقارير بعلامتك التجارية", wlAdd: "التقارير بعلامتك متاحة كإضافة" }
+  };
+  var BIZ = [
+    { id: "free", en: "Free Trial", ar: "تجربة مجانية", jod: 0, usd: 0, tasks: 150, ai: 20, trial: true,
+      x: { en: ["All features for 14 days", "Community support"], ar: ["جميع الميزات لمدة 14 يوماً", "دعم المجتمع"] } },
+    { id: "bronze", en: "Bronze", ar: "البرونزية", jod: 14, usd: 19, tasks: 2500, ai: 0,
+      x: { en: ["Email support"], ar: ["دعم عبر البريد الإلكتروني"] } },
+    { id: "silver", en: "Silver", ar: "الفضية", jod: 35, usd: 49, tasks: 10000, ai: 250, hot: true,
+      x: { en: ["Email support"], ar: ["دعم عبر البريد الإلكتروني"] } },
+    { id: "gold", en: "Gold", ar: "الذهبية", jod: 85, usd: 119, tasks: 35000, ai: 1000,
+      x: { en: ["Priority email support"], ar: ["دعم ذو أولوية عبر البريد"] } },
+    { id: "platinum", en: "Platinum", ar: "البلاتينية", jod: 179, usd: 249, tasks: 100000, ai: 5000,
+      x: { en: ["Priority support", "Onboarding call"], ar: ["دعم ذو أولوية", "جلسة إعداد مع فريقنا"] } }
+  ];
+  var AG = [
+    { id: "agency_trial", en: "Agency Trial", ar: "تجربة الوكالات", jod: 0, usd: 0, tasks: 1000, ai: 50, clients: 2, trial: true,
+      x: { en: ["All agency features for 14 days"], ar: ["جميع ميزات الوكالات لمدة 14 يوماً"] } },
+    { id: "agency_bronze", en: "Agency Bronze", ar: "وكالة برونزية", jod: 70.191, usd: 99, tasks: 30000, ai: 1000, clients: 5, wl: "add",
+      x: { en: ["Pooled quota across clients"], ar: ["حصة مشتركة بين العملاء"] } },
+    { id: "agency_silver", en: "Agency Silver", ar: "وكالة فضية", jod: 176.541, usd: 249, tasks: 80000, ai: 5000, clients: 15, wl: "add", hot: true,
+      x: { en: ["Pooled quota across clients"], ar: ["حصة مشتركة بين العملاء"] } },
+    { id: "agency_gold", en: "Agency Gold", ar: "وكالة ذهبية", jod: 353.791, usd: 499, tasks: 250000, ai: 15000, clients: 40, wl: "inc",
+      x: { en: ["Priority support", "90-day logs"], ar: ["دعم ذو أولوية", "سجلات لمدة 90 يوماً"] } },
+    { id: "agency_platinum", en: "Agency Platinum", ar: "وكالة بلاتينية", jod: 637.391, usd: 899, tasks: 750000, ai: 50000, clients: 200, wl: "inc", from: true,
+      x: { en: ["SLA & priority support", "Custom limits available"], ar: ["اتفاقية مستوى خدمة ودعم ذو أولوية", "حدود مخصصة عند الطلب"] } }
+  ];
+
+  var mode = "biz";
+  function n(v, lang) { return Number(v).toLocaleString("en-US", { maximumFractionDigits: 3 }); }
+  function render() {
+    var lang = OmniLang.current() === "ar" ? "ar" : "en", t = T[lang];
+    var list = mode === "biz" ? BIZ : AG, box = document.getElementById("plans");
+    box.className = "plans" + (mode === "biz" ? "" : " agency");
+    box.innerHTML = list.map(function (p) {
+      var price = p.trial
+        ? '<b>' + t.trial + '</b><span>· ' + t.days + '</span>'
+        : (p.from ? '<span>' + t.from + '</span> ' : '') + '<b>' + n(p.jod, lang) + '</b><span>' + (lang === "ar" ? "د.أ " : "JOD ") + t.mo + '</span>';
+      var usd = p.trial ? "" : "≈ $" + p.usd + (lang === "ar" ? " شهرياً" : " / month");
+      var items = [];
+      if (p.clients) items.push((lang === "ar" ? t.upTo + " <b>" + n(p.clients, lang) + "</b> " + t.clients : t.upTo + " <b>" + n(p.clients, lang) + "</b> " + t.clients));
+      items.push("<b>" + n(p.tasks, lang) + "</b> " + t.tasks);
+      items.push(p.ai ? "<b>" + n(p.ai, lang) + "</b> " + t.ai : t.noai);
+      if (p.wl === "inc") items.push("<b>" + t.wl + "</b>");
+      if (p.wl === "add") items.push(t.wlAdd);
+      items = items.concat(p.x[lang]);
+      var cta = p.trial ? t.start : (p.from ? t.contact : t.choose);
+      var href = p.from ? "mailto:" + SITE.email + "?subject=" + encodeURIComponent("Agency Platinum") : SITE.appUrl + SITE.registerPath;
+      return '<div class="plan' + (p.hot ? ' hot' : '') + '">' +
+        (p.hot ? '<span class="badge tag">' + t.popular + '</span>' : '') +
+        '<h3>' + p[lang] + '</h3><div class="price">' + price + '</div><div class="usd">' + usd + '</div>' +
+        '<ul>' + items.map(function (i) { return '<li>' + CHECK + '<span>' + i + '</span></li>'; }).join("") + '</ul>' +
+        '<a class="btn ' + (p.hot || p.trial ? 'btn-primary' : 'btn-ghost') + ' btn-block" href="' + href + '" rel="noopener">' + cta + '</a></div>';
+    }).join("");
+    document.getElementById("addon").hidden = mode !== "agency";
+  }
+  function setMode(m) {
+    mode = m;
+    document.getElementById("tab-biz").classList.toggle("on", m === "biz");
+    document.getElementById("tab-ag").classList.toggle("on", m === "agency");
+    document.getElementById("tab-biz").setAttribute("aria-selected", m === "biz");
+    document.getElementById("tab-ag").setAttribute("aria-selected", m === "agency");
+    render();
+  }
+  window.__showPlans = setMode;
+  document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("tab-biz").addEventListener("click", function () { setMode("biz"); });
+    document.getElementById("tab-ag").addEventListener("click", function () { setMode("agency"); });
+    render();
+  });
+  document.addEventListener("langchange", function () { if (document.getElementById("plans").children.length) render(); });
+
+  /* ---------- AI demo ---------- */
+  var DEMO = {
+    ar: { msg: "مرحبا، بدي ٣ علب كريم ترطيب وسيروم فيتامين سي، التوصيل على عمان - خلدا شارع وصفي التل، رقمي 0791234567. الدفع عند الاستلام",
+      json: '{\n  "customer": {\n    "phone": "+962791234567"\n  },\n  "items": [\n    { "product": "Moisturizing cream", "qty": 3 },\n    { "product": "Vitamin C serum", "qty": 1 }\n  ],\n  "delivery": {\n    "city": "Amman",\n    "area": "Khalda",\n    "street": "Wasfi Al-Tal St."\n  },\n  "payment": "cash_on_delivery"\n}' },
+    en: { msg: "Hi, this is Sara. Please send 5 ergonomic chairs to our Amman office, Abdali Boulevard. You can reach me at sara@levant-tech.com",
+      json: '{\n  "contact": {\n    "name": "Sara",\n    "email": "sara@levant-tech.com"\n  },\n  "items": [\n    { "product": "Ergonomic chair", "qty": 5 }\n  ],\n  "delivery": {\n    "city": "Amman",\n    "address": "Abdali Boulevard"\n  }\n}' }
+  };
+  var S = { ar: { wait: "بانتظار رسالة…", run: "جارٍ الاستخراج…", ok: "تم ✓" }, en: { wait: "Waiting…", run: "Extracting…", ok: "Done ✓" } };
+  var demoLang = null, timer = null;
+  function st(cls, key) { var el = document.getElementById("demo-status"), l = OmniLang.current() === "ar" ? "ar" : "en"; el.className = "status" + (cls ? " " + cls : ""); el.textContent = S[l][key]; }
+  function runDemo(l) {
+    clearTimeout(timer);
+    demoLang = l;
+    document.querySelectorAll("[data-demo]").forEach(function (b) { b.classList.toggle("on", b.getAttribute("data-demo") === l); });
+    var b = document.getElementById("bubble"), j = document.getElementById("json"), d = DEMO[l], i = 0;
+    b.setAttribute("dir", l === "ar" ? "rtl" : "ltr");
+    b.textContent = ""; b.classList.add("caret"); j.classList.remove("show"); j.textContent = d.json; st("", "wait");
+    var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) { b.textContent = d.msg; b.classList.remove("caret"); j.classList.add("show"); st("ok", "ok"); return; }
+    (function type() {
+      if (i < d.msg.length) { b.textContent += d.msg.charAt(i++); timer = setTimeout(type, 28); return; }
+      b.classList.remove("caret"); st("run", "run");
+      timer = setTimeout(function () {
+        j.classList.add("show"); st("ok", "ok");
+        timer = setTimeout(function () { runDemo(l === "ar" ? "en" : "ar"); }, 6500);
+      }, 1200);
+    })();
+  }
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll("[data-demo]").forEach(function (btn) { btn.addEventListener("click", function () { runDemo(btn.getAttribute("data-demo")); }); });
+    var start = function () { runDemo(OmniLang.current() === "ar" ? "ar" : "en"); };
+    var sec = document.getElementById("ai");
+    if ("IntersectionObserver" in window) {
+      var io = new IntersectionObserver(function (e) { if (e[0].isIntersecting && !demoLang) { start(); io.disconnect(); } }, { threshold: .3 });
+      io.observe(sec);
+    } else start();
+  });
+})();
+</script>
+</body>
+</html>

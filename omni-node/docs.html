@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OmniNode API Documentation</title>
+<meta name="description" content="OmniNode REST API reference: authentication, webhooks, endpoints, credentials, connections, mappings, events and limits.">
+<meta name="theme-color" content="#060A13">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://omni.mohammad-abujalboush.com/docs.html">
+<script>(function(){try{var d=document.documentElement,q=new URLSearchParams(location.search).get("lang"),s=null;try{s=localStorage.getItem("omni.lang")}catch(e){}var n=((navigator.languages&&navigator.languages[0])||navigator.language||"").toLowerCase();var ar=q?q==="ar":s?s==="ar":n.indexOf("ar")===0;if(ar){d.lang="ar";d.dir="rtl";d.classList.add("i18n-wait");setTimeout(function(){d.classList.remove("i18n-wait")},1500)}}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main" data-i18n="skip">Skip to content</a>
+<header class="nav scrolled">
+  <div class="wrap nav-in" style="max-width:none">
+    <div style="display:flex;align-items:center;gap:10px">
+      <button class="menu-btn side-toggle" type="button" data-i18n-attr="aria-label:side" aria-label="Sections"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <a class="brand" href="index.html" data-page="index.html"><img src="assets/favicon.svg" alt="" width="30" height="30">OmniNode <span class="badge" style="margin-inline-start:6px" data-i18n="badge">Docs</span></a>
+    </div>
+    <div class="nav-cta">
+      <button class="lang-btn" type="button">العربية</button>
+      <a class="btn btn-ghost hide-sm" data-app="login" href="#" data-i18n="login">Log in</a>
+      <a class="btn btn-primary hide-sm" data-app="register" href="#" data-i18n="trial">Start free trial</a>
+    </div>
+  </div>
+</header>
+
+<div class="doc">
+<aside class="side" aria-label="Documentation sections">
+  <h5 data-i18n="g.start">Getting started</h5>
+  <a href="#intro" data-i18n="s.intro">Introduction</a>
+  <a href="#quickstart" data-i18n="s.quick">Quick start</a>
+  <a href="#auth" data-i18n="s.auth">Authentication</a>
+  <a href="#errors" data-i18n="s.errors">Responses &amp; errors</a>
+  <h5 data-i18n="g.ingest">Receiving data</h5>
+  <a href="#webhooks" data-i18n="s.webhooks">Webhooks</a>
+  <a href="#ai" data-i18n="s.ai">AI message parsing</a>
+  <h5 data-i18n="g.build">Building pipelines</h5>
+  <a href="#endpoints" data-i18n="s.endpoints">Endpoints</a>
+  <a href="#credentials" data-i18n="s.credentials">Credentials</a>
+  <a href="#connections" data-i18n="s.connections">Connections</a>
+  <a href="#mappings" data-i18n="s.mappings">Mappings &amp; discovery</a>
+  <a href="#templates" data-i18n="s.templates">Templates</a>
+  <h5 data-i18n="g.monitor">Monitoring</h5>
+  <a href="#events" data-i18n="s.events">Events &amp; retries</a>
+  <a href="#account" data-i18n="s.account">Account &amp; API key</a>
+  <a href="#limits" data-i18n="s.limits">Limits &amp; quotas</a>
+  <h5 data-i18n="g.help">Help</h5>
+  <a href="#support" data-i18n="s.support">Support</a>
+</aside>
+
+<main class="doc-main" id="main">
+
+<section id="intro">
+  <h1 data-i18n="intro.h">OmniNode API reference</h1>
+  <p data-i18n="intro.p1">Use the OmniNode API to send events into OmniNode, manage endpoints and mappings, and read delivery logs. Everything here can also be done from the dashboard; the API is for developers who want to automate it.</p>
+  <div class="callout"><strong data-i18n="intro.base">Base URL</strong><br><code class="i" data-api>https://api.example.com</code></div>
+  <p data-i18n="intro.p2">All requests and responses use JSON. Field names in responses are camelCase. Times are UTC in ISO 8601.</p>
+</section>
+
+<section id="quickstart">
+  <h2 data-i18n="qs.h">Quick start</h2>
+  <p data-i18n="qs.p">The fastest path from zero to a delivered event. Each step links to its full reference below.</p>
+  <ol>
+    <li data-i18n="qs.1">Create a <strong>source</strong> endpoint and copy its <code class="i">inboundPath</code>.</li>
+    <li data-i18n="qs.2">Create a <strong>destination</strong> endpoint with the URL that should receive the data.</li>
+    <li data-i18n="qs.3">If the destination needs an API key or token, add a <strong>credential</strong> for it.</li>
+    <li data-i18n="qs.4">Create a <strong>connection</strong> from the source to the destination.</li>
+    <li data-i18n="qs.5">Save the <strong>mapping rules</strong> for that connection.</li>
+    <li data-i18n="qs.6">Point your app at the source's secret URL and send a test event. You get <code class="i">202 Accepted</code>.</li>
+    <li data-i18n="qs.7">Check the result in <strong>events</strong>. Processed means it was delivered.</li>
+  </ol>
+</section>
+
+<section id="auth">
+  <h2 data-i18n="auth.h">Authentication</h2>
+  <p data-i18n="auth.p1">Authenticate API calls with your workspace API key in the <code class="i">X-Api-Key</code> header. Your key is shown once when you sign up and whenever you regenerate it (Settings → API key). OmniNode stores only a one-way hash, so we can't show it again.</p>
+  <div class="code"><div class="code-h"><span>Headers</span><button class="copy" type="button">Copy</button></div><pre><code>X-Api-Key: um_live_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+Content-Type: application/json</code></pre></div>
+  <h3 data-i18n="auth.h2">Three ways to authenticate incoming webhooks</h3>
+  <table class="tbl">
+    <thead><tr><th data-i18n="auth.t.m">Method</th><th data-i18n="auth.t.u">When to use it</th></tr></thead>
+    <tbody>
+      <tr><td data-i18n="auth.t.1m"><strong>Secret URL</strong> (recommended)</td><td data-i18n="auth.t.1u">For apps that can't add headers, like Shopify. The URL itself is the secret. No key needed.</td></tr>
+      <tr><td><code class="i">X-Api-Key</code></td><td data-i18n="auth.t.2u">For your own code or tools that let you set headers.</td></tr>
+      <tr><td><code class="i">?key=</code></td><td data-i18n="auth.t.3u">Last resort for senders that can only take a URL. The key may appear in logs, so prefer a secret URL.</td></tr>
+    </tbody>
+  </table>
+  <div class="callout w" data-i18n="auth.warn">Regenerating your API key stops the old key immediately. Secret URLs are separate and keep working until you rotate them.</div>
+</section>
+
+<section id="errors">
+  <h2 data-i18n="err.h">Responses &amp; errors</h2>
+  <p data-i18n="err.p">OmniNode uses standard HTTP status codes. Errors return a JSON body with an <code class="i">error</code> message.</p>
+  <table class="tbl">
+    <thead><tr><th data-i18n="err.c">Code</th><th data-i18n="err.mn">Meaning</th></tr></thead>
+    <tbody>
+      <tr><td><code class="i">200 / 204</code></td><td data-i18n="err.200">Success. 204 has no body (deletes).</td></tr>
+      <tr><td><code class="i">202</code></td><td data-i18n="err.202">Webhook accepted and queued. Delivery happens in the background.</td></tr>
+      <tr><td><code class="i">400</code></td><td data-i18n="err.400">Invalid request: missing fields, bad JSON or an invalid value. Read <code class="i">error</code>.</td></tr>
+      <tr><td><code class="i">401</code></td><td data-i18n="err.401">Missing or invalid API key, or an invalid webhook signature.</td></tr>
+      <tr><td><code class="i">402</code></td><td data-i18n="err.402">The account isn't active: trial ended, payment overdue, suspended, or paused by an agency.</td></tr>
+      <tr><td><code class="i">403</code></td><td data-i18n="err.403">Authenticated, but not allowed to access this resource.</td></tr>
+      <tr><td><code class="i">404</code></td><td data-i18n="err.404">The resource doesn't exist or belongs to another workspace.</td></tr>
+      <tr><td><code class="i">409</code></td><td data-i18n="err.409">Conflict, e.g. the source is already connected to another destination.</td></tr>
+      <tr><td><code class="i">429</code></td><td data-i18n="err.429">Monthly task (or AI task) limit reached, including the 10% grace.</td></tr>
+    </tbody>
+  </table>
+  <div class="code"><div class="code-h"><span>402 / 429 body</span><button class="copy" type="button">Copy</button></div><pre><code>{
+  "error": "Monthly task quota exceeded. Please upgrade your plan.",
+  "billingStatus": "Active",
+  "tasksUsedThisMonth": 2750,
+  "monthlyTaskQuota": 2500,
+  "aiTasksUsedThisMonth": 0,
+  "aiTasksQuota": 0
+}</code></pre></div>
+</section>
+
+<section id="webhooks">
+  <h2 data-i18n="wh.h">Webhooks</h2>
+  <p data-i18n="wh.p">Send events into OmniNode. Every accepted webhook is stored before we respond, then processed in the background. One accepted webhook = one task.</p>
+
+  <div class="endpoint">
+    <div class="ep-h"><span class="m post">POST</span>/api/Webhooks/s/{webhookSecret}</div>
+    <div class="ep-d"><p data-i18n="wh.s.p">The secret URL of a source endpoint (its <code class="i">inboundPath</code>). No API key is needed. The body must be JSON, up to 1 MB. If you set a Shopify signing secret on the endpoint, the <code class="i">X-Shopify-Hmac-Sha256</code> header is verified and unsigned requests get 401.</p></div>
+    <div class="code"><div class="code-h"><span>cURL</span><button class="copy" type="button">Copy</button></div><pre><code>curl -X POST "{{API}}/api/Webhooks/s/whs_7Hc2…" \
+  -H "Content-Type: application/json" \
+  -d '{ "order_id": "1042", "email": "sara@example.com", "total": "45.50" }'</code></pre></div>
+    <div class="code"><div class="code-h"><span>202 Accepted</span></div><pre><code>{ "message": "Webhook queued successfully for processing." }</code></pre></div>
+  </div>
+
+  <div class="endpoint">
+    <div class="ep-h"><span class="m post">POST</span>/api/Webhooks/structured/{endpointId}</div>
+    <div class="ep-d"><p data-i18n="wh.st.p">Same as above, authenticated with your API key instead of a secret URL.</p></div>
+    <div class="code"><div class="code-h"><span>cURL</span><button class="copy" type="button">Copy</button></div><pre><code>curl -X POST "{{API}}/api/Webhooks/structured/3f6c1a2e-…" \
+  -H "X-Api-Key: um_live_…" \
+  -H "Content-Type: application/json" \
+  -d '{ "receipt_no": "ORD-1042", "total_cents": 35000 }'</code></pre></div>
+  </div>
+</section>
+
+<section id="ai">
+  <h2 data-i18n="ai.h">AI message parsing</h2>
+  <div class="endpoint">
+    <div class="ep-h"><span class="m post">POST</span>/api/Webhooks/unstructured/{endpointId}?userId={senderId}</div>
+    <div class="ep-d"><p data-i18n="ai.p">Send free-text messages (for example from a WhatsApp or Telegram bot). The AI extracts structured fields, which then flow through your mapping. <code class="i">userId</code> identifies the sender, such as a phone number. Each call uses one task and one AI task.</p></div>
+    <div class="code"><div class="code-h"><span>cURL</span><button class="copy" type="button">Copy</button></div><pre><code>curl -X POST "{{API}}/api/Webhooks/unstructured/3f6c1a2e-…?userId=962791234567" \
+  -H "X-Api-Key: um_live_…" \
+  -H "Content-Type: application/json" \
+  -d '{ "text": "بدي ٣ علب كريم، التوصيل على خلدا، رقمي 0791234567" }'</code></pre></div>
+  </div>
+  <div class="callout" data-i18n="ai.note">Only messages sent to this endpoint are processed by our AI provider, and only to extract fields. Your data is not used to train models.</div>
+</section>
+
+<section id="endpoints">
+  <h2 data-i18n="ep.h">Endpoints</h2>
+  <p data-i18n="ep.p">An endpoint is either a <strong>source</strong> (where events come from) or a <strong>destination</strong> (where they are delivered). Source endpoints get a secret inbound URL automatically.</p>
+  <div class="endpoint">
+    <div class="ep-h"><span class="m post">POST</span>/api/Endpoints</div>
+    <div class="code"><div class="code-h"><span>Request</span><button class="copy" type="button">Copy</button></div><pre><code>curl -X POST "{{API}}/api/Endpoints" \
+  -H "X-Api-Key: um_live_…" -H "Content-Type: application/json" \
+  -d '{ "platformName": "Shopify store", "endpointType": "source" }'
+
+curl -X POST "{{API}}/api/Endpoints" \
+  -H "X-Api-Key: um_live_…" -H "Content-Type: application/json" \
+  -d '{ "platformName": "Courier API", "endpointType": "destination",
+        "webhookUrl": "https://courier.example.com/api/shipments" }'</code></pre></div>
+    <div class="code"><div class="code-h"><span>200 OK</span></div><pre><code>{
+  "id": "3f6c1a2e-…",
+  "platformName": "Shopify store",
+  "endpointType": "source",
+  "webhookUrl": "",
+  "webhookSecret": "whs_7Hc2…",
+  "inboundPath": "/api/Webhooks/s/whs_7Hc2…",
+  "hasSigningSecret": false
+}</code></pre></div>
+    <p data-i18n="ep.rules"><code class="i">endpointType</code> must be <code class="i">source</code> or <code class="i">destination</code>. Destinations need a valid http(s) <code class="i">webhookUrl</code>.</p>
+  </div>
+  <table class="tbl">
+    <thead><tr><th data-i18n="tb.req">Request</th><th data-i18n="tb.what">What it does</th></tr></thead>
+    <tbody>
+      <tr><td><span class="m get">GET</span> <code class="i">/api/Endpoints</code></td><td data-i18n="ep.l">List your endpoints.</td></tr>
+      <tr><td><span class="m get">GET</span> <code class="i">/api/Endpoints/{id}</code></td><td data-i18n="ep.g">Get one endpoint.</td></tr>
+      <tr><td><span class="m post">POST</span> <code class="i">/api/Endpoints/{id}/rotate-webhook-secret</code></td><td data-i18n="ep.r">Issue a new secret URL. The old one stops working immediately.</td></tr>
+      <tr><td><span class="m put">PUT</span> <code class="i">/api/Endpoints/{id}/signing-secret</code></td><td data-i18n="ep.s">Set <code class="i">{"signingSecret":"…"}</code> to verify Shopify signatures; send null to remove it.</td></tr>
+      <tr><td><span class="m del">DELETE</span> <code class="i">/api/Endpoints/{id}</code></td><td data-i18n="ep.d">Delete the endpoint and its connections and events.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="credentials">
+  <h2 data-i18n="cr.h">Credentials</h2>
+  <p data-i18n="cr.p">Store the key or token your destination requires. OmniNode attaches it when delivering to that destination.</p>
+  <div class="endpoint">
+    <div class="ep-h"><span class="m post">POST</span>/api/Credentials</div>
+    <div class="code"><div class="code-h"><span>Request</span><button class="copy" type="button">Copy</button></div><pre><code>curl -X POST "{{API}}/api/Credentials" \
+  -H "X-Api-Key: um_live_…" -H "Content-Type: application/json" \
+  -d '{
+    "endpointId": "9b1d…",
+    "baseUrl": "https://courier.example.com",
+    "apiKey": "courier_secret_token",
+    "authType": "Bearer"
+  }'</code></pre></div>
+  </div>
+  <table class="tbl"><tbody>
+    <tr><td><span class="m get">GET</span> <code class="i">/api/Credentials</code></td><td data-i18n="cr.l">List stored credentials.</td></tr>
+    <tr><td><span class="m del">DELETE</span> <code class="i">/api/Credentials/{id}</code></td><td data-i18n="cr.d">Delete a credential.</td></tr>
+  </tbody></table>
+</section>
+
+<section id="connections">
+  <h2 data-i18n="cn.h">Connections</h2>
+  <p data-i18n="cn.p">A connection links one source to one destination. A new connection starts as <code class="i">MappingRequired</code> and becomes <code class="i">Active</code> once you save its mapping.</p>
+  <div class="endpoint">
+    <div class="ep-h"><span class="m post">POST</span>/api/Connections</div>
+    <div class="code"><div class="code-h"><span>Request</span><button class="copy" type="button">Copy</button></div><pre><code>curl -X POST "{{API}}/api/Connections" \
+  -H "X-Api-Key: um_live_…" -H "Content-Type: application/json" \
+  -d '{ "sourceEndpointId": "3f6c1a2e-…", "destinationEndpointId": "9b1d…" }'</code></pre></div>
+    <p data-i18n="cn.note">Sending the same pair again returns the existing connection. A source that's already connected to a different destination returns <code class="i">409</code> with <code class="i">existingConnectionId</code>.</p>
+  </div>
+  <table class="tbl"><tbody>
+    <tr><td><span class="m get">GET</span> <code class="i">/api/Connections</code></td><td data-i18n="cn.l">List connections with status and rule count.</td></tr>
+    <tr><td><span class="m del">DELETE</span> <code class="i">/api/Connections/{id}</code></td><td data-i18n="cn.d">Delete a connection and its mapping.</td></tr>
+  </tbody></table>
+</section>
+
+<section id="mappings">
+  <h2 data-i18n="mp.h">Mappings &amp; discovery</h2>
+  <p data-i18n="mp.p">Rules describe how each source field becomes a destination field. Use dotted paths for nested fields, e.g. <code class="i">customer.email</code>.</p>
+  <div class="endpoint">
+    <div class="ep-h"><span class="m post">POST</span>/api/Mappings/configure</div>
+    <div class="code"><div class="code-h"><span>Request</span><button class="copy" type="button">Copy</button></div><pre><code>curl -X POST "{{API}}/api/Mappings/configure" \
+  -H "X-Api-Key: um_live_…" -H "Content-Type: application/json" \
+  -d '{
+    "connectionId": "b41d…",
+    "rules": [
+      { "endpointId": "3f6c1a2e-…", "sourceKey": "customer.email",
+        "targetKey": "Email", "type": "string", "math": "", "isRequired": true },
+      { "endpointId": "3f6c1a2e-…", "sourceKey": "total",
+        "targetKey": "Amount", "type": "number", "math": "", "isRequired": false }
+    ],
+    "sourceSchema": "{\"customer\":{\"email\":\"\"},\"total\":\"\"}",
+    "destinationSchema": "{\"Email\":\"\",\"Amount\":0}"
+  }'</code></pre></div>
+    <p data-i18n="mp.fields"><code class="i">endpointId</code> is the source endpoint. <code class="i">type</code> is <code class="i">string</code>, <code class="i">number</code>, <code class="i">boolean</code> or <code class="i">date</code>. <code class="i">math</code> is optional, using the same syntax as the Mapping Studio. The sample schemas are optional; saving them enables suggestions later.</p>
+  </div>
+  <table class="tbl"><tbody>
+    <tr><td><span class="m get">GET</span> <code class="i">/api/Mappings/{connectionId}</code></td><td data-i18n="mp.g">Load the saved rules and sample schemas.</td></tr>
+    <tr><td><span class="m post">POST</span> <code class="i">/api/Mappings/suggest</code></td><td data-i18n="mp.s">Send <code class="i">{"sourceJson":"…","destinationJson":"…"}</code> and get suggested <code class="i">sourceKey → targetKey</code> pairs.</td></tr>
+    <tr><td><span class="m get">GET</span> <code class="i">/api/Mappings/suggest/{connectionId}</code></td><td data-i18n="mp.sg">Suggestions from the schemas saved on a connection.</td></tr>
+    <tr><td><span class="m post">POST</span> <code class="i">/api/schemas/discover-custom</code></td><td data-i18n="mp.d">Send <code class="i">{"rawJson":"…"}</code> or <code class="i">{"fieldList":["a","b"]}</code> to register a custom schema from a sample.</td></tr>
+  </tbody></table>
+</section>
+
+<section id="templates">
+  <h2 data-i18n="tp.h">Templates</h2>
+  <div class="endpoint">
+    <div class="ep-h"><span class="m get">GET</span>/api/Templates</div>
+    <p data-i18n="tp.p">Built-in sample schemas you can start a mapping from. Each item has <code class="i">name</code>, <code class="i">sampleJson</code> and a flat <code class="i">fields</code> list.</p>
+  </div>
+</section>
+
+<section id="events">
+  <h2 data-i18n="ev.h">Events &amp; retries</h2>
+  <p data-i18n="ev.p">Every accepted webhook becomes an event: <code class="i">Pending</code> → <code class="i">Processing</code> → <code class="i">Processed</code>. If delivery fails, OmniNode keeps trying, up to 5 attempts in total, with growing waits between them (about 5, 10, 15 and 20 minutes). After that it becomes <code class="i">Failed_ManualReviewRequired</code> and waits for you to retry it.</p>
+  <table class="tbl"><tbody>
+    <tr><td><span class="m get">GET</span> <code class="i">/api/Events/logs</code></td><td data-i18n="ev.l">The 50 most recent events.</td></tr>
+    <tr><td><span class="m get">GET</span> <code class="i">/api/Events/all</code></td><td data-i18n="ev.a">The 200 most recent events.</td></tr>
+    <tr><td><span class="m get">GET</span> <code class="i">/api/Events/pending</code></td><td data-i18n="ev.pe">Events waiting to be delivered.</td></tr>
+    <tr><td><span class="m get">GET</span> <code class="i">/api/Events/failed</code></td><td data-i18n="ev.f">Events that need attention, with <code class="i">failureReason</code>.</td></tr>
+    <tr><td><span class="m post">POST</span> <code class="i">/api/Events/{id}/retry</code></td><td data-i18n="ev.r">Re-queue one failed event.</td></tr>
+    <tr><td><span class="m post">POST</span> <code class="i">/api/Events/retry-failed?endpointId=</code></td><td data-i18n="ev.ra">Re-queue all failed events (optionally for one endpoint). Returns <code class="i">{"requeued": n}</code>.</td></tr>
+  </tbody></table>
+  <div class="code"><div class="code-h"><span>Event</span></div><pre><code>{
+  "id": "e1a2…",
+  "endpointId": "3f6c1a2e-…",
+  "status": "Failed_ManualReviewRequired",
+  "retryCount": 5,
+  "maxRetries": 5,
+  "failureReason": "Destination returned 401 Unauthorized",
+  "receivedAt": "2026-10-28T09:14:03Z",
+  "lastAttemptAt": "2026-10-28T10:04:11Z",
+  "payload": "{ … }"
+}</code></pre></div>
+  <p data-i18n="ev.note">Retries never use extra tasks.</p>
+</section>
+
+<section id="account">
+  <h2 data-i18n="ac.h">Account &amp; API key</h2>
+  <table class="tbl"><tbody>
+    <tr><td><span class="m get">GET</span> <code class="i">/api/Tenants/{tenantId}</code></td><td data-i18n="ac.g">Your plan, status, renewal date, usage and quotas.</td></tr>
+    <tr><td><span class="m post">POST</span> <code class="i">/api/Tenants/{tenantId}/generate-key</code></td><td data-i18n="ac.k">Create a new API key (shown once). The old key stops working immediately.</td></tr>
+  </tbody></table>
+</section>
+
+<section id="limits">
+  <h2 data-i18n="lm.h">Limits &amp; quotas</h2>
+  <ul>
+    <li data-i18n="lm.1"><strong>Tasks:</strong> each accepted webhook counts once against your monthly quota. AI messages also count once against your AI quota.</li>
+    <li data-i18n="lm.2"><strong>Grace:</strong> webhooks are accepted up to 110% of your quota. Above that you get <code class="i">429</code> until you upgrade or the month resets.</li>
+    <li data-i18n="lm.3"><strong>Account status:</strong> during a free trial or an active plan everything works. When a trial ends or an account is suspended, webhooks return <code class="i">402</code>; your setup is kept.</li>
+    <li data-i18n="lm.4"><strong>Payload size:</strong> up to 1 MB per webhook on secret URLs.</li>
+    <li data-i18n="lm.5"><strong>Agencies:</strong> a client's webhooks count against both the client's allocation and the agency's pooled quota.</li>
+  </ul>
+</section>
+
+<section id="support">
+  <h2 data-i18n="sp.h">Support</h2>
+  <p data-i18n="sp.p">Stuck on an integration, or need help mapping a system? Email us with your workspace name and, if possible, an event ID.</p>
+  <a class="btn btn-primary" data-mail="OmniNode API support" data-mail-show href="#">moe.abujalboush@gmail.com</a>
+  <hr>
+  <p><a href="index.html" data-page="index.html" data-i18n="back">← Back to home</a> · <a href="legal.html" data-page="legal.html" data-i18n="legal">Terms &amp; privacy</a></p>
+</section>
+
+</main>
+</div>
+
+<script src="assets/i18n-docs-ar.js"></script>
+<script src="assets/site.js"></script>
+</body>
+</html>
