@@ -1,28 +1,23 @@
 import './styles/base.css';
 import './styles/hero.css';
+import './styles/story.css';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
-import { applyLang, toggleLang, t, statusLabel } from './i18n.js';
+import { applyLang, toggleLang, t } from './i18n.js';
+import { renderStory, labelStatuses, initStory } from './story.js';
 import { initNetwork } from './network.js';
 import { initTheme } from './theme.js';
 
 gsap.registerPlugin(ScrollTrigger);
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+renderStory();
 applyLang();
+labelStatuses();
+document.addEventListener('langchange', labelStatuses);
 initTheme();
 document.getElementById('lang-toggle').addEventListener('click', toggleLang);
-
-// specimen chips (stage 1 only)
-const chips = document.getElementById('chips');
-const drawChips = () => {
-  chips.replaceChildren();
-  ['live', 'soon', 'built', 'roadmap'].forEach((s) => {
-    const c = document.createElement('span'); c.className = 'chip chip--' + s; c.textContent = statusLabel(s); chips.appendChild(c);
-  });
-};
-drawChips(); document.addEventListener('langchange', drawChips);
 
 // nav state
 const nav = document.getElementById('nav');
@@ -72,3 +67,4 @@ if (!reduce) {
 }
 
 initNetwork(document.getElementById('network'));
+initStory(reduce);

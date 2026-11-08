@@ -44,11 +44,3 @@ html[lang='ar'] .node .lbl { font-weight: 400; }
 .net__read .tag small { font: 500 .7rem var(--f-mono); color: var(--muted); }
 @media (min-width: 980px) { .net__read { bottom: 1.6rem; inset-inline: 2rem; } }
 
-/* ---- stage-1 specimen (removed in stage 2) ---- */
-.spec { padding: 6rem var(--gutter); border-block-start: 1px solid var(--line); display: grid; gap: 3rem; }
-.spec h2 { font-size: var(--step-3); }
-.spec__row { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
-.sw { width: 7.5rem; height: 5rem; border-radius: var(--radius); border: 1px solid var(--line); padding: .6rem; display: flex; align-items: flex-end; font: 500 .7rem var(--f-mono); }
-.type { display: grid; gap: .6rem; }
-.type .d { font: 700 var(--step-3)/1.05 var(--f-display); }
-.type .b { max-width: 40rem; color: var(--muted); }
