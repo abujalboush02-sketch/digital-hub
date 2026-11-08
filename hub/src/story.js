@@ -20,7 +20,8 @@ export function renderStory() {
         <div class="chapter__body">
           <div class="chapter__copy">
             <ol class="steps" aria-hidden="true">${STEPS.map((s, k) => `<li data-k="${k}"><i></i><span data-i18n="step.${s}"></span></li>`).join('')}</ol>
-            <div class="panels">${STEPS.map((s) => `<p class="panel" data-c="chapters.${p.id}.${s}"></p>`).join('')}</div>
+            <div class="panels" aria-hidden="true">${STEPS.map((s) => `<p class="panel" data-c="chapters.${p.id}.${s}"></p>`).join('')}</div>
+            <div class="sr-only">${STEPS.map((s) => `<p data-c="chapters.${p.id}.${s}"></p>`).join('')}</div>
           </div>
           <div class="chapter__vis">${chapterVisual(p.id)}</div>
         </div>
@@ -58,7 +59,8 @@ export function renderThink() {
         <div class="chapter__body">
           <div class="chapter__copy">
             <ol class="steps" aria-hidden="true">${K.map((s, k) => `<li data-k="${k}"><i></i><span data-i18n="think.${s}"></span></li>`).join('')}</ol>
-            <div class="panels">${K.map((s) => `<p class="panel" data-c="think.${s}"></p>`).join('')}</div>
+            <div class="panels" aria-hidden="true">${K.map((s) => `<p class="panel" data-c="think.${s}"></p>`).join('')}</div>
+            <div class="sr-only">${K.map((s) => `<p data-c="think.${s}"></p>`).join('')}</div>
             <p class="scene__note" data-i18n="think.sub"></p>
           </div>
           <div class="chapter__vis">${chapterVisual('think')}</div>

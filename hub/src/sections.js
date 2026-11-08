@@ -25,7 +25,7 @@ export function renderSections() {
         return `<button type="button" class="pcard" data-id="${p.id}" style="--c:${pl.color}" aria-haspopup="dialog">
           <span class="pcard__n mono">${pad(i + 1)} / ${pad(STRIP.length)}</span>
           <span class="pcard__vis" aria-hidden="true">${productVisual(p.id, '-s')}</span>
-          <span class="pcard__txt"><h3 data-c="ps.${p.id}.title"></h3><span class="pcard__tag" data-c="ps.${p.id}.tag"></span>${chipHtml(p.status)}</span>
+          <span class="pcard__txt"><span class="pcard__h" data-c="ps.${p.id}.title"></span><span class="pcard__tag" data-c="ps.${p.id}.tag"></span>${chipHtml(p.status)}</span>
           <span class="pcard__open mono"><span data-i18n="prod.open"></span>${ARROW}</span>
         </button>`;
       }).join('')}
@@ -195,7 +195,7 @@ function showIndustry(i, animate = true) {
   ];
   const box = document.getElementById('ind-items');
   box.innerHTML = items.length ? `<span class="mono ind__lbl">${t('ind.items')}</span>` + items.map((p) => `<span class="itag">${pick(p.name)} ${chipHtml(p.status)}</span>`).join('') : '';
-  document.querySelectorAll('.dial__i').forEach((b, k) => { b.classList.toggle('is-active', k === i); b.setAttribute('aria-current', k === i ? 'true' : 'false'); });
+  document.querySelectorAll('.dial__i').forEach((b, k) => { b.classList.toggle('is-active', k === i); b.setAttribute('aria-current', k === i ? 'true' : 'false'); b.tabIndex = k === i ? 0 : -1; });
   if (animate && !reduce()) gsap.from('#ind-did, #ind-items', { autoAlpha: 0, y: 14, duration: 0.5, stagger: 0.06, ease: 'power3.out' });
   const dur = animate && !reduce() && matchMedia('(min-width: 900px)').matches ? 0.8 : 0;
   gsap.to(ind, { pos: i, duration: dur, ease: 'power3.out', onUpdate: layoutDial, overwrite: true });
@@ -286,9 +286,16 @@ export function initSections(lenis) {
     // product strip: pinned, scrubbed horizontal travel (RTL travels the other way)
     const strip = document.querySelector('.strip'), track = strip.querySelector('.strip__track');
     const dist = () => Math.max(0, track.offsetWidth - innerWidth);
-    gsap.to(track, {
+    const tw = gsap.to(track, {
       x: () => (isRtl() ? 1 : -1) * dist(), ease: 'none',
       scrollTrigger: { trigger: strip, start: 'top top', end: () => '+=' + dist(), pin: true, scrub: 0.5, invalidateOnRefresh: true },
+    });
+    // keyboard: focusing an off-screen card scrolls the pinned strip to it
+    track.addEventListener('focusin', (e) => {
+      const c = e.target.closest('.pcard'); if (!c) return;
+      const st = tw.scrollTrigger, cards = [...track.children], p = cards.indexOf(c) / Math.max(1, cards.length - 1);
+      const y = st.start + p * (st.end - st.start);
+      lenis ? lenis.scrollTo(y, { immediate: true }) : scrollTo(0, y);
     });
     // headings + blocks rise in
     gsap.utils.toArray('.sec-head, .ind__grid, .trust__row, .race__copy, .contact__copy, .cform, .mq').forEach((el) => {

@@ -5,9 +5,13 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "audit": "node scripts/audit-i18n.mjs",
+    "og": "node scripts/og.mjs",
+    "check": "node scripts/audit-i18n.mjs && vite build"
   },
   "devDependencies": {
+    "sharp": "^0.35.5",
     "vite": "^6.4.5"
   },
   "dependencies": {

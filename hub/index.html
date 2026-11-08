@@ -3,8 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Mohammad Abu Jalboush</title>
-  <meta name="description" content="Mohammad Abu Jalboush: full-stack engineering, AI agents and automation across every industry.">
+  <!--seo-->
   <meta name="theme-color" content="#0d0c0b">
   <script>
     // Set theme + language before first paint (no flash).
@@ -14,7 +13,7 @@
         if (th !== 'light' && th !== 'dark') th = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
         document.documentElement.dataset.theme = th;
         var l = localStorage.getItem('lang');
-        if (l !== 'ar' && l !== 'en') l = (navigator.language || 'en').toLowerCase().indexOf('ar') === 0 ? 'ar' : 'en';
+        if (l !== 'ar' && l !== 'en') l = window.__DEFAULT_LANG || (navigator.language || 'en').toLowerCase().indexOf('ar') === 0 ? 'ar' : 'en';
         document.documentElement.lang = l; document.documentElement.dir = l === 'ar' ? 'rtl' : 'ltr';
       } catch (e) {}
     })();
@@ -22,6 +21,7 @@
   <script type="module" src="/src/main.js"></script>
 </head>
 <body>
+  <a class="skip" href="#top" data-i18n="skip">Skip to content</a>
   <!--include:nav-->
   <main id="top">
     <section class="hero" aria-labelledby="h1">

@@ -21,12 +21,13 @@ export const STR = {
     'flag.kicker': 'Flagship work', 'flag.title': 'Systems I would show first.',
     'step.problem': 'Problem', 'step.system': 'System', 'step.result': 'Result',
     'flag.n': 'Flagship',
+    'skip': 'Skip to content', 'nav.aria': 'Primary', 'lang.aria': 'Switch language',
     'prod.kicker': 'Products and builds', 'prod.title': 'Pick one. It opens.', 'prod.open': 'Open', 'prod.close': 'Close',
     'agents.kicker': 'Under the hood', 'agents.title': 'Agents and pipelines.', 'agents.built': 'Built', 'agents.road': 'On the roadmap',
     'ind.kicker': 'Industries', 'ind.title': 'Every industry, and what I actually did there.', 'ind.prev': 'Previous industry', 'ind.next': 'Next industry', 'ind.items': 'Built here',
     'think.kicker': 'How I think', 'think.title': 'A custom CRM and delivery operations system.', 'think.sub': 'Solution design study',
     'think.discovery': 'Discovery', 'think.architecture': 'Architecture', 'think.cost': 'Cost-aware choices',
-    'trust.title': 'The count, from the work itself.', 'trust.projects': 'products, builds and concepts', 'trust.industries': 'industries', 'trust.stacks': 'stacks', 'trust.agents': 'AI agents written from scratch',
+    'trust.title': 'The count, from the work itself.', 'trust.projects': 'products, builds and concepts', 'trust.industries': 'industries', 'trust.stacks': 'stacks', 'trust.agents': 'AI agents built',
     'trust.note': 'Counted from the content of this site. Nothing rounded up.',
     'race.kicker': 'Next', 'race.title': 'Moving into racing and racing tech.', 'race.sub': 'Soon.',
     'contact.kicker': 'Contact', 'contact.title': 'Have something to build?', 'contact.sub': 'Tell me about it. I answer on WhatsApp fastest.',
@@ -53,12 +54,13 @@ export const STR = {
     'flag.kicker': 'أعمال رئيسية', 'flag.title': 'أنظمة أبدأ بعرضها.',
     'step.problem': 'المشكلة', 'step.system': 'النظام', 'step.result': 'النتيجة',
     'flag.n': 'عمل رئيسي',
+    'skip': 'تخطَّ إلى المحتوى', 'nav.aria': 'التنقل الرئيسي', 'lang.aria': 'تبديل اللغة',
     'prod.kicker': 'منتجات وأعمال', 'prod.title': 'اختر واحداً. يفتح.', 'prod.open': 'افتح', 'prod.close': 'إغلاق',
     'agents.kicker': 'تحت الغطاء', 'agents.title': 'وكلاء وخطوط أتمتة.', 'agents.built': 'مُنجز', 'agents.road': 'على الخارطة',
     'ind.kicker': 'القطاعات', 'ind.title': 'كل قطاع، وما فعلته فيه فعلاً.', 'ind.prev': 'القطاع السابق', 'ind.next': 'القطاع التالي', 'ind.items': 'ما بُني هنا',
     'think.kicker': 'كيف أفكر', 'think.title': 'نظام CRM وعمليات توصيل مخصص.', 'think.sub': 'دراسة تصميم حلول',
     'think.discovery': 'الاستكشاف', 'think.architecture': 'البنية', 'think.cost': 'خيارات واعية بالتكلفة',
-    'trust.title': 'العدّ، من العمل نفسه.', 'trust.projects': 'منتجات وأعمال ونماذج', 'trust.industries': 'قطاعاً', 'trust.stacks': 'تقنيات', 'trust.agents': 'وكلاء ذكاء اصطناعي مكتوبون من الصفر',
+    'trust.title': 'العدّ، من العمل نفسه.', 'trust.projects': 'منتجات وأعمال ونماذج', 'trust.industries': 'قطاعاً', 'trust.stacks': 'تقنيات', 'trust.agents': 'وكلاء ذكاء اصطناعي مبنيّون',
     'trust.note': 'محسوبة من محتوى هذا الموقع. دون تقريب للأعلى.',
     'race.kicker': 'التالي', 'race.title': 'أتجه إلى عالم السباقات وتقنياتها.', 'race.sub': 'قريباً.',
     'contact.kicker': 'تواصل', 'contact.title': 'لديك ما تريد بناءه؟', 'contact.sub': 'أخبرني عنه. أسرع ردّ يكون على واتساب.',
@@ -71,6 +73,7 @@ export const STR = {
 const KEY = 'lang';
 const detect = () => {
   try { const s = localStorage.getItem(KEY); if (s === 'ar' || s === 'en') return s; } catch {}
+  if (window.__DEFAULT_LANG === 'ar' || window.__DEFAULT_LANG === 'en') return window.__DEFAULT_LANG;
   return (navigator.language || 'en').toLowerCase().startsWith('ar') ? 'ar' : 'en';
 };
 

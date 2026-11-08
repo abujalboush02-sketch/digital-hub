@@ -79,3 +79,9 @@ mohammad-abujalboush.com = the showcase of Mohammad Abu Jalboush across every in
 
 ## Stage 1 design direction
 Warm ink / paper neutrals, one ember accent (#ff6a2b dark, #d9460f light), pillar hues orange / acid-lime / mint / gold. Bricolage Grotesque + Instrument Sans (Readex Pro + IBM Plex Sans Arabic for AR). Motion rules are documented at the top of `hub/src/styles/tokens.css`.
+
+## Stage 4 notes
+- Two routes: `/` (English, device-language default) and `/ar/` (Arabic default) so hreflang points at real URLs. Stored language choice wins on both.
+- Counter label is "AI agents built". Statuses unchanged: Sparkle CRM, ERP Lite, Restaurant Ecosystem = Built (demo).
+- `main/payment-config.js` is also shipped at the hub root via `hub/public/`.
+- Hostnames confirmed: sparklecrm., flip., market., omni., alpha. ERP Lite has no link yet.
