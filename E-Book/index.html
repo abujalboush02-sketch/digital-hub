@@ -1345,8 +1345,7 @@
                     <li><i>✓</i> Lifetime digital updates</li>
                     <li><i>✓</i> Digital PDF & ePub formats</li>
                 </ul>
-                <a href="https://abujalboush.gumroad.com/l/flip-t1" target="_blank" class="btn-pricing btn-basic">Get
-                    Basic</a>
+                <button type="button" onclick="openOrder('t1')" class="btn-pricing btn-basic" style="cursor:pointer">Order The Blueprint</button>
             </div>
 
             <div class="price-card pro reveal" style="transition-delay: 0.1s;">
@@ -1363,8 +1362,7 @@
                     <li><i>✓</i> <strong>SOP 2:</strong> 30-Day Sprint Tracker</li>
                     <li><i>✓</i> <strong>SOP 3:</strong> Outreach Swipe File</li>
                 </ul>
-                <a href="https://abujalboush.gumroad.com/l/flip-t2" target="_blank" class="btn-pricing btn-pro">Get Pro
-                    Toolkit</a>
+                <button type="button" onclick="openOrder('t2')" class="btn-pricing btn-pro" style="cursor:pointer">Order The Operator</button>
             </div>
 
             <div class="price-card elite reveal" style="transition-delay: 0.2s;">
@@ -1383,9 +1381,7 @@
                     <li><i>✓</i> The Due Diligence Video Vault</li>
                     <li><i>✓</i> Hidden Marketplace Rolodex</li>
                 </ul>
-                <a href="https://abujalboush.gumroad.com/l/flip-t3" target="_blank" class="btn-pricing btn-elite">Secure
-                    Elite
-                    Access</a>
+                <button type="button" onclick="openOrder('t3')" class="btn-pricing btn-elite" style="cursor:pointer">Order The Dealmaker</button>
             </div>
         </div>
     </section>
@@ -1585,6 +1581,107 @@
                 navLinks.classList.remove('active');
                 document.body.style.overflow = 'auto';
             });
+        });
+    </script>
+
+    <style>
+        #order-modal{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(2,6,23,.85);backdrop-filter:blur(6px)}
+        #order-modal.open{display:flex}
+        .order-box{background:#0b1220;border:1px solid var(--glass-border);border-radius:16px;max-width:460px;width:100%;max-height:92vh;overflow:auto;padding:28px;color:var(--text-main)}
+        .order-box h3{font-family:'Montserrat';font-weight:800;font-size:1.3rem;margin-bottom:4px}
+        .order-box label{display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text-muted);margin:14px 0 6px}
+        .order-box input,.order-box select{width:100%;padding:12px;border-radius:8px;border:1px solid var(--glass-border);background:rgba(255,255,255,.05);color:var(--text-main);font-size:.95rem}
+        .order-box select option{color:#000}
+        .order-box .o-btn{width:100%;margin-top:20px;padding:14px;border:none;border-radius:8px;background:var(--blue-accent);color:#fff;font-weight:800;text-transform:uppercase;cursor:pointer}
+        .order-box .o-btn:disabled{opacity:.6}
+        .order-box .o-close{float:right;background:none;border:none;color:var(--text-muted);font-size:1.4rem;cursor:pointer}
+        .order-box dl{margin:14px 0;font-size:.9rem}.order-box dt{color:var(--text-muted);font-size:.7rem;text-transform:uppercase;margin-top:10px}.order-box dd{margin:2px 0;font-family:'JetBrains Mono',monospace;word-break:break-all}
+        .order-err{color:#f87171;font-size:.85rem;margin-top:10px}
+    </style>
+    <div id="order-modal" role="dialog" aria-modal="true" aria-labelledby="order-title">
+        <div class="order-box">
+            <button class="o-close" type="button" onclick="closeOrder()" aria-label="Close">&times;</button>
+            <div id="order-step-1">
+                <h3 id="order-title">Place your order</h3>
+                <p id="order-product-line" style="color:var(--text-muted);font-size:.9rem"></p>
+                <form id="order-form">
+                    <label for="o-name">Full name</label><input id="o-name" required autocomplete="name">
+                    <label for="o-wa">WhatsApp number</label><input id="o-wa" required type="tel" autocomplete="tel" placeholder="+962 7X XXX XXXX">
+                    <label for="o-email">Email</label><input id="o-email" required type="email" autocomplete="email">
+                    <label for="o-method">Payment method</label>
+                    <select id="o-method" required><option value="cliq">CliQ</option><option value="bank">Bank transfer</option><option value="cash">Cash</option></select>
+                    <div id="order-err" class="order-err" role="alert"></div>
+                    <button class="o-btn" id="o-submit" type="submit">Place order</button>
+                </form>
+            </div>
+            <div id="order-step-2" style="display:none">
+                <h3>Order received</h3>
+                <p style="color:var(--text-muted);font-size:.9rem">Reference: <strong id="o-ref" style="color:var(--text-main)"></strong></p>
+                <p style="font-size:.9rem;margin-top:10px">Amount due: <strong id="o-amount"></strong></p>
+                <dl id="o-instructions"></dl>
+                <p style="font-size:.9rem">Pay using the details above and include your reference. <strong>We will confirm your payment on WhatsApp</strong> and deliver your files after confirmation.</p>
+                <a id="o-wa-link" class="o-btn" style="display:block;text-align:center;text-decoration:none" target="_blank" rel="noopener">Message us on WhatsApp</a>
+            </div>
+        </div>
+    </div>
+    <script src="https://mohammad-abujalboush.com/payment-config.js"></script>
+    <script>
+        const TIERS = {
+            t1: { label: 'The Flip - The Blueprint', price: 39 },
+            t2: { label: 'The Flip - The Operator', price: 99 },
+            t3: { label: 'The Flip - The Dealmaker', price: 249 }
+        };
+        const CUR = 'USD';
+        let orderTier = null;
+        const $o = (id) => document.getElementById(id);
+        function openOrder(k) {
+            orderTier = k;
+            $o('order-product-line').textContent = TIERS[k].label + ' - 
+
+</html> + TIERS[k].price + ' ' + CUR;
+            $o('order-step-1').style.display = ''; $o('order-step-2').style.display = 'none'; $o('order-err').textContent = '';
+            $o('order-modal').classList.add('open');
+        }
+        function closeOrder() { $o('order-modal').classList.remove('open'); }
+        function addRow(dl, k, v) { const dt = document.createElement('dt'); dt.textContent = k; const dd = document.createElement('dd'); dd.textContent = v; dl.append(dt, dd); }
+        $o('order-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = $o('o-submit'); btn.disabled = true; $o('order-err').textContent = '';
+            const tier = TIERS[orderTier];
+            const method = $o('o-method').value;
+            const ref = 'FLP-' + Math.random().toString(36).slice(2, 8).toUpperCase();
+            try {
+                const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                const { error } = await sb.from('orders').insert([{
+                    user_name: $o('o-name').value.trim(),
+                    user_email: $o('o-email').value.trim(),
+                    whatsapp: $o('o-wa').value.trim(),
+                    payment_method: method,
+                    product_label: tier.label,
+                    total_amount: tier.price,
+                    currency: CUR,
+                    reference: ref,
+                    source: 'flip',
+                    status: 'pending_payment'
+                }]);
+                if (error) throw error;
+                const cfg = window.PAYMENT_CONFIG || {};
+                const dl = $o('o-instructions'); dl.textContent = '';
+                if (method === 'cliq' && cfg.cliq) { addRow(dl, 'CliQ alias', cfg.cliq.alias); addRow(dl, 'Account name', cfg.cliq.accountName); addRow(dl, 'Note', cfg.cliq.note); }
+                else if (method === 'bank' && cfg.bank) { addRow(dl, 'Bank', cfg.bank.bankName); addRow(dl, 'Account holder', cfg.bank.accountName); addRow(dl, 'IBAN', cfg.bank.iban); if (cfg.bank.swift) addRow(dl, 'SWIFT', cfg.bank.swift); addRow(dl, 'Note', cfg.bank.note); }
+                else if (method === 'cash' && cfg.cash) { addRow(dl, 'Cash', cfg.cash.note); }
+                else { addRow(dl, 'Payment details', 'We will send them to you on WhatsApp.'); }
+                $o('o-ref').textContent = ref;
+                $o('o-amount').textContent = '
+
+</html> + tier.price + ' ' + CUR;
+                const wa = (cfg.whatsapp || '962776110639');
+                $o('o-wa-link').href = 'https://wa.me/' + wa + '?text=' + encodeURIComponent('Hi, I placed order ' + ref + ' (' + tier.label + ').');
+                $o('order-step-1').style.display = 'none'; $o('order-step-2').style.display = '';
+            } catch (err) {
+                console.error(err);
+                $o('order-err').textContent = 'Could not save your order. Please try again or message us on WhatsApp.';
+            } finally { btn.disabled = false; }
         });
     </script>
 </body>

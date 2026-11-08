@@ -665,21 +665,47 @@
     <section id="live-products" class="py-32 px-6 md:px-24 border-t border-slate-900">
         <div class="mb-20 text-center" data-aos="zoom-in">
             <h3 class="text-sm mono text-sky-500 uppercase tracking-widest mb-4">04 // Ready for Deployment</h3>
-            <h2 class="text-5xl font-bold italic">Live Digital Products</h2>
-            <p class="text-slate-400 mt-4 max-w-2xl mx-auto">Production-ready systems, SaaS platforms, and
-                high-performance templates available for immediate acquisition.</p>
+            <h2 class="text-5xl font-bold italic">Products</h2>
+            <p class="text-slate-400 mt-4 max-w-2xl mx-auto">Software I have built and operate, each with its own page.</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="portfolio-products-grid">
-            <div class="animate-pulse bg-slate-900 border border-slate-800 h-80 rounded-3xl"></div>
-            <div class="animate-pulse bg-slate-900 border border-slate-800 h-80 rounded-3xl"></div>
-            <div class="animate-pulse bg-slate-900 border border-slate-800 h-80 rounded-3xl"></div>
+            <div class="p-8 project-card rounded-3xl flex flex-col" data-aos="fade-up" data-aos-delay="0">
+                <div class="text-[10px] mono text-sky-500 font-bold uppercase tracking-widest mb-4">Live</div>
+                <h4 class="text-2xl font-bold mb-3 italic">OmniNode</h4>
+                <p class="text-sm text-slate-400 mb-8 flex-1">Integration hub: catch webhooks from any app, reshape the data and deliver it to any API with retries, logs and AI message parsing. Arabic and English.</p>
+                <a href="https://omni.mohammad-abujalboush.com" target="_blank" rel="noopener" class="text-xs font-bold text-sky-400 uppercase tracking-widest hover:text-white transition-colors">View OmniNode <i class="fa-solid fa-arrow-right text-[10px]"></i></a>
+            </div>
+            <div class="p-8 project-card rounded-3xl flex flex-col" data-aos="fade-up" data-aos-delay="100">
+                <div class="text-[10px] mono text-sky-500 font-bold uppercase tracking-widest mb-4">Live</div>
+                <h4 class="text-2xl font-bold mb-3 italic">Sparkle CRM</h4>
+                <p class="text-sm text-slate-400 mb-8 flex-1">Management system for auto detailers and car washes: client and vehicle profiles, bay scheduling, employee dispatch and follow-ups.</p>
+                <a href="https://sparklecrm.mohammad-abujalboush.com" target="_blank" rel="noopener" class="text-xs font-bold text-sky-400 uppercase tracking-widest hover:text-white transition-colors">View Sparkle CRM <i class="fa-solid fa-arrow-right text-[10px]"></i></a>
+            </div>
+            <div class="p-8 project-card rounded-3xl flex flex-col" data-aos="fade-up" data-aos-delay="200">
+                <div class="text-[10px] mono text-sky-500 font-bold uppercase tracking-widest mb-4">Live</div>
+                <h4 class="text-2xl font-bold mb-3 italic">The Flip</h4>
+                <p class="text-sm text-slate-400 mb-8 flex-1">E-book and toolkit on buying abandoned micro-SaaS, fixing it in 30 days and selling it.</p>
+                <a href="https://flip.mohammad-abujalboush.com" target="_blank" rel="noopener" class="text-xs font-bold text-sky-400 uppercase tracking-widest hover:text-white transition-colors">View The Flip <i class="fa-solid fa-arrow-right text-[10px]"></i></a>
+            </div>
+            <div class="p-8 project-card rounded-3xl flex flex-col" data-aos="fade-up" data-aos-delay="300">
+                <div class="text-[10px] mono text-sky-500 font-bold uppercase tracking-widest mb-4">Live</div>
+                <h4 class="text-2xl font-bold mb-3 italic">ShiftShelf</h4>
+                <p class="text-sm text-slate-400 mb-8 flex-1">Offline-first inventory, POS and CRM with cloud sync, WhatsApp alerts and Google Drive/Calendar integration.</p>
+                <a href="https://shiftshelf.mohammad-abujalboush.com" target="_blank" rel="noopener" class="text-xs font-bold text-sky-400 uppercase tracking-widest hover:text-white transition-colors">View ShiftShelf <i class="fa-solid fa-arrow-right text-[10px]"></i></a>
+            </div>
+            <div class="p-8 project-card rounded-3xl flex flex-col" data-aos="fade-up" data-aos-delay="400">
+                <div class="text-[10px] mono text-sky-500 font-bold uppercase tracking-widest mb-4">Coming soon</div>
+                <h4 class="text-2xl font-bold mb-3 italic">Alpha</h4>
+                <p class="text-sm text-slate-400 mb-8 flex-1">Shariah-aware market signal engine. Landing page being rebuilt; join the waitlist.</p>
+                <a href="https://alpha.mohammad-abujalboush.com" target="_blank" rel="noopener" class="text-xs font-bold text-sky-400 uppercase tracking-widest hover:text-white transition-colors">Join the waitlist <i class="fa-solid fa-arrow-right text-[10px]"></i></a>
+            </div>
         </div>
 
         <div class="mt-16 text-center" data-aos="fade-up">
-            <a href="https://marketplace.mohammad-abujalboush.com" target="_blank"
+            <a href="https://market.mohammad-abujalboush.com" target="_blank"
                 class="inline-flex items-center gap-4 bg-transparent border border-sky-500 text-sky-500 px-8 py-4 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-sky-500 hover:text-white transition-all">
-                Visit The Marketplace Hub <i class="fa-solid fa-arrow-right"></i>
+                Marketplace (coming soon) <i class="fa-solid fa-arrow-right"></i>
             </a>
         </div>
     </section>
@@ -763,7 +789,6 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script type="module">
-        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
         // Init AOS
         AOS.init({ duration: 1000, once: true });
@@ -793,44 +818,6 @@
         btn.addEventListener('click', toggleMenu);
         links.forEach(link => link.addEventListener('click', toggleMenu));
 
-        // --- Supabase Portfolio Products Fetch ---
-        const supabase = createClient('https://dvlabpioxtyyzvhzpmyc.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2bGFicGlveHR5eXp2aHpwbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1MDY4NzUsImV4cCI6MjA4OTA4Mjg3NX0.fBM9r7WXpntVUM-qsBDQFlknRf2vMyIpJTp5ww9pzUM');
-
-        async function fetchPortfolioProducts() {
-            const grid = document.getElementById('portfolio-products-grid');
-
-            const { data, error } = await supabase
-                .from('portfolio_products')
-                .select('*')
-                .eq('is_active', true)
-                .order('sort_order', { ascending: true });
-
-            if (error || !data || data.length === 0) {
-                grid.innerHTML = `<div class="col-span-full text-center py-10 mono text-slate-600 text-xs">// AWAITING_NEW_RELEASES</div>`;
-                return;
-            }
-
-            grid.innerHTML = data.map((product, index) => `
-                <div class="live-product-card group h-80 flex flex-col justify-end p-6" data-aos="fade-up" data-aos-delay="${index * 100}">
-                    <img src="${product.image_url}" alt="${product.name}" class="absolute inset-0 w-full h-full object-cover z-0">
-                    
-                    <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#0f172a] to-transparent z-10 pointer-events-none"></div>
-                    
-                    <div class="relative z-20 transition-all duration-500 group-hover:translate-y-[-20px]">
-                        <h4 class="text-2xl font-bold mb-2 text-white">${product.name}</h4>
-                        <p class="text-xs text-slate-300 line-clamp-2">${product.description}</p>
-                    </div>
-
-                    <div class="live-product-overlay z-30 flex-col gap-4">
-                        <a href="${product.product_link}" target="_blank" class="bg-sky-500 text-white px-8 py-3 rounded-full font-bold uppercase tracking-widest text-[10px] hover:bg-white hover:text-black transition-colors shadow-lg">
-                            Access System 🔗
-                        </a>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        fetchPortfolioProducts();
     </script>
 </body>
 

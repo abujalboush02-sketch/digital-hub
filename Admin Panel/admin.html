@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="robots" content="noindex, nofollow">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mission Control | M. Solutions</title>
 
@@ -118,6 +119,9 @@
                     class="text-[10px] opacity-30">→</span></button>
             <button onclick="showTab('finance')" id="btn-finance"
                 class="flex justify-between px-4 py-2.5 rounded-lg font-mono text-xs uppercase hover:bg-white/5"><span>01_Finance_Ledger</span><span
+                    class="text-[10px] opacity-30">→</span></button>
+            <button onclick="showTab('orders')" id="btn-orders"
+                class="flex justify-between px-4 py-2.5 rounded-lg font-mono text-xs uppercase hover:bg-white/5"><span>01b_Orders</span><span
                     class="text-[10px] opacity-30">→</span></button>
             <button onclick="showTab('saas')" id="btn-saas"
                 class="flex justify-between px-4 py-2.5 rounded-lg font-mono text-xs uppercase hover:bg-white/5"><span>02_SaaS_Health</span><span
@@ -537,6 +541,7 @@
 
             if (tab === 'telemetry') renderTelemetry();
             if (tab === 'finance') renderFinance();
+            if (tab === 'orders') renderOrders();
             if (tab === 'saas') renderSaas(); // NEW
             if (tab === 'products') renderProducts();
             if (tab === 'portfolio') renderPortfolio();
@@ -549,6 +554,47 @@
             if (tab === 'apiforge') renderApiForge();
             if (tab === 'command') renderCommand();
             if (tab === 'settings') renderSettings();
+        };
+
+
+        // --- 01b_MANUAL ORDERS (CliQ / bank / cash) ---
+        const escHtml = (s) => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+        let ordersFilter = 'pending_payment';
+        async function renderOrders() {
+            area.innerHTML = `<div class="flex justify-between items-end mb-6">
+                <h3 class="font-mono text-[10px] uppercase tracking-widest text-dark-muted">Manual Orders</h3>
+                <select id="orders-filter" class="bg-dark-surface border border-dark-border rounded-lg p-2 font-mono text-[10px] uppercase">
+                    <option value="pending_payment">Pending payment</option><option value="paid">Paid</option><option value="rejected">Rejected</option><option value="all">All</option>
+                </select></div>
+                <div class="bg-dark-surface border border-dark-border rounded-[2rem] overflow-x-auto shadow-2xl"><table class="w-full text-left text-sm min-w-[800px]">
+                <thead class="bg-white/5 font-mono text-[9px] uppercase tracking-widest text-dark-muted"><tr><th class="p-5">Ref / Date</th><th class="p-5">Customer</th><th class="p-5">Product</th><th class="p-5">Method</th><th class="p-5">Amount</th><th class="p-5 text-right">Status / Ops</th></tr></thead>
+                <tbody id="orders-rows"></tbody></table></div>`;
+            const sel = document.getElementById('orders-filter');
+            sel.value = ordersFilter;
+            sel.onchange = () => { ordersFilter = sel.value; renderOrders(); };
+            let q = supabaseClient.from('orders').select('*').order('created_at', { ascending: false }).limit(200);
+            if (ordersFilter !== 'all') q = q.eq('status', ordersFilter);
+            const { data, error } = await q;
+            const rows = document.getElementById('orders-rows');
+            if (error) { rows.innerHTML = `<tr><td colspan="6" class="p-10 text-center font-mono text-xs text-red-400">${escHtml(error.message)}</td></tr>`; return; }
+            if (!data || !data.length) { rows.innerHTML = '<tr><td colspan="6" class="p-10 text-center font-mono text-xs text-dark-muted">No orders.</td></tr>'; return; }
+            rows.innerHTML = data.map(o => `<tr class="border-t border-dark-border hover:bg-white/[0.02]">
+                <td class="p-5 font-mono text-xs"><span class="text-accent">${escHtml(o.reference || o.id)}</span><br><span class="text-dark-muted">${escHtml((o.created_at || '').slice(0, 16).replace('T', ' '))}</span></td>
+                <td class="p-5 text-xs">${escHtml(o.user_name)}<br><span class="font-mono text-dark-muted">${escHtml(o.user_email)}</span><br>${o.whatsapp ? `<a class="font-mono text-accent" target="_blank" rel="noopener" href="https://wa.me/${encodeURIComponent(String(o.whatsapp).replace(/[^0-9]/g, ''))}">${escHtml(o.whatsapp)}</a>` : ''}</td>
+                <td class="p-5 text-xs font-bold">${escHtml(o.product_label || '-')}</td>
+                <td class="p-5 font-mono text-xs uppercase">${escHtml(o.payment_method || '-')}</td>
+                <td class="p-5 font-mono text-xs">${escHtml(o.total_amount)} ${escHtml(o.currency || '')}</td>
+                <td class="p-5 text-right whitespace-nowrap">
+                    <span class="font-mono text-[9px] uppercase mr-3 text-dark-muted">${escHtml(o.status)}</span>
+                    ${o.status === 'pending_payment' ? `<button onclick="window.setOrderStatus('${escHtml(o.id)}','paid')" class="px-3 py-1.5 rounded-lg text-[9px] font-black uppercase border border-green-500/40 text-green-400 hover:bg-green-500/10">Confirm payment</button>
+                    <button onclick="window.setOrderStatus('${escHtml(o.id)}','rejected')" class="ml-2 px-3 py-1.5 rounded-lg text-[9px] font-black uppercase border border-red-500/40 text-red-400 hover:bg-red-500/10">Reject</button>` : ''}
+                </td></tr>`).join('');
+        }
+        window.setOrderStatus = async (id, status) => {
+            if (!confirm(status === 'paid' ? 'Confirm payment received for this order?' : 'Reject this order?')) return;
+            const { error } = await supabaseClient.from('orders').update({ status }).eq('id', id);
+            if (error) alert('Update failed: ' + error.message);
+            renderOrders();
         };
 
         // --- 00_UNIFIED LEDGER ENGINE (Now with Categorization) ---
