@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Mohammad Abu Jalboush</title>
+  <meta name="description" content="Mohammad Abu Jalboush: full-stack engineering, AI agents and automation across every industry.">
+  <meta name="theme-color" content="#0d0c0b">
+  <script>
+    // Set theme + language before first paint (no flash).
+    (function () {
+      try {
+        var th = localStorage.getItem('theme');
+        if (th !== 'light' && th !== 'dark') th = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        document.documentElement.dataset.theme = th;
+        var l = localStorage.getItem('lang');
+        if (l !== 'ar' && l !== 'en') l = (navigator.language || 'en').toLowerCase().indexOf('ar') === 0 ? 'ar' : 'en';
+        document.documentElement.lang = l; document.documentElement.dir = l === 'ar' ? 'rtl' : 'ltr';
+      } catch (e) {}
+    })();
+  </script>
+  <script type="module" src="/src/main.js"></script>
+</head>
+<body>
+  <!--include:nav-->
+  <main id="top">
+    <section class="hero" aria-labelledby="h1">
+      <div class="hero__copy">
+        <span class="hero__kicker mono" data-i18n="hero.kicker">Software · AI · Automation · Growth</span>
+        <h1 id="h1" data-i18n="hero.h1">I build the systems businesses run on.</h1>
+        <p class="hero__sub" data-i18n="hero.sub">Full-stack engineering, AI agents written from scratch, and automation that removes the busywork. Across every industry I have worked in.</p>
+      </div>
+      <div class="net" id="network" role="group" data-i18n-aria="net.label" aria-label="Capability network">
+        <canvas class="net__canvas" aria-hidden="true"></canvas>
+        <div class="net__nodes"></div>
+        <div class="net__read" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- Stage-1 specimen: palette, type and chips in both themes. Removed in stage 2. -->
+    <section class="spec" id="work">
+      <h2>System</h2>
+      <div class="spec__row">
+        <div class="sw" style="background:var(--bg)">bg</div><div class="sw" style="background:var(--surface)">surface</div>
+        <div class="sw" style="background:var(--text);color:var(--bg)">text</div>
+        <div class="sw" style="background:var(--accent);color:var(--accent-ink)">accent</div>
+        <div class="sw" style="background:var(--c-eng);color:#000">eng</div><div class="sw" style="background:var(--c-ai);color:#000">ai</div>
+        <div class="sw" style="background:var(--c-auto);color:#000">auto</div><div class="sw" style="background:var(--c-biz);color:#000">biz</div>
+      </div>
+      <div class="type"><div class="d">أنظمة تعمل · Systems that ship</div><p class="b">Display in Bricolage Grotesque / Readex Pro, body in Instrument Sans / IBM Plex Sans Arabic, mono in JetBrains Mono.</p></div>
+      <div class="spec__row" id="chips"></div>
+      <div class="spec__row"><a class="btn" href="#top">Primary</a><a class="btn btn--ghost" href="#top">Ghost</a></div>
+    </section>
+  </main>
+  <div id="contact"></div><div id="industries"></div>
+  <!--include:footer-->
+</body>
+</html>
