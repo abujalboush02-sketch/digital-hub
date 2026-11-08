@@ -1,5 +1,5 @@
 // ONE i18n file for UI strings. Work content lives in content.js.
-import { PILLARS, PROJECTS, INDUSTRIES, STATUS, CHAPTERS, FS } from './content.js';
+import { PILLARS, PROJECTS, INDUSTRIES, STATUS, CHAPTERS, FS, PS, THINK, DID } from './content.js';
 
 export const STR = {
   en: {
@@ -21,6 +21,18 @@ export const STR = {
     'flag.kicker': 'Flagship work', 'flag.title': 'Systems I would show first.',
     'step.problem': 'Problem', 'step.system': 'System', 'step.result': 'Result',
     'flag.n': 'Flagship',
+    'prod.kicker': 'Products and builds', 'prod.title': 'Pick one. It opens.', 'prod.open': 'Open', 'prod.close': 'Close',
+    'agents.kicker': 'Under the hood', 'agents.title': 'Agents and pipelines.', 'agents.built': 'Built', 'agents.road': 'On the roadmap',
+    'ind.kicker': 'Industries', 'ind.title': 'Every industry, and what I actually did there.', 'ind.prev': 'Previous industry', 'ind.next': 'Next industry', 'ind.items': 'Built here',
+    'think.kicker': 'How I think', 'think.title': 'A custom CRM and delivery operations system.', 'think.sub': 'Solution design study',
+    'think.discovery': 'Discovery', 'think.architecture': 'Architecture', 'think.cost': 'Cost-aware choices',
+    'trust.title': 'The count, from the work itself.', 'trust.projects': 'products, builds and concepts', 'trust.industries': 'industries', 'trust.stacks': 'stacks', 'trust.agents': 'AI agents written from scratch',
+    'trust.note': 'Counted from the content of this site. Nothing rounded up.',
+    'race.kicker': 'Next', 'race.title': 'Moving into racing and racing tech.', 'race.sub': 'Soon.',
+    'contact.kicker': 'Contact', 'contact.title': 'Have something to build?', 'contact.sub': 'Tell me about it. I answer on WhatsApp fastest.',
+    'contact.wa': 'WhatsApp me', 'contact.mail': 'Email me', 'contact.name': 'Name', 'contact.reach': 'Email or WhatsApp', 'contact.msg': 'What are you building?', 'contact.send': 'Send message',
+    'contact.ok': 'Received. I will reply soon.', 'contact.bad': 'Please add your name, a way to reach you, and a message.', 'contact.fail': 'Could not send. Please use WhatsApp or email instead.', 'contact.wait': 'Please wait a moment before sending again.',
+    'contact.wamsg': 'Hi Mohammad, I would like to talk about a project.',
   },
   ar: {
     brand: 'محمد أبو جلبوش',
@@ -41,6 +53,18 @@ export const STR = {
     'flag.kicker': 'أعمال رئيسية', 'flag.title': 'أنظمة أبدأ بعرضها.',
     'step.problem': 'المشكلة', 'step.system': 'النظام', 'step.result': 'النتيجة',
     'flag.n': 'عمل رئيسي',
+    'prod.kicker': 'منتجات وأعمال', 'prod.title': 'اختر واحداً. يفتح.', 'prod.open': 'افتح', 'prod.close': 'إغلاق',
+    'agents.kicker': 'تحت الغطاء', 'agents.title': 'وكلاء وخطوط أتمتة.', 'agents.built': 'مُنجز', 'agents.road': 'على الخارطة',
+    'ind.kicker': 'القطاعات', 'ind.title': 'كل قطاع، وما فعلته فيه فعلاً.', 'ind.prev': 'القطاع السابق', 'ind.next': 'القطاع التالي', 'ind.items': 'ما بُني هنا',
+    'think.kicker': 'كيف أفكر', 'think.title': 'نظام CRM وعمليات توصيل مخصص.', 'think.sub': 'دراسة تصميم حلول',
+    'think.discovery': 'الاستكشاف', 'think.architecture': 'البنية', 'think.cost': 'خيارات واعية بالتكلفة',
+    'trust.title': 'العدّ، من العمل نفسه.', 'trust.projects': 'منتجات وأعمال ونماذج', 'trust.industries': 'قطاعاً', 'trust.stacks': 'تقنيات', 'trust.agents': 'وكلاء ذكاء اصطناعي مكتوبون من الصفر',
+    'trust.note': 'محسوبة من محتوى هذا الموقع. دون تقريب للأعلى.',
+    'race.kicker': 'التالي', 'race.title': 'أتجه إلى عالم السباقات وتقنياتها.', 'race.sub': 'قريباً.',
+    'contact.kicker': 'تواصل', 'contact.title': 'لديك ما تريد بناءه؟', 'contact.sub': 'أخبرني عنه. أسرع ردّ يكون على واتساب.',
+    'contact.wa': 'راسلني على واتساب', 'contact.mail': 'راسلني بالبريد', 'contact.name': 'الاسم', 'contact.reach': 'البريد أو واتساب', 'contact.msg': 'ماذا تبني؟', 'contact.send': 'إرسال الرسالة',
+    'contact.ok': 'وصلت رسالتك. سأردّ قريباً.', 'contact.bad': 'يرجى إضافة الاسم ووسيلة تواصل ورسالة.', 'contact.fail': 'تعذّر الإرسال. يرجى استخدام واتساب أو البريد.', 'contact.wait': 'يرجى الانتظار قليلاً قبل الإرسال مجدداً.',
+    'contact.wamsg': 'مرحباً محمد، أود الحديث عن مشروع.',
   },
 };
 
@@ -62,6 +86,10 @@ function resolve(path) {
   if (a === "pillar") return PILLARS.find((p) => p.id === id)?.name;
   if (a === "chapters") return CHAPTERS[id]?.[k];
   if (a === "fs") return FS[id]?.[k];
+  if (a === "ps") return PS[id]?.[k] ?? FS[id]?.[k];
+  if (a === "think") return THINK[id];
+  if (a === "did") return DID[id];
+  if (a === "ind") return INDUSTRIES.find((x) => x.id === id)?.name;
 }
 
 export function applyLang(l = lang, persist = false) {

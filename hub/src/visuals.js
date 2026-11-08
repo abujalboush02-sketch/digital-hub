@@ -135,5 +135,61 @@ const scene = {
   },
 };
 
+/* ================= HOW I THINK (chapter-style) ================= */
+chapter.think = () => `<svg class="v" ${VB}>
+  ${path('t1', 'M80 90 V150')}${path('t2', 'M240 90 V150')}${path('t3', 'M400 90 V150')}${path('t4', 'M95 260 V230 H130')}
+  ${box(30, 40, 100, 50, 'Office', '-60,40,-10', 'bx-a')}${box(190, 40, 100, 50, 'Driver', '30,80,8', 'bx-a')}${box(350, 40, 100, 50, 'Accounts', '70,30,-9', 'bx-a')}
+  ${box(60, 150, 360, 80, 'Quotes · PDF · e-sign', '0,-70,0', 'bx-a')}
+  ${box(30, 260, 130, 50, 'Python OCR', '-40,-20,12')}
+  <g data-late><rect class="bx" x="230" y="270" width="210" height="16" rx="8"/><rect class="bar" x="230" y="270" width="64" height="16" rx="8"/><text class="tx sm" x="236" y="308">$ / month</text></g>
+  ${pulse('t1', 2.4, 0)}${pulse('t2', 2.4, .6)}${pulse('t3', 2.4, 1.2)}
+</svg>`;
+
+/* ================= PRODUCT STRIP GLYPHS ================= */
+const product = {
+  omninode: () => scene.omninode(), alpha: () => scene.alpha(), restaurant: () => scene.restaurant(),
+  erplite: () => `<svg class="v is-live" ${VB}>
+    <rect class="bx-a" x="40" y="130" width="130" height="110" rx="14"/><rect class="ln-w" x="58" y="152" width="94" height="8" rx="4"/><rect class="ln-w" x="58" y="174" width="70" height="8" rx="4"/><rect class="ln-w" x="58" y="196" width="84" height="8" rx="4"/>
+    <path id="x1" class="ln dashed" d="M170 185 C230 185 230 110 290 110"/><path id="x2" class="ln dashed" d="M170 185 C230 185 230 260 290 260"/>
+    <rect class="bx" x="290" y="70" width="140" height="80" rx="12"/><text class="tx sm" x="360" y="116" text-anchor="middle">Drive</text>
+    <rect class="bx" x="290" y="220" width="140" height="80" rx="12"/><text class="tx sm" x="360" y="266" text-anchor="middle">Calendar</text>
+    ${pulse('x1', 2.6, 0)}${pulse('x2', 2.6, 1)}
+  </svg>`,
+  delivery: () => `<svg class="v is-live" ${VB}>
+    <path id="d1" class="ln" d="M110 220 C170 220 170 140 240 140"/><path id="d2" class="ln" d="M240 140 C310 140 310 220 370 220"/>
+    <g><rect class="bx-a" x="60" y="190" width="100" height="70" rx="10"/><path class="ln-a" d="M60 205 H160"/><text class="tx sm" x="110" y="238" text-anchor="middle">Store</text></g>
+    <g><rect class="bx" x="200" y="110" width="80" height="60" rx="14"/><text class="tx sm" x="240" y="146" text-anchor="middle">Order</text></g>
+    <g><path class="bx-a" d="M330 230 L370 195 L410 230 V270 H330 Z"/><text class="tx sm" x="370" y="258" text-anchor="middle">Door</text></g>
+    ${pulse('d1', 2.4, 0)}${pulse('d2', 2.4, 1.2)}
+  </svg>`,
+  sparkle: () => `<svg class="v is-live" ${VB}>
+    <path class="bx-a" d="M60 230 L80 180 Q90 160 115 160 H200 Q230 160 250 120 H330 Q350 130 365 175 L410 190 Q425 195 425 215 V235 Z"/>
+    <circle class="hub" cx="130" cy="240" r="30"/><circle class="hub" cx="350" cy="240" r="30"/><circle class="dt" cx="130" cy="240" r="9"/><circle class="dt" cx="350" cy="240" r="9"/>
+    <path class="sp s1" d="M200 60 L206 80 L226 86 L206 92 L200 112 L194 92 L174 86 L194 80Z"/><path class="sp s2" d="M380 70 L384 82 L396 86 L384 90 L380 102 L376 90 L364 86 L376 82Z"/><path class="sp s3" d="M80 110 L84 120 L94 124 L84 128 L80 138 L76 128 L66 124 L76 120Z"/>
+  </svg>`,
+  flip: () => `<svg class="v is-live" ${VB}>
+    <rect class="bx-a" x="150" y="80" width="130" height="190" rx="10"/><rect class="ln-w2" x="172" y="110" width="86" height="10" rx="5"/><rect class="ln-w" x="172" y="136" width="60" height="8" rx="4"/><rect class="ln-w" x="172" y="156" width="70" height="8" rx="4"/>
+    <path class="ac" d="M330 130 A60 60 0 0 1 390 190" fill="none" stroke-linecap="round"/><path class="ac" d="M390 190 l-12 -4 m12 4 l4 -12" fill="none" stroke-linecap="round"/>
+    <path class="ac" d="M390 230 A60 60 0 0 1 330 290" fill="none" stroke-linecap="round" transform="translate(0 -20)"/><path class="ac" d="M330 270 l12 4 m-12 -4 l-4 12" fill="none" stroke-linecap="round"/>
+    <text class="tx" x="215" y="250" text-anchor="middle">30d</text>
+  </svg>`,
+  shami: () => `<svg class="v is-live" ${VB}>
+    <path class="bx-a" d="M50 110 L70 70 H230 L250 110 Z"/><rect class="bx" x="60" y="110" width="180" height="140" rx="4"/><rect class="bx-a" x="120" y="170" width="60" height="80"/>
+    <rect class="bx" x="280" y="90" width="150" height="160" rx="12"/><rect class="bar" x="298" y="190" width="18" height="40" rx="3"/><rect class="bar" x="326" y="168" width="18" height="62" rx="3"/><rect class="bar" x="354" y="146" width="18" height="84" rx="3"/><rect class="ln-w2" x="298" y="110" width="80" height="8" rx="4"/>
+  </svg>`,
+  marketplace: () => `<svg class="v is-live" ${VB}>
+    ${[0, 1, 2, 3, 4, 5].map((i) => `<rect class="soonbox" x="${70 + (i % 3) * 120}" y="${90 + Math.floor(i / 3) * 110}" width="100" height="90" rx="12" style="--d:${i * 0.25}s"/>`).join('')}
+  </svg>`,
+};
+const racing = () => `<svg class="v is-live" ${VB}>
+  <path id="trk" class="trk" d="M70 250 C40 200 90 110 170 120 C250 130 230 200 300 190 C380 180 440 110 420 190 C405 250 330 290 250 280 C170 270 100 300 70 250Z" fill="none"/>
+  <path class="lines" d="M20 120 H90 M10 150 H70 M30 180 H100" />
+  <circle class="dt" r="7"><animateMotion dur="4.5s" repeatCount="indefinite"><mpath href="#trk"/></animateMotion></circle>
+</svg>`;
+
 export const chapterVisual = (id) => chapter[id]();
 export const sceneVisual = (id) => scene[id]();
+// reused scene svgs need unique ids per placement (card vs overlay)
+const uniq = (svg, x) => svg.replace(/id="(\w+)"/g, `id="$1${x}"`).replace(/href="#(\w+)"/g, `href="#$1${x}"`);
+export const productVisual = (id, x = "") => uniq(product[id](), x);
+export const racingVisual = racing;

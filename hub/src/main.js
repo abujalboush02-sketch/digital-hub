@@ -1,11 +1,13 @@
 import './styles/base.css';
 import './styles/hero.css';
 import './styles/story.css';
+import './styles/sections.css';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
 import { applyLang, toggleLang, t } from './i18n.js';
-import { renderStory, labelStatuses, initStory } from './story.js';
+import { renderStory, renderThink, labelStatuses, initStory } from './story.js';
+import { renderSections, initSections } from './sections.js';
 import { initNetwork } from './network.js';
 import { initTheme } from './theme.js';
 
@@ -13,6 +15,8 @@ gsap.registerPlugin(ScrollTrigger);
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 renderStory();
+renderThink();
+renderSections();
 applyLang();
 labelStatuses();
 document.addEventListener('langchange', labelStatuses);
@@ -68,3 +72,7 @@ if (!reduce) {
 
 initNetwork(document.getElementById('network'));
 initStory(reduce);
+initSections(lenis);
+ScrollTrigger.sort();
+ScrollTrigger.refresh();
+document.fonts?.ready.then(() => ScrollTrigger.refresh());

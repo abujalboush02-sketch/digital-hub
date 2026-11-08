@@ -123,6 +123,9 @@
             <button onclick="showTab('orders')" id="btn-orders"
                 class="flex justify-between px-4 py-2.5 rounded-lg font-mono text-xs uppercase hover:bg-white/5"><span>01b_Orders</span><span
                     class="text-[10px] opacity-30">→</span></button>
+            <button onclick="showTab('messages')" id="btn-messages"
+                class="flex justify-between px-4 py-2.5 rounded-lg font-mono text-xs uppercase hover:bg-white/5"><span>01c_Messages</span><span
+                    class="text-[10px] opacity-30">→</span></button>
             <button onclick="showTab('saas')" id="btn-saas"
                 class="flex justify-between px-4 py-2.5 rounded-lg font-mono text-xs uppercase hover:bg-white/5"><span>02_SaaS_Health</span><span
                     class="text-[10px] opacity-30">→</span></button>
@@ -542,6 +545,7 @@
             if (tab === 'telemetry') renderTelemetry();
             if (tab === 'finance') renderFinance();
             if (tab === 'orders') renderOrders();
+            if (tab === 'messages') renderMessages();
             if (tab === 'saas') renderSaas(); // NEW
             if (tab === 'products') renderProducts();
             if (tab === 'portfolio') renderPortfolio();
@@ -595,6 +599,38 @@
             const { error } = await supabaseClient.from('orders').update({ status }).eq('id', id);
             if (error) alert('Update failed: ' + error.message);
             renderOrders();
+        };
+
+        // --- 01c_CONTACT MESSAGES (hub contact form -> contact_messages) ---
+        let msgFilter = 'new';
+        async function renderMessages() {
+            area.innerHTML = `<div class="flex justify-between items-end mb-6">
+                <h3 class="font-mono text-[10px] uppercase tracking-widest text-dark-muted">Contact Messages</h3>
+                <select id="msg-filter" class="bg-dark-surface border border-dark-border rounded-lg p-2 font-mono text-[10px] uppercase">
+                    <option value="new">New</option><option value="done">Handled</option><option value="all">All</option></select></div>
+                <div id="msg-rows" class="grid gap-4"></div>`;
+            const sel = document.getElementById('msg-filter'); sel.value = msgFilter;
+            sel.onchange = () => { msgFilter = sel.value; renderMessages(); };
+            let q = supabaseClient.from('contact_messages').select('*').order('created_at', { ascending: false }).limit(200);
+            if (msgFilter !== 'all') q = q.eq('status', msgFilter);
+            const { data, error } = await q;
+            const box = document.getElementById('msg-rows');
+            if (error) { box.innerHTML = `<p class="font-mono text-xs text-red-400">${escHtml(error.message)}</p>`; return; }
+            if (!data || !data.length) { box.innerHTML = '<p class="font-mono text-xs text-dark-muted">No messages.</p>'; return; }
+            box.innerHTML = data.map(m => `<div class="bg-dark-surface border border-dark-border rounded-2xl p-6">
+                <div class="flex flex-wrap justify-between gap-3 mb-3 font-mono text-[10px] uppercase text-dark-muted">
+                    <span>${escHtml((m.created_at || '').slice(0, 16).replace('T', ' '))} · ${escHtml(m.lang || '')}</span>
+                    <span>${escHtml(m.status)}</span></div>
+                <p class="font-bold mb-1">${escHtml(m.name)}</p>
+                <p class="font-mono text-xs text-accent mb-3">${m.email ? `<a href="mailto:${escHtml(m.email)}">${escHtml(m.email)}</a> ` : ''}${m.phone ? `<a target="_blank" rel="noopener" href="https://wa.me/${encodeURIComponent(String(m.phone).replace(/[^0-9]/g, ''))}">${escHtml(m.phone)}</a>` : ''}</p>
+                <p class="text-sm whitespace-pre-wrap mb-4">${escHtml(m.message)}</p>
+                ${m.status === 'new' ? `<button onclick="window.setMsgStatus('${escHtml(m.id)}','done')" class="px-3 py-1.5 rounded-lg text-[9px] font-black uppercase border border-green-500/40 text-green-400 hover:bg-green-500/10">Mark handled</button>` : ''}
+            </div>`).join('');
+        }
+        window.setMsgStatus = async (id, status) => {
+            const { error } = await supabaseClient.from('contact_messages').update({ status }).eq('id', id);
+            if (error) alert('Update failed: ' + error.message);
+            renderMessages();
         };
 
         // --- 00_UNIFIED LEDGER ENGINE (Now with Categorization) ---

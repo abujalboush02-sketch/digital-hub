@@ -48,6 +48,25 @@ export function renderStory() {
     }).join('')}`;
 }
 
+// "How I think": same pinned problem->system->result engine, with discovery / architecture / cost steps.
+export function renderThink() {
+  const K = ['discovery', 'architecture', 'cost'];
+  document.getElementById('think').innerHTML = `
+    <section class="chapter chapter--think" style="--c:var(--accent)" aria-labelledby="think-h">
+      <div class="chapter__pin">
+        <div class="chapter__top"><span class="mono" data-i18n="think.kicker"></span><h3 id="think-h" data-i18n="think.title"></h3></div>
+        <div class="chapter__body">
+          <div class="chapter__copy">
+            <ol class="steps" aria-hidden="true">${K.map((s, k) => `<li data-k="${k}"><i></i><span data-i18n="think.${s}"></span></li>`).join('')}</ol>
+            <div class="panels">${K.map((s) => `<p class="panel" data-c="think.${s}"></p>`).join('')}</div>
+            <p class="scene__note" data-i18n="think.sub"></p>
+          </div>
+          <div class="chapter__vis">${chapterVisual('think')}</div>
+        </div>
+      </div>
+    </section>`;
+}
+
 export function labelStatuses() {
   document.querySelectorAll('[data-status]').forEach((el) => { el.textContent = pick(STATUS[el.dataset.status]); });
 }
