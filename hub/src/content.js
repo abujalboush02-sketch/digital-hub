@@ -36,7 +36,7 @@ export const INDUSTRIES = [
   { id: 'accounting', pillars: ['ai', 'auto'],         projects: ['mehsab'],                        name: { en: 'Accounting & finance',    ar: 'المحاسبة والمالية' } },
   { id: 'realestate', pillars: ['eng', 'biz'],         projects: [],                                name: { en: 'Real estate',             ar: 'العقارات' } },
   { id: 'ngo',        pillars: ['eng', 'biz'],         projects: [],                                name: { en: 'NGOs',                    ar: 'المنظمات غير الربحية' } },
-  { id: 'education',  pillars: ['eng'],                projects: [],                                name: { en: 'Education & campus safety', ar: 'التعليم وسلامة الحرم' } },
+  { id: 'education',  pillars: ['eng'],                projects: [],                                name: { en: 'Education & campus safety', ar: 'التعليم وسلامة الحرم الجامعي' } },
   { id: 'hr',         pillars: ['eng', 'auto'],        projects: [],                                name: { en: 'HR',                      ar: 'الموارد البشرية' } },
   { id: 'cinema',     pillars: ['eng'],                projects: [],                                name: { en: 'Entertainment & cinema',  ar: 'الترفيه والسينما' } },
   { id: 'transport',  pillars: ['eng', 'biz'],         projects: ['superapp'],                      name: { en: 'Transport',               ar: 'النقل' } },

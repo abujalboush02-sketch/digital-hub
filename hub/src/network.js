@@ -71,6 +71,7 @@ export function initNetwork(root) {
     canvas.width = W * dpr; canvas.height = H * dpr;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     rtl = document.documentElement.dir === 'rtl';
+    measureLabels();
     place(0);
     if (!animating()) draw(0);
   }
@@ -102,6 +103,28 @@ export function initNetwork(root) {
       n.x = mx(x) + px * n.depth * 1.4; n.y = y + py * n.depth * 1.4;
       n.el.style.transform = 'translate3d(' + n.x.toFixed(1) + 'px,' + n.y.toFixed(1) + 'px,0)';
     });
+    spreadLabels();
+  }
+
+  // Label collision: pillar labels sit close together, so push neighbours in the same row apart by their
+  // measured widths (cached in size(); no DOM reads here) and keep them inside the stage.
+  const pils = nodes.filter((n) => n.type === 'pil');
+  function measureLabels() { pils.forEach((n) => (n.lw = n.lbl.offsetWidth)); }
+  function spreadLabels() {
+    const GAP = 14, rows = [];
+    pils.forEach((n) => { n.off = 0; const r = rows.find((q) => Math.abs(q[0].y - n.y) < 14); r ? r.push(n) : rows.push([n]); });
+    rows.forEach((row) => {
+      row.sort((a, b) => a.x - b.x);
+      for (let pass = 0; pass < 3; pass++) {
+        for (let i = 0; i < row.length - 1; i++) {
+          const a = row[i], b = row[i + 1];
+          const ov = (a.x + a.off + a.lw / 2 + GAP) - (b.x + b.off - b.lw / 2);
+          if (ov > 0) { a.off -= ov / 2; b.off += ov / 2; }
+        }
+      }
+      row.forEach((n) => { const lo = 4 + n.lw / 2 - n.x, hi = W - 4 - n.lw / 2 - n.x; n.off = Math.min(Math.max(n.off, lo), Math.max(lo, hi)); });
+    });
+    pils.forEach((n) => { const v = 'translateX(calc(-50% + ' + n.off.toFixed(1) + 'px))'; if (n.lblT !== v) { n.lblT = v; n.lbl.style.transform = v; } });
   }
 
   // ---- drawing ----
@@ -247,6 +270,7 @@ export function initNetwork(root) {
   document.addEventListener('themechange', () => { readColors(); if (!animating()) draw(0); });
   matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', () => { kick(); size(); });
 
+  document.fonts?.ready.then(size);
   readColors(); setLabels(); renderRead(); size(); kick();
   return { setActive };
 }
