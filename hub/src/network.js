@@ -1,5 +1,6 @@
 // Living capability network: 4 pillars, industries orbiting, projects on an inner ring.
 // Canvas draws links + pulses; DOM buttons are the nodes (crisp text, a11y, tap targets).
+import { LOW_POWER, MID_POWER } from './perf.js';
 import { PILLARS, PROJECTS, INDUSTRIES, pick, t, statusLabel } from './i18n.js';
 
 const TAU = Math.PI * 2;
@@ -52,7 +53,7 @@ export function initNetwork(root) {
 
   // ---- state ----
   let W = 0, H = 0, dpr = 1, rtl = false;
-  let angle = 0, speed = 1, pointer = { x: 0, y: 0, tx: 0, ty: 0 };
+  let angle = 0, speed = 1, pointer = { x: 0, y: 0, tx: 0, ty: 0 }, pm = null;
   let hover = null, pinned = null, active = null, activeSet = null;
   let visible = true, raf = 0, last = 0;
   const colors = {};
@@ -66,7 +67,7 @@ export function initNetwork(root) {
 
   function size() {
     const r = root.getBoundingClientRect();
-    W = r.width; H = r.height; dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = r.width; H = r.height; dpr = Math.min(window.devicePixelRatio || 1, LOW_POWER ? 1.5 : 2);
     canvas.width = W * dpr; canvas.height = H * dpr;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     rtl = document.documentElement.dir === 'rtl';
@@ -104,7 +105,7 @@ export function initNetwork(root) {
   }
 
   // ---- drawing ----
-  const pulses = Array.from({ length: 7 }, (_, i) => ({ e: (i * 11) % edges.length, t: i / 7, s: 0.00018 + (i % 3) * 0.00006 }));
+  const pulses = Array.from({ length: LOW_POWER ? 0 : MID_POWER ? 3 : 7 }, (_, i, a) => ({ e: (i * 11) % edges.length, t: i / a.length, s: 0.00018 + (i % 3) * 0.00006 }));
   const ctrl = (e) => {
     const mx = (e.a.x + e.b.x) / 2, my = (e.a.y + e.b.y) / 2;
     const cx = W / 2, cy = H / 2;
@@ -140,7 +141,7 @@ export function initNetwork(root) {
     ctx.globalAlpha = 1;
 
     // pulses travelling along links
-    if (!reduce()) {
+    if (!reduce() && pulses.length) {
       const list = [];
       if (activeSet) edges.forEach((e, i) => { if (activeSet.has(e.a) && activeSet.has(e.b)) list.push(i); });
       pulses.forEach((p, i) => {
@@ -165,12 +166,15 @@ export function initNetwork(root) {
       const target = activeSet ? 0 : 1; // orbit holds still while something is selected
       speed += (target - speed) * Math.min(dt / 260, 1);
       angle += dt * 0.000042 * speed;
+      if (pm) { const r = root.getBoundingClientRect(); pointer.tx = ((pm.x - r.left) / r.width - 0.5) * 2; pointer.ty = ((pm.y - r.top) / r.height - 0.5) * 2; pm = null; }
       pointer.x += (pointer.tx - pointer.x) * 0.06; pointer.y += (pointer.ty - pointer.y) * 0.06;
     }
     place(now); draw(dt);
     if (visible && !document.hidden && animating()) raf = requestAnimationFrame(loop);
+    else setWC(false);
   }
-  const kick = () => { if (!raf) { last = 0; raf = requestAnimationFrame(loop); } };
+  const setWC = (on) => nodes.forEach((n) => (n.el.style.willChange = on ? 'transform' : ''));
+  const kick = () => { if (!raf) { last = 0; setWC(true); raf = requestAnimationFrame(loop); } };
 
   // ---- selection ----
   function setActive(n) {
@@ -230,9 +234,8 @@ export function initNetwork(root) {
   root.addEventListener('click', (e) => { if (!e.target.closest('.node')) { pinned = null; hover = null; refresh(); } });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && (pinned || hover)) { pinned = hover = null; refresh(); } });
   root.addEventListener('pointermove', (e) => {
-    if (e.pointerType !== 'mouse' || reduce()) return;
-    const r = root.getBoundingClientRect();
-    pointer.tx = ((e.clientX - r.left) / r.width - 0.5) * 2; pointer.ty = ((e.clientY - r.top) / r.height - 0.5) * 2;
+    if (e.pointerType !== 'mouse' || reduce() || LOW_POWER) return;
+    pm = { x: e.clientX, y: e.clientY };
   });
   root.addEventListener('pointerleave', () => { pointer.tx = pointer.ty = 0; });
 

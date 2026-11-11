@@ -127,12 +127,10 @@ export const FS = {
 
 // =====================  Stage 3  =====================
 
-// Public contact + backend config (all public by design; no secrets here).
+// Public contact details.
 export const SITE = {
   whatsapp: '962776110639',
   email: 'mohammadabujalboush02@gmail.com',
-  supabaseUrl: 'https://dvlabpioxtyyzvhzpmyc.supabase.co',
-  supabaseAnon: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2bGFicGlveHR5eXp2aHpwbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1MDY4NzUsImV4cCI6MjA4OTA4Mjg3NX0.fBM9r7WXpntVUM-qsBDQFlknRf2vMyIpJTp5ww9pzUM',
 };
 
 // Technologies actually used across the work above. The trust strip counts this list.

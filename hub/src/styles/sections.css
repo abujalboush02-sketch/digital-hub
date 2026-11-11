@@ -4,7 +4,7 @@
 /* ---- product strip ---- */
 .strip { min-height: 100svh; display: flex; flex-direction: column; border-block-start: 1px solid var(--line); overflow: clip; background: var(--bg); }
 .strip__view { flex: 1; display: flex; align-items: center; padding-block-end: 2rem; }
-.strip__track { display: flex; gap: clamp(1rem, 2vw, 2rem); padding-inline: var(--gutter); width: max-content; will-change: transform; }
+.strip__track { display: flex; gap: clamp(1rem, 2vw, 2rem); padding-inline: var(--gutter); width: max-content; }
 .pcard { position: relative; width: min(80vw, 520px); height: min(62svh, 560px); padding: 1.4rem; display: flex; flex-direction: column; justify-content: space-between; gap: 1rem; text-align: start; border: 1px solid var(--line); border-radius: 24px; background: linear-gradient(160deg, color-mix(in srgb, var(--c) 10%, var(--surface)), var(--surface)); transition: border-color var(--t-ui), transform var(--t-ui) var(--ease-out); overflow: hidden; }
 .pcard:hover { border-color: var(--c); transform: translateY(-6px); }
 .pcard__n { color: var(--c); }
@@ -69,7 +69,7 @@ html[dir='rtl'] .itag { padding: .4rem 1rem .4rem .5rem; }
 @media (min-width: 900px) {
   .ind__grid { grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: 3rem; min-height: 68svh; align-items: center; }
   .dial { display: block; position: relative; height: 68svh; overflow: hidden; touch-action: pan-x; cursor: grab; mask-image: linear-gradient(transparent, #000 12%, #000 88%, transparent); }
-  .dial__i { position: absolute; inset-block-start: 0; inset-inline-start: 0; transform-origin: left center; border: 0; background: none; padding: .35rem 0; font: 600 var(--step-2)/1.1 var(--f-display); letter-spacing: -.02em; color: var(--text); will-change: transform; }
+  .dial__i { position: absolute; inset-block-start: 0; inset-inline-start: 0; transform-origin: left center; border: 0; background: none; padding: .35rem 0; font: 600 var(--step-2)/1.1 var(--f-display); letter-spacing: -.02em; color: var(--text); }
   html[dir='rtl'] .dial__i { transform-origin: right center; }
   .dial__i.is-active { background: none; color: var(--accent); }
   .dial__i:not(.is-active):hover { color: var(--accent); }
@@ -98,22 +98,13 @@ html[dir='rtl'] .itag { padding: .4rem 1rem .4rem .5rem; }
 @media (min-width: 900px) { .race { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
 
 /* ---- contact ---- */
-.contact { padding: clamp(4rem, 12vh, 8rem) var(--gutter); border-block-start: 1px solid var(--line); display: grid; gap: 3rem; background: radial-gradient(60% 60% at 20% 20%, var(--glow), transparent 70%); }
-.contact__copy { display: grid; gap: 1.2rem; justify-items: start; align-content: start; }
+.contact { padding: clamp(5rem, 14vh, 9rem) var(--gutter); border-block-start: 1px solid var(--line); display: grid; justify-items: center; text-align: center; background: radial-gradient(60% 60% at 50% 30%, var(--glow), transparent 70%); }
+.contact__copy { display: grid; gap: 1.4rem; justify-items: center; max-width: 44rem; }
+.contact__copy .contact__btns { justify-content: center; gap: 1rem; margin-block-start: .6rem; }
+.contact__copy .btn { padding: 1.15rem 2.2rem; font-size: var(--step-1); }
 .contact__copy .mono { color: var(--accent); }
 .contact h2 { font-size: var(--step-4); text-wrap: balance; }
 .contact__sub { color: var(--muted); font-size: var(--step-1); max-width: 30rem; }
-.cform { display: grid; gap: .5rem; padding: clamp(1.2rem, 3vw, 2rem); border: 1px solid var(--line); border-radius: 24px; background: var(--surface); }
-.cform label { font-size: var(--step--1); color: var(--muted); margin-block-start: .6rem; }
-.cform input, .cform textarea { width: 100%; padding: .85rem 1rem; border-radius: 12px; border: 1px solid var(--line); background: var(--bg); color: var(--text); font: inherit; }
-.cform textarea { resize: vertical; min-height: 7rem; }
-.cform input:focus, .cform textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
-.cform .btn { margin-block-start: 1rem; justify-self: start; }
-.cform .btn:disabled { opacity: .6; cursor: default; }
-.cform .hp { position: absolute; inset-inline-start: -9999px; opacity: 0; }
-.cform__msg { min-height: 1.4rem; font-size: var(--step--1); }
-.cform__msg.ok { color: var(--c-auto); } .cform__msg.err { color: #e5484d; }
-@media (min-width: 900px) { .contact { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: 5rem; align-items: center; } }
 
 /* ---- extra svg bits ---- */
 .v .ln-a { stroke: var(--c); stroke-width: 1.5; fill: none; }
@@ -123,3 +114,8 @@ html[dir='rtl'] .itag { padding: .4rem 1rem .4rem .5rem; }
 .v .soonbox { fill: none; stroke: var(--c); stroke-width: 1.5; stroke-dasharray: 5 6; animation: shimmer 2.4s ease-in-out infinite; animation-delay: var(--d); }
 @keyframes shimmer { 50% { opacity: .25; } }
 .chapter--think .scene__note { margin-block-start: .4rem; }
+
+/* ---- low-power (phones / weak CPUs): drop ambient loops, keep the look ---- */
+.lp .v .sp, .lp .v .soonbox, .lp .v .coin, .lp .v .you-ring, .lp .v .wv, .lp .v .scan, .lp .v .ring, .lp .chip--live::before { animation: none; }
+.lp .v .pulse { display: none; }
+.lp .mq__track { animation-duration: 80s; }

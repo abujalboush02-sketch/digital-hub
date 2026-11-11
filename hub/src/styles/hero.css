@@ -4,7 +4,7 @@
 .hero__kicker { color: var(--accent); margin-block-end: 1.2rem; display: block; }
 .hero h1 { font-size: var(--step-4); text-wrap: balance; }
 .hero h1 .w { display: inline-block; overflow: clip; vertical-align: top; padding-block-end: .08em; }
-.hero h1 .w > span { display: inline-block; will-change: transform; }
+.hero h1 .w > span { display: inline-block; }
 .hero__sub { margin-block-start: 1.4rem; max-width: 34rem; color: var(--muted); font-size: var(--step-1); line-height: 1.5; text-wrap: pretty; }
 
 @media (min-width: 980px) {
@@ -17,7 +17,7 @@
 .net { position: relative; direction: ltr; height: min(118vw, 78svh); min-height: 460px; user-select: none; -webkit-tap-highlight-color: transparent; touch-action: pan-y; }
 .net__canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 .net__nodes { position: absolute; inset: 0; }
-.node { position: absolute; left: 0; top: 0; width: 0; height: 0; will-change: transform; z-index: 2; cursor: pointer; }
+.node { position: absolute; left: 0; top: 0; width: 0; height: 0; z-index: 2; cursor: pointer; }
 .node > .hit { position: absolute; left: -16px; top: -16px; width: 32px; height: 32px; border-radius: 50%; }
 .node .dot { position: absolute; width: 9px; height: 9px; margin: -4.5px; border-radius: 50%; background: var(--muted); transition: transform var(--t-ui) var(--ease-out), background var(--t-ui), opacity var(--t-ui); }
 .node .lbl { position: absolute; left: 0; top: 11px; transform: translateX(-50%); white-space: nowrap; font: 500 clamp(.62rem, .58rem + .3vw, .8rem)/1 var(--f-body); color: var(--muted); transition: color var(--t-ui), opacity var(--t-ui); pointer-events: none; }

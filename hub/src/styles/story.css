@@ -18,7 +18,7 @@
 .v .ring { stroke: var(--c); stroke-width: 1.5; stroke-dasharray: 3 8; transform-origin: 240px 180px; animation: spin 18s linear infinite; }
 .v .bar { fill: var(--c); } .v .bar2 { fill: color-mix(in srgb, var(--c) 70%, var(--surface)); }
 .v .ac { stroke: var(--c); stroke-width: 3; }
-.v .pulse { opacity: 0; transition: opacity .6s; filter: drop-shadow(0 0 6px var(--c)); }
+.v .pulse { opacity: 0; transition: opacity .6s; stroke: var(--c); stroke-opacity: .3; stroke-width: 7; paint-order: stroke; }
 .v.is-live .pulse { opacity: 1; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
@@ -93,6 +93,6 @@ html[dir='rtl'] .arr { transform: scaleX(-1); }
 .v .hexa { fill: color-mix(in srgb, var(--c) 18%, var(--surface)); stroke: var(--c); stroke-width: 2; }
 .v .qr { fill: var(--c); } .v .tk { fill: var(--surface-2); stroke: var(--line); }
 .v .rcpt { fill: var(--surface-2); stroke: var(--line); }
-.v .scan { fill: var(--c); opacity: .85; animation: scan 2.4s ease-in-out infinite alternate; filter: drop-shadow(0 0 5px var(--c)); }
+.v .scan { fill: var(--c); opacity: .85; animation: scan 2.4s ease-in-out infinite alternate; stroke: var(--c); stroke-opacity: .25; stroke-width: 4; }
 @keyframes scan { to { transform: translateY(74px); } }
 .v .gate { stroke: var(--c); stroke-width: 2; stroke-dasharray: 5 6; }

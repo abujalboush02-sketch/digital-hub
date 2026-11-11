@@ -42,9 +42,9 @@ html.vt-theme::view-transition-new(root) { z-index: 2; }
   position: fixed; inset-block-start: 0; inset-inline: 0; z-index: 50;
   display: flex; align-items: center; justify-content: space-between; gap: 1rem;
   padding: .9rem var(--gutter);
-  transition: background var(--t-ui) var(--ease-out), backdrop-filter var(--t-ui);
+  transition: background var(--t-ui) var(--ease-out);
 }
-.nav.is-stuck { background: color-mix(in srgb, var(--bg) 78%, transparent); backdrop-filter: blur(14px) saturate(1.3); border-block-end: 1px solid var(--line); }
+.nav.is-stuck { background: color-mix(in srgb, var(--bg) 94%, transparent); border-block-end: 1px solid var(--line); }
 .nav__brand { font: 700 1.05rem/1 var(--f-display); letter-spacing: -.01em; }
 .nav__links { display: none; gap: 2rem; font-size: var(--step--1); color: var(--muted); }
 .nav__links a { transition: color var(--t-micro); }
@@ -77,7 +77,7 @@ html[lang='ar'] .chip { font-family: var(--f-body); font-size: .8rem; }
 .chip--built::before { background: none; border: 1.5px solid currentColor; }
 .chip--roadmap { color: var(--muted); border-style: dashed; }
 .chip--roadmap::before { background: none; border: 1.5px dashed currentColor; }
-@keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 currentColor; } 60% { box-shadow: 0 0 0 .4rem transparent; } }
+@keyframes pulse { 0%,100% { transform: scale(1); opacity: 1; } 60% { transform: scale(1.45); opacity: .35; } }
 
 .btn { display: inline-flex; align-items: center; gap: .6rem; padding: .85rem 1.4rem; border-radius: 999px; background: var(--accent); color: var(--accent-ink); font-weight: 600; transition: transform var(--t-ui) var(--ease-out); }
 .btn:hover { transform: translateY(-2px); }

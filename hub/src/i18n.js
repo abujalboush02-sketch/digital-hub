@@ -31,8 +31,7 @@ export const STR = {
     'trust.note': 'Counted from the content of this site. Nothing rounded up.',
     'race.kicker': 'Next', 'race.title': 'Moving into racing and racing tech.', 'race.sub': 'Soon.',
     'contact.kicker': 'Contact', 'contact.title': 'Have something to build?', 'contact.sub': 'Tell me about it. I answer on WhatsApp fastest.',
-    'contact.wa': 'WhatsApp me', 'contact.mail': 'Email me', 'contact.name': 'Name', 'contact.reach': 'Email or WhatsApp', 'contact.msg': 'What are you building?', 'contact.send': 'Send message',
-    'contact.ok': 'Received. I will reply soon.', 'contact.bad': 'Please add your name, a way to reach you, and a message.', 'contact.fail': 'Could not send. Please use WhatsApp or email instead.', 'contact.wait': 'Please wait a moment before sending again.',
+    'contact.wa': 'WhatsApp me', 'contact.mail': 'Email me',
     'contact.wamsg': 'Hi Mohammad, I would like to talk about a project.',
   },
   ar: {
@@ -64,8 +63,7 @@ export const STR = {
     'trust.note': 'محسوبة من محتوى هذا الموقع. دون تقريب للأعلى.',
     'race.kicker': 'التالي', 'race.title': 'أتجه إلى عالم السباقات وتقنياتها.', 'race.sub': 'قريباً.',
     'contact.kicker': 'تواصل', 'contact.title': 'لديك ما تريد بناءه؟', 'contact.sub': 'أخبرني عنه. أسرع ردّ يكون على واتساب.',
-    'contact.wa': 'راسلني على واتساب', 'contact.mail': 'راسلني بالبريد', 'contact.name': 'الاسم', 'contact.reach': 'البريد أو واتساب', 'contact.msg': 'ماذا تبني؟', 'contact.send': 'إرسال الرسالة',
-    'contact.ok': 'وصلت رسالتك. سأردّ قريباً.', 'contact.bad': 'يرجى إضافة الاسم ووسيلة تواصل ورسالة.', 'contact.fail': 'تعذّر الإرسال. يرجى استخدام واتساب أو البريد.', 'contact.wait': 'يرجى الانتظار قليلاً قبل الإرسال مجدداً.',
+    'contact.wa': 'راسلني على واتساب', 'contact.mail': 'راسلني بالبريد',
     'contact.wamsg': 'مرحباً محمد، أود الحديث عن مشروع.',
   },
 };

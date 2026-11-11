@@ -48,7 +48,7 @@ and **`payment-config.js`** (the E-Book order page loads it from the bare domain
 Then: `sudo nginx -t && sudo systemctl reload nginx`.
 
 ## After deploy
-1. Run `hub/sql/contact_messages.sql` in Supabase, send one test message, find it in Admin -> 01c_Messages.
+1. Click the WhatsApp and email buttons in the contact section and confirm both open correctly.
 2. `curl -I https://mohammad-abujalboush.com/payment-config.js` -> 200 (E-Book depends on it).
 3. `curl -I https://portfolio.mohammad-abujalboush.com/` -> 301 to the hub.
 4. Check `/ar/`, `/robots.txt`, `/sitemap.xml`; submit the sitemap in Search Console.

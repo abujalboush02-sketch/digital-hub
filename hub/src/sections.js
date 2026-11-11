@@ -1,5 +1,5 @@
 // Stage 3 sections: product strip (+ expanding mini-scenes), agents marquee, industry dial,
-// trust counters (computed from content), racing teaser, contact (-> Supabase contact_messages).
+// trust counters (computed from content), racing teaser, contact (WhatsApp + email).
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { PILLARS, PROJECTS, INDUSTRIES, DEMOS, AGENTS, PIPELINES, STACKS, STRIP, PS, FS, DID, SITE, STATUS } from './content.js';
@@ -94,14 +94,6 @@ export function renderSections() {
         <a class="btn btn--ghost" id="ct-mail" href="mailto:${SITE.email}"><span data-i18n="contact.mail"></span></a>
       </div>
     </div>
-    <form class="cform" id="cform" novalidate>
-      <label for="cf-n" data-i18n="contact.name"></label><input id="cf-n" name="name" autocomplete="name" maxlength="200" required>
-      <label for="cf-r" data-i18n="contact.reach"></label><input id="cf-r" name="reach" autocomplete="email" maxlength="200" dir="auto" required>
-      <label for="cf-m" data-i18n="contact.msg"></label><textarea id="cf-m" name="message" rows="5" maxlength="4000" required></textarea>
-      <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <button class="btn" type="submit" id="cf-b"><span data-i18n="contact.send"></span></button>
-      <p class="cform__msg" id="cf-s" role="status"></p>
-    </form>
   </section>`;
   refreshContactLinks();
   document.addEventListener('langchange', () => { drawAgents(); refreshContactLinks(); if (ov.open) renderOv(ov.id); showIndustry(ind.i, false); layoutDial(); });
@@ -208,9 +200,10 @@ function layoutDial() {
   const items = dial.querySelectorAll('.dial__i');
   if (!wide) { items.forEach((b) => { b.style.transform = ''; b.style.opacity = ''; b.style.visibility = ''; }); const a = dial.querySelector('.is-active'); a && dial.scrollTo({ left: a.offsetLeft - dial.clientWidth / 2 + a.offsetWidth / 2, behavior: 'smooth' }); return; }
   const H = dial.clientHeight, R = H * 0.95, step = 0.17, sign = isRtl() ? -1 : 1;
+  const hs = Array.from(items, (b) => b.offsetHeight); // all reads first, then writes
   items.forEach((b, k) => {
     const d = k - ind.pos, a = d * step, ad = Math.abs(d);
-    const x = (R - R * Math.cos(a)) * sign, y = H / 2 + R * Math.sin(a) - b.offsetHeight / 2;
+    const x = (R - R * Math.cos(a)) * sign, y = H / 2 + R * Math.sin(a) - hs[k] / 2;
     const s = Math.max(0.55, 1 - ad * 0.1);
     b.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) scale(${s.toFixed(3)})`;
     b.style.opacity = ad > 4.6 ? 0 : Math.max(0.12, 1 - ad * 0.2).toFixed(2);
@@ -222,29 +215,6 @@ function layoutDial() {
 function refreshContactLinks() {
   document.getElementById('ct-wa').href = `https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(t('contact.wamsg'))}`;
 }
-async function submitContact(e) {
-  e.preventDefault();
-  const f = e.target, s = document.getElementById('cf-s'), b = document.getElementById('cf-b');
-  s.className = 'cform__msg';
-  if (f.website.value) return;
-  const name = f.name.value.trim(), reach = f.reach.value.trim(), message = f.message.value.trim();
-  if (!name || !reach || !message) { s.classList.add('err'); s.textContent = t('contact.bad'); return; }
-  try { if (Date.now() - Number(localStorage.getItem('cm.last') || 0) < 30000) { s.classList.add('err'); s.textContent = t('contact.wait'); return; } } catch {}
-  const isMail = reach.includes('@');
-  b.disabled = true;
-  try {
-    const r = await fetch(`${SITE.supabaseUrl}/rest/v1/contact_messages`, {
-      method: 'POST',
-      headers: { apikey: SITE.supabaseAnon, Authorization: 'Bearer ' + SITE.supabaseAnon, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
-      body: JSON.stringify({ name, email: isMail ? reach : null, phone: isMail ? null : reach, message, lang: getLang(), source: 'hub' }),
-    });
-    if (!r.ok) throw new Error(r.status);
-    s.classList.add('ok'); s.textContent = t('contact.ok'); f.reset();
-    try { localStorage.setItem('cm.last', String(Date.now())); } catch {}
-  } catch { s.classList.add('err'); s.textContent = t('contact.fail'); }
-  b.disabled = false;
-}
-
 /* ================= motion + events ================= */
 export function initSections(lenis) {
   // overlay
@@ -278,9 +248,6 @@ export function initSections(lenis) {
   document.querySelectorAll('.dial__i').forEach((b) => b.setAttribute('tabindex', b.dataset.i === '0' ? '0' : '-1'));
   showIndustry(0, false);
 
-  // contact
-  document.getElementById('cform').addEventListener('submit', submitContact);
-
   const mm = gsap.matchMedia();
   mm.add('(prefers-reduced-motion: no-preference)', () => {
     // product strip: pinned, scrubbed horizontal travel (RTL travels the other way)
@@ -288,7 +255,7 @@ export function initSections(lenis) {
     const dist = () => Math.max(0, track.offsetWidth - innerWidth);
     const tw = gsap.to(track, {
       x: () => (isRtl() ? 1 : -1) * dist(), ease: 'none',
-      scrollTrigger: { trigger: strip, start: 'top top', end: () => '+=' + dist(), pin: true, scrub: 0.5, invalidateOnRefresh: true },
+      scrollTrigger: { trigger: strip, start: 'top top', end: () => '+=' + dist(), pin: true, scrub: 0.5, invalidateOnRefresh: true, onToggle: (st) => { track.style.willChange = st.isActive ? 'transform' : ''; } },
     });
     // keyboard: focusing an off-screen card scrolls the pinned strip to it
     track.addEventListener('focusin', (e) => {
@@ -298,7 +265,7 @@ export function initSections(lenis) {
       lenis ? lenis.scrollTo(y, { immediate: true }) : scrollTo(0, y);
     });
     // headings + blocks rise in
-    gsap.utils.toArray('.sec-head, .ind__grid, .trust__row, .race__copy, .contact__copy, .cform, .mq').forEach((el) => {
+    gsap.utils.toArray('.sec-head, .ind__grid, .trust__row, .race__copy, .contact__copy, .mq').forEach((el) => {
       gsap.from(el, { autoAlpha: 0, y: 36, duration: 0.9, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 88%', once: true } });
     });
     // counters

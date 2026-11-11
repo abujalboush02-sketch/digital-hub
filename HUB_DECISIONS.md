@@ -61,7 +61,7 @@ mohammad-abujalboush.com = the showcase of Mohammad Abu Jalboush across every in
 6. "How I think": solution-design study.
 7. Trust strip: counts computed from the content file only. No invented metrics; no "5 years" unless confirmed.
 8. Racing teaser: "Moving into racing & racing tech, soon."
-9. Contact: WhatsApp + email + form -> Supabase `contact_messages` (anon insert-only RLS), shown in Admin. No Netlify form code.
+9. Contact: big centered WhatsApp + email buttons only. No form, no backend, no Netlify form code.
 - Status labels on every item: Live / Launching soon / Built (demo/concept) / Roadmap. Never fake a live status.
 
 ## Content rules
