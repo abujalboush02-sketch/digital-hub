@@ -105,7 +105,8 @@ export function initNetwork(root) {
   }
 
   // ---- drawing ----
-  const pulses = Array.from({ length: LOW_POWER ? 0 : MID_POWER ? 3 : 7 }, (_, i, a) => ({ e: (i * 11) % edges.length, t: i / a.length, s: 0.00018 + (i % 3) * 0.00006 }));
+  const nPulse = LOW_POWER ? 0 : MID_POWER ? 3 : 7;
+  const pulses = Array.from({ length: nPulse }, (_, i) => ({ e: (i * 11) % edges.length, t: i / nPulse, s: 0.00018 + (i % 3) * 0.00006 }));
   const ctrl = (e) => {
     const mx = (e.a.x + e.b.x) / 2, my = (e.a.y + e.b.y) / 2;
     const cx = W / 2, cy = H / 2;

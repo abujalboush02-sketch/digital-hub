@@ -74,7 +74,7 @@ if (!reduce) {
     .to('.net', { autoAlpha: 1, y: 0, duration: 1.2 }, '-=0.9');
 }
 
-initNetwork(document.getElementById('network'));
+try { initNetwork(document.getElementById('network')); } catch (err) { console.error(err); } // never let the hero canvas block the scroll animations
 initStory(reduce);
 initSections(lenis);
 ScrollTrigger.sort();
