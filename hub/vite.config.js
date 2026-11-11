@@ -36,7 +36,7 @@ function seoHead(l) {
   const c = COPY[l];
   const person = {
     '@type': 'Person', '@id': ORIGIN + '/#person', name: l === 'ar' ? 'محمد أبو جلبوش' : 'Mohammad Abu Jalboush', alternateName: l === 'ar' ? 'Mohammad Abu Jalboush' : 'محمد أبو جلبوش',
-    url: ORIGIN + '/', jobTitle: c.job, image: ORIGIN + '/og.png',
+    url: ORIGIN + '/', jobTitle: 'Founder · Systems Builder · AI & Automation', image: ORIGIN + '/og.png',
     knowsAbout: ['Flutter', '.NET', 'Python', 'n8n', 'AI agents', 'Business automation', 'Supabase', 'Business development'],
     knowsLanguage: ['ar', 'en'],
   };

@@ -64,11 +64,11 @@ splitWords();
 
 if (!reduce) {
   gsap.set('.hero h1 .w > span', { yPercent: 110 });
-  gsap.set(['.hero__kicker', '.hero__sub', '.net'], { autoAlpha: 0, y: 24 });
+  gsap.set(['.hero__role', '.hero__kicker', '.hero__sub', '.net'], { autoAlpha: 0, y: 24 });
   const heroWords = document.querySelectorAll('.hero h1 .w > span');
   heroWords.forEach((w) => (w.style.willChange = 'transform'));
   gsap.timeline({ defaults: { ease: 'power4.out' }, delay: 0.1, onComplete: () => heroWords.forEach((w) => (w.style.willChange = '')) })
-    .to('.hero__kicker', { autoAlpha: 1, y: 0, duration: 0.8 })
+    .to(['.hero__role', '.hero__kicker'], { autoAlpha: 1, y: 0, duration: 0.8, stagger: 0.08 })
     .to('.hero h1 .w > span', { yPercent: 0, duration: 1.1, stagger: 0.08 }, '<0.1')
     .to('.hero__sub', { autoAlpha: 1, y: 0, duration: 0.9 }, '-=0.7')
     .to('.net', { autoAlpha: 1, y: 0, duration: 1.2 }, '-=0.9');

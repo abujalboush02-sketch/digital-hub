@@ -18,7 +18,7 @@ export const PROJECTS = [
   { id: 'sparkle',    status: 'built', pillars: ['eng'],               name: { en: 'Sparkle CRM',                 ar: 'Sparkle CRM' } },
   { id: 'flip',       status: 'live',  pillars: ['biz'],               name: { en: 'The Flip',                    ar: 'The Flip' } },
   { id: 'shami',      status: 'live',  pillars: ['eng', 'biz'],        name: { en: 'Shami Cosmetics',             ar: 'شامي كوزمتكس' } },
-  { id: 'mehsab',     status: 'soon',  pillars: ['ai', 'auto', 'eng'], name: { en: 'Mehsab',                      ar: 'محسب' } },
+  { id: 'mehsab',     status: 'soon',  pillars: ['ai', 'auto', 'eng'], name: { en: 'Mehsab',                      ar: 'محساب' } },
   { id: 'gamified',   status: 'built', pillars: ['eng'],               name: { en: 'Gamified Commerce Platform',  ar: 'منصة تجارة تفاعلية بالألعاب' } },
   { id: 'superapp',   status: 'built', pillars: ['eng'],               name: { en: 'Hyperlocal Super-App',        ar: 'تطبيق خدمات محلية شامل' } },
   { id: 'marketplace', status: 'soon', pillars: ['biz'],               name: { en: 'Marketplace',                 ar: 'المتجر' } },
@@ -101,7 +101,7 @@ export const FS = {
     f0: { en: 'Local shops and services', ar: 'متاجر وخدمات محلية' }, f1: { en: 'EV charging: find and reserve', ar: 'شحن كهربائي: اكتشاف وحجز' }, f2: { en: 'Flutter', ar: 'Flutter' },
   },
   mehsab: {
-    title: { en: 'Mehsab', ar: 'محسب' },
+    title: { en: 'Mehsab', ar: 'محساب' },
     body: { en: 'An AI accountant platform for a client. I built the platform and the accountant itself, on n8n. It chats with the user, reads all of their platform data, advises, and performs actions inside the platform on their behalf. It also holds a full voice conversation and answers in its own voice. The platform adds a regulations library with structured workflows for preparing cases, organising evidence and retrieving documentation.', ar: 'منصة محاسب ذكي لصالح عميل. بنيتُ المنصة والمحاسب الذكي نفسه على n8n. يتحدث مع المستخدم، ويقرأ جميع بياناته داخل المنصة، ويقدّم النصح، وينفّذ الإجراءات داخل المنصة نيابةً عنه. ويجري أيضاً محادثة صوتية كاملة ويردّ بصوته الخاص. وتضيف المنصة مكتبة أنظمة وتشريعات مع مسارات عمل منظَّمة لإعداد القضايا وتنظيم الأدلة واسترجاع الوثائق.' },
     f0: { en: 'Client project', ar: 'مشروع لعميل' }, f1: { en: 'Chat and full voice', ar: 'نص وصوت كامل' }, f2: { en: 'Acts inside the platform', ar: 'ينفّذ داخل المنصة' },
   },
@@ -157,7 +157,7 @@ export const AGENTS = [
   { id: 'alpha-engine', status: 'soon',  name: { en: 'Alpha engine: compliance + trained classifier', ar: 'محرك Alpha: امتثال ومصنِّف مدرَّب' } },
   { id: 'kms-ocr',      status: 'built', name: { en: 'KMS OCR: receipts and invoices',                ar: 'OCR لنظام KMS: إيصالات وفواتير' } },
   { id: 'omni-parse',   status: 'live',  name: { en: 'OmniNode AI message parsing (AR/EN)',            ar: 'تحليل رسائل OmniNode بالذكاء الاصطناعي' } },
-  { id: 'mehsab-voice', status: 'soon',  name: { en: 'Mehsab voice accountant',                        ar: 'محاسب محسب الصوتي' } },
+  { id: 'mehsab-voice', status: 'soon',  name: { en: 'Mehsab voice accountant',                        ar: 'محاسب محساب الصوتي' } },
 ];
 export const PIPELINES = [
   { id: 'leadgen', status: 'built',   name: { en: 'Lead Gen & Outreach',  ar: 'توليد العملاء والتواصل' } },
@@ -238,7 +238,7 @@ export const DID = {
   automotive: { en: 'Sparkle CRM for detailers and car washes: client and vehicle profiles, bay scheduling, job assignment and follow-ups.', ar: 'Sparkle CRM لمراكز التلميع والغسيل: ملفات العملاء والمركبات، وجدولة المواقع، وإسناد المهام، والمتابعات.' },
   logistics:  { en: 'Real-time dispatch and logistics systems: live tracking, smart driver matching, payment pre-authorization, and multi-app platforms for customers, drivers and admins.', ar: 'أنظمة إرسال ولوجستيات فورية: تتبّع مباشر، ومطابقة ذكية للسائقين، وتفويض مسبق للدفع، ومنصات متعددة التطبيقات للعملاء والسائقين والإدارة.' },
   fintech:    { en: 'Alpha Advisor: a Shariah-compliant AI investing advisor, with a Python compliance engine and a trained classifier. Advisory only.', ar: 'Alpha Advisor: مستشار استثمار ذكي متوافق مع الشريعة، بمحرك امتثال بلغة Python ومصنِّف مدرَّب. استشاري فقط.' },
-  accounting: { en: 'Mehsab: an AI accountant that chats, reads platform data, advises, acts inside the platform and talks back by voice.', ar: 'محسب: محاسب ذكي يتحدث ويقرأ بيانات المنصة ويقدّم النصح وينفّذ داخل المنصة ويردّ بالصوت.' },
+  accounting: { en: 'Mehsab: an AI accountant that chats, reads platform data, advises, acts inside the platform and talks back by voice.', ar: 'محساب: محاسب ذكي يتحدث ويقرأ بيانات المنصة ويقدّم النصح وينفّذ داخل المنصة ويردّ بالصوت.' },
   realestate: { en: 'A property operations concept: centralized property data, polygon-based map highlighting, ownership tracking and automated lead handling.', ar: 'نموذج لإدارة العقارات: بيانات مركزية، وإبراز بالمضلعات على الخريطة، وتتبع الملكية، ومعالجة آلية للعملاء المحتملين.' },
   ngo:        { en: 'A grants concept covering submission, multi-layer review, approval tracking and operational transparency.', ar: 'نموذج لإدارة المنح يشمل التقديم والمراجعة متعددة الطبقات وتتبع الموافقات وشفافية التشغيل.' },
   education:  { en: 'Campus safety with QR and biometric verification for student exits, bus tracking and parent pickup permissions, plus a learning platform and a digital library.', ar: 'سلامة الحرم التعليمي بتحقق QR وبيومتري لخروج الطلاب، وتتبع الحافلات، وأذونات استلام أولياء الأمور، إضافة إلى منصة تعلّم ومكتبة رقمية.' },
